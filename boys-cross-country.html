@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boys Cross Country - Tonka Track & Field</title>
+    <style>
+        /* Minnetonka Color Palette */
+        :root {
+            /* Primary Colors */
+            --minnetonka-blue: #003698;
+            --midnight: #002870;
+            --white: #ffffff;
+            --black: #000000;
+            
+            /* Secondary/Accent Colors */
+            --lake: #5395FF;
+            --sky: #8BB4FD;
+            --grape: rgb(108, 7, 135);
+            --sunbeam: rgb(241, 177, 51);
+            --mint: rgb(7, 143, 150);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--white);
+            background-attachment: fixed;
+            background-size: cover;
+            color: #1a202c;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-bar {
+            background: rgb(255, 255, 255);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--minnetonka-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #4a5568;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            flex: 1 0 auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--minnetonka-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #4a5568;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-button {
+            background: var(--minnetonka-blue);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.3);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 54, 152, 0.4);
+        }
+
+        .tab-button.active {
+            background: var(--sunbeam);
+            color: var(--black);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--minnetonka-blue);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h2 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-content p {
+            color: var(--sky);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .update-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .update-item h3 {
+            color: var(--sunbeam);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .update-date {
+            color: var(--sky);
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 0.75rem;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .photo-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sky);
+            font-size: 3rem;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .file-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .file-name {
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .file-description {
+            color: var(--sky);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .download-button {
+            background: var(--sunbeam);
+            color: var(--black);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-button:hover {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: rgba(26, 32, 44, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: 0.3s ease;
+				opacity: 0;
+                gap: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+              	opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .main-content {
+                padding: 2rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .tab-content {
+                padding: 1.5rem;
+            }
+
+            .tab-content h2 {
+                font-size: 1.75rem;
+            }
+
+            .tab-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">🏃 TONKA TRACK</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="#news" onclick="closeMenu()">News</a></li>
+                <li><a href="#sports" onclick="closeMenu()">Sports</a></li>
+                <li><a href="#mtfcca" onclick="closeMenu()">MTFCCA</a></li>
+                <li><a href="#events" onclick="closeMenu()">Events</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Boys Cross Country</h1>
+            <p>Building champions, one stride at a time</p>
+        </div>
+
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="showTab('home')">Home</button>
+            <button class="tab-button" onclick="showTab('updates')">Updates</button>
+            <button class="tab-button" onclick="showTab('photos')">Photos</button>
+            <button class="tab-button" onclick="showTab('files')">Files</button>
+        </div>
+
+        <div id="home-tab" class="tab-content active">
+            <h2>Welcome to Boys Cross Country</h2>
+            <p>Welcome to Minnetonka Boys Cross Country! We are dedicated to developing student-athletes who excel both on the course and in the classroom.</p>
+            <p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned runner or new to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
+            <div class="update-item">
+                <h3>Season Information</h3>
+                <p>Practice times, meet schedules, and important announcements will be posted here throughout the season.</p>
+            </div>
+        </div>
+
+        <div id="updates-tab" class="tab-content">
+            <h2>Latest Updates</h2>
+            
+            <div class="update-item">
+                <h3>Conference Championship Results</h3>
+                <div class="update-date">November 1, 2024</div>
+                <p>Congratulations to our team on an outstanding performance at the conference championships! Multiple personal records were set and the team showed incredible determination.</p>
+            </div>
+
+            <div class="update-item">
+                <h3>Practice Schedule Change</h3>
+                <div class="update-date">October 28, 2024</div>
+                <p>Please note that practice on Friday will start at 3:30 PM instead of the usual 3:00 PM due to an early dismissal schedule.</p>
+            </div>
+
+            <div class="update-item">
+                <h3>Team Pasta Dinner</h3>
+                <div class="update-date">October 25, 2024</div>
+                <p>Join us for our annual team pasta dinner on Thursday, October 31st at 6:00 PM in the school cafeteria. This is a great opportunity to build team spirit before the big meet!</p>
+            </div>
+        </div>
+
+        <div id="photos-tab" class="tab-content">
+            <h2>Team Photos</h2>
+            <div class="photo-grid">
+                <div class="photo-item">📷</div>
+                <div class="photo-item">📷</div>
+                <div class="photo-item">📷</div>
+                <div class="photo-item">📷</div>
+                <div class="photo-item">📷</div>
+                <div class="photo-item">📷</div>
+            </div>
+            <p style="margin-top: 1.5rem;">Photo gallery coming soon! Check back for race photos, team events, and season highlights.</p>
+        </div>
+
+        <div id="files-tab" class="tab-content">
+            <h2>Team Files & Resources</h2>
+            
+            <div class="file-list">
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">2024-2025 Meet Schedule</div>
+                        <div class="file-description">Complete schedule with dates, times, and locations</div>
+                    </div>
+                    <button class="download-button">Download</button>
+                </div>
+
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">Training Plan</div>
+                        <div class="file-description">Off-season and in-season training guidelines</div>
+                    </div>
+                    <button class="download-button">Download</button>
+                </div>
+
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">Team Handbook</div>
+                        <div class="file-description">Team rules, expectations, and information</div>
+                    </div>
+                    <button class="download-button">Download</button>
+                </div>
+
+                <div class="file-item">
+                    <div>
+                        <div class="file-name">Nutrition Guide</div>
+                        <div class="file-description">Tips for optimal performance and recovery</div>
+                    </div>
+                    <button class="download-button">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tonka Track & Field. Building champions, one stride at a time.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

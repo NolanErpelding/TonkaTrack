@@ -33,7 +33,9 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, var(--lake) 0%, var(--sky) 100%);
+            background: var(--white);
+            background-attachment: fixed;
+            background-size: cover;
             color: #1a202c;
             line-height: 1.6;
             display: flex;
@@ -41,14 +43,16 @@
         }
 
         .nav-bar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgb(255, 255, 255);
             padding: 1rem 0;
-            position: sticky;
+            position: fixed;  /* Changed from sticky to fixed */
             top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
             z-index: 1000;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+     }
 
         .nav-content {
             max-width: 1200px;
@@ -57,6 +61,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 2rem;
+            position: relative;
         }
 
         .logo {
@@ -127,26 +132,22 @@
         }
 
         .hero-content {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--minnetonka-blue);
             border-radius: 24px;
             padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .hero h1 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--white);
         }
 
         .hero p {
             font-size: 1.2rem;
-            color: #4a5568;
+            color: var(--sky);
             margin-bottom: 2rem;
         }
 
@@ -181,8 +182,7 @@
         }
 
         .info-item {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--minnetonka-blue);
             padding: 1.25rem;
             border-radius: 16px;
             text-align: center;
@@ -193,19 +193,20 @@
 
         .info-item:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(7, 143, 150, 0.4);
+            box-shadow: 0 8px 20px rgba(7, 143, 150, 0.6);
             border: 2px solid var(--mint);
         }
 
         .info-icon {
             font-size: 2rem;
             margin-bottom: 0.75rem;
+            color: var(--white);
         }
 
         .info-item h3 {
             font-size: 1rem;
             margin-bottom: 0;
-            color: #1a202c;
+            color: var(--white);
         }
 
         .cards-grid {
@@ -218,11 +219,10 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--minnetonka-blue);
             border-radius: 20px;
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
@@ -294,11 +294,11 @@
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: var(--midnight);
+            color: var(--white);
         }
 
         .card p {
-            color: #4a5568;
+            color: var(--sky);
             line-height: 1.8;
             font-size: 1.3rem;
         }
@@ -326,30 +326,49 @@
         }
 
         @media (max-width: 768px) {
+            .nav-content {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
             .nav-links {
                 position: absolute;
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(255, 255, 255, 0.98);
+                background: rgba(255, 255, 255, 0.95);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
-                padding: 1rem 2rem;
+                padding: 1rem 0;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                transform: translateY(-100%);
-                opacity: 0;
-                pointer-events: none;
-                transition: all 0.3s ease;
+                max-height: 0;
+                overflow: hidden;
+                transition: 0.3s ease;
+				opacity: 0;
+                gap: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                width: 100%;
             }
 
             .nav-links.active {
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: all;
+                max-height: 400px;
+              	opacity: 1;
             }
 
             .hamburger {
                 display: flex;
+                z-index: 1001;
             }
 
             .hamburger.active span:nth-child(1) {
@@ -361,28 +380,65 @@
             }
 
             .hamburger.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(7px, -6px);
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .hero {
+                margin: 2rem auto;
+                padding: 0 1rem;
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.75rem;
             }
 
             .hero-content {
-                padding: 2rem;
+                padding: 1.5rem;
             }
 
-            .card h2 {
-                font-size: 2rem;
+            .hero p {
+                font-size: 1rem;
             }
 
-            .card p {
-                font-size: 1.1rem;
+            .info-section {
+                padding: 0 1rem;
+            }
+
+            .sports-grid {
+                gap: 0.75rem;
+            }
+
+            .info-item {
+                padding: 1rem;
+            }
+
+            .info-icon {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .info-item h3 {
+                font-size: 0.9rem;
+            }
+
+            .cards-grid {
+                padding: 0 1rem;
+                gap: 1.5rem;
+                margin: 2rem auto;
             }
 
             .card {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .card h2 {
+                font-size: 1.75rem;
+            }
+
+            .card p {
+                font-size: 1rem;
             }
 
             .card:nth-child(even) .athlete-image {
@@ -395,12 +451,21 @@
 
             .athlete-image {
                 width: 100%;
-                height: 300px;
-                grid-column: 1;
+                height: 250px;
             }
 
             .athlete-card {
                 grid-column: 1;
+            }
+
+            .cta-button {
+                font-size: 0.95rem;
+                padding: 0.875rem 1.5rem;
+            }
+
+            footer {
+                padding: 1.5rem 1rem;
+                font-size: 0.9rem;
             }
         }
 
