@@ -970,7 +970,38 @@
                 let currentPhotosArray = [];
                 let imageCache = new Map();
 
-                // ... (keep existing preloadImage functions)
+                // Preload image function
+                function preloadImage(url, fallbackUrl) {
+                    if (imageCache.has(url)) {
+                        return Promise.resolve();
+                    }
+
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+
+                        img.onload = () => {
+                            imageCache.set(url, img);
+                            resolve();
+                        };
+
+                        img.onerror = () => {
+                            // Try fallback if primary fails
+                            if (fallbackUrl && fallbackUrl !== url) {
+                                const fallbackImg = new Image();
+                                fallbackImg.onload = () => {
+                                    imageCache.set(url, fallbackImg);
+                                    resolve();
+                                };
+                                fallbackImg.onerror = () => reject();
+                                fallbackImg.src = fallbackUrl;
+                            } else {
+                                reject();
+                            }
+                        };
+
+                        img.src = url;
+                    });
+                }
 
                 async function loadPhotoAlbums() {
                     const albumsGrid = document.getElementById('albums-grid');
