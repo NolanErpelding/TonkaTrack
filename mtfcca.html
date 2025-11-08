@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MTFCCA - Tonka Track & Field</title>
+    <style>
+        /* Minnetonka Color Palette */
+        :root {
+            /* Primary Colors */
+            --minnetonka-blue: #003698;
+            --midnight: #002870;
+            --white: #ffffff;
+            --black: #000000;
+
+            /* Secondary/Accent Colors */
+            --lake: #5395FF;
+            --sky: #8BB4FD;
+            --grape: rgb(108, 7, 135);
+            --sunbeam: rgb(241, 177, 51);
+            --mint: rgb(7, 143, 150);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--white);
+            background-attachment: fixed;
+            background-size: cover;
+            color: #1a202c;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-bar {
+            background: rgb(255, 255, 255);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--minnetonka-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #4a5568;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            flex: 1 0 auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--minnetonka-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #4a5568;
+        }
+
+        .content-section {
+            background: var(--minnetonka-blue);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .content-section h2 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-section h3 {
+            color: var(--sunbeam);
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section p {
+            color: var(--sky);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul {
+            color: var(--sky);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .leader-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--sunbeam);
+        }
+
+        .leader-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid var(--sunbeam);
+        }
+
+        .leader-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .leader-image-placeholder {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .leader-name {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .leader-title {
+            color: var(--sunbeam);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contact-wrapper {
+            text-align: center;
+        }
+
+        .contact-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-decoration: none;
+        }
+
+        .contact-box:hover {
+            background: var(--sunbeam);
+            border: 2px solid var(--sunbeam);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(241, 177, 51, 0.4);
+        }
+
+        .contact-box p {
+            color: var(--sky);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-box:hover p {
+            color: var(--black);
+        }
+
+        .contact-box span {
+            color: var(--sunbeam);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-box:hover span {
+            color: var(--black);
+        }
+        .contact-wrapper {
+            text-align: center;
+        }
+
+        footer {
+            background: rgba(26, 32, 44, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .content-section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .content-section:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: 0.3s ease;
+                opacity: 0;
+                gap: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .main-content {
+                padding: 2rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.25rem;
+            }
+
+            .content-section p,
+            .content-section ul {
+                font-size: 1rem;
+            }
+
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .congrats-banner h2 {
+                font-size: 1.75rem;
+            }
+
+            .meeting-banner {
+                padding: 1.5rem;
+            }
+
+            .meeting-banner h2 {
+                font-size: 1.75rem;
+            }
+
+            .meeting-banner h3 {
+                font-size: 1.1rem;
+            }
+
+            .meeting-banner p,
+            .meeting-banner ul {
+                font-size: 1rem;
+            }
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .leadership-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">🏃 TONKA TRACK</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="#news" onclick="closeMenu()">News</a></li>
+                <li><a href="#sports" onclick="closeMenu()">Sports</a></li>
+                <li><a href="mtfcca.html" onclick="closeMenu()">MTFCCA</a></li>
+                <li><a href="#events" onclick="closeMenu()">Events</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1>MTFCCA</h1>
+            <p>Minnetonka Track & Field and Cross Country Association</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What We Do As An Association</h2>
+            <p>The Minnetonka Track & Field and Cross Country Association (MTFCCA) was originally formed in 2004 in
+                order to raise money to build a new track for the high school. After an incredible effort, over $160,000
+                was raised and the track was completed with our trademark Minnetonka blue running surface. Our facility
+                has been compared to that of many elite colleges.</p>
+
+            <p>Currently, the association supports both the cross country and the track & field programs of the high
+                school but has broadened its charter to include the entire Minnetonka school district and local
+                community.</p>
+
+            <p>Anyone interested in learning more about the Association or joining please contact one of the Board
+                members.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>MTFCCA Leadership</h2>
+            <div class="leadership-grid">
+                <div class="leader-card">
+                    <div class="leader-image">
+                        <img src="images/erin-marasco.jpeg" alt="Erin Marasco"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'leader-image-placeholder\'>👤</div>'">
+                    </div>
+                    <div class="leader-name">Erin Marasco</div>
+                    <div class="leader-title">President</div>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-image">
+                        <img src="images/leah-malec.jpg" alt="Leah Malec"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'leader-image-placeholder\'>👤</div>'">
+                    </div>
+                    <div class="leader-name">Leah Malec</div>
+                    <div class="leader-title">Vice President</div>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-image">
+                        <img src="images/charlie-roehl.jpg" alt="Charlie Roehl"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'leader-image-placeholder\'>👤</div>'">
+                    </div>
+                    <div class="leader-name">Charlie Roehl</div>
+                    <div class="leader-title">Treasurer</div>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-image">
+                        <img src="images/katy-gilles.jpeg" alt="Katy Gilles"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'leader-image-placeholder\'>👤</div>'">
+                    </div>
+                    <div class="leader-name">Katy Gilles</div>
+                    <div class="leader-title">Secretary</div>
+                </div>
+            </div>
+        
+            <div class="contact-wrapper">
+                <a href="mailto:mtfcca.board@gmail.com" class="contact-box">
+                    <p>Contact us at:</p>
+                    <span>mtfcca.board@gmail.com</span>
+                </a>     
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Mission Statement</h2>
+            <p>The purpose of the Minnetonka Track & Field and Cross Country Association (MTFCCA) is to partner with the
+                Minnetonka School District and Minnetonka Community Education to promote all running sports and
+                activities throughout the district and greater Minnetonka community. We accomplish our mission by
+                promoting our Boys and Girls Track and Field and Cross Country programs in a variety of ways, and we
+                raise funds for these programs throughout the year. The annual Thanksgiving Day Tonka Turkey Trot 5K is
+                our marquee fundraising event. We believe that the proven lifelong benefits of running sports and
+                activities form a vital aspect of physical and mental health and wellness for community members of all
+                ages and abilities.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>What We Do and Have Accomplished</h2>
+
+            <h3>Past Projects</h3>
+            <ul>
+                <li>MTFCCA was originally formed to raise money for our signature "Blue" track at the high school</li>
+                <li>Make annual contributions to the cost of equipment and other expenses, including:
+                    <ul>
+                        <li>New finish line display clock 2018</li>
+                        <li>Pay for additional Track & Field and Cross Country coaches as needed</li>
+                        <li>Paid $20,000 for a new pole vault pit</li>
+                        <li>Hurdle replacement program</li>
+                    </ul>
+                </li>
+                <li>Assist with some team fundraising activities</li>
+                <li>Pay for the rental of facility for annual banquet</li>
+                <li>Funded new Track & Field and Cross Country Website</li>
+                <li>Founded and organize the annual Thanksgiving Day "Tonka Turkey Trot 5K"</li>
+                <li>Support the ongoing administrative needs of Track & Field and Cross Country teams and coaches
+                    throughout the district</li>
+            </ul>
+
+            <h3>Current Projects</h3>
+            <ul>
+                <li>Donation to "girls run global" - This is a non-profit organization founded by former Minnetonka
+                    Cross country and track and field runner</li>
+            </ul>
+
+            <h3>Future Projects</h3>
+            <ul>
+                <li>Track resurfacing</li>
+                <li>Upgrading Middle School equipment</li>
+                <li>Field event audio systems</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tonka Track & Field. Building champions, one stride at a time.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>
