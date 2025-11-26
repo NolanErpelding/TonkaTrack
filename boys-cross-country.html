@@ -294,6 +294,32 @@
             filter: brightness(1.1);
             transform: scale(1.05);
         }
+        .instagram-handle {
+            color: var(--sunbeam);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .instagram-handle:hover {
+            color: #e1306c;
+        }
+
+        .instagram-handle::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #e1306c 0%, #c13584 50%, #833ab4 100%);
+            transition: width 0.3s ease;
+        }
+
+        .instagram-handle:hover::after {
+            width: 100%;
+        }
 
         footer {
             background: rgba(26, 32, 44, 0.95);
@@ -787,6 +813,8 @@
             <h2>Welcome to Boys Cross Country</h2>
             <p>Welcome to Minnetonka Boys Cross Country! We are dedicated to developing student-athletes who excel both on the course and in the classroom.</p>
             <p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned runner or new to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
+            <p>You can follow our Instagram <a href="https://www.instagram.com/tonkadistance/" target="_blank" rel="noopener noreferrer"
+                class="instagram-handle">@tonkadistance</a> for the latest updates and team highlights.</p>
             <div class="update-item">
                 <h3>Season Information</h3>
                 <p>Practice times, meet schedules, and important announcements will be posted here throughout the season.</p>
