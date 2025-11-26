@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Tonka Track & Field</title>
+    <style>
+        /* Minnetonka Color Palette */
+        :root {
+            --minnetonka-blue: #003698;
+            --midnight: #002870;
+            --white: #ffffff;
+            --black: #000000;
+            --lake: #5395FF;
+            --sky: #8BB4FD;
+            --grape: rgb(108, 7, 135);
+            --sunbeam: rgb(241, 177, 51);
+            --mint: rgb(7, 143, 150);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--white);
+            color: #1a202c;
+            line-height: 1.6;
+        }
+
+        .nav-bar {
+            background: rgb(255, 255, 255);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--minnetonka-blue);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #4a5568;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .page-header {
+            background: var(--minnetonka-blue);
+            color: var(--white);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--sky);
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+        }
+
+        .article {
+            background: var(--minnetonka-blue);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .article-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-date {
+            color: var(--sunbeam);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(139, 180, 253, 0.3);
+        }
+
+        .article-title {
+            color: var(--white);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .article-content {
+            color: var(--sky);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            overflow: auto;
+        }
+
+        .article-content::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .article-content p {
+            margin-bottom: 1rem;
+        }
+
+        .inline-photo {
+            float: right;
+            margin: 0 0 1rem 1.5rem;
+            max-width: 250px;
+            width: 35%;
+        }
+
+        .inline-photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .photo-caption {
+            color: var(--sunbeam);
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .photo-gallery-item {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .photo-gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .photo-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 3rem;
+        }
+
+        footer {
+            background: rgba(26, 32, 44, 0.95);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: 0.3s ease;
+                opacity: 0;
+                gap: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .page-header {
+                padding: 2rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .main-content {
+                padding: 0 1rem 2rem;
+            }
+
+            .article {
+                padding: 1.5rem;
+            }
+
+            .article-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">🏃 TONKA TRACK</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="news.html" onclick="closeMenu()">News</a></li>
+                <li><a href="#sports" onclick="closeMenu()">Sports</a></li>
+                <li><a href="#mtfcca" onclick="closeMenu()">MTFCCA</a></li>
+                <li><a href="#events" onclick="closeMenu()">Events</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Latest News</h1>
+        <p>Stay updated with the latest from Tonka Track & Field</p>
+    </div>
+
+    <div class="main-content">
+        <!-- Article 1 -->
+        <article class="article">
+            <div class="article-header">
+                <h2 class="article-title">Former Boys Assistant CC Coach, Steve Hoag, passed away</h2>
+            </div>
+            <div class="article-content">
+                <p>Sadly, our boys cross country assistant coach for the past ten years, Steve Hoag passed away at home
+                    on September 15, 2017 at the age of 70. He had been recovering over the past year from double lung
+                    transplant surgery, and had developed pneumonia in late June of this year. His enthusiasm for
+                    working with young runners was truly amazing. He touched all those who were privileged to get to
+                    know him over the years.</p>
+
+                <div class="inline-photo">
+                    <img src="images/steve-hoag.png" alt="Steve Hoag on a training run">
+                    <div class="photo-caption">Steve on a training run</div>
+                </div>
+
+                <p>He was a Minnesota running legend, having been Gopher All American distance runner and Big Ten 2 mile
+                    champ in his college days, and national caliber road runner in the 1970's. He placed 2nd in the 1975
+                    Boston Marathon (behind Bill Rodgers) in 2:11.39, and was ranked #4 in the world that year.</p>
+
+                <p>He owned and operated Marathon Sports running store in south Minneapolis for twenty plus years,
+                    before retiring to help coach at Richfield then Minnetonka. Tonka was so fortunate to have him
+                    coaching here over the years, and he will be greatly missed. He will be honored at the Griak
+                    Invitation at the University of Minnesota in a moment of silence just before the Division 1 college
+                    and High School Gold races.</p>
+            </div>
+            <div class="article-date">September 15, 2017</div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="article">
+            <div class="article-header">
+                <h2 class="article-title">Former Head Track Coach, Joe Lane, Passed Away</h2>
+            </div>
+            <div class="article-content">
+                <p>We are so sad to write that Joe Lane passed away on Wednesday, June 28, 2017. Joe coached boys' track and field at
+                    Minnetonka from 1971-2000. He was an assistant with Bob Rogness from 1971-72, and became the boys' head coach in 1973.
+                    His teams were legendary, finishing in the top 10 at State numerous times, and winning the State title in 1976.</p>
+                <p>"Joe coached and taught at Minnetonka both in the middle schools and at the high school levels. He touched countless
+                    lives in so many ways. He had a passion for kids and coaching that was apparent from the moment you met him! His
+                    knowledge was surpassed only by the kindness of his heart. Joe also had a stubborn streak that made you know he meant
+                    business!!!! All of these attributes combined to make Joe the wonderful person he was.</p>
+                <p>On a personal note, I was blessed to meet Joe in 1985, my first year coaching at Minnetonka. He was a wonderful friend,
+                    a great mentor, and a caring human being. We were blessed with a great staff, and my days working with Joe and Bob
+                    Rogness are some of my favorite memories. As track and field athletes, we all know that it is not only about all the
+                    meters we run, or the throws, or the jumps that we do. The relationships that we make are truly some of the greatest
+                    memories that we will take with us. As I contacted former athletes to let them know of Joe's passing, one thing was
+                    clear-the huge impact that he had made on their lives. Many people commented "He always believed in me." "He is the one
+                    who pushed me". "Joe helped me believe in myself". "He had a huge impact on my life". THIS is Joe's legacy. The world is
+                    better for having had him and we are better people for having known him. Thank you, Joe. Jane Reimer-Morgan"</p>
+            </div>
+            <div class="article-date">June 28, 2017</div>
+        </article>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tonka Track & Field. Building champions, one stride at a time.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>
