@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Tonka Track & Field</title>
+    <style>
+        /* Minnetonka Color Palette */
+        :root {
+            --minnetonka-blue: #003698;
+            --midnight: #002870;
+            --white: #ffffff;
+            --black: #000000;
+            --lake: #5395FF;
+            --sky: #8BB4FD;
+            --grape: rgb(108, 7, 135);
+            --sunbeam: rgb(241, 177, 51);
+            --mint: rgb(7, 143, 150);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--white);
+            color: #1a202c;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-bar {
+            background: rgb(255, 255, 255);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--minnetonka-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #4a5568;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content {
+            flex: 1 0 auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--minnetonka-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #4a5568;
+        }
+
+        /* Tab Navigation */
+        .tab-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-button {
+            background: var(--minnetonka-blue);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.3);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 54, 152, 0.4);
+        }
+
+        .tab-button.active {
+            background: var(--sunbeam);
+            color: var(--black);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background: var(--minnetonka-blue);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h2 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Coaches Grid */
+        .coaches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .coach-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .coach-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--sunbeam);
+        }
+
+        .coach-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid var(--sunbeam);
+        }
+
+        .coach-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .coach-image-placeholder {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .coach-name {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .coach-title {
+            color: var(--sky);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .email-button {
+            display: inline-block;
+            background: var(--sunbeam);
+            color: var(--black);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .email-button:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
+        }
+
+        .email-button.disabled {
+            background: #4a5568;
+            color: #a0aec0;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .email-button.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            filter: none;
+        }
+
+        /* MTFCCA Section */
+        .mtfcca-section {
+            background: var(--minnetonka-blue);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .mtfcca-section h2 {
+            color: var(--white);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .mtfcca-section p {
+            color: var(--sky);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .mtfcca-section .email-button {
+            background: var(--sunbeam);
+            color: var(--black);
+        }
+
+        .mtfcca-section .email-button:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
+        }
+
+        footer {
+            background: rgba(26, 32, 44, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 900px) {
+            .nav-content {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: 0.3s ease;
+                opacity: 0;
+                gap: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .main-content {
+                padding: 2rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header p {
+                font-size: 1rem;
+            }
+
+            .tab-content {
+                padding: 1.5rem;
+            }
+
+            .tab-content h2 {
+                font-size: 1.75rem;
+            }
+
+            .tab-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .tab-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .coaches-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .coach-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .mtfcca-section {
+                padding: 1.5rem;
+            }
+
+            .mtfcca-section h2 {
+                font-size: 1.75rem;
+            }
+
+            .mtfcca-section p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .coaches-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">🏃 TONKA TRACK</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="news.html" onclick="closeMenu()">News</a></li>
+                <li><a href="sports.html" onclick="closeMenu()">Sports</a></li>
+                <li><a href="mtfcca.html" onclick="closeMenu()">MTFCCA</a></li>
+                <li><a href="events.html" onclick="closeMenu()">Events</a></li>
+                <li><a href="contact.html" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Contact Our Coaches</h1>
+            <p>Get in touch with our coaching staff</p>
+        </div>
+
+        <!-- Tab Buttons -->
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="showTab('girls-xc')">Girls Cross Country</button>
+            <button class="tab-button" onclick="showTab('boys-xc')">Boys Cross Country</button>
+            <button class="tab-button" onclick="showTab('girls-track')">Girls Track & Field</button>
+            <button class="tab-button" onclick="showTab('boys-track')">Boys Track & Field</button>
+        </div>
+
+        <!-- Girls Cross Country Tab -->
+        <div id="girls-xc-tab" class="tab-content active">
+            <h2>Girls Cross Country</h2>
+            <div class="coaches-grid">
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/rebecca-wessley.jpg" alt="Rebecca Wesley">             
+                    </div>
+                    <div class="coach-name">Rebecca Wesley</div>
+                    <div class="coach-title">Head Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Bethany Brausen</div>
+                    <div class="coach-title">Assistant Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/cassie-klein.jpg" alt="Cassie Klein">
+                    </div>
+                    <div class="coach-name">Cassie Klein</div>
+                    <div class="coach-title">Assistant Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/heidi-leighton.jpg" alt="Heidi Leighton">
+                    </div>
+                    <div class="coach-name">Heidi Leighton</div>
+                    <div class="coach-title">Assistant Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/amanda-montplaisir.jpg" alt="Amanda Montplaisir">
+                    </div>
+                    <div class="coach-name">Amanda Montplaisir</div>
+                    <div class="coach-title">Assistant Coach</div>
+                        <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/stacie-olson.jpg" alt="Stacie Olson">
+                    </div>
+                    <div class="coach-name">Stacie Olson</div>
+                    <div class="coach-title">MME Girls Head Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/beth-keskey.jpg" alt="Beth Keskey">
+                    </div>
+                    <div class="coach-name">Beth Keskey</div>
+                    <div class="coach-title">MMW Girls Head Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boys Cross Country Tab -->
+        <div id="boys-xc-tab" class="tab-content">
+            <h2>Boys Cross Country</h2>
+            <div class="coaches-grid">
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/jeff-renlund.png" alt="Jeff Renlund">
+                    </div>
+                    <div class="coach-name">Jeff Renlund</div>
+                    <div class="coach-title">Head Coach</div>
+                    <a href="mailto:Jeffrey.Renlund@minnetonkaschools.org" class="email-button">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Jacob Peterson</div>
+                    <div class="coach-title">Assistant Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Titus Winders</div>
+                    <div class="coach-title">Assistant Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Girls Track & Field Tab -->
+        <div id="girls-track-tab" class="tab-content">
+            <h2>Girls Track & Field</h2>
+            <div class="coaches-grid">
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan">
+                    </div>
+                    <div class="coach-name">Jane Reimer-Morgan</div>
+                    <div class="coach-title">Head Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/tonya-andruskiewicz.jpg" alt="Tonya Andruskiewicz">
+                    </div>
+                    <div class="coach-name">Tonya Andruskiewicz</div>
+                    <div class="coach-title">Horizontal Jumps</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/sarah-becher.jpg" alt="Sarah Becher">
+                    </div>
+                    <div class="coach-name">Sarah Becher</div>
+                    <div class="coach-title">Throws</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/jenna-buss.jpg" alt="Jenna Buss">
+                    </div>
+                    <div class="coach-name">Jenna Buss</div>
+                    <div class="coach-title">High Jump</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/kristine-jensen-gehrmann.jpg" alt="Kristine Jensen Gehrmann">
+                    </div>
+                    <div class="coach-name">Kristine Jensen Gehrmann</div>
+                    <div class="coach-title">Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/krista-larson.jpg" alt="Krista Larson">
+                    </div>
+                    <div class="coach-name">Krista Larson</div>
+                    <div class="coach-title">Hurdles</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Eric LeBlanc</div>
+                    <div class="coach-title">Pole Vault</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/leeann-leblanc.jpg" alt="LeeAnn LeBlanc">
+                    </div>
+                    <div class="coach-name">LeeAnn LeBlanc</div>
+                    <div class="coach-title">Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Megan Rank</div>
+                    <div class="coach-title">Sprints</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boys Track & Field Tab -->
+        <div id="boys-track-tab" class="tab-content">
+            <h2>Boys Track & Field</h2>
+            <div class="coaches-grid">
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/james-finch.png" alt="James Finch">
+                    </div>
+                    <div class="coach-name">James Finch</div>
+                    <div class="coach-title">Head Coach</div>
+                    <a href="mailto:james.finch@minnetonkaschools.org" class="email-button">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/john-steffen.jpg" alt="John Steffen">
+                    </div>
+                    <div class="coach-name">John Steffen</div>
+                    <div class="coach-title">Jumps / Hurdles</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/dan-murphy.jpeg" alt="Dan Murphy">
+                    </div>
+                    <div class="coach-name">Dan Murphy</div>
+                    <div class="coach-title">Sprints / Relays</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/jeff-renlund.png" alt="Jeff Renlund">
+                    </div>
+                    <div class="coach-name">Jeff Renlund</div>
+                    <div class="coach-title">Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Ken Jugasek</div>
+                    <div class="coach-title">Horizontal Jumps</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Eli Knutson</div>
+                    <div class="coach-title">Pole Vault</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Jacob Peterson</div>
+                    <div class="coach-title">Asst. Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Dave Shoemaker</div>
+                    <div class="coach-title">Throws</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Titus Winders</div>
+                    <div class="coach-title">Asst. Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- MTFCCA Contact Section -->
+        <div class="mtfcca-section">
+            <h2>MTFCCA</h2>
+            <p>Contact the Minnetonka Track & Field and Cross Country Association</p>
+            <a href="mailto:mtfcca.board@gmail.com" class="email-button">Email MTFCCA Board</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tonka Track & Field. Building champions, one stride at a time.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+
+</html>
