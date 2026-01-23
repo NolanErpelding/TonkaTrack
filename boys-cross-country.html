@@ -774,6 +774,96 @@
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 1rem;
             }
+
+            /* Coach Cards */
+            .coaches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .coach-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .coach-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--sunbeam);
+        }
+
+        .coach-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid var(--sunbeam);
+        }
+
+        .coach-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .coach-image-placeholder {
+            font-size: 2.5rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .coach-name {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .coach-title {
+            color: var(--sky);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .email-button {
+            display: inline-block;
+            background: var(--sunbeam);
+            color: var(--black);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .email-button:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
+        }
+
+        .email-button.disabled {
+            background: #4a5568;
+            color: #a0aec0;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .email-button.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            filter: none;
+        }
     </style>
 </head>
 <body>
@@ -806,6 +896,7 @@
             <button class="tab-button" onclick="showTab('updates')">Updates</button>
             <button class="tab-button" onclick="showTab('photos')">Photos</button>
             <button class="tab-button" onclick="showTab('files')">Files</button>
+            <button class="tab-button" onclick="showTab('coaches')">Coaches</button>
         </div>
 
         <div id="home-tab" class="tab-content active">
@@ -847,7 +938,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
                     <h2 style="margin: 0;">Photo Albums</h2>
                 </div>
-                <p id="albums-loading-message" style="color: var(--sky);">Loading albums...</p>
+                <p id="albums-loading-message" style="color: var(--sky);">Loading albums may take up to a minute...</p>
         
                 <div class="albums-grid" id="albums-grid">
                     <!-- Albums will be loaded here -->
@@ -859,7 +950,7 @@
                     <button class="back-button" onclick="backToAlbums()">← Back to Albums</button>
                     <h2 id="album-title" style="margin: 0;"></h2>
                 </div>
-                <p id="photos-loading-message" style="color: var(--sky);">Loading photos...</p>
+                <p id="photos-loading-message" style="color: var(--sky);">Loading photos may take up to a minute...</p>
         
                 <div class="photo-grid" id="photo-grid">
                     <!-- Photos will be loaded here -->
@@ -873,6 +964,36 @@
         
             <div class="file-list" id="file-list">
                 <!-- Files will be loaded here dynamically -->
+            </div>
+        </div>
+
+        <div id="coaches-tab" class="tab-content">
+            <h2>Boys Cross Country</h2>
+            <div class="coaches-grid">
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/jeff-renlund.png" alt="Jeff Renlund">
+                    </div>
+                    <div class="coach-name">Jeff Renlund</div>
+                    <div class="coach-title">Head Coach</div>
+                    <a href="mailto:Jeffrey.Renlund@minnetonkaschools.org" class="email-button">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/jacob-peterson.jpg" alt="Jacob Peterson">
+                    </div>
+                    <div class="coach-name">Jacob Peterson (JP)</div>
+                    <div class="coach-title">Assistant Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/titus-winders.jpg" alt="Titus Winders">
+                    </div>
+                    <div class="coach-name">Titus Winders</div>
+                    <div class="coach-title">Assistant Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
             </div>
         </div>
 

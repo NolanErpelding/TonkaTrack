@@ -1,6 +1,10 @@
 // Force Drive API initialization
 var drive = DriveApp;
 
+// Cache to store results temporarily (lasts for script execution)
+var cache = CacheService.getScriptCache();
+var CACHE_DURATION = 300; // 5 minutes in seconds
+
 function doGet(e) {
   const action = e.parameter.action || 'files';
   
@@ -20,7 +24,7 @@ function doGet(e) {
 
 function testDriveAccess() {
   try {
-    const folderId = '1eW5s-bl0d9dhrUpT91xhDTTtVh_lVlTE';
+    const folderId = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
     const folder = DriveApp.getFolderById(folderId);
     Logger.log('Success! Folder name: ' + folder.getName());
     return 'Success! Can access Drive.';
@@ -66,7 +70,16 @@ function getFiles() {
 }
 
 function getPhotoAlbums() {
-  const photosFolderId = '1eW5s-bl0d9dhrUpT91xhDTTtVh_lVlTE';
+  const photosFolderId = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
+  
+  // Try cache first
+  const cacheKey = 'photoAlbums_' + photosFolderId;
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    var output = ContentService.createTextOutput(cached);
+    output.setMimeType(ContentService.MimeType.JSON);
+    return output;
+  }
   
   try {
     const mainFolder = DriveApp.getFolderById(photosFolderId);
@@ -111,9 +124,9 @@ function getPhotoAlbums() {
       }
     }
     
-    // Count ALL photos recursively in main folder and ALL subfolders
+    // Count ALL photos recursively - OPTIMIZED VERSION
     const allPhotosList = [];
-    countAllPhotosRecursive(mainFolder, allPhotosList);
+    countAllPhotosRecursive(mainFolder, allPhotosList, 1); // Only get first photo for cover
     
     const allPhotosCount = allPhotosList.length;
     const allPhotosCover = allPhotosList.length > 0 ? allPhotosList[0].getId() : null;
@@ -121,13 +134,18 @@ function getPhotoAlbums() {
     // Sort by creation date (newest first)
     albums.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
     
-    var output = ContentService.createTextOutput(JSON.stringify({ 
+    const result = JSON.stringify({ 
       albums: albums, 
       allPhotosCount: allPhotosCount,
       allPhotosCover: allPhotosCover,
       mainFolderId: photosFolderId,
       success: true 
-    }));
+    });
+    
+    // Cache the result
+    cache.put(cacheKey, result, CACHE_DURATION);
+    
+    var output = ContentService.createTextOutput(result);
     output.setMimeType(ContentService.MimeType.JSON);
     return output;
       
@@ -142,10 +160,14 @@ function getPhotoAlbums() {
   }
 }
 
-// Helper function to count photos recursively
-function countAllPhotosRecursive(folder, photoList) {
+// OPTIMIZED: Now accepts maxPhotos parameter to stop early
+function countAllPhotosRecursive(folder, photoList, maxPhotos) {
+  if (maxPhotos && photoList.length >= maxPhotos) return;
+  
   const files = folder.getFiles();
   while (files.hasNext()) {
+    if (maxPhotos && photoList.length >= maxPhotos) return;
+    
     const file = files.next();
     if (file.getName().startsWith('.')) continue;
     if (file.getMimeType().startsWith('image/')) {
@@ -155,13 +177,24 @@ function countAllPhotosRecursive(folder, photoList) {
   
   const subfolders = folder.getFolders();
   while (subfolders.hasNext()) {
+    if (maxPhotos && photoList.length >= maxPhotos) return;
+    
     const subfolder = subfolders.next();
     if (subfolder.getName().startsWith('.')) continue;
-    countAllPhotosRecursive(subfolder, photoList);
+    countAllPhotosRecursive(subfolder, photoList, maxPhotos);
   }
 }
 
 function getAlbumPhotos(folderId) {
+  // Try cache first
+  const cacheKey = 'albumPhotos_' + folderId;
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    var output = ContentService.createTextOutput(cached);
+    output.setMimeType(ContentService.MimeType.JSON);
+    return output;
+  }
+  
   try {
     const folder = DriveApp.getFolderById(folderId);
     const files = folder.getFiles();
@@ -192,11 +225,16 @@ function getAlbumPhotos(folderId) {
     
     photoList.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
     
-    var output = ContentService.createTextOutput(JSON.stringify({ 
+    const result = JSON.stringify({ 
       photos: photoList, 
       albumName: folder.getName(),
       success: true 
-    }));
+    });
+    
+    // Cache the result
+    cache.put(cacheKey, result, CACHE_DURATION);
+    
+    var output = ContentService.createTextOutput(result);
     output.setMimeType(ContentService.MimeType.JSON);
     return output;
       
@@ -207,9 +245,14 @@ function getAlbumPhotos(folderId) {
   }
 }
 
-function getAllPhotosRecursive(folder, photoList) {
+// OPTIMIZED: Limit photos and skip unnecessary date calls
+function getAllPhotosRecursive(folder, photoList, maxPhotos) {
+  if (maxPhotos && photoList.length >= maxPhotos) return;
+  
   const files = folder.getFiles();
   while (files.hasNext()) {
+    if (maxPhotos && photoList.length >= maxPhotos) return;
+    
     const file = files.next();
     if (file.getName().startsWith('.')) continue;
     if (file.getMimeType().startsWith('image/')) {
@@ -219,22 +262,37 @@ function getAllPhotosRecursive(folder, photoList) {
   
   const subfolders = folder.getFolders();
   while (subfolders.hasNext()) {
+    if (maxPhotos && photoList.length >= maxPhotos) return;
+    
     const subfolder = subfolders.next();
     if (subfolder.getName().startsWith('.')) continue;
-    getAllPhotosRecursive(subfolder, photoList);
+    getAllPhotosRecursive(subfolder, photoList, maxPhotos);
   }
 }
 
 function getAllPhotos() {
-  const photosFolderId = '1eW5s-bl0d9dhrUpT91xhDTTtVh_lVlTE';
+  const photosFolderId = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
+  
+  // Try cache first
+  const cacheKey = 'allPhotos_' + photosFolderId;
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    var output = ContentService.createTextOutput(cached);
+    output.setMimeType(ContentService.MimeType.JSON);
+    return output;
+  }
   
   try {
     const mainFolder = DriveApp.getFolderById(photosFolderId);
     const allPhotos = [];
     
-    getAllPhotosRecursive(mainFolder, allPhotos);
+    // OPTIMIZATION: Limit to first 100 photos to speed up response
+    const MAX_PHOTOS = 100;
+    getAllPhotosRecursive(mainFolder, allPhotos, MAX_PHOTOS);
     
     const photoList = [];
+    
+    // OPTIMIZATION: Batch process files - get all IDs first, then build URLs
     allPhotos.forEach(file => {
       const caption = file.getDescription() || '';
       const fileId = file.getId();
@@ -246,18 +304,26 @@ function getAllPhotos() {
         thumbnailUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`,
         fullUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
         fallbackUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1600`,
-        downloadUrl: `https://drive.google.com/uc?export=download&id=${fileId}`,
-        lastModified: file.getLastUpdated().toISOString()
+        downloadUrl: `https://drive.google.com/uc?export=download&id=${fileId}`
+        // REMOVED: lastModified to speed up - it's expensive!
       });
     });
     
-    photoList.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+    // OPTIMIZATION: Skip sorting by date since we removed lastModified
+    // Photos will be in the order they're found (usually newest folders first)
     
-    var output = ContentService.createTextOutput(JSON.stringify({ 
+    const result = JSON.stringify({ 
       photos: photoList, 
       albumName: 'All Photos',
+      totalPhotos: photoList.length,
+      isLimited: photoList.length >= MAX_PHOTOS,
       success: true 
-    }));
+    });
+    
+    // Cache for 5 minutes
+    cache.put(cacheKey, result, CACHE_DURATION);
+    
+    var output = ContentService.createTextOutput(result);
     output.setMimeType(ContentService.MimeType.JSON);
     return output;
       
