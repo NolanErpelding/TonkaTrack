@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More - Tonka Track & Field</title>
+    <style>
+        /* Minnetonka Color Palette */
+        :root {
+            --minnetonka-blue: #003698;
+            --midnight: #002870;
+            --white: #ffffff;
+            --black: #000000;
+            --lake: #5395FF;
+            --sky: #8BB4FD;
+            --grape: rgb(108, 7, 135);
+            --sunbeam: rgb(241, 177, 51);
+            --mint: rgb(7, 143, 150);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--white);
+            color: #1a202c;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: rgb(255, 255, 255);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--minnetonka-blue);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #4a5568;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: var(--white);
+            padding: 3rem 2rem 2rem;
+            padding-top: calc(3rem + 70px);
+            /* Add space for fixed navbar */
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--minnetonka-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #4a5568;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1 0 auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        /* Overview Section */
+        .section {
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .section.blue-bg {
+            background: var(--minnetonka-blue);
+        }
+
+        .section-content {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .blue-bg h2 {
+            color: var(--white);
+        }
+
+        .blue-bg p,
+        .blue-bg ul {
+            color: var(--sky);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+
+        .blue-bg li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Seasonal Programs Section */
+        .seasonal-programs {
+            background: var(--white);
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .seasonal-programs h2 {
+            text-align: center;
+            color: var(--minnetonka-blue);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .programs-scroll-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--minnetonka-blue) #e2e8f0;
+        }
+
+        .programs-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .programs-scroll-container::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .programs-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--minnetonka-blue);
+            border-radius: 10px;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 1rem;
+        }
+
+        .program-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 3px solid;
+            transition: all 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .program-card.summer {
+            border-color: var(--sunbeam);
+        }
+
+        .program-card.fall {
+            border-color: var(--mint);
+        }
+
+        .program-card.winter {
+            border-color: var(--sky);
+        }
+
+        .program-card.spring {
+            border-color: var(--grape);
+        }
+
+        .program-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--minnetonka-blue);
+        }
+
+        .program-card .season-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+
+        .summer .season-label {
+            background: var(--sunbeam);
+            color: var(--black);
+        }
+
+        .fall .season-label {
+            background: var(--mint);
+            color: var(--white);
+        }
+
+        .winter .season-label {
+            background: var(--sky);
+            color: var(--midnight);
+        }
+
+        .spring .season-label {
+            background: var(--grape);
+            color: var(--white);
+        }
+
+        .program-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .program-card li {
+            padding: 0.5rem 0;
+            color: #4a5568;
+            font-size: 1.05rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .program-card li:last-child {
+            border-bottom: none;
+        }
+
+        .program-card li::before {
+            content: "✓ ";
+            color: var(--minnetonka-blue);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .column {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .column h3 {
+            color: var(--sunbeam);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            word-wrap: break-word;
+        }
+
+        .column ul {
+            list-style: none;
+            padding-left: 0;
+            width: 100%;
+        }
+
+        .column li {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .column li::before {
+            content: "• ";
+            color: var(--sunbeam);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Coaches Grid */
+        .coaches-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .coach-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .coach-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--sunbeam);
+        }
+
+        .coach-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid var(--sunbeam);
+        }
+
+        .coach-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .coach-image-placeholder {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .coach-name {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .coach-title {
+            color: var(--sunbeam);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* FAQ Section */
+        .faq-container {
+            margin-top: 2rem;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .faq-question {
+            color: var(--sunbeam);
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: "+";
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            color: var(--sky);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-top: 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(26, 32, 44, 0.95);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .nav-content {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                gap: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 1rem 2rem;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                max-height: 400px;
+                opacity: 1;
+            }
+
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(5px, -5px);
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.75rem;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .programs-grid {
+                grid-template-columns: repeat(4, 280px);
+            }
+
+            .section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .seasonal-programs {
+                padding: 0;
+            }
+
+            .coaches-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 901px) and (max-width: 1100px) {
+            .coaches-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 901px) {
+            .programs-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .programs-scroll-container {
+                overflow-x: visible;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">🏃 TONKA TRACK</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="news.html" onclick="closeMenu()">News</a></li>
+                <li><a href="#sports" onclick="closeMenu()">Sports</a></li>
+                <li><a href="mtfcca.html" onclick="closeMenu()">MTFCCA</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Join Tonka Track & Field or Cross Country</h1>
+            <p>Whether you're a seasoned athlete or trying running for the first time, there's a place for you on our
+                team</p>
+        </div>
+
+        <!-- Overview Section -->
+        <section class="section blue-bg">
+            <div class="section-content">
+                <h2>Everyone Is Welcome</h2>
+                <p>Tonka Track & Field and Cross Country programs are open to all students, regardless of experience or
+                    fitness level. Our coaching staff is dedicated to helping each athlete reach their personal goals,
+                    whether that's competing at the state level or simply getting in shape and making friends.</p>
+                <p>We believe that running is for everyone. Our programs are designed to meet athletes where they are
+                    and help them grow both as competitors and as people. No tryouts, no cuts—just commitment, hard
+                    work, and a supportive team environment.</p>
+            </div>
+        </section>
+
+        <!-- Seasonal Programs -->
+        <section class="seasonal-programs">
+            <h2>Year-Round Programs</h2>
+            <div class="programs-scroll-container">
+                <div class="programs-grid">
+                    <!-- Summer -->
+                    <div class="program-card summer">
+                        <span class="season-label">Summer</span>
+                        <h3>Cross Country Training</h3>
+                        <ul>
+                            <li>Boys Cross Country Preseason</li>
+                            <li>Girls Cross Country Preseason</li>
+                            <li>Base building and conditioning</li>
+                            <li>Team building activities</li>
+                        </ul>
+                    </div>
+
+                    <!-- Fall -->
+                    <div class="program-card fall">
+                        <span class="season-label">Fall</span>
+                        <h3>Cross Country Season</h3>
+                        <ul>
+                            <li>Boys High School XC</li>
+                            <li>Girls High School XC</li>
+                            <li>Boys Middle School XC</li>
+                            <li>Girls Middle School XC</li>
+                        </ul>
+                    </div>
+
+                    <!-- Winter -->
+                    <div class="program-card winter">
+                        <span class="season-label">Winter</span>
+                        <h3>Track & Field Training</h3>
+                        <ul>
+                            <li>Winter Run Club</li>
+                            <li>Track & Field Preseason</li>
+                            <li>Strength and conditioning</li>
+                            <li>Indoor training options</li>
+                        </ul>
+                    </div>
+
+                    <!-- Spring -->
+                    <div class="program-card spring">
+                        <span class="season-label">Spring</span>
+                        <h3>Track & Field Season</h3>
+                        <ul>
+                            <li>Boys Track & Field</li>
+                            <li>Girls Track & Field</li>
+                            <li>All events: sprints, distance, jumps, throws</li>
+                            <li>Middle School opportunities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Who Can Join -->
+        <section class="section blue-bg">
+            <div class="section-content">
+                <h2>Eligibility & Requirements</h2>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>Grade Eligibility</h3>
+                        <ul>
+                            <li>High School Programs: Grades 9-12</li>
+                            <li>Middle School Programs: Grades 6-8</li>
+                            <li>Cross Country Preseason: Grades 10-12 only</li>
+                            <li>All other programs: Grades 9-12</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Academic Requirements</h3>
+                        <ul>
+                            <li>Maintain academic eligibility per MSHSL guidelines</li>
+                            <li>Attend regularly and communicate absences</li>
+                            <li>Balance athletics with schoolwork</li>
+                            <li>Represent Minnetonka with integrity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Time Commitment -->
+        <section class="section blue-bg">
+            <div class="section-content">
+                <h2>Time Commitment</h2>
+                <p>Being part of our program requires dedication, but we work with athletes to balance sports,
+                    academics, and other activities.</p>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>During Season</h3>
+                        <ul>
+                            <li>Daily practice: ~2 hours after school</li>
+                            <li>Weekend meets: 2-4 hours (varies by event)</li>
+                            <li>Total: 12-15 hours per week</li>
+                            <li>Season length: 10-12 weeks</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Off-Season (Optional)</h3>
+                        <ul>
+                            <li>Winter Run Club: 3-4 days/week</li>
+                            <li>Summer training: Flexible schedule</li>
+                            <li>Strength training opportunities</li>
+                            <li>No mandatory attendance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Athletes Gain -->
+        <section class="section blue-bg">
+            <div class="section-content">
+                <h2>What You'll Gain</h2>
+                <p>Joining track and field or cross country offers benefits that extend far beyond the finish line.</p>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>Athletic Development</h3>
+                        <ul>
+                            <li>Improved cardiovascular fitness and endurance</li>
+                            <li>Strength, speed, and agility training</li>
+                            <li>Expert coaching in your chosen events</li>
+                            <li>Competitive experience at all levels</li>
+                            <li>Potential for college athletic opportunities</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Life Skills</h3>
+                        <ul>
+                            <li>Time management and discipline</li>
+                            <li>Goal setting and achievement</li>
+                            <li>Resilience and mental toughness</li>
+                            <li>Teamwork and leadership</li>
+                            <li>Lifelong friendships and community</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coaches -->
+        <section class="section blue-bg">
+            <div class="section-content">
+                <h2>Meet Our Coaches</h2>
+                <p>Our experienced coaching staff is dedicated to developing athletes of all abilities and helping them
+                    reach their full potential.</p>
+                <div class="coaches-grid">
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="images/jeff-renlund.png" alt="Jeff Renlund">
+                        </div>
+                        <div class="coach-name">Jeff Renlund</div>
+                        <div class="coach-title">Boys Cross Country Head Coach</div>
+                        </div>
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="images/rebecca-wessley.jpg" alt="Rebecca Wesley">
+                        </div>
+                        <div class="coach-name">Rebecca Wesley</div>
+                        <div class="coach-title">Girls Cross Country Head Coach</div>
+                    </div>
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="images/james-finch.png" alt="James Finch">
+                        </div>
+                        <div class="coach-name">James Finch</div>
+                        <div class="coach-title">Boys Track & Field Head Coach</div>
+                    </div>
+                    <div class="coach-card">
+                        <div class="coach-image">
+                            <img src="images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan">
+                        </div>
+                        <div class="coach-name">Jane Reimer-Morgan</div>
+                        <div class="coach-title">Girls Track & Field Head Coach</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equipment & Costs -->
+        <section class="section blue-bg">
+            <div class="section-content">
+                <h2>Equipment & Costs</h2>
+                <div class="two-column">
+                    <div class="column">
+                        <h3>Required Equipment</h3>
+                        <ul>
+                            <li>Running shoes (specific to your event)</li>
+                            <li>Athletic clothing and weather-appropriate gear</li>
+                            <li>Water bottle</li>
+                            <li>Team uniform (provided)</li>
+                        </ul>
+                        <h3 style="margin-top: 2rem;">Estimated Costs</h3>
+                        <ul>
+                            <li>Program fee: $[amount] per season</li>
+                            <li>Running shoes: $80-150</li>
+                            <li>Travel expenses: Varies by competition</li>
+                            <li>Optional team gear: $50-100</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Financial Assistance</h3>
+                        <ul>
+                            <li>Financial aid available for families in need</li>
+                            <li>Used equipment exchange program</li>
+                            <li>No student turned away due to cost</li>
+                            <li>Contact coaches for confidential assistance</li>
+                        </ul>
+                        <h3 style="margin-top: 2rem;">What's Provided</h3>
+                        <ul>
+                            <li>Competition uniforms</li>
+                            <li>Training equipment and facilities</li>
+                            <li>Coaching and instruction</li>
+                            <li>Team events and activities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Join -->
+        <section class="section blue-bg">
+            <div class="section-content">
+                <h2>How to Join</h2>
+                <p>Getting started with Tonka Track & Field is easy! Follow these steps to join our team.</p>
+                <div style="margin-top: 2rem;">
+                    <ol style="list-style-position: inside; color: var(--sky); font-size: 1.2rem; line-height: 2;">
+                        <li style="margin-bottom: 1rem;">Complete the online registration form (link coming soon)</li>
+                        <li style="margin-bottom: 1rem;">Submit required athletic physical and health forms</li>
+                        <li style="margin-bottom: 1rem;">Pay program fees or apply for financial assistance</li>
+                        <li style="margin-bottom: 1rem;">Attend the first team meeting or practice</li>
+                        <li>Start training with your new team!</li>
+                    </ol>
+                </div>
+                <p style="margin-top: 2rem;">Questions? Contact us at <span
+                        style="color: var(--sunbeam); font-weight: 600;">[contact email]</span></p>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section blue-bg">
+            <div class="section-content">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-container">
+                    <div class="faq-item" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Do I need experience to join?</div>
+                        <div class="faq-answer">
+                            Not at all! Many of our most successful athletes started with no running experience. Our
+                            coaches work with athletes of all levels, from complete beginners to experienced runners.
+                            We'll help you develop the skills and fitness you need to succeed.
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Can I participate in other sports?</div>
+                        <div class="faq-answer">
+                            Yes! Many of our athletes are multi-sport participants. Track and field especially
+                            accommodates this since it's a spring sport. For cross country (fall), we encourage you to
+                            talk with coaches about your schedule and commitments. Off-season training is flexible and
+                            optional.
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFAQ(this)">
+                        <div class="faq-question">What if I'm not very fast?</div>
+                        <div class="faq-answer">
+                            Speed is just one aspect of track and field! We have events for all types of athletes:
+                            distance running, sprinting, jumping, and throwing. Success in our program is measured by
+                            personal improvement, not just winning races. Every athlete competes against their own
+                            previous performance.
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFAQ(this)">
+                        <div class="faq-question">What's the difference between track and cross country?</div>
+                        <div class="faq-answer">
+                            Cross country is run in the fall and involves racing on trails, grass, and natural terrain,
+                            typically 5K (3.1 miles). Track and field is in the spring and takes place on a track with
+                            various events including sprints, distance, hurdles, relays, jumps, and throws. Many
+                            athletes participate in both!
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFAQ(this)">
+                        <div class="faq-question">How much does it cost to participate?</div>
+                        <div class="faq-answer">
+                            Program fees vary by season. Financial assistance is available for families who need it, and
+                            we have a used equipment exchange. No student is turned away due to cost. Contact the
+                            coaches for specific fee information and financial aid options.
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFAQ(this)">
+                        <div class="faq-question">What if I get injured?</div>
+                        <div class="faq-answer">
+                            Our coaches work closely with athletic trainers to ensure safe training and recovery. If
+                            you're injured, we'll help you with rehabilitation and a safe return to competition. Many
+                            athletes also take on team support roles while recovering, staying connected to the team.
+                        </div>
+                    </div>
+                    <div class="faq-item" onclick="toggleFAQ(this)">
+                        <div class="faq-question">Can I try different events in track and field?</div>
+                        <div class="faq-answer">
+                            Absolutely! The beginning of the season is a great time to try different events. Our coaches
+                            will help you find the events that best suit your strengths and interests. Many athletes
+                            compete in multiple events.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tonka Track & Field. Building champions, one stride at a time.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+
+        function toggleFAQ(element) {
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
