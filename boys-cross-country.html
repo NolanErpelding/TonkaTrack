@@ -1066,14 +1066,19 @@
         }
 
         // Google Apps Script Web App URL
-            const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
+        // Google Apps Script Web App URL (universal script)
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
+
+        // Team-specific folder IDs
+        const TEAM_FILES_FOLDER_ID = '14X4jyyR7Gm25R2uF2Swvd3Ir0_8bN_Jg';  // The folder containing PDFs and documents
+        const TEAM_PHOTOS_FOLDER_ID = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1'; // The folder containing photo albums
 
             async function loadFiles() {
                 const fileListContainer = document.getElementById('file-list');
                 const loadingMessage = document.getElementById('loading-message');
 
                 try {
-                    const response = await fetch(APPS_SCRIPT_URL);
+                    const response = await fetch(`${APPS_SCRIPT_URL}?action=files&folderId=${TEAM_FILES_FOLDER_ID}`);
                     const data = await response.json();
 
                     if (data.success && data.files) {
@@ -1191,7 +1196,7 @@
                     const loadingMessage = document.getElementById('albums-loading-message');
 
                     try {
-                        const response = await fetch(ALBUMS_SCRIPT_URL);
+                        const response = await fetch(`${APPS_SCRIPT_URL}?action=photoAlbums&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
                         const data = await response.json();
 
                         if (data.success && data.albums) {
@@ -1306,9 +1311,9 @@
 
                             // Check if this is the "All Photos" album
                             if (albumId === 'ALL_PHOTOS') {
-                                response = await fetch(ALL_PHOTOS_SCRIPT_URL);
+                                response = await fetch(`${APPS_SCRIPT_URL}?action=allPhotos&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
                             } else {
-                                response = await fetch(`${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`);
+                                response = await fetch(`${APPS_SCRIPT_URL}?action=albumPhotos&albumId=${albumId}`);
                             }
 
                             if (!response.ok) {

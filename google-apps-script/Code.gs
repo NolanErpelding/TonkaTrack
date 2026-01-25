@@ -1,340 +1,306 @@
-// Force Drive API initialization
-var drive = DriveApp;
-
-// Cache to store results temporarily (lasts for script execution)
-var cache = CacheService.getScriptCache();
-var CACHE_DURATION = 300; // 5 minutes in seconds
+// Universal Google Apps Script for Team Files & Photos
+// This script can be used by all teams by passing different folder IDs
 
 function doGet(e) {
-  const action = e.parameter.action || 'files';
+  const action = e.parameter.action;
+  const folderId = e.parameter.folderId;
   
-  if (action === 'photos') {
-    return getPhotos();
-  } else if (action === 'photoAlbums') {
-    return getPhotoAlbums();
-  } else if (action === 'albumPhotos') {
-    const folderId = e.parameter.folderId;
-    return getAlbumPhotos(folderId);
-  } else if (action === 'allPhotos') {
-    return getAllPhotos();
-  } else {
-    return getFiles();
+  // Validate that folderId is provided for actions that need it
+  if (!folderId && action !== 'test') {
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        success: false,
+        error: 'Missing folderId parameter'
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
   }
-}
-
-function testDriveAccess() {
+  
   try {
-    const folderId = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
-    const folder = DriveApp.getFolderById(folderId);
-    Logger.log('Success! Folder name: ' + folder.getName());
-    return 'Success! Can access Drive.';
+    let result;
+    
+    switch(action) {
+      case 'files':
+        result = getTeamFiles(folderId);
+        break;
+      case 'photoAlbums':
+        result = getPhotoAlbums(folderId);
+        break;
+      case 'albumPhotos':
+        const albumId = e.parameter.albumId;
+        if (!albumId) {
+          return ContentService.createTextOutput(
+            JSON.stringify({
+              success: false,
+              error: 'Missing albumId parameter'
+            })
+          ).setMimeType(ContentService.MimeType.JSON);
+        }
+        result = getAlbumPhotos(albumId);
+        break;
+      case 'allPhotos':
+        result = getAllPhotos(folderId);
+        break;
+      case 'test':
+        result = { success: true, message: 'Script is working!' };
+        break;
+      default:
+        result = {
+          success: false,
+          error: 'Invalid action. Use: files, photoAlbums, albumPhotos, allPhotos, or test'
+        };
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify(result))
+      .setMimeType(ContentService.MimeType.JSON);
+      
   } catch (error) {
-    Logger.log('Error: ' + error.toString());
-    return 'Error: ' + error.toString();
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        success: false,
+        error: error.toString()
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-function getFiles() {
-  const folderId = '14X4jyyR7Gm25R2uF2Swvd3Ir0_8bN_Jg';
-  
+// Get all files from the specified folder
+function getTeamFiles(folderId) {
   try {
     const folder = DriveApp.getFolderById(folderId);
     const files = folder.getFiles();
-    
     const fileList = [];
+    
     while (files.hasNext()) {
       const file = files.next();
+      const mimeType = file.getMimeType();
       
-      if (file.getName().startsWith('.')) continue;
-      
-      const description = file.getDescription() || getDefaultDescription(file.getName());
-      
-      fileList.push({
-        name: file.getName(),
-        description: description,
-        downloadUrl: `https://drive.google.com/uc?export=download&id=${file.getId()}`,
-        size: file.getSize(),
-        lastModified: file.getLastUpdated().toISOString()
-      });
-    }
-    
-    var output = ContentService.createTextOutput(JSON.stringify({ files: fileList, success: true }));
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
-      
-  } catch (error) {
-    var output = ContentService.createTextOutput(JSON.stringify({ error: error.toString(), success: false }));
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
-  }
-}
-
-function getPhotoAlbums() {
-  const photosFolderId = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
-  
-  // Try cache first
-  const cacheKey = 'photoAlbums_' + photosFolderId;
-  const cached = cache.get(cacheKey);
-  if (cached) {
-    var output = ContentService.createTextOutput(cached);
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
-  }
-  
-  try {
-    const mainFolder = DriveApp.getFolderById(photosFolderId);
-    
-    // Get subfolders (albums)
-    const subfolders = mainFolder.getFolders();
-    const albums = [];
-    
-    while (subfolders.hasNext()) {
-      const folder = subfolders.next();
-      
-      if (folder.getName().startsWith('.')) continue;
-      
-      // Count photos in folder
-      const files = folder.getFiles();
-      let photoCount = 0;
-      let coverPhoto = null;
-      
-      while (files.hasNext()) {
-        const file = files.next();
-        if (file.getMimeType().startsWith('image/') && !file.getName().startsWith('.')) {
-          photoCount++;
-          if (!coverPhoto) {
-            coverPhoto = file.getId();
-          }
-        }
-      }
-      
-      if (photoCount > 0) {
-        const createdDate = folder.getDateCreated();
-        const formattedDate = Utilities.formatDate(createdDate, Session.getScriptTimeZone(), 'MMM d, yyyy');
+      // Only include PDF and common document types
+      if (mimeType === 'application/pdf' || 
+          mimeType === 'application/vnd.google-apps.document' ||
+          mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+          mimeType === 'application/msword') {
         
-        albums.push({
-          id: folder.getId(),
-          name: folder.getName(),
-          description: `${formattedDate} • ${photoCount} photo${photoCount !== 1 ? 's' : ''}`,
-          photoCount: photoCount,
-          coverPhotoUrl: coverPhoto ? `https://drive.google.com/thumbnail?id=${coverPhoto}&sz=w400` : null,
-          createdDate: createdDate.toISOString(),
-          lastModified: folder.getLastUpdated().toISOString()
+        fileList.push({
+          name: file.getName(),
+          description: file.getDescription() || 'Team document',
+          size: file.getSize(),
+          mimeType: mimeType,
+          downloadUrl: file.getDownloadUrl(),
+          lastModified: file.getLastUpdated().toISOString()
         });
       }
     }
     
-    // Count ALL photos recursively - OPTIMIZED VERSION
-    const allPhotosList = [];
-    countAllPhotosRecursive(mainFolder, allPhotosList, 1); // Only get first photo for cover
+    // Sort by last modified date (newest first)
+    fileList.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
     
-    const allPhotosCount = allPhotosList.length;
-    const allPhotosCover = allPhotosList.length > 0 ? allPhotosList[0].getId() : null;
+    return {
+      success: true,
+      files: fileList
+    };
     
-    // Sort by creation date (newest first)
-    albums.sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
+  } catch (error) {
+    return {
+      success: false,
+      error: error.toString()
+    };
+  }
+}
+
+// Get photo albums (subfolders) from the specified photos folder
+function getPhotoAlbums(photosFolderId) {
+  try {
+    const photosFolder = DriveApp.getFolderById(photosFolderId);
+    const subfolders = photosFolder.getFolders();
+    const albums = [];
     
-    const result = JSON.stringify({ 
-      albums: albums, 
+    let allPhotosCount = 0;
+    let allPhotosCover = null;
+    
+    // Get all photos directly in the main photos folder for "All Photos"
+    const allPhotosInMain = photosFolder.getFilesByType(MimeType.JPEG);
+    const pngPhotos = photosFolder.getFilesByType(MimeType.PNG);
+    
+    while (allPhotosInMain.hasNext()) {
+      const photo = allPhotosInMain.next();
+      allPhotosCount++;
+      if (!allPhotosCover) {
+        allPhotosCover = photo.getId();
+      }
+    }
+    
+    while (pngPhotos.hasNext()) {
+      const photo = pngPhotos.next();
+      allPhotosCount++;
+      if (!allPhotosCover) {
+        allPhotosCover = photo.getId();
+      }
+    }
+    
+    // Process each subfolder as an album
+    while (subfolders.hasNext()) {
+      const folder = subfolders.next();
+      const folderName = folder.getName();
+      
+      // Count photos in this album
+      const jpegFiles = folder.getFilesByType(MimeType.JPEG);
+      const pngFiles = folder.getFilesByType(MimeType.PNG);
+      
+      let photoCount = 0;
+      let coverPhotoId = null;
+      
+      while (jpegFiles.hasNext()) {
+        const file = jpegFiles.next();
+        photoCount++;
+        allPhotosCount++;
+        if (!coverPhotoId) {
+          coverPhotoId = file.getId();
+        }
+        if (!allPhotosCover) {
+          allPhotosCover = file.getId();
+        }
+      }
+      
+      while (pngFiles.hasNext()) {
+        const file = pngFiles.next();
+        photoCount++;
+        allPhotosCount++;
+        if (!coverPhotoId) {
+          coverPhotoId = file.getId();
+        }
+        if (!allPhotosCover) {
+          allPhotosCover = file.getId();
+        }
+      }
+      
+      if (photoCount > 0) {
+        albums.push({
+          id: folder.getId(),
+          name: folderName,
+          description: `${photoCount} photo${photoCount !== 1 ? 's' : ''}`,
+          photoCount: photoCount,
+          coverPhotoUrl: coverPhotoId ? `https://drive.google.com/thumbnail?id=${coverPhotoId}&sz=w400` : null
+        });
+      }
+    }
+    
+    // Sort albums by name
+    albums.sort((a, b) => a.name.localeCompare(b.name));
+    
+    return {
+      success: true,
+      albums: albums,
       allPhotosCount: allPhotosCount,
-      allPhotosCover: allPhotosCover,
-      mainFolderId: photosFolderId,
-      success: true 
-    });
+      allPhotosCover: allPhotosCover
+    };
     
-    // Cache the result
-    cache.put(cacheKey, result, CACHE_DURATION);
-    
-    var output = ContentService.createTextOutput(result);
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
-      
   } catch (error) {
-    var output = ContentService.createTextOutput(JSON.stringify({ 
-      error: error.toString(), 
-      stack: error.stack,
-      success: false 
-    }));
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
+    return {
+      success: false,
+      error: error.toString()
+    };
   }
 }
 
-// OPTIMIZED: Now accepts maxPhotos parameter to stop early
-function countAllPhotosRecursive(folder, photoList, maxPhotos) {
-  if (maxPhotos && photoList.length >= maxPhotos) return;
-  
-  const files = folder.getFiles();
-  while (files.hasNext()) {
-    if (maxPhotos && photoList.length >= maxPhotos) return;
-    
-    const file = files.next();
-    if (file.getName().startsWith('.')) continue;
-    if (file.getMimeType().startsWith('image/')) {
-      photoList.push(file);
-    }
-  }
-  
-  const subfolders = folder.getFolders();
-  while (subfolders.hasNext()) {
-    if (maxPhotos && photoList.length >= maxPhotos) return;
-    
-    const subfolder = subfolders.next();
-    if (subfolder.getName().startsWith('.')) continue;
-    countAllPhotosRecursive(subfolder, photoList, maxPhotos);
-  }
-}
-
-function getAlbumPhotos(folderId) {
-  // Try cache first
-  const cacheKey = 'albumPhotos_' + folderId;
-  const cached = cache.get(cacheKey);
-  if (cached) {
-    var output = ContentService.createTextOutput(cached);
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
-  }
-  
+// Get all photos from a specific album (subfolder)
+function getAlbumPhotos(albumId) {
   try {
-    const folder = DriveApp.getFolderById(folderId);
-    const files = folder.getFiles();
+    const folder = DriveApp.getFolderById(albumId);
+    const photos = [];
     
-    const photoList = [];
-    while (files.hasNext()) {
-      const file = files.next();
-      
-      if (file.getName().startsWith('.')) continue;
-      
-      const mimeType = file.getMimeType();
-      if (!mimeType.startsWith('image/')) continue;
-      
-      const caption = file.getDescription() || '';
-      const fileId = file.getId();
-      
-      photoList.push({
-        id: fileId,
-        name: file.getName(),
-        caption: caption,
-        thumbnailUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`,
-        fullUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
-        fallbackUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1600`,
-        downloadUrl: `https://drive.google.com/uc?export=download&id=${fileId}`,
-        lastModified: file.getLastUpdated().toISOString()
-      });
+    // Get JPEG files
+    const jpegFiles = folder.getFilesByType(MimeType.JPEG);
+    while (jpegFiles.hasNext()) {
+      const file = jpegFiles.next();
+      photos.push(createPhotoObject(file));
     }
     
-    photoList.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+    // Get PNG files
+    const pngFiles = folder.getFilesByType(MimeType.PNG);
+    while (pngFiles.hasNext()) {
+      const file = pngFiles.next();
+      photos.push(createPhotoObject(file));
+    }
     
-    const result = JSON.stringify({ 
-      photos: photoList, 
-      albumName: folder.getName(),
-      success: true 
-    });
+    // Sort by name
+    photos.sort((a, b) => a.name.localeCompare(b.name));
     
-    // Cache the result
-    cache.put(cacheKey, result, CACHE_DURATION);
+    return {
+      success: true,
+      photos: photos
+    };
     
-    var output = ContentService.createTextOutput(result);
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
-      
   } catch (error) {
-    var output = ContentService.createTextOutput(JSON.stringify({ error: error.toString(), success: false }));
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
+    return {
+      success: false,
+      error: error.toString()
+    };
   }
 }
 
-// OPTIMIZED: Limit photos and skip unnecessary date calls
-function getAllPhotosRecursive(folder, photoList, maxPhotos) {
-  if (maxPhotos && photoList.length >= maxPhotos) return;
-  
-  const files = folder.getFiles();
-  while (files.hasNext()) {
-    if (maxPhotos && photoList.length >= maxPhotos) return;
-    
-    const file = files.next();
-    if (file.getName().startsWith('.')) continue;
-    if (file.getMimeType().startsWith('image/')) {
-      photoList.push(file);
-    }
-  }
-  
-  const subfolders = folder.getFolders();
-  while (subfolders.hasNext()) {
-    if (maxPhotos && photoList.length >= maxPhotos) return;
-    
-    const subfolder = subfolders.next();
-    if (subfolder.getName().startsWith('.')) continue;
-    getAllPhotosRecursive(subfolder, photoList, maxPhotos);
-  }
-}
-
-function getAllPhotos() {
-  const photosFolderId = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
-  
-  // Try cache first
-  const cacheKey = 'allPhotos_' + photosFolderId;
-  const cached = cache.get(cacheKey);
-  if (cached) {
-    var output = ContentService.createTextOutput(cached);
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
-  }
-  
+// Get all photos from the main folder and all subfolders
+function getAllPhotos(photosFolderId) {
   try {
-    const mainFolder = DriveApp.getFolderById(photosFolderId);
-    const allPhotos = [];
+    const photosFolder = DriveApp.getFolderById(photosFolderId);
+    const photos = [];
     
-    // OPTIMIZATION: Limit to first 100 photos to speed up response
-    const MAX_PHOTOS = 100;
-    getAllPhotosRecursive(mainFolder, allPhotos, MAX_PHOTOS);
+    // Get photos from main folder
+    const jpegFiles = photosFolder.getFilesByType(MimeType.JPEG);
+    while (jpegFiles.hasNext()) {
+      const file = jpegFiles.next();
+      photos.push(createPhotoObject(file));
+    }
     
-    const photoList = [];
+    const pngFiles = photosFolder.getFilesByType(MimeType.PNG);
+    while (pngFiles.hasNext()) {
+      const file = pngFiles.next();
+      photos.push(createPhotoObject(file));
+    }
     
-    // OPTIMIZATION: Batch process files - get all IDs first, then build URLs
-    allPhotos.forEach(file => {
-      const caption = file.getDescription() || '';
-      const fileId = file.getId();
+    // Get photos from all subfolders
+    const subfolders = photosFolder.getFolders();
+    while (subfolders.hasNext()) {
+      const folder = subfolders.next();
       
-      photoList.push({
-        id: fileId,
-        name: file.getName(),
-        caption: caption,
-        thumbnailUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`,
-        fullUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
-        fallbackUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1600`,
-        downloadUrl: `https://drive.google.com/uc?export=download&id=${fileId}`
-        // REMOVED: lastModified to speed up - it's expensive!
-      });
-    });
-    
-    // OPTIMIZATION: Skip sorting by date since we removed lastModified
-    // Photos will be in the order they're found (usually newest folders first)
-    
-    const result = JSON.stringify({ 
-      photos: photoList, 
-      albumName: 'All Photos',
-      totalPhotos: photoList.length,
-      isLimited: photoList.length >= MAX_PHOTOS,
-      success: true 
-    });
-    
-    // Cache for 5 minutes
-    cache.put(cacheKey, result, CACHE_DURATION);
-    
-    var output = ContentService.createTextOutput(result);
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
+      const subJpegFiles = folder.getFilesByType(MimeType.JPEG);
+      while (subJpegFiles.hasNext()) {
+        const file = subJpegFiles.next();
+        photos.push(createPhotoObject(file));
+      }
       
+      const subPngFiles = folder.getFilesByType(MimeType.PNG);
+      while (subPngFiles.hasNext()) {
+        const file = subPngFiles.next();
+        photos.push(createPhotoObject(file));
+      }
+    }
+    
+    // Sort by date modified (newest first)
+    photos.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+    
+    return {
+      success: true,
+      photos: photos
+    };
+    
   } catch (error) {
-    var output = ContentService.createTextOutput(JSON.stringify({ error: error.toString(), success: false }));
-    output.setMimeType(ContentService.MimeType.JSON);
-    return output;
+    return {
+      success: false,
+      error: error.toString()
+    };
   }
 }
 
-function getDefaultDescription(fileName) {
-  const extension = fileName.split('.').pop().toUpperCase();
-  return `${extension} document`;
+// Helper function to create photo object
+function createPhotoObject(file) {
+  const fileId = file.getId();
+  return {
+    id: fileId,
+    name: file.getName(),
+    caption: file.getDescription() || '',
+    thumbnailUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`,
+    fullUrl: `https://drive.google.com/uc?export=view&id=${fileId}`,
+    downloadUrl: file.getDownloadUrl(),
+    lastModified: file.getLastUpdated().toISOString()
+  };
 }
