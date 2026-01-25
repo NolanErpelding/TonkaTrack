@@ -349,6 +349,20 @@
             width: 100%;
         }
 
+        /* Phone number link styling */
+        a[href^="tel:"] {
+            color: var(--sky);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid var(--sky);
+            transition: all 0.3s ease;
+        }
+
+        a[href^="tel:"]:hover {
+            color: var(--sunbeam) !important;
+            border-bottom-color: var(--sunbeam);
+        }
+
         footer {
             background: rgba(26, 32, 44, 0.95);
             backdrop-filter: blur(10px);
@@ -978,35 +992,39 @@
             </div>
             <div class="update-item">
                 <h3>7 Tips for a Great Pre-Meet Meal</h3>
-                <p>Don't Experiment - Don't try new foods on a meet day, it might cause unexpected problems.</p>
                 
                 <p style="margin-bottom: 0.75rem;">
-                    <strong style="color: var(--sunbeam);">1. Avoid Soft Drinks and Candy</strong><br>
+                    <strong style="color: var(--sunbeam);">1. Don't Experiment</strong><br>
+                    Don't try new foods on a meet day, it might cause unexpected problems.
+                </p>
+
+                <p style="margin-bottom: 0.75rem;">
+                    <strong style="color: var(--sunbeam);">2. Avoid Soft Drinks and Candy</strong><br>
                     Sugar is your enemy, empty calories that don't provide long term fuel source.
                 </p>
                 
                 <p style="margin-bottom: 0.75rem;">
-                    <strong style="color: var(--sunbeam);">2. High Carbohydrates</strong><br>
+                    <strong style="color: var(--sunbeam);">3. High Carbohydrates</strong><br>
                     Never can go wrong with breads, pasta, rice…pure long lasting energy source.
                 </p>
                 
                 <p style="margin-bottom: 0.75rem;">
-                    <strong style="color: var(--sunbeam);">3. Timing</strong><br>
+                    <strong style="color: var(--sunbeam);">4. Timing</strong><br>
                     Takes about 3 hours to empty the stomach of quality food.
                 </p>
                 
                 <p style="margin-bottom: 0.75rem;">
-                    <strong style="color: var(--sunbeam);">4. Fluids</strong><br>
+                    <strong style="color: var(--sunbeam);">5. Fluids</strong><br>
                     Plenty of water and sports drinks…stay away from carbonated sugary soft drinks.
                 </p>
                 
                 <p style="margin-bottom: 0.75rem;">
-                    <strong style="color: var(--sunbeam);">5. Avoid High Fat Intake</strong><br>
+                    <strong style="color: var(--sunbeam);">6. Avoid High Fat Intake</strong><br>
                     Fat takes longer to digest and lots of water to process.
                 </p>
                 
                 <p style="margin-bottom: 0;">
-                    <strong style="color: var(--sunbeam);">6. Limit Protein Intake</strong><br>
+                    <strong style="color: var(--sunbeam);">7. Limit Protein Intake</strong><br>
                     Protein is a weak energy source, great for building tissue but limit the amount immediately prior to competition.
                     Protein is great for recovery after competitions or workouts.
                 </p>
@@ -1017,16 +1035,12 @@
                 
                 <p style="margin-bottom: 1.5rem;">
                     <a href="https://trackandfieldtoolbox.net/category/field-events" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sunbeam); font-size: 1.1rem; font-weight: 600; text-decoration: underline;">Track and Field
-                        Toolbox</a><br>
-                    <span style="color: var(--sky);">Scroll through this site to find event specific articles and short videos.
+                        style="color: var(--sky); text-decoration: underline;">Track and FieldToolbox</a><span style="color: var(--sky);"> - Scroll through this site to find event specific articles and short videos.
                         Conditioning, drills, nutrition, and mental preparation are among many topics.</span>
                 </p>
                 <p style="margin-bottom: 1.5rem;">
                     <a href="https://www.athletic.net/team/12302/track-and-field-indoor/2026" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sunbeam); font-size: 1.1rem; font-weight: 600; text-decoration: underline;">Track and Field
-                        Toolbox</a><br>
-                    <span style="color: var(--sky);">Has a lot info about races including personal times and team results.</span>
+                        style="color: var(--sky); text-decoration: underline;">Athletic.net</a><span style="color: var(--sky);"> - Has a lot info about races including personal times and team results.</span>
                 </p>
             </div>
         </div>
@@ -1040,7 +1054,7 @@
                 <p>Invitation to participate in 10th annual Minnetonka Track and Field FMSC Packing. There are 50 spots reserved at this
                 time. Boys and girls athletes and coaches are first priority. Other family members welcome. I will have a sign-up on
                 days one and two of practice or you can signup now with me by texting: FMSC, your name and year in school to
-                763-300-1178</p>
+                <a href="tel:763-300-1178" style="color: var(--sky); text-decoration: none;">(763) 300-1178</a></p>
             </div>
 
             <div class="update-item">
@@ -1241,7 +1255,7 @@
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
 
         // Team-specific folder IDs
-        const TEAM_FILES_FOLDER_ID = '1Omi1M7eN_2Ie2WkgSBL98sGxLcQCqeFZ';  // The folder containing PDFs and documents
+        const TEAM_FILES_FOLDER_ID = '1lpjdZAHiWsIgxH8eXMW3KII9Ff1MK1fo';  // The folder containing PDFs and documents
         const TEAM_PHOTOS_FOLDER_ID = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1'; // The folder containing photo albums
 
             async function loadFiles() {

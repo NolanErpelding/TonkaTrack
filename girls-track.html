@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Girls Cross Country - Tonka Track & Field</title>
+    <title>Girls Track - Tonka Track & Field</title>
 
     <style>
         /* Minnetonka Color Palette */
@@ -293,6 +293,60 @@
         .download-button:hover {
             filter: brightness(1.1);
             transform: scale(1.05);
+        }
+
+        .instagram-handle {
+            color: var(--sunbeam);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .instagram-handle:hover {
+            color: #e1306c;
+        }
+
+        .instagram-handle::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #e1306c 0%, #c13584 50%, #833ab4 100%);
+            transition: width 0.3s ease;
+        }
+
+        .instagram-handle:hover::after {
+            width: 100%;
+        }
+
+        .x-handle {
+            color: var(--sunbeam);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .x-handle:hover {
+            color: #000000;
+        }
+
+        .x-handle::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #000000 0%, #14171A 100%);
+            transition: width 0.3s ease;
+        }
+
+        .x-handle:hover::after {
+            width: 100%;
         }
 
         /* Phone number link styling */
@@ -875,8 +929,8 @@
 
     <div class="main-content">
         <div class="page-header">
-            <h1>Girls Cross Country</h1>
-            <p>Strong strides. Stronger minds.</p>
+            <h1>Girls Track & Field</h1>
+            <p>Speed. Strength. Precision.</p>
         </div>
 
         <div class="tab-buttons">
@@ -888,24 +942,17 @@
         </div>
 
         <div id="home-tab" class="tab-content active">
-            <h2>Welcome to Girls Cross Country</h2>
-            <p>Welcome to Minnetonka Girls Cross Country! We are dedicated to developing student-athletes who excel both on the course and in the classroom.</p>
-            <p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned runner or new to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
-            <div class="update-item">
-                <h3>Running Watches</h3>
-                <p>A running watch is essential for competitive running! Something that has a stopwatch on it is fine, or a GPS watch with
-                wrist-based heartrate if you want to get extra fancy. A GPS watch has the added perk of being able to upload data to
-                Strava or other community activity-trackers. Visit a local running store if you have questions!</p>
-            </div>
+            <h2>Welcome to Girls Track & Field</h2>
+            <p>Welcome to Minnetonka Girls Track & Field! We are dedicated to developing student-athletes who excel both on the track and in the classroom.</p>
+            <p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned athlete or new to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
+            <p>You can follow our Instagram <a href="https://www.instagram.com/tonkagirlstrack/" target="_blank"
+                    rel="noopener noreferrer" class="instagram-handle">@tonkagirlstrack</a> or on X <a href="https://x.com/Tonka_Track" target="_blank" rel="noopener noreferrer"
+                        class="x-handle">@Tonka_Track</a> for the latest updates and team
+                highlights.</p>
             <div class="update-item">
                 <h3>Running Shoes</h3>
-                <p>It is important to get properly fitted for running shoes at a specialty running store. This will reduce so many cases of
-                shin splints at the beginning of the season! The store will usually give cross country athletes a discount, so let them
-                know that your daughter is on the Minnetonka Cross Country Team!</p>
-            </div>
-            <div class="update-item">
-                <h3>Local Running Stores</h3>
-                <p style="margin-bottom: 1.5rem;">Support these local running specialty stores for all your gear needs!</p>
+                <p style="margin-bottom: 1.5rem;">Athletes get a discount at the following running stores, just tell the sales person that you are on the Minnetonka Track
+                and Field Team.</p>
             
                 <p style="margin-bottom: 1rem;">
                     <strong style="color: var(--sunbeam); font-size: 1.1rem;">Lakes Running Co</strong><br>
@@ -929,46 +976,106 @@
                 </p>
             
                 <p style="margin-bottom: 0;">
-                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">TC Running</strong><br>
+                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">TC Running - Discounts for parents too!</strong><br>
                     Located on the SE Corner of Shady Oak Road and Hwy 62<br>
                     6405 City West Pkwy # B5, Eden Prairie, MN 55344<br>
                     <a href="tel:952-944-7386" style="color: var(--sky); text-decoration: none;">(952) 944-7386</a>
                 </p>
             </div>  
             <div class="update-item">
-                <h3>Result Websites</h3>
-                <p style="margin-bottom: 1.5rem;">Find meet results and athlete performance data through these resources:</p>
+                <h3>Uniform Deposit</h3>
+                <p>A deposit check for uniforms is required before distribution.</p> 
+                <p>Deposit checks can be made out to MTFCCA for $100 and delivered to Coach Finch at any time before distribution. All
+                checks will be shredded or returned after uniforms are returned at the end of the season. Please reach out to me
+                directly with any questions or concerns on this.</p>
             
-                <p style="margin-bottom: 1.5rem;">
-                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">Live Results & Recent Meets</strong><br>
-                    This website compiles recent results from numerous timing companies, often including splits:<br>
-                    <a href="https://live.athletic.net/meet-list" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sky); text-decoration: underline;">Athletic.net Meet List</a>
+            </div>
+            <div class="update-item">
+                <h3>7 Tips for a Great Pre-Meet Meal</h3>
+                
+                <p style="margin-bottom: 0.75rem;">
+                    <strong style="color: var(--sunbeam);">1. Don't Experiment</strong><br>
+                    Don't try new foods on a meet day, it might cause unexpected problems.
                 </p>
-            
-                <p style="margin-bottom: 1.5rem;">
-                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">Historical Results - Timing Companies</strong><br>
-                    <a href="https://www.wayzatatiming.com/results.html" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sky); text-decoration: underline;">Wayzata Results</a><br>
-                    <a href="https://www.gsetiming.com/results/" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sky); text-decoration: underline;">GSE Timing</a><br>
-                    <a href="https://appleracerberryjam.com/" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sky); text-decoration: underline;">Apple Raceberry Jam</a><br>
-                    <a href="https://www.advantagetiming.com/results" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sky); text-decoration: underline;">Advantage Timing</a><br>
-                    <a href="https://www.onlineraceresults.com/" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sky); text-decoration: underline;">Online Race Results</a>
+
+                <p style="margin-bottom: 0.75rem;">
+                    <strong style="color: var(--sunbeam);">2. Avoid Soft Drinks and Candy</strong><br>
+                    Sugar is your enemy, empty calories that don't provide long term fuel source.
                 </p>
-            
+                
+                <p style="margin-bottom: 0.75rem;">
+                    <strong style="color: var(--sunbeam);">3. High Carbohydrates</strong><br>
+                    Never can go wrong with breads, pasta, rice…pure long lasting energy source.
+                </p>
+                
+                <p style="margin-bottom: 0.75rem;">
+                    <strong style="color: var(--sunbeam);">4. Timing</strong><br>
+                    Takes about 3 hours to empty the stomach of quality food.
+                </p>
+                
+                <p style="margin-bottom: 0.75rem;">
+                    <strong style="color: var(--sunbeam);">5. Fluids</strong><br>
+                    Plenty of water and sports drinks…stay away from carbonated sugary soft drinks.
+                </p>
+                
+                <p style="margin-bottom: 0.75rem;">
+                    <strong style="color: var(--sunbeam);">6. Avoid High Fat Intake</strong><br>
+                    Fat takes longer to digest and lots of water to process.
+                </p>
+                
                 <p style="margin-bottom: 0;">
-                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">Athlete Career Times & Rankings</strong><br>
-                    Popular websites for looking up high school athletes and their career times. Some information may be restricted
-                    without a subscription.<br>
-                    <a href="https://mn.milesplit.com/" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sky); text-decoration: underline;">MileSplit MN</a><br>
-                    <a href="https://www.athletic.net/" target="_blank" rel="noopener noreferrer"
-                        style="color: var(--sky); text-decoration: underline;">Athletic.Net</a>
-                </p>  
+                    <strong style="color: var(--sunbeam);">7. Limit Protein Intake</strong><br>
+                    Protein is a weak energy source, great for building tissue but limit the amount immediately prior to competition.
+                    Protein is great for recovery after competitions or workouts.
+                </p>
+            </div>
+            <div class="update-item">
+                <h3>Important Links</h3>
+                <p style="margin-bottom: 1.5rem;">Helpful resources for training, technique, and performance:</p>
+                
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://trackandfieldtoolbox.net/category/field-events" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Track and FieldToolbox</a><span style="color: var(--sky);"> - Scroll through this site to find event specific articles and short videos.
+                        Conditioning, drills, nutrition, and mental preparation are among many topics.</span>
+                </p>
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://www.athletic.net/team/12302/track-and-field-indoor/2026" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Athletic.net</a><span style="color: var(--sky);"> - Has a lot info about races including personal times and team results.</span>
+                </p>
+
+                <p style="margin-bottom: 0.75rem;">
+                    <strong style="color: var(--sunbeam);">Videos</strong>
+                </p>
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://www.youtube.com/watch?v=VNj8YS_Gcpk" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Torso Twists</a><span style="color: var(--sky);"></span>
+                </p>
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://www.youtube.com/watch?v=SUDeeovoSmc" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Hamstring Exercises</a><span style="color: var(--sky);"> - No Equipment</span>
+                </p>
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://www.youtube.com/watch?v=-koP10y1qZI" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Dumbell Row</a><span style="color: var(--sky);"></span>
+                </p>
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://www.youtube.com/watch?v=ZOwwBk642SI" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Dumbell Press</a><span style="color: var(--sky);"></span>
+                </p>
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://www.youtube.com/watch?v=ajdFwa-qM98" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Dumbell Incline Fly</a><span style="color: var(--sky);"></span>
+                </p>
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://www.youtube.com/watch?v=LoFb_PBPl9c" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Dumbell Flat Fly</a><span
+                        style="color: var(--sky);"></span>
+                </p>
+                <p style="margin-bottom: 1.5rem;">
+                    <a href="https://www.youtube.com/watch?v=1919eTCoESo" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--sky); text-decoration: underline;">Abdominal Strength Workout</a><span
+                        style="color: var(--sky);"></span>
+                </p>
             </div>
         </div>
 
@@ -976,9 +1083,11 @@
             <h2>Latest Updates</h2>
             
             <div class="update-item">
-                <h3>Conference Championship Results</h3>
-                <div class="update-date">November 1, 2024</div>
-                <p>Congratulations to our team on an outstanding performance at the conference championships! Multiple personal records were set and the team showed incredible determination.</p>
+                <h3>Captains' Practices 2026</h3>
+                <div class="update-date">January, 7 2026</div>
+                <p> Practices run by our captains will be starting the first week in January and running through the first week in March.
+                They are held every Monday (that we have school) and Wednesday from 3:00-4:00 and are totaly free to join. Join us for some fun running in the dome
+                and getting to know each other before the season officially starts in March!</p>
             </div>
 
             <div class="update-item">
@@ -1029,56 +1138,79 @@
         </div>
 
         <div id="coaches-tab" class="tab-content">
-            <h2>Girls Cross Country</h2>
+            <h2>Girls Track & Field</h2>
             <div class="coaches-grid">
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="images/rebecca-wessley.jpg" alt="Rebecca Wesley">
+                        <img src="images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan">
                     </div>
-                    <div class="coach-name">Rebecca Wesley</div>
+                    <div class="coach-name">Jane Reimer-Morgan</div>
                     <div class="coach-title">Head Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/tonya-andruskiewicz.jpg" alt="Tonya Andruskiewicz">
+                    </div>
+                    <div class="coach-name">Tonya Andruskiewicz</div>
+                    <div class="coach-title">Horizontal Jumps</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/sarah-becher.jpg" alt="Sarah Becher">
+                    </div>
+                    <div class="coach-name">Sarah Becher</div>
+                    <div class="coach-title">Throws</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/jenna-buss.jpg" alt="Jenna Buss">
+                    </div>
+                    <div class="coach-name">Jenna Buss</div>
+                    <div class="coach-title">High Jump</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/kristine-jensen-gehrmann.jpg" alt="Kristine Jensen Gehrmann">
+                    </div>
+                    <div class="coach-name">Kristine Jensen Gehrmann</div>
+                    <div class="coach-title">Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="images/krista-larson.jpg" alt="Krista Larson">
+                    </div>
+                    <div class="coach-name">Krista Larson</div>
+                    <div class="coach-title">Hurdles</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
                         <div class="coach-image-placeholder">👤</div>
                     </div>
-                    <div class="coach-name">Bethany Brausen</div>
-                    <div class="coach-title">Assistant Coach</div>
+                    <div class="coach-name">Eric LeBlanc</div>
+                    <div class="coach-title">Pole Vault</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="images/cassie-klein.jpg" alt="Cassie Klein">
+                        <img src="images/leeann-leblanc.jpg" alt="LeeAnn LeBlanc">
                     </div>
-                    <div class="coach-name">Cassie Klein</div>
-                    <div class="coach-title">Assistant Coach</div>
+                    <div class="coach-name">LeeAnn LeBlanc</div>
+                    <div class="coach-title">Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="images/heidi-leighton.jpg" alt="Heidi Leighton">
+                        <div class="coach-image-placeholder">👤</div>
                     </div>
-                    <div class="coach-name">Heidi Leighton</div>
-                    <div class="coach-title">Assistant Coach</div>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="images/amanda-montplaisir.jpg" alt="Amanda Montplaisir">
-                    </div>
-                    <div class="coach-name">Amanda Montplaisir</div>
-                    <div class="coach-title">Assistant Coach</div>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="images/stacie-olson.jpg" alt="Stacie Olson">
-                    </div>
-                    <div class="coach-name">Stacie Olson</div>
-                    <div class="coach-title">MME Girls Head Coach</div>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="images/beth-keskey.jpg" alt="Beth Keskey">
-                    </div>
-                    <div class="coach-name">Beth Keskey</div>
-                    <div class="coach-title">MMW Girls Head Coach</div>
+                    <div class="coach-name">Megan Rank</div>
+                    <div class="coach-title">Sprints</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
                 </div>
             </div>
         </div>
@@ -1156,7 +1288,7 @@
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
 
         // Team-specific folder IDs
-        const TEAM_FILES_FOLDER_ID = '14X4jyyR7Gm25R2uF2Swvd3Ir0_8bN_Jg';  // The folder containing PDFs and documents
+        const TEAM_FILES_FOLDER_ID = '1FYjruHyPhYNwcH6qWcF_gYDR9ANw1qu_';  // The folder containing PDFs and documents
         const TEAM_PHOTOS_FOLDER_ID = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1'; // The folder containing photo albums
 
             async function loadFiles() {

@@ -291,8 +291,46 @@
         .contact-box:hover span {
             color: var(--black);
         }
+
         .contact-wrapper {
             text-align: center;
+        }
+
+        .help-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .help-text {
+            min-width: 0;
+        }
+
+        .help-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 2rem;
+        }
+
+        .help-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .image-placeholder {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            line-height: 1.3;
         }
 
         footer {
@@ -436,10 +474,28 @@
             .meeting-banner ul {
                 font-size: 1rem;
             }
+
             .leadership-grid {
                 grid-template-columns: 1fr;
             }
+
+            .help-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .help-image {
+                order: 2;
+                position: relative;
+                top: 0;
+                aspect-ratio: 16/9;
+            }
+
+            .help-text {
+                order: 1;
+            }
         }
+
         @media (min-width: 769px) and (max-width: 1100px) {
             .leadership-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -524,12 +580,12 @@
                     <div class="leader-title">Secretary</div>
                 </div>
             </div>
-        
+
             <div class="contact-wrapper">
                 <a href="mailto:mtfcca.board@gmail.com" class="contact-box">
                     <p>Contact us at:</p>
                     <span>mtfcca.board@gmail.com</span>
-                </a>     
+                </a>
             </div>
         </div>
 
@@ -543,6 +599,46 @@
                 our marquee fundraising event. We believe that the proven lifelong benefits of running sports and
                 activities form a vital aspect of physical and mental health and wellness for community members of all
                 ages and abilities.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>How You Can Help</h2>
+            <div class="help-content">
+                <div class="help-text">
+                    <p>There is a need for volunteers to continue the success of the MTFCCA. the same core group of
+                        parents have shouldered
+                        the load for many years. A special word of thanks to those parents. Many of these parents no
+                        longer have students
+                        in the program. If we could get a couple parents to volunteer from each grade level, it would
+                        contribute to continuity
+                        and transition from year to year.</p>
+
+                    <h3>Annual Turkey Trot 5K</h3>
+                    <p>Our signature Thanksgiving Day Tonka Turkey Trot 5K is our largest fundraiser of the year! This
+                        beloved
+                        community tradition brings together runners of all ages and abilities for a festive morning of
+                        fitness
+                        and fun. Registration fees directly support our track and field and cross country programs,
+                        helping fund
+                        equipment, coaching staff, facility improvements, and athlete development initiatives.</p>
+
+                    <p>To keep it going on for many years we need your support! A particular need is in the area of
+                        graphic arts, but any and
+                        all skills are welcome. If you can help a little or a lot, please consider helping this year and
+                        for a few years in the future.</p>
+                    <p>For more info about the turkey trot and to sign up go to <a
+                            href="https://www.minnetonkaschools.org/turkey-trot"
+                            style="color: var(--sunbeam); text-decoration: none; font-weight: 600;">
+                            our Turkey Trot page</a> or contact us to sponsor at <a
+                            href="mailto:tonkaturkeytrot@gmail.com"
+                            style="color: var(--sunbeam); text-decoration: none; font-weight: 600;">tonkaturkeytrot@gmail.com</a>.
+                    </p>
+                </div>
+                <div class="help-image">
+                    <img src="images/turkey-trot-logo.webp" alt="Tonka Turkey Trot 5K"
+                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'image-placeholder\'>🦃<br>Turkey Trot 5K</div>'">
+                </div>
+            </div>
         </div>
 
         <div class="content-section">
@@ -563,14 +659,14 @@
                 <li>Pay for the rental of facility for annual banquet</li>
                 <li>Funded new Track & Field and Cross Country Website</li>
                 <li>Founded and organize the annual Thanksgiving Day "Tonka Turkey Trot 5K"</li>
-                <li>Support the ongoing administrative needs of Track & Field and Cross Country teams and coaches
-                    throughout the district</li>
             </ul>
 
             <h3>Current Projects</h3>
             <ul>
                 <li>Donation to "girls run global" - This is a non-profit organization founded by former Minnetonka
                     Cross country and track and field runner</li>
+                <li>Support the ongoing administrative needs of Track & Field and Cross Country teams and coaches
+                    throughout the district</li>
             </ul>
 
             <h3>Future Projects</h3>
