@@ -1390,10 +1390,6 @@
                         loadingMessage.textContent = 'Loading photos...';
                         loadingMessage.style.color = 'var(--sky)';
 
-                        // ===== ADDED DEBUGGING =====
-                        console.log('Opening album:', albumId, albumName);
-                        // ===========================
-
                         let retries = 3;
                         while (retries > 0) {
                             try {
@@ -1411,21 +1407,11 @@
 
                                 response = await fetch(url);
 
-                                // ===== ADDED DEBUGGING =====
-                                console.log('Response status:', response.status);
-                                console.log('Response ok:', response.ok);
-                                // ===========================
-
                                 if (!response.ok) {
                                     throw new Error(`HTTP error! status: ${response.status}`);
                                 }
 
                                 const data = await response.json();
-
-                                // ===== ADDED DEBUGGING =====
-                                console.log('Response data:', data);
-                                console.log('Photos count:', data.photos ? data.photos.length : 0);
-                                // ===========================
 
                                 if (data.success && data.photos) {
                                     loadingMessage.style.display = 'none';
@@ -1470,9 +1456,6 @@
 
                                     return; // Success, exit retry loop
                                 } else {
-                                    // ===== ADDED DEBUGGING =====
-                                    console.error('Response not successful or no photos:', data);
-                                    // ===========================
                                     throw new Error(data.error || 'Unknown error');
                                 }
                             } catch (error) {
@@ -1483,11 +1466,8 @@
                                     loadingMessage.textContent = `Loading photos... (retrying in 1 second)`;
                                     await new Promise(resolve => setTimeout(resolve, 1000));
                                 } else {
-                                    // ===== IMPROVED ERROR MESSAGE =====
-                                    loadingMessage.textContent = `Error: ${error.message}. Check browser console for details.`;
+                                    loadingMessage.textContent = 'Unable to load photos. Please check your connection.';
                                     loadingMessage.style.color = '#ff6b6b';
-                                    console.error('Final error details:', error);
-                                    // ==================================
                                 }
                             }
                         }

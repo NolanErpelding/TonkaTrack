@@ -510,10 +510,25 @@
             z-index: 3001;
         }
 
+        .photo-modal-content-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 100px 20px; /* Space for header and footer */
+        }
+
         .photo-modal-content {
-            max-width: 90%;
-            max-height: 90%;
+            max-width: calc(100vw - 40px);
+            max-height: calc(100vh - 180px);
+            width: auto;
+            height: auto;
             object-fit: contain;
+            border-radius: 8px;
         }
 
         .photo-modal-close {
@@ -566,21 +581,6 @@
             color: var(--black);
             border-color: var(--sunbeam);
             transform: translateY(-2px);
-        }
-
-        .photo-modal-content-wrapper {
-            max-width: 90vw;
-            max-height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .photo-modal-content {
-            max-width: 100%;
-            max-height: 85vh;
-            object-fit: contain;
-            border-radius: 8px;
         }
 
         .photo-modal-caption {
@@ -636,12 +636,13 @@
 
         /* Loading spinner */
         .photo-loading {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             color: var(--white);
             font-size: 2rem;
+            z-index: 3002;
         }
 
         @media (max-width: 768px) {
@@ -672,8 +673,13 @@
                 right: 1rem;
             }
 
+            .photo-modal-content-wrapper {
+                padding: 60px 10px 80px 10px;
+            }
+
             .photo-modal-content {
-                max-height: 80vh;
+                max-width: calc(100vw - 20px);
+                max-height: calc(100vh - 140px);
             }
         }
 
@@ -1143,512 +1149,608 @@
         const TEAM_FILES_FOLDER_ID = '14X4jyyR7Gm25R2uF2Swvd3Ir0_8bN_Jg';  // The folder containing PDFs and documents
         const TEAM_PHOTOS_FOLDER_ID = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1'; // The folder containing photo albums
 
-            async function loadFiles() {
-                const fileListContainer = document.getElementById('file-list');
-                const loadingMessage = document.getElementById('loading-message');
+        async function loadFiles() {
+            const fileListContainer = document.getElementById('file-list');
+            const loadingMessage = document.getElementById('loading-message');
 
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=files&folderId=${TEAM_FILES_FOLDER_ID}`);
+                const data = await response.json();
+
+                if (data.success && data.files) {
+                    loadingMessage.style.display = 'none';
+
+                    if (data.files.length === 0) {
+                        fileListContainer.innerHTML = '<p style="color: var(--sky);">No files available at this time.</p>';
+                        return;
+                    }
+
+                    // Clear existing content
+                    fileListContainer.innerHTML = '';
+
+                    // Create file items
+                    data.files.forEach(file => {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+
+                        // Format file size
+                        const fileSizeKB = (file.size / 1024).toFixed(2);
+                        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                        const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+
+                        fileItem.innerHTML = `
+                        <div>
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-description">${file.description} • ${displaySize}</div>
+                        </div>
+                        <button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">Download</button>
+                    `;
+
+                        fileListContainer.appendChild(fileItem);
+                    });
+                } else {
+                    loadingMessage.textContent = 'Error loading files. Please try again later.';
+                    loadingMessage.style.color = '#ff6b6b';
+                }
+            } catch (error) {
+                console.error('Error fetching files:', error);
+                loadingMessage.textContent = 'Unable to load files. Please check your connection.';
+                loadingMessage.style.color = '#ff6b6b';
+            }
+        }
+
+        // Load files when the page loads
+        document.addEventListener('DOMContentLoaded', loadFiles);
+
+        // Also reload files when switching to the files tab
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Reload files if switching to files tab
+            if (tabName === 'files') {
+                loadFiles();
+            }
+        }
+
+        // Photo Albums functionality
+        const ALBUMS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=photoAlbums';
+        const ALBUM_PHOTOS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=albumPhotos';
+        const ALL_PHOTOS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=allPhotos';
+
+        let currentAlbumId = null;
+        let currentPhotoIndex = 0;
+        let currentPhotosArray = [];
+        let imageCache = new Map();
+
+        // Preload image function
+        function preloadImage(url, fallbackUrl) {
+            if (imageCache.has(url)) {
+                return Promise.resolve();
+            }
+
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+
+                img.onload = () => {
+                    imageCache.set(url, img);
+                    resolve();
+                };
+
+                img.onerror = () => {
+                    // Try fallback if primary fails
+                    if (fallbackUrl && fallbackUrl !== url) {
+                        const fallbackImg = new Image();
+                        fallbackImg.onload = () => {
+                            imageCache.set(url, fallbackImg);
+                            resolve();
+                        };
+                        fallbackImg.onerror = () => reject();
+                        fallbackImg.src = fallbackUrl;
+                    } else {
+                        reject();
+                    }
+                };
+
+                img.src = url;
+            });
+        }
+
+        async function loadPhotoAlbums() {
+            const albumsGrid = document.getElementById('albums-grid');
+            const loadingMessage = document.getElementById('albums-loading-message');
+
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=photoAlbums&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
+                const data = await response.json();
+
+                if (data.success && data.albums) {
+                    loadingMessage.style.display = 'none';
+
+                    if (data.albums.length === 0 && data.allPhotosCount === 0) {
+                        albumsGrid.innerHTML = '<p style="color: var(--sky);">No photo albums yet. Check back soon!</p>';
+                        return;
+                    }
+
+                    albumsGrid.innerHTML = '';
+
+                    // Add "All Photos" album with all photos from everywhere
+                    if (data.allPhotosCount > 0) {
+                        const allPhotosAlbum = createAlbumItem({
+                            id: 'ALL_PHOTOS', // Special ID
+                            name: 'All Photos',
+                            description: `${data.allPhotosCount} photos`,
+                            photoCount: data.allPhotosCount,
+                            coverPhotoUrl: data.allPhotosCover ? `https://drive.google.com/thumbnail?id=${data.allPhotosCover}&sz=w400` : null
+                        });
+                        albumsGrid.appendChild(allPhotosAlbum);
+                    }
+
+                    // Add each subfolder album
+                    data.albums.forEach(album => {
+                        const albumItem = createAlbumItem(album);
+                        albumsGrid.appendChild(albumItem);
+                    });
+                } else {
+                    loadingMessage.textContent = 'Error loading albums. Please try again later.';
+                    loadingMessage.style.color = '#ff6b6b';
+                }
+            } catch (error) {
+                console.error('Error fetching albums:', error);
+                loadingMessage.textContent = 'Unable to load albums. Please check your connection.';
+                loadingMessage.style.color = '#ff6b6b';
+            }
+        }
+
+        // Preload adjacent images for smooth navigation
+        function preloadAdjacentImages(index) {
+            if (index > 0) {
+                preloadImage(currentPhotosArray[index - 1].fullUrl);
+            }
+            if (index < currentPhotosArray.length - 1) {
+                preloadImage(currentPhotosArray[index + 1].fullUrl);
+            }
+        }
+
+
+        function createAlbumItem(album) {
+            const albumItem = document.createElement('div');
+            albumItem.className = 'album-item';
+            albumItem.onclick = () => openAlbum(album.id, album.name);
+
+            const cover = document.createElement('div');
+            cover.className = 'album-cover';
+
+            if (album.coverPhotoUrl) {
+                const img = document.createElement('img');
+                img.src = album.coverPhotoUrl;
+                img.alt = album.name;
+                img.loading = 'lazy';
+                cover.appendChild(img);
+            } else {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'album-cover-placeholder';
+                placeholder.textContent = '📷';
+                cover.appendChild(placeholder);
+            }
+
+            const info = document.createElement('div');
+            info.className = 'album-info';
+
+            const name = document.createElement('div');
+            name.className = 'album-name';
+            name.textContent = album.name;
+
+            const description = document.createElement('div');
+            description.className = 'album-description';
+            description.textContent = album.description;
+
+            info.appendChild(name);
+            info.appendChild(description);
+
+            albumItem.appendChild(cover);
+            albumItem.appendChild(info);
+
+            return albumItem;
+        }
+
+        async function openAlbum(albumId, albumName) {
+            currentAlbumId = albumId;
+
+            document.getElementById('albums-view').style.display = 'none';
+            document.getElementById('album-photos-view').style.display = 'block';
+            document.getElementById('album-title').textContent = albumName;
+
+            const photoGrid = document.getElementById('photo-grid');
+            const loadingMessage = document.getElementById('photos-loading-message');
+
+            photoGrid.innerHTML = '';
+            loadingMessage.style.display = 'block';
+            loadingMessage.textContent = 'Loading photos...';
+            loadingMessage.style.color = 'var(--sky)';
+
+            let retries = 3;
+            while (retries > 0) {
                 try {
-                    const response = await fetch(`${APPS_SCRIPT_URL}?action=files&folderId=${TEAM_FILES_FOLDER_ID}`);
+                    let response;
+                    let url;
+
+                    // Check if this is the "All Photos" album
+                    if (albumId === 'ALL_PHOTOS') {
+                        url = ALL_PHOTOS_SCRIPT_URL;
+                        console.log('Fetching ALL photos from:', url); // DEBUG
+                    } else {
+                        url = `${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`;
+                        console.log('Fetching album photos from:', url); // DEBUG
+                    }
+
+                    response = await fetch(url);
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
                     const data = await response.json();
 
-                    if (data.success && data.files) {
+                    if (data.success && data.photos) {
                         loadingMessage.style.display = 'none';
 
-                        if (data.files.length === 0) {
-                            fileListContainer.innerHTML = '<p style="color: var(--sky);">No files available at this time.</p>';
+                        if (data.photos.length === 0) {
+                            photoGrid.innerHTML = '<p style="color: var(--sky);">No photos in this album yet.</p>';
                             return;
                         }
 
-                        // Clear existing content
-                        fileListContainer.innerHTML = '';
+                        currentPhotosArray = data.photos;
 
-                        // Create file items
-                        data.files.forEach(file => {
-                            const fileItem = document.createElement('div');
-                            fileItem.className = 'file-item';
+                        data.photos.forEach((photo, index) => {
+                            const photoItem = document.createElement('div');
+                            photoItem.className = 'photo-item';
+                            photoItem.onclick = () => openPhotoModal(index);
 
-                            // Format file size
-                            const fileSizeKB = (file.size / 1024).toFixed(2);
-                            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                            const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+                            const img = document.createElement('img');
+                            img.src = photo.thumbnailUrl;
+                            img.alt = photo.name;
+                            img.loading = 'lazy';
 
-                            fileItem.innerHTML = `
-                    <div>
-                        <div class="file-name">${file.name}</div>
-                        <div class="file-description">${file.description} • ${displaySize}</div>
-                    </div>
-                    <button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">Download</button>
-                `;
+                            img.onerror = function () {
+                                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50%" y="50%" font-size="40" text-anchor="middle" dy=".3em">📷</text></svg>';
+                            };
 
-                            fileListContainer.appendChild(fileItem);
+                            photoItem.appendChild(img);
+
+                            if (photo.caption) {
+                                const caption = document.createElement('div');
+                                caption.className = 'photo-caption';
+                                caption.textContent = photo.caption;
+                                photoItem.appendChild(caption);
+                            }
+
+                            photoGrid.appendChild(photoItem);
                         });
+
+                        // Preload first few images with delay
+                        for (let i = 0; i < Math.min(3, data.photos.length); i++) {
+                            setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
+                        }
+
+                        return; // Success, exit retry loop
                     } else {
-                        loadingMessage.textContent = 'Error loading files. Please try again later.';
-                        loadingMessage.style.color = '#ff6b6b';
+                        throw new Error(data.error || 'Unknown error');
                     }
                 } catch (error) {
-                    console.error('Error fetching files:', error);
-                    loadingMessage.textContent = 'Unable to load files. Please check your connection.';
-                    loadingMessage.style.color = '#ff6b6b';
+                    console.error(`Error fetching album photos (${retries} retries left):`, error);
+                    retries--;
+
+                    if (retries > 0) {
+                        loadingMessage.textContent = `Loading photos... (retrying in 1 second)`;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    } else {
+                        loadingMessage.textContent = 'Unable to load photos. Please check your connection.';
+                        loadingMessage.style.color = '#ff6b6b';
+                    }
                 }
             }
+        }
 
-            // Load files when the page loads
-            document.addEventListener('DOMContentLoaded', loadFiles);
+        function backToAlbums() {
+            document.getElementById('albums-view').style.display = 'block';
+            document.getElementById('album-photos-view').style.display = 'none';
+            currentAlbumId = null;
+            currentPhotosArray = [];
+        }
 
-            // Also reload files when switching to the files tab
-            function showTab(tabName) {
-                // Hide all tabs
-                const tabs = document.querySelectorAll('.tab-content');
-                tabs.forEach(tab => tab.classList.remove('active'));
+        async function openPhotoModal(index) {
+            currentPhotoIndex = index;
+            const photo = currentPhotosArray[index];
 
-                // Remove active class from all buttons
-                const buttons = document.querySelectorAll('.tab-button');
-                buttons.forEach(button => button.classList.remove('active'));
+            const modal = document.getElementById('photo-modal');
+            const modalImg = document.getElementById('modal-image');
+            const modalCaption = document.getElementById('modal-caption');
+            const loading = document.getElementById('photo-loading');
+            const downloadBtn = document.getElementById('download-btn');
+            const shareBtn = document.getElementById('share-btn');
 
-                // Show selected tab
-                document.getElementById(tabName + '-tab').classList.add('active');
+            // Hide navbar
+            document.querySelector('.nav-bar').style.display = 'none';
 
-                // Add active class to clicked button
-                event.target.classList.add('active');
+            // Prevent body scroll
+            document.body.classList.add('modal-open');
 
-                // Reload files if switching to files tab
-                if (tabName === 'files') {
-                    loadFiles();
-                }
-            }
+            modal.classList.add('active');
+            modalImg.style.display = 'none';
+            loading.style.display = 'block';
+            loading.textContent = 'Loading high-resolution image...';
 
-            // Photo Albums functionality
-                const ALBUMS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=photoAlbums';
-                const ALBUM_PHOTOS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=albumPhotos';
-                const ALL_PHOTOS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=allPhotos';
+            // Show/hide navigation arrows
+            document.getElementById('prev-photo').style.display = index > 0 ? 'flex' : 'none';
+            document.getElementById('next-photo').style.display = index < currentPhotosArray.length - 1 ? 'flex' : 'none';
 
-                let currentAlbumId = null;
-                let currentPhotoIndex = 0;
-                let currentPhotosArray = [];
-                let imageCache = new Map();
+            // Set up download button
+            downloadBtn.onclick = () => downloadPhoto(photo.downloadUrl, photo.name);
 
-                // Preload image function
-                function preloadImage(url, fallbackUrl) {
-                    if (imageCache.has(url)) {
-                        return Promise.resolve();
+            // Set up share button
+            shareBtn.onclick = () => sharePhoto(photo);
+
+            // Try multiple URL formats for loading
+            const urlsToTry = [
+                { url: photo.fullUrl, timeout: 60000, label: 'high-resolution image' }, // 60 seconds for main image
+                { url: photo.fallbackUrl, timeout: 30000, label: 'alternate source' },
+                { url: photo.downloadUrl, timeout: 30000, label: 'download source' },
+                { url: photo.thumbnailUrl, timeout: 15000, label: 'preview image' }
+            ].filter(item => item.url); // Remove any undefined URLs
+
+            let imageLoaded = false;
+            let currentUrlIndex = 0;
+
+            // Progress indicator for first image
+            let progressInterval;
+            let secondsElapsed = 0;
+
+            while (currentUrlIndex < urlsToTry.length && !imageLoaded) {
+                const currentItem = urlsToTry[currentUrlIndex];
+                const currentUrl = currentItem.url;
+
+                try {
+                    // Check cache first
+                    if (imageCache.has(currentUrl)) {
+                        modalImg.src = currentUrl;
+                        modalImg.style.display = 'block';
+                        loading.style.display = 'none';
+                        imageLoaded = true;
+                        break;
                     }
 
-                    return new Promise((resolve, reject) => {
+                    // Show appropriate loading message
+                    if (currentUrlIndex === 0) {
+                        loading.textContent = 'Loading high-resolution image...';
+                        loading.style.color = 'var(--white)';
+
+                        // Start progress indicator for first image only
+                        secondsElapsed = 0;
+                        progressInterval = setInterval(() => {
+                            secondsElapsed++;
+                            loading.textContent = `Loading high-resolution image... (${secondsElapsed}s)`;
+                        }, 1000);
+                    } else {
+                        loading.textContent = `Trying ${currentItem.label}... (${currentUrlIndex + 1}/${urlsToTry.length})`;
+                        loading.style.color = 'var(--white)';
+                    }
+
+                    await new Promise((resolve, reject) => {
                         const img = new Image();
+                        const timeout = setTimeout(() => {
+                            reject(new Error('Image load timeout'));
+                        }, currentItem.timeout);
 
                         img.onload = () => {
-                            imageCache.set(url, img);
+                            clearTimeout(timeout);
+                            if (progressInterval) {
+                                clearInterval(progressInterval);
+                                progressInterval = null;
+                            }
+                            imageCache.set(currentUrl, img);
                             resolve();
                         };
 
                         img.onerror = () => {
-                            // Try fallback if primary fails
-                            if (fallbackUrl && fallbackUrl !== url) {
-                                const fallbackImg = new Image();
-                                fallbackImg.onload = () => {
-                                    imageCache.set(url, fallbackImg);
-                                    resolve();
-                                };
-                                fallbackImg.onerror = () => reject();
-                                fallbackImg.src = fallbackUrl;
-                            } else {
-                                reject();
+                            clearTimeout(timeout);
+                            if (progressInterval) {
+                                clearInterval(progressInterval);
+                                progressInterval = null;
                             }
+                            reject(new Error('Image load failed'));
                         };
 
-                        img.src = url;
+                        img.src = currentUrl;
                     });
-                }
 
-                async function loadPhotoAlbums() {
-                    const albumsGrid = document.getElementById('albums-grid');
-                    const loadingMessage = document.getElementById('albums-loading-message');
+                    // If we get here, image loaded successfully
+                    if (progressInterval) {
+                        clearInterval(progressInterval);
+                        progressInterval = null;
+                    }
 
-                    try {
-                        const response = await fetch(`${APPS_SCRIPT_URL}?action=photoAlbums&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
-                        const data = await response.json();
+                    modalImg.src = currentUrl;
 
-                        if (data.success && data.albums) {
-                            loadingMessage.style.display = 'none';
+                    // Force the image to take maximum space
+                    modalImg.onload = function () {
+                        const windowWidth = window.innerWidth;
+                        const windowHeight = window.innerHeight;
+                        const availableHeight = windowHeight - 180; // Account for header/footer
+                        const availableWidth = windowWidth - 40; // Account for padding
 
-                            if (data.albums.length === 0 && data.allPhotosCount === 0) {
-                                albumsGrid.innerHTML = '<p style="color: var(--sky);">No photo albums yet. Check back soon!</p>';
-                                return;
-                            }
+                        const imgRatio = this.naturalWidth / this.naturalHeight;
+                        const viewportRatio = availableWidth / availableHeight;
 
-                            albumsGrid.innerHTML = '';
-
-                            // Add "All Photos" album with all photos from everywhere
-                            if (data.allPhotosCount > 0) {
-                                const allPhotosAlbum = createAlbumItem({
-                                    id: 'ALL_PHOTOS', // Special ID
-                                    name: 'All Photos',
-                                    description: `${data.allPhotosCount} photos`,
-                                    photoCount: data.allPhotosCount,
-                                    coverPhotoUrl: data.allPhotosCover ? `https://drive.google.com/thumbnail?id=${data.allPhotosCover}&sz=w400` : null
-                                });
-                                albumsGrid.appendChild(allPhotosAlbum);
-                            }
-
-                            // Add each subfolder album
-                            data.albums.forEach(album => {
-                                const albumItem = createAlbumItem(album);
-                                albumsGrid.appendChild(albumItem);
-                            });
+                        if (imgRatio > viewportRatio) {
+                            // Image is wider - fit to width
+                            this.style.width = availableWidth + 'px';
+                            this.style.height = 'auto';
                         } else {
-                            loadingMessage.textContent = 'Error loading albums. Please try again later.';
-                            loadingMessage.style.color = '#ff6b6b';
+                            // Image is taller - fit to height
+                            this.style.height = availableHeight + 'px';
+                            this.style.width = 'auto';
                         }
-                    } catch (error) {
-                        console.error('Error fetching albums:', error);
-                        loadingMessage.textContent = 'Unable to load albums. Please check your connection.';
-                        loadingMessage.style.color = '#ff6b6b';
-                    }
-                }
-
-                // Preload adjacent images for smooth navigation
-                function preloadAdjacentImages(index) {
-                    if (index > 0) {
-                        preloadImage(currentPhotosArray[index - 1].fullUrl);
-                    }
-                    if (index < currentPhotosArray.length - 1) {
-                        preloadImage(currentPhotosArray[index + 1].fullUrl);
-                    }
-                }
-
-
-                function createAlbumItem(album) {
-                    const albumItem = document.createElement('div');
-                    albumItem.className = 'album-item';
-                    albumItem.onclick = () => openAlbum(album.id, album.name);
-
-                    const cover = document.createElement('div');
-                    cover.className = 'album-cover';
-
-                    if (album.coverPhotoUrl) {
-                        const img = document.createElement('img');
-                        img.src = album.coverPhotoUrl;
-                        img.alt = album.name;
-                        img.loading = 'lazy';
-                        cover.appendChild(img);
-                    } else {
-                        const placeholder = document.createElement('div');
-                        placeholder.className = 'album-cover-placeholder';
-                        placeholder.textContent = '📷';
-                        cover.appendChild(placeholder);
-                    }
-
-                    const info = document.createElement('div');
-                    info.className = 'album-info';
-
-                    const name = document.createElement('div');
-                    name.className = 'album-name';
-                    name.textContent = album.name;
-
-                    const description = document.createElement('div');
-                    description.className = 'album-description';
-                    description.textContent = album.description;
-
-                    info.appendChild(name);
-                    info.appendChild(description);
-
-                    albumItem.appendChild(cover);
-                    albumItem.appendChild(info);
-
-                    return albumItem;
-                }
-
-                async function openAlbum(albumId, albumName) {
-                    currentAlbumId = albumId;
-
-                    document.getElementById('albums-view').style.display = 'none';
-                    document.getElementById('album-photos-view').style.display = 'block';
-                    document.getElementById('album-title').textContent = albumName;
-
-                    const photoGrid = document.getElementById('photo-grid');
-                    const loadingMessage = document.getElementById('photos-loading-message');
-
-                    photoGrid.innerHTML = '';
-                    loadingMessage.style.display = 'block';
-                    loadingMessage.textContent = 'Loading photos...';
-                    loadingMessage.style.color = 'var(--sky)';
-
-                    let retries = 3;
-                    while (retries > 0) {
-                        try {
-                            let response;
-
-                            // Check if this is the "All Photos" album
-                            if (albumId === 'ALL_PHOTOS') {
-                                response = await fetch(`${APPS_SCRIPT_URL}?action=allPhotos&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
-                            } else {
-                                response = await fetch(`${APPS_SCRIPT_URL}?action=albumPhotos&albumId=${albumId}`);
-                            }
-
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-
-                            const data = await response.json();
-
-                            if (data.success && data.photos) {
-                                loadingMessage.style.display = 'none';
-
-                                if (data.photos.length === 0) {
-                                    photoGrid.innerHTML = '<p style="color: var(--sky);">No photos in this album yet.</p>';
-                                    return;
-                                }
-
-                                currentPhotosArray = data.photos;
-
-                                data.photos.forEach((photo, index) => {
-                                    const photoItem = document.createElement('div');
-                                    photoItem.className = 'photo-item';
-                                    photoItem.onclick = () => openPhotoModal(index);
-
-                                    const img = document.createElement('img');
-                                    img.src = photo.thumbnailUrl;
-                                    img.alt = photo.name;
-                                    img.loading = 'lazy';
-
-                                    // Add error handling for thumbnails
-                                    img.onerror = function () {
-                                        this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50%" y="50%" font-size="40" text-anchor="middle" dy=".3em">📷</text></svg>';
-                                    };
-
-                                    photoItem.appendChild(img);
-
-                                    if (photo.caption) {
-                                        const caption = document.createElement('div');
-                                        caption.className = 'photo-caption';
-                                        caption.textContent = photo.caption;
-                                        photoItem.appendChild(caption);
-                                    }
-
-                                    photoGrid.appendChild(photoItem);
-                                });
-
-                                // Preload first few images with delay
-                                for (let i = 0; i < Math.min(3, data.photos.length); i++) {
-                                    setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
-                                }
-
-                                return; // Success, exit retry loop
-                            } else {
-                                throw new Error(data.error || 'Unknown error');
-                            }
-                        } catch (error) {
-                            console.error(`Error fetching album photos (${retries} retries left):`, error);
-                            retries--;
-
-                            if (retries > 0) {
-                                loadingMessage.textContent = `Loading photos... (retrying)`;
-                                await new Promise(resolve => setTimeout(resolve, 1000));
-                            } else {
-                                loadingMessage.textContent = 'Error loading photos. Please try again later.';
-                                loadingMessage.style.color = '#ff6b6b';
-                            }
-                        }
-                    }
-                }
-
-                function backToAlbums() {
-                    document.getElementById('albums-view').style.display = 'block';
-                    document.getElementById('album-photos-view').style.display = 'none';
-                    currentAlbumId = null;
-                    currentPhotosArray = [];
-                }
-
-                async function openPhotoModal(index) {
-                    currentPhotoIndex = index;
-                    const photo = currentPhotosArray[index];
-
-                    const modal = document.getElementById('photo-modal');
-                    const modalImg = document.getElementById('modal-image');
-                    const modalCaption = document.getElementById('modal-caption');
-                    const loading = document.getElementById('photo-loading');
-                    const downloadBtn = document.getElementById('download-btn');
-                    const shareBtn = document.getElementById('share-btn');
-
-                    // Hide navbar
-                    document.querySelector('.nav-bar').style.display = 'none';
-
-                    // Prevent body scroll
-                    document.body.classList.add('modal-open');
-
-                    modal.classList.add('active');
-                    modalImg.style.display = 'none';
-                    loading.style.display = 'block';
-                    loading.textContent = 'Loading...';
-
-                    // Show/hide navigation arrows
-                    document.getElementById('prev-photo').style.display = index > 0 ? 'flex' : 'none';
-                    document.getElementById('next-photo').style.display = index < currentPhotosArray.length - 1 ? 'flex' : 'none';
-
-                    // Set up download button
-                    downloadBtn.onclick = () => downloadPhoto(photo.downloadUrl, photo.name);
-
-                    // Set up share button
-                    shareBtn.onclick = () => sharePhoto(photo);
-
-                    // Load full resolution image with retries
-                    let retries = 3;
-                    let imageLoaded = false;
-
-                    while (retries > 0 && !imageLoaded) {
-                        try {
-                            // Try using cached image first
-                            if (imageCache.has(photo.fullUrl)) {
-                                modalImg.src = photo.fullUrl;
-                                modalImg.style.display = 'block';
-                                loading.style.display = 'none';
-                                imageLoaded = true;
-                            } else {
-                                // Load new image
-                                const img = new Image();
-
-                                await new Promise((resolve, reject) => {
-                                    const timeout = setTimeout(() => {
-                                        reject(new Error('Image load timeout'));
-                                    }, 10000); // 10 second timeout
-
-                                    img.onload = () => {
-                                        clearTimeout(timeout);
-                                        imageCache.set(photo.fullUrl, img);
-                                        resolve();
-                                    };
-
-                                    img.onerror = () => {
-                                        clearTimeout(timeout);
-                                        reject(new Error('Image load failed'));
-                                    };
-
-                                    img.src = photo.fullUrl;
-                                });
-
-                                modalImg.src = photo.fullUrl;
-                                modalImg.style.display = 'block';
-                                loading.style.display = 'none';
-                                imageLoaded = true;
-                            }
-
-                            // Preload adjacent images with delay
-                            setTimeout(() => preloadAdjacentImages(index), 500);
-
-                        } catch (error) {
-                            console.error(`Error loading photo (${retries} retries left):`, error);
-                            retries--;
-
-                            if (retries > 0) {
-                                loading.textContent = 'Loading... (retrying)';
-                                await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
-                            } else {
-                                // Final fallback: try to show thumbnail
-                                loading.textContent = 'Loading full image failed, showing preview...';
-                                modalImg.src = photo.thumbnailUrl;
-                                modalImg.style.display = 'block';
-
-                                setTimeout(() => {
-                                    loading.style.display = 'none';
-                                }, 2000);
-                            }
-                        }
-                    }
-
-                    // Set caption
-                    if (photo.caption) {
-                        modalCaption.textContent = photo.caption;
-                        modalCaption.style.display = 'block';
-                    } else {
-                        modalCaption.style.display = 'none';
-                    }
-                }
-
-                function navigatePhoto(direction) {
-                    const newIndex = currentPhotoIndex + direction;
-                    if (newIndex >= 0 && newIndex < currentPhotosArray.length) {
-                        openPhotoModal(newIndex);
-                    }
-                }
-
-                function closePhotoModal() {
-                    const modal = document.getElementById('photo-modal');
-                    modal.classList.remove('active');
-
-                    // Show navbar again
-                    document.querySelector('.nav-bar').style.display = 'block';
-
-                    // Re-enable body scroll
-                    document.body.classList.remove('modal-open');
-                }
-
-                function downloadPhoto(url, filename) {
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = filename;
-                    a.target = '_blank';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }
-
-                async function sharePhoto(photo) {
-                    const shareData = {
-                        title: photo.name,
-                        text: photo.caption || 'Check out this photo from Tonka Track!',
-                        url: photo.fullUrl
                     };
 
-                    try {
-                        if (navigator.share) {
-                            // Use native share if available (mobile)
-                            await navigator.share(shareData);
-                        } else {
-                            // Fallback: Copy link to clipboard
-                            await navigator.clipboard.writeText(photo.fullUrl);
-                            alert('Link copied to clipboard!');
-                        }
-                    } catch (error) {
-                        console.error('Error sharing:', error);
-                        // Fallback: show share URL
-                        prompt('Copy this link to share:', photo.fullUrl);
+                    modalImg.style.display = 'block';
+                    loading.style.display = 'none';
+                    imageLoaded = true;
+
+                    // Show success message briefly if it took a while
+                    if (currentUrlIndex === 0 && secondsElapsed > 5) {
+                        const successMsg = document.createElement('div');
+                        successMsg.style.cssText = `
+                                            position: fixed;
+                                            top: 80px;
+                                            left: 50%;
+                                            transform: translateX(-50%);
+                                            background: var(--sunbeam);
+                                            color: var(--black);
+                                            padding: 0.75rem 1.5rem;
+                                            border-radius: 8px;
+                                            font-weight: 600;
+                                            z-index: 3002;
+                                        `;
+                        successMsg.textContent = 'Image loaded!';
+                        document.body.appendChild(successMsg);
+
+                        setTimeout(() => {
+                            successMsg.remove();
+                        }, 2000);
+                    }
+
+                    // Preload adjacent images
+                    setTimeout(() => preloadAdjacentImages(index), 500);
+
+                } catch (error) {
+                    console.error(`Failed to load image from ${currentItem.label}:`, error);
+
+                    // Clear progress interval if it exists
+                    if (progressInterval) {
+                        clearInterval(progressInterval);
+                        progressInterval = null;
+                    }
+
+                    currentUrlIndex++;
+
+                    // If this was the last URL, show error
+                    if (currentUrlIndex >= urlsToTry.length) {
+                        loading.textContent = 'Unable to load image. Please try again later.';
+                        loading.style.color = '#ff6b6b';
+
+                        // Keep loading message visible for 3 seconds
+                        setTimeout(() => {
+                            loading.style.display = 'none';
+                        }, 3000);
                     }
                 }
+            }
 
-                // Keyboard navigation
-                document.addEventListener('keydown', (e) => {
-                    const modal = document.getElementById('photo-modal');
-                    if (modal.classList.contains('active')) {
-                        if (e.key === 'Escape') {
-                            closePhotoModal();
-                        } else if (e.key === 'ArrowLeft') {
-                            navigatePhoto(-1);
-                        } else if (e.key === 'ArrowRight') {
-                            navigatePhoto(1);
-                        }
-                    }
-                });
+            // Set caption
+            if (photo.caption) {
+                modalCaption.textContent = photo.caption;
+                modalCaption.style.display = 'block';
+            } else {
+                modalCaption.style.display = 'none';
+            }
+        }
 
-                // Update showTab function
-                function showTab(tabName) {
-                    const tabs = document.querySelectorAll('.tab-content');
-                    tabs.forEach(tab => tab.classList.remove('active'));
+        function navigatePhoto(direction) {
+            const newIndex = currentPhotoIndex + direction;
+            if (newIndex >= 0 && newIndex < currentPhotosArray.length) {
+                openPhotoModal(newIndex);
+            }
+        }
 
-                    const buttons = document.querySelectorAll('.tab-button');
-                    buttons.forEach(button => button.classList.remove('active'));
+        function closePhotoModal() {
+            const modal = document.getElementById('photo-modal');
+            modal.classList.remove('active');
 
-                    document.getElementById(tabName + '-tab').classList.add('active');
-                    event.target.classList.add('active');
+            // Show navbar again
+            document.querySelector('.nav-bar').style.display = 'block';
 
-                    if (tabName === 'files') {
-                        loadFiles();
-                    } else if (tabName === 'photos') {
-                        document.getElementById('albums-view').style.display = 'block';
-                        document.getElementById('album-photos-view').style.display = 'none';
-                        loadPhotoAlbums();
-                    }
+            // Re-enable body scroll
+            document.body.classList.remove('modal-open');
+        }
+
+        function downloadPhoto(url, filename) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        async function sharePhoto(photo) {
+            const shareData = {
+                title: photo.name,
+                text: photo.caption || 'Check out this photo from Tonka Track!',
+                url: photo.fullUrl
+            };
+
+            try {
+                if (navigator.share) {
+                    // Use native share if available (mobile)
+                    await navigator.share(shareData);
+                } else {
+                    // Fallback: Copy link to clipboard
+                    await navigator.clipboard.writeText(photo.fullUrl);
+                    alert('Link copied to clipboard!');
                 }
+            } catch (error) {
+                console.error('Error sharing:', error);
+                // Fallback: show share URL
+                prompt('Copy this link to share:', photo.fullUrl);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('photo-modal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closePhotoModal();
+                } else if (e.key === 'ArrowLeft') {
+                    navigatePhoto(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigatePhoto(1);
+                }
+            }
+        });
+
+        // Update showTab function
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'files') {
+                loadFiles();
+            } else if (tabName === 'photos') {
+                document.getElementById('albums-view').style.display = 'block';
+                document.getElementById('album-photos-view').style.display = 'none';
+                loadPhotoAlbums();
+            }
+        }
 
 
     </script>
