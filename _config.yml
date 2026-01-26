@@ -1,8 +1,8 @@
 # _config.yml
 title: Tonka Track & Field
 description: Building champions, one stride at a time
-baseurl: ""
-url: ""
+baseurl: "/TonkaTrack"
+url: "https://nolanerpelding.github.io"
 
 # Permalink style (removes .html)
 permalink: pretty
