@@ -290,8 +290,9 @@ function createPhotoObject(file) {
     name: file.getName(),
     caption: file.getDescription() || '',
     thumbnailUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`,
-    fullUrl: `https://drive.google.com/uc?export=view&id=${fileId}`,
-    downloadUrl: file.getDownloadUrl(),
+    fullUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`,
+    fallbackUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1200`,
+    downloadUrl: `https://drive.google.com/uc?id=${fileId}&export=download`,
     lastModified: file.getLastUpdated().toISOString()
   };
 }
