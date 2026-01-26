@@ -1,211 +1,116 @@
-// Universal Google Apps Script for Team Files & Photos
-// This script can be used by all teams by passing different folder IDs
+// Google Apps Script - Code.gs
+// This script works with your existing HTML without any changes
 
 function doGet(e) {
   const action = e.parameter.action;
-  const folderId = e.parameter.folderId;
-  
-  // Validate that folderId is provided for actions that need it
-  if (!folderId && action !== 'test') {
-    return ContentService.createTextOutput(
-      JSON.stringify({
-        success: false,
-        error: 'Missing folderId parameter'
-      })
-    ).setMimeType(ContentService.MimeType.JSON);
-  }
   
   try {
-    let result;
-    
-    switch(action) {
-      case 'files':
-        result = getTeamFiles(folderId);
-        break;
-      case 'photoAlbums':
-        result = getPhotoAlbums(folderId);
-        break;
-      case 'albumPhotos':
-        const albumId = e.parameter.albumId;
-        if (!albumId) {
-          return ContentService.createTextOutput(
-            JSON.stringify({
-              success: false,
-              error: 'Missing albumId parameter'
-            })
-          ).setMimeType(ContentService.MimeType.JSON);
-        }
-        result = getAlbumPhotos(albumId);
-        break;
-      case 'allPhotos':
-        result = getAllPhotos(folderId);
-        break;
-      case 'test':
-        result = { success: true, message: 'Script is working!' };
-        break;
-      default:
-        result = {
-          success: false,
-          error: 'Invalid action. Use: files, photoAlbums, albumPhotos, allPhotos, or test'
-        };
+    if (action === 'photoAlbums') {
+      const photosFolderId = e.parameter.photosFolderId;
+      return getPhotoAlbums(photosFolderId);
+    } else if (action === 'albumPhotos') {
+      // Accept BOTH folderId and albumId for compatibility
+      const folderId = e.parameter.folderId || e.parameter.albumId;
+      return getAlbumPhotos(folderId);
+    } else if (action === 'allPhotos') {
+      const photosFolderId = e.parameter.photosFolderId;
+      return getAllPhotos(photosFolderId);
+    } else if (action === 'files') {
+      const filesFolderId = e.parameter.filesFolderId;
+      return getFiles(filesFolderId);
+    } else {
+      // Default action - backward compatibility with old URL format
+      const filesFolderId = e.parameter.filesFolderId;
+      return getFiles(filesFolderId);
     }
-    
-    return ContentService.createTextOutput(JSON.stringify(result))
-      .setMimeType(ContentService.MimeType.JSON);
-      
   } catch (error) {
-    return ContentService.createTextOutput(
-      JSON.stringify({
-        success: false,
-        error: error.toString()
-      })
-    ).setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-// Get all files from the specified folder
-function getTeamFiles(folderId) {
-  try {
-    const folder = DriveApp.getFolderById(folderId);
-    const files = folder.getFiles();
-    const fileList = [];
-    
-    while (files.hasNext()) {
-      const file = files.next();
-      const mimeType = file.getMimeType();
-      
-      // Only include PDF and common document types
-      if (mimeType === 'application/pdf' || 
-          mimeType === 'application/vnd.google-apps.document' ||
-          mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-          mimeType === 'application/msword') {
-        
-        fileList.push({
-          name: file.getName(),
-          description: file.getDescription() || 'Team document',
-          size: file.getSize(),
-          mimeType: mimeType,
-          downloadUrl: file.getDownloadUrl(),
-          lastModified: file.getLastUpdated().toISOString()
-        });
-      }
-    }
-    
-    // Sort by last modified date (newest first)
-    fileList.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
-    
-    return {
-      success: true,
-      files: fileList
-    };
-    
-  } catch (error) {
-    return {
+    return ContentService.createTextOutput(JSON.stringify({
       success: false,
       error: error.toString()
-    };
+    })).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// Get photo albums (subfolders) from the specified photos folder
+// Get list of photo albums (subfolders in Photos folder)
 function getPhotoAlbums(photosFolderId) {
   try {
+    if (!photosFolderId) {
+      throw new Error('Missing photosFolderId parameter');
+    }
+    
     const photosFolder = DriveApp.getFolderById(photosFolderId);
     const subfolders = photosFolder.getFolders();
     const albums = [];
+    let totalPhotosCount = 0;
+    let firstPhotoId = null;
     
-    let allPhotosCount = 0;
-    let allPhotosCover = null;
-    
-    // Get all photos directly in the main photos folder for "All Photos"
-    const allPhotosInMain = photosFolder.getFilesByType(MimeType.JPEG);
-    const pngPhotos = photosFolder.getFilesByType(MimeType.PNG);
-    
-    while (allPhotosInMain.hasNext()) {
-      const photo = allPhotosInMain.next();
-      allPhotosCount++;
-      if (!allPhotosCover) {
-        allPhotosCover = photo.getId();
-      }
-    }
-    
-    while (pngPhotos.hasNext()) {
-      const photo = pngPhotos.next();
-      allPhotosCount++;
-      if (!allPhotosCover) {
-        allPhotosCover = photo.getId();
-      }
-    }
-    
-    // Process each subfolder as an album
     while (subfolders.hasNext()) {
       const folder = subfolders.next();
+      const folderId = folder.getId();
       const folderName = folder.getName();
       
-      // Count photos in this album
-      const jpegFiles = folder.getFilesByType(MimeType.JPEG);
-      const pngFiles = folder.getFilesByType(MimeType.PNG);
+      // Get photos in this folder
+      const photos = folder.getFilesByType(MimeType.JPEG);
+      const pngPhotos = folder.getFilesByType(MimeType.PNG);
       
       let photoCount = 0;
       let coverPhotoId = null;
       
-      while (jpegFiles.hasNext()) {
-        const file = jpegFiles.next();
+      // Count JPEG photos
+      while (photos.hasNext()) {
+        const photo = photos.next();
         photoCount++;
-        allPhotosCount++;
-        if (!coverPhotoId) {
-          coverPhotoId = file.getId();
-        }
-        if (!allPhotosCover) {
-          allPhotosCover = file.getId();
-        }
+        totalPhotosCount++;
+        if (!coverPhotoId) coverPhotoId = photo.getId();
+        if (!firstPhotoId) firstPhotoId = photo.getId();
       }
       
-      while (pngFiles.hasNext()) {
-        const file = pngFiles.next();
+      // Count PNG photos
+      while (pngPhotos.hasNext()) {
+        const photo = pngPhotos.next();
         photoCount++;
-        allPhotosCount++;
-        if (!coverPhotoId) {
-          coverPhotoId = file.getId();
-        }
-        if (!allPhotosCover) {
-          allPhotosCover = file.getId();
-        }
+        totalPhotosCount++;
+        if (!coverPhotoId) coverPhotoId = photo.getId();
+        if (!firstPhotoId) firstPhotoId = photo.getId();
       }
       
       if (photoCount > 0) {
         albums.push({
-          id: folder.getId(),
+          id: folderId,
           name: folderName,
           description: `${photoCount} photo${photoCount !== 1 ? 's' : ''}`,
           photoCount: photoCount,
-          coverPhotoUrl: coverPhotoId ? `https://drive.google.com/thumbnail?id=${coverPhotoId}&sz=w400` : null
+          coverPhotoUrl: coverPhotoId
         });
       }
     }
     
-    // Sort albums by name
-    albums.sort((a, b) => a.name.localeCompare(b.name));
+    // Sort albums by name (newest first, assuming date format in name)
+    albums.sort((a, b) => b.name.localeCompare(a.name));
     
-    return {
+    return ContentService.createTextOutput(JSON.stringify({
       success: true,
       albums: albums,
-      allPhotosCount: allPhotosCount,
-      allPhotosCover: allPhotosCover
-    };
+      allPhotosCount: totalPhotosCount,
+      allPhotosCover: firstPhotoId
+    })).setMimeType(ContentService.MimeType.JSON);
     
   } catch (error) {
-    return {
+    return ContentService.createTextOutput(JSON.stringify({
       success: false,
       error: error.toString()
-    };
+    })).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// Get all photos from a specific album (subfolder)
-function getAlbumPhotos(albumId) {
+// Get photos from a specific album
+function getAlbumPhotos(folderId) {
   try {
-    const folder = DriveApp.getFolderById(albumId);
+    if (!folderId) {
+      throw new Error('Missing folderId parameter');
+    }
+    
+    const folder = DriveApp.getFolderById(folderId);
     const photos = [];
     
     // Get JPEG files
@@ -222,85 +127,118 @@ function getAlbumPhotos(albumId) {
       photos.push(createPhotoObject(file));
     }
     
-    // Sort by name
+    // Sort photos by name
     photos.sort((a, b) => a.name.localeCompare(b.name));
     
-    return {
+    return ContentService.createTextOutput(JSON.stringify({
       success: true,
-      photos: photos
-    };
+      photos: photos,
+      count: photos.length
+    })).setMimeType(ContentService.MimeType.JSON);
     
   } catch (error) {
-    return {
+    return ContentService.createTextOutput(JSON.stringify({
       success: false,
-      error: error.toString()
-    };
+      error: error.toString(),
+      folderId: folderId
+    })).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// Get all photos from the main folder and all subfolders
+// Get all photos from all subfolders
 function getAllPhotos(photosFolderId) {
   try {
+    if (!photosFolderId) {
+      throw new Error('Missing photosFolderId parameter');
+    }
+    
     const photosFolder = DriveApp.getFolderById(photosFolderId);
-    const photos = [];
-    
-    // Get photos from main folder
-    const jpegFiles = photosFolder.getFilesByType(MimeType.JPEG);
-    while (jpegFiles.hasNext()) {
-      const file = jpegFiles.next();
-      photos.push(createPhotoObject(file));
-    }
-    
-    const pngFiles = photosFolder.getFilesByType(MimeType.PNG);
-    while (pngFiles.hasNext()) {
-      const file = pngFiles.next();
-      photos.push(createPhotoObject(file));
-    }
-    
-    // Get photos from all subfolders
+    const allPhotos = [];
     const subfolders = photosFolder.getFolders();
+    
+    // Iterate through all subfolders
     while (subfolders.hasNext()) {
       const folder = subfolders.next();
       
-      const subJpegFiles = folder.getFilesByType(MimeType.JPEG);
-      while (subJpegFiles.hasNext()) {
-        const file = subJpegFiles.next();
-        photos.push(createPhotoObject(file));
+      // Get JPEG files
+      const jpegFiles = folder.getFilesByType(MimeType.JPEG);
+      while (jpegFiles.hasNext()) {
+        const file = jpegFiles.next();
+        allPhotos.push(createPhotoObject(file));
       }
       
-      const subPngFiles = folder.getFilesByType(MimeType.PNG);
-      while (subPngFiles.hasNext()) {
-        const file = subPngFiles.next();
-        photos.push(createPhotoObject(file));
+      // Get PNG files
+      const pngFiles = folder.getFilesByType(MimeType.PNG);
+      while (pngFiles.hasNext()) {
+        const file = pngFiles.next();
+        allPhotos.push(createPhotoObject(file));
       }
     }
     
-    // Sort by date modified (newest first)
-    photos.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
+    // Sort by date (newest first)
+    allPhotos.sort((a, b) => b.name.localeCompare(a.name));
     
-    return {
+    return ContentService.createTextOutput(JSON.stringify({
       success: true,
-      photos: photos
-    };
+      photos: allPhotos,
+      count: allPhotos.length
+    })).setMimeType(ContentService.MimeType.JSON);
     
   } catch (error) {
-    return {
+    return ContentService.createTextOutput(JSON.stringify({
       success: false,
       error: error.toString()
-    };
+    })).setMimeType(ContentService.MimeType.JSON);
   }
 }
 
 // Helper function to create photo object
 function createPhotoObject(file) {
   const fileId = file.getId();
+  const fileName = file.getName();
+  
   return {
     id: fileId,
-    name: file.getName(),
-    caption: file.getDescription() || '',
+    name: fileName,
     thumbnailUrl: `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`,
     fullUrl: `https://drive.google.com/uc?export=view&id=${fileId}`,
-    downloadUrl: file.getDownloadUrl(),
-    lastModified: file.getLastUpdated().toISOString()
+    downloadUrl: `https://drive.google.com/uc?export=download&id=${fileId}`,
+    fallbackUrl: `https://drive.google.com/uc?export=view&id=${fileId}`,
+    caption: fileName.replace(/\.(jpg|jpeg|png)$/i, '').replace(/[-_]/g, ' ')
   };
+}
+
+// Get files from Files folder
+function getFiles(filesFolderId) {
+  try {
+    if (!filesFolderId) {
+      throw new Error('Missing filesFolderId parameter');
+    }
+    
+    const folder = DriveApp.getFolderById(filesFolderId);
+    const files = folder.getFiles();
+    const fileList = [];
+    
+    while (files.hasNext()) {
+      const file = files.next();
+      fileList.push({
+        name: file.getName(),
+        description: file.getDescription() || 'No description',
+        size: file.getSize(),
+        downloadUrl: file.getDownloadUrl(),
+        mimeType: file.getMimeType()
+      });
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify({
+      success: true,
+      files: fileList
+    })).setMimeType(ContentService.MimeType.JSON);
+    
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      success: false,
+      error: error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
 }
