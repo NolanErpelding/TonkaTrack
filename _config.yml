@@ -1,0 +1,13 @@
+# _config.yml
+title: Tonka Track & Field
+description: Building champions, one stride at a time
+baseurl: ""
+url: ""
+
+# Permalink style (removes .html)
+permalink: pretty
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - .gitignore
