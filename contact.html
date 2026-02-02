@@ -69,13 +69,22 @@ permalink: /contact/
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-m-img {
+            height: 2.5rem;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
-            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
+            color: var(--minnetonka-blue);
         }
 
         .nav-links {
@@ -354,8 +363,12 @@ permalink: /contact/
                 padding: 0 1rem;
             }
 
-            .logo {
-                font-size: 1.4rem;
+            .logo-m-img {
+                height: 2rem;
+            }
+
+            .logo-text {
+                font-size: 1.2rem;
             }
 
             .nav-links {
@@ -469,7 +482,10 @@ permalink: /contact/
 <body>
     <nav class="nav-bar">
         <div class="nav-content">
-            <a href="../" class="logo">🏃 TONKA TRACK</a>
+            <a href="index.html" class="logo">
+                <img src="images/minnetonka-M-logo.png" alt="Minnetonka M" class="logo-m-img">
+                <span class="logo-text">TONKA TRACK</span>
+            </a>
             <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
