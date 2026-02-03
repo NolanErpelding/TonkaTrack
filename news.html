@@ -17,7 +17,7 @@ permalink: /news/
     <meta property="og:title" content="News - Tonka Track & Field">
     <meta property="og:description" content="Latest updates from Minnetonka Track & Field and Cross Country">
     <meta property="og:type" content="website">
-    
+
     <link rel="icon" type="image/png" href="../favicons/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="../favicons/favicon.svg" />
     <link rel="shortcut icon" href="../favicons/favicon.ico" />
@@ -288,6 +288,7 @@ permalink: /news/
 
             .nav-links {
                 position: absolute;
+                z-index: 1000;
                 top: 100%;
                 left: 0;
                 right: 0;
@@ -298,7 +299,7 @@ permalink: /news/
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 max-height: 0;
                 overflow: hidden;
-                transition: 0.3s ease;
+                transition: max-height 0.3s ease, opacity 0.3s ease;
                 opacity: 0;
                 gap: 0;
             }
@@ -329,6 +330,7 @@ permalink: /news/
 
             .hamburger.active span:nth-child(2) {
                 opacity: 0;
+                transform: scale(0);
             }
 
             .hamburger.active span:nth-child(3) {
@@ -354,6 +356,24 @@ permalink: /news/
             .article-title {
                 font-size: 1.5rem;
             }
+
+            .menu-backdrop {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+                z-index: 999;
+            }
+            
+            .menu-backdrop.active {
+                opacity: 1;
+                pointer-events: auto;
+            }
         }
     </style>
 </head>
@@ -378,6 +398,7 @@ permalink: /news/
                 <li><a href="../contact/" onclick="closeMenu()">Contact</a></li>
             </ul>
         </div>
+        <div class="menu-backdrop" id="menuBackdrop"></div>
     </nav>
 
     <div class="page-header">
@@ -448,18 +469,36 @@ permalink: /news/
 
     <script>
         function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        }
+                const menu = document.getElementById('navMenu');
+                const hamburger = document.querySelector('.hamburger');
+                const backdrop = document.getElementById('menuBackdrop');
 
-        function closeMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            menu.classList.remove('active');
-            hamburger.classList.remove('active');
-        }
+                menu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                backdrop.classList.toggle('active');
+            }
+
+            function closeMenu() {
+                const menu = document.getElementById('navMenu');
+                const hamburger = document.querySelector('.hamburger');
+                const backdrop = document.getElementById('menuBackdrop');
+
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                backdrop.classList.remove('active');
+            }
+            document.addEventListener('click', function (event) {
+                const menu = document.getElementById('navMenu');
+                const hamburger = document.querySelector('.hamburger');
+                const backdrop = document.getElementById('menuBackdrop');
+
+                // Check if menu is open and click is outside the nav-content
+                if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
+                    menu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    backdrop.classList.remove('active');
+                }
+            }); 
     </script>
 </body>
 
