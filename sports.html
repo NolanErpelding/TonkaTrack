@@ -218,8 +218,17 @@ permalink: /sports/
         }
 
         .team-icon {
-            font-size: 4rem;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color : var(--sunbeam);
+        }
+
+        .team-icon svg {
+            width: 5rem;
+            height: 5rem;
+            stroke-width: 1.5;
         }
 
         .team-card h2 {
@@ -353,8 +362,9 @@ permalink: /sports/
                 font-size: 1.5rem;
             }
 
-            .team-icon {
-                font-size: 3rem;
+            .team-icon svg {
+                width: 4rem;
+                height: 4rem;
             }
 
             footer {
@@ -442,28 +452,28 @@ permalink: /sports/
 
         <div class="teams-container">
             <div class="team-card">
-                <div class="team-icon">🏃‍♀️</div>
+                <div class="team-icon girls"><i data-lucide="footprints"></i></div>
                 <h2>Girls Cross Country</h2>
                 <p>Building champions through dedication, teamwork, and perseverance on every trail.</p>
                 <a href="../girls-cross-country/" class="team-button">View Team →</a>
             </div>
 
             <div class="team-card">
-                <div class="team-icon">🏃‍♂️</div>
+                <div class="team-icon boys"><i data-lucide="person-standing"></i></div>
                 <h2>Boys Cross Country</h2>
                 <p>Pushing limits and achieving excellence through hard work and determination.</p>
                 <a href="../boys-cross-country/" class="team-button">View Team →</a>
             </div>
 
             <div class="team-card">
-                <div class="team-icon">⚡</div>
+                <div class="team-icon girls"><i data-lucide="zap"></i></div>
                 <h2>Girls Track & Field</h2>
                 <p>Speed, strength, and spirit—excelling in every event, every season.</p>
                 <a href="../girls-track/" class="team-button">View Team →</a>
             </div>
 
             <div class="team-card">
-                <div class="team-icon">🏅</div>
+                <div class="team-icon boys"><i data-lucide="trophy"></i></div>
                 <h2>Boys Track & Field</h2>
                 <p>Driven by passion and powered by performance in all track and field events.</p>
                 <a href="../boys-track/" class="team-button">View Team →</a>
@@ -508,6 +518,8 @@ permalink: /sports/
                 }
             }); 
     </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
 
 </html>

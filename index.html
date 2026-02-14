@@ -236,9 +236,17 @@ permalink: /
         }
 
         .info-icon {
-            font-size: 2rem;
             margin-bottom: 0.75rem;
-            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--sunbeam);
+        }
+
+        .info-icon svg {
+            width: 3rem;
+            height: 3rem;
+            stroke-width: 1.75;
         }
 
         .info-item h3 {
@@ -456,9 +464,9 @@ permalink: /
                 padding: 1rem;
             }
 
-            .info-icon {
-                font-size: 1.5rem;
-                margin-bottom: 0.5rem;
+            .info-icon svg {
+                width: 2rem;
+                height: 2rem;
             }
 
             .info-item h3 {
@@ -588,31 +596,30 @@ permalink: /
             <section class="info-section">
                 <div class="sports-grid">
                     <div class="info-item" onclick="window.location.href='girls-cross-country/'">
-                        <div class="info-icon">🏃‍♀️</div>
+                        <div class="info-icon girls"><i data-lucide="footprints"></i></div>
                         <h3>Girls Cross Country</h3>
                     </div>
                     <div class="info-item" onclick="window.location.href='boys-cross-country/'">
-                        <div class="info-icon">🏃‍♂️</div>
+                        <div class="info-icon boys"><i data-lucide="person-standing"></i></div>
                         <h3>Boys Cross Country</h3>
                     </div>
                     <div class="info-item" onclick="window.location.href='girls-track/'">
-                        <div class="info-icon">⚡️</div>
+                        <div class="info-icon girls"><i data-lucide="zap"></i></div>
                         <h3>Girls Track & Field</h3>
                     </div>
                     <div class="info-item" onclick="window.location.href='boys-track/'">
-                        <div class="info-icon">🏅</div>
+                        <div class="info-icon boys"><i data-lucide="trophy"></i></div>
                         <h3>Boys Track & Field</h3>
                     </div>
                     <div class="info-item" onclick="window.location.href='mtfcca/'">
-                        <div class="info-icon">🤝</div>
+                        <div class="info-icon neutral"><i data-lucide="users"></i></div>
                         <h3>MTFCCA</h3>
                     </div>
                     <div class="info-item" onclick="window.location.href='news/'">
-                        <div class="info-icon">📰</div>
+                        <div class="info-icon neutral"><i data-lucide="newspaper"></i></div>
                         <h3>News</h3>
                     </div>
-                </div>
-            </section>
+                </div>  </section>
     
             <div class="cards-grid">
                 <div class="card">
@@ -696,5 +703,7 @@ permalink: /
                 }
             }); 
     </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
