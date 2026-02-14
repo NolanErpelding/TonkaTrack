@@ -100,91 +100,100 @@ function getTeamFiles(folderId) {
 
 // Get photo albums (subfolders) from the specified photos folder
 function getPhotoAlbums(photosFolderId) {
+  // --- Check cache first ---
+  const cache = CacheService.getScriptCache();
+  const cacheKey = `albums_${photosFolderId}`;
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    return JSON.parse(cached);
+  }
+
   try {
-    const photosFolder = DriveApp.getFolderById(photosFolderId);
-    const subfolders = photosFolder.getFolders();
     const albums = [];
-    
     let allPhotosCount = 0;
     let allPhotosCover = null;
-    
-    // Get all photos directly in the main photos folder for "All Photos"
-    const allPhotosInMain = photosFolder.getFilesByType(MimeType.JPEG);
-    const pngPhotos = photosFolder.getFilesByType(MimeType.PNG);
-    
-    while (allPhotosInMain.hasNext()) {
-      const photo = allPhotosInMain.next();
-      allPhotosCount++;
-      if (!allPhotosCover) {
-        allPhotosCover = photo.getId();
-      }
+
+    // --- Helper: get count + cover ID from a folder using Drive v3 in one call ---
+    function getFolderPhotoInfo(folderId) {
+      let count = 0;
+      let coverId = null;
+      let pageToken = null;
+
+      do {
+        const params = {
+          q: `'${folderId}' in parents and (mimeType='image/jpeg' or mimeType='image/png') and trashed=false`,
+          fields: 'nextPageToken, files(id)',
+          pageSize: 1000,
+          spaces: 'drive'
+        };
+        if (pageToken) params.pageToken = pageToken;
+
+        const result = Drive.Files.list(params);
+        const files = result.files || [];
+
+        count += files.length;
+        if (!coverId && files.length > 0) {
+          coverId = files[0].id;
+        }
+
+        pageToken = result.nextPageToken;
+      } while (pageToken);
+
+      return { count, coverId };
     }
-    
-    while (pngPhotos.hasNext()) {
-      const photo = pngPhotos.next();
-      allPhotosCount++;
-      if (!allPhotosCover) {
-        allPhotosCover = photo.getId();
-      }
-    }
-    
+
+    // Count photos directly in the main folder
+    const mainInfo = getFolderPhotoInfo(photosFolderId);
+    allPhotosCount += mainInfo.count;
+    if (!allPhotosCover) allPhotosCover = mainInfo.coverId;
+
     // Process each subfolder as an album
+    const photosFolder = DriveApp.getFolderById(photosFolderId);
+    const subfolders = photosFolder.getFolders();
+
     while (subfolders.hasNext()) {
       const folder = subfolders.next();
+      const folderId = folder.getId();
       const folderName = folder.getName();
-      
-      // Count photos in this album
-      const jpegFiles = folder.getFilesByType(MimeType.JPEG);
-      const pngFiles = folder.getFilesByType(MimeType.PNG);
-      
-      let photoCount = 0;
-      let coverPhotoId = null;
-      
-      while (jpegFiles.hasNext()) {
-        const file = jpegFiles.next();
-        photoCount++;
-        allPhotosCount++;
-        if (!coverPhotoId) {
-          coverPhotoId = file.getId();
-        }
-        if (!allPhotosCover) {
-          allPhotosCover = file.getId();
-        }
-      }
-      
-      while (pngFiles.hasNext()) {
-        const file = pngFiles.next();
-        photoCount++;
-        allPhotosCount++;
-        if (!coverPhotoId) {
-          coverPhotoId = file.getId();
-        }
-        if (!allPhotosCover) {
-          allPhotosCover = file.getId();
-        }
-      }
-      
-      if (photoCount > 0) {
+
+      const info = getFolderPhotoInfo(folderId);
+      allPhotosCount += info.count;
+      if (!allPhotosCover) allPhotosCover = info.coverId;
+
+      if (info.count > 0) {
         albums.push({
-          id: folder.getId(),
+          id: folderId,
           name: folderName,
-          description: `${photoCount} photo${photoCount !== 1 ? 's' : ''}`,
-          photoCount: photoCount,
-          coverPhotoUrl: coverPhotoId ? `https://drive.google.com/thumbnail?id=${coverPhotoId}&sz=w400` : null
+          description: `${info.count} photo${info.count !== 1 ? 's' : ''}`,
+          photoCount: info.count,
+          coverPhotoUrl: info.coverId
+            ? `https://drive.google.com/thumbnail?id=${info.coverId}&sz=w400`
+            : null
         });
       }
     }
-    
+
     // Sort albums by name
     albums.sort((a, b) => a.name.localeCompare(b.name));
-    
-    return {
+
+    const result = {
       success: true,
       albums: albums,
       allPhotosCount: allPhotosCount,
       allPhotosCover: allPhotosCover
     };
-    
+
+    // --- Store in cache for 10 minutes (600 seconds) ---
+    // CacheService has a 100KB value limit; if you ever hit that, reduce cache duration or remove allPhotos caching
+    try {
+      cache.put(cacheKey, JSON.stringify(result), 600);
+    } catch (cacheError) {
+      // Cache write failed (e.g. value too large) — not critical, just skip caching
+      console.warn('Cache write failed:', cacheError.toString());
+    }
+
+    return result;
+
   } catch (error) {
     return {
       success: false,
@@ -192,7 +201,6 @@ function getPhotoAlbums(photosFolderId) {
     };
   }
 }
-
 // Get all photos from a specific album (subfolder)
 function getAlbumPhotos(albumId) {
   try {
