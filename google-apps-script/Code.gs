@@ -109,96 +109,178 @@ function getPhotoAlbums(photosFolderId) {
   }
 
   try {
-    const albums = [];
-    let allPhotosCount = 0;
-    let allPhotosCover = null;
-
-    // --- Helper: get count + cover ID from a folder using Drive v3 in one call ---
-    function getFolderPhotoInfo(folderId) {
-      let count = 0;
-      let coverId = null;
-      let pageToken = null;
-
-      do {
-        const params = {
-          q: `'${folderId}' in parents and (mimeType='image/jpeg' or mimeType='image/png') and trashed=false`,
-          fields: 'nextPageToken, files(id)',
-          pageSize: 1000,
-          spaces: 'drive'
-        };
-        if (pageToken) params.pageToken = pageToken;
-
-        const result = Drive.Files.list(params);
-        const files = result.files || [];
-
-        count += files.length;
-        if (!coverId && files.length > 0) {
-          coverId = files[0].id;
-        }
-
-        pageToken = result.nextPageToken;
-      } while (pageToken);
-
-      return { count, coverId };
+    const result = getPhotoAlbumsParallel(photosFolderId);
+    
+    // If parallel approach failed for any reason, fall back to DriveApp
+    if (!result.success) {
+      console.warn('Parallel approach failed, falling back to DriveApp:', result.error);
+      return getPhotoAlbumsFallback(photosFolderId);
     }
 
-    // Count photos directly in the main folder
-    const mainInfo = getFolderPhotoInfo(photosFolderId);
-    allPhotosCount += mainInfo.count;
-    if (!allPhotosCover) allPhotosCover = mainInfo.coverId;
-
-    // Process each subfolder as an album
-    const photosFolder = DriveApp.getFolderById(photosFolderId);
-    const subfolders = photosFolder.getFolders();
-
-    while (subfolders.hasNext()) {
-      const folder = subfolders.next();
-      const folderId = folder.getId();
-      const folderName = folder.getName();
-
-      const info = getFolderPhotoInfo(folderId);
-      allPhotosCount += info.count;
-      if (!allPhotosCover) allPhotosCover = info.coverId;
-
-      if (info.count > 0) {
-        albums.push({
-          id: folderId,
-          name: folderName,
-          description: `${info.count} photo${info.count !== 1 ? 's' : ''}`,
-          photoCount: info.count,
-          coverPhotoUrl: info.coverId
-            ? `https://drive.google.com/thumbnail?id=${info.coverId}&sz=w400`
-            : null
-        });
-      }
-    }
-
-    // Sort albums by name
-    albums.sort((a, b) => a.name.localeCompare(b.name));
-
-    const result = {
-      success: true,
-      albums: albums,
-      allPhotosCount: allPhotosCount,
-      allPhotosCover: allPhotosCover
-    };
-
-    // --- Store in cache for 10 minutes (600 seconds) ---
-    // CacheService has a 100KB value limit; if you ever hit that, reduce cache duration or remove allPhotos caching
+    // Cache the successful result for 10 minutes
     try {
       cache.put(cacheKey, JSON.stringify(result), 600);
     } catch (cacheError) {
-      // Cache write failed (e.g. value too large) — not critical, just skip caching
       console.warn('Cache write failed:', cacheError.toString());
     }
 
     return result;
 
   } catch (error) {
+    // If anything throws unexpectedly, still try the fallback
+    console.warn('getPhotoAlbums threw, falling back:', error.toString());
+    return getPhotoAlbumsFallback(photosFolderId);
+  }
+}
+
+// Fast parallel approach using only UrlFetchApp — no DriveApp calls
+function getPhotoAlbumsParallel(photosFolderId) {
+  try {
+    const token = ScriptApp.getOAuthToken();
+    if (!token) throw new Error('No OAuth token available');
+
+    // Step 1: Get subfolders via Drive API
+    const subfoldersResponse = UrlFetchApp.fetch(
+      `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(
+        `'${photosFolderId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`
+      )}&fields=files(id,name)&pageSize=100`,
+      { headers: { Authorization: `Bearer ${token}` }, muteHttpExceptions: true }
+    );
+
+    if (subfoldersResponse.getResponseCode() !== 200) {
+      throw new Error(`Subfolder fetch failed: HTTP ${subfoldersResponse.getResponseCode()}`);
+    }
+
+    const subfoldersData = JSON.parse(subfoldersResponse.getContentText());
+    if (subfoldersData.error) {
+      throw new Error(`Drive API error getting subfolders: ${JSON.stringify(subfoldersData.error)}`);
+    }
+
+    const folderList = [{ id: photosFolderId, name: '__MAIN__' }];
+    (subfoldersData.files || []).forEach(f => folderList.push({ id: f.id, name: f.name }));
+
+    // Step 2: One request per folder — get IDs only (cover = first, count = length)
+    const requests = folderList.map(folder => ({
+      url: `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(
+        `'${folder.id}' in parents and (mimeType='image/jpeg' or mimeType='image/png') and trashed=false`
+      )}&fields=files(id)&pageSize=1000`,
+      headers: { Authorization: `Bearer ${token}` },
+      muteHttpExceptions: true
+    }));
+
+    // Fire all in parallel
+    const responses = UrlFetchApp.fetchAll(requests);
+
+    // Step 3: Process
+    let allPhotosCount = 0;
+    let allPhotosCover = null;
+    const albums = [];
+
+    folderList.forEach((folder, i) => {
+      const response = responses[i];
+
+      if (response.getResponseCode() !== 200) {
+        throw new Error(`HTTP ${response.getResponseCode()} for folder ${folder.name}`);
+      }
+
+      const data = JSON.parse(response.getContentText());
+      if (data.error) {
+        throw new Error(`API error for folder ${folder.name}: ${JSON.stringify(data.error)}`);
+      }
+
+      const files = data.files || [];
+      const count = files.length;
+      const coverId = count > 0 ? files[0].id : null;
+
+      allPhotosCount += count;
+      if (!allPhotosCover && coverId) allPhotosCover = coverId;
+
+      if (folder.name !== '__MAIN__' && count > 0) {
+        albums.push({
+          id: folder.id,
+          name: folder.name,
+          description: `${count} photo${count !== 1 ? 's' : ''}`,
+          photoCount: count,
+          coverPhotoUrl: `https://drive.google.com/thumbnail?id=${coverId}&sz=w400`
+        });
+      }
+    });
+
+    albums.sort((a, b) => a.name.localeCompare(b.name));
+
     return {
-      success: false,
-      error: error.toString()
+      success: true,
+      albums: albums,
+      allPhotosCount: allPhotosCount,
+      allPhotosCover: allPhotosCover
     };
+
+  } catch (error) {
+    return { success: false, error: error.toString() };
+  }
+}
+
+// Reliable DriveApp fallback (slower but always works)
+function getPhotoAlbumsFallback(photosFolderId) {
+  try {
+    function getFolderPhotoInfo(folder) {
+      let count = 0;
+      let coverId = null;
+
+      const jpegFiles = folder.getFilesByType(MimeType.JPEG);
+      if (jpegFiles.hasNext()) {
+        coverId = jpegFiles.next().getId();
+        count = 1;
+        while (jpegFiles.hasNext()) { jpegFiles.next(); count++; }
+      }
+
+      const pngFiles = folder.getFilesByType(MimeType.PNG);
+      if (!coverId && pngFiles.hasNext()) {
+        coverId = pngFiles.next().getId();
+        count++;
+      }
+      while (pngFiles.hasNext()) { pngFiles.next(); count++; }
+
+      return { count, coverId };
+    }
+
+    const photosFolder = DriveApp.getFolderById(photosFolderId);
+    const mainInfo = getFolderPhotoInfo(photosFolder);
+    let allPhotosCount = mainInfo.count;
+    let allPhotosCover = mainInfo.coverId;
+
+    const subfolders = photosFolder.getFolders();
+    const albums = [];
+
+    while (subfolders.hasNext()) {
+      const folder = subfolders.next();
+      const info = getFolderPhotoInfo(folder);
+
+      allPhotosCount += info.count;
+      if (!allPhotosCover && info.coverId) allPhotosCover = info.coverId;
+
+      if (info.count > 0) {
+        albums.push({
+          id: folder.getId(),
+          name: folder.getName(),
+          description: `${info.count} photo${info.count !== 1 ? 's' : ''}`,
+          photoCount: info.count,
+          coverPhotoUrl: `https://drive.google.com/thumbnail?id=${info.coverId}&sz=w400`
+        });
+      }
+    }
+
+    albums.sort((a, b) => a.name.localeCompare(b.name));
+
+    return {
+      success: true,
+      albums: albums,
+      allPhotosCount: allPhotosCount,
+      allPhotosCover: allPhotosCover
+    };
+
+  } catch (error) {
+    return { success: false, error: error.toString() };
   }
 }
 // Get all photos from a specific album (subfolder)
@@ -303,4 +385,59 @@ function createPhotoObject(file) {
     downloadUrl: `https://drive.google.com/uc?id=${fileId}&export=download`,
     lastModified: file.getLastUpdated().toISOString()
   };
+}
+
+function diagnoseParallel() {
+  const photosFolderId = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
+  
+  // Test 1: Can we get a token?
+  const t0 = Date.now();
+  let token;
+  try {
+    token = ScriptApp.getOAuthToken();
+    console.log(`Token obtained: ${token ? 'YES' : 'NO'} — ${Date.now() - t0}ms`);
+  } catch(e) {
+    console.log(`Token FAILED: ${e}`);
+    return;
+  }
+
+  // Test 2: Get subfolders via Drive API (not DriveApp)
+  const t1 = Date.now();
+  const subfoldersRes = UrlFetchApp.fetch(
+    `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(
+      `'${photosFolderId}' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false`
+    )}&fields=files(id,name)&pageSize=100`,
+    { headers: { Authorization: `Bearer ${token}` }, muteHttpExceptions: true }
+  );
+  const subfoldersData = JSON.parse(subfoldersRes.getContentText());
+  const folderList = [{ id: photosFolderId, name: '__MAIN__' }];
+  (subfoldersData.files || []).forEach(f => folderList.push({ id: f.id, name: f.name }));
+  console.log(`Got ${folderList.length} folders via Drive API in ${Date.now() - t1}ms`);
+
+  // Test 3: Fire one test request to check auth
+  const t2 = Date.now();
+  const testResponse = UrlFetchApp.fetch(
+    `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(`'${photosFolderId}' in parents and trashed=false`)}&fields=files(id)&pageSize=1`,
+    { headers: { Authorization: `Bearer ${token}` }, muteHttpExceptions: true }
+  );
+  console.log(`Single test request: HTTP ${testResponse.getResponseCode()} — ${Date.now() - t2}ms`);
+  console.log(`Response body: ${testResponse.getContentText().substring(0, 300)}`);
+
+  // Test 4: Fire all requests in parallel and time it
+  const t3 = Date.now();
+  const requests = folderList.map(folder => ({
+    url: `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(
+      `'${folder.id}' in parents and (mimeType='image/jpeg' or mimeType='image/png') and trashed=false`
+    )}&fields=files(id)&pageSize=1000`,
+    headers: { Authorization: `Bearer ${token}` },
+    muteHttpExceptions: true
+  }));
+  const responses = UrlFetchApp.fetchAll(requests);
+  console.log(`fetchAll (${requests.length} requests) completed in ${Date.now() - t3}ms`);
+  responses.forEach((r, i) => {
+    const data = JSON.parse(r.getContentText());
+    console.log(`  ${folderList[i].name}: HTTP ${r.getResponseCode()}, ${(data.files||[]).length} photos, error: ${data.error ? JSON.stringify(data.error) : 'none'}`);
+  });
+
+  console.log(`TOTAL: ${Date.now() - t0}ms`);
 }
