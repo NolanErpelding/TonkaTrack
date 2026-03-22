@@ -27,22 +27,58 @@ permalink: /boys-track/
     <style>
         /* Minnetonka Color Palette */
         :root {
+            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
-            --white: #ffffff;
-            --black: #000000;
             --lake: #5395FF;
             --sky: #8BB4FD;
             --grape: rgb(108, 7, 135);
             --sunbeam: rgb(241, 177, 51);
             --mint: rgb(7, 143, 150);
-            /* Light theme tokens */
+
+            /* Light mode semantic tokens (default) */
+            --white: #ffffff;
+            --black: #000000;
             --surface: #ffffff;
             --surface-subtle: #f5f7fa;
             --border: #e2e8f0;
             --text-primary: #1a202c;
             --text-secondary: #4a5568;
             --text-muted: #718096;
+            --text-accent: var(--white);
+            --heading-primary: var(--minnetonka-blue);
+            --heading-secondary: var(--minnetonka-blue);
+            --accent-label: var(--minnetonka-blue);
+
+            /* Nav */
+            --nav-bg: #ffffff;
+            --nav-link-color: #4a5568;
+
+            /* Hero */
+            --hero-bg: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
+
+            /* Tab buttons */
+            --tab-btn-bg: var(--minnetonka-blue);
+            --tab-btn-color: #ffffff;
+            --tab-btn-active-bg: var(--sunbeam);
+            --tab-btn-active-color: #000000;
+            --gradient-accent-color: var(--midnight);
+
+            /* Cards / content panels */
+            --card-bg: #ffffff;
+            --card-shadow: 0 -4px 24px rgba(0,0,0,0.08), 0 25px 60px rgba(0,0,0,0.12);
+            --update-bg: #f7f8fa;
+
+            /* Footer */
+            --footer-bg: rgba(26, 32, 44, 0.97);
+
+            /* Modal */
+            --modal-bg: rgba(0,0,0,0.95);
+            --placeholder-gradient: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+
+            /* Shadows */
+            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+
             /* Type scale */
             --text-xs:   14px;
             --text-sm:   15px;
@@ -51,6 +87,63 @@ permalink: /boys-track/
             --text-lg:   20px;
             --text-xl:   26px;
             --text-2xl:  40px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                /* Reassign semantic tokens for dark mode */
+                --surface: #11161F;
+                --surface-subtle: #090E17;
+                --border: #2e3650;
+                --text-primary: #e8edf8;
+                --text-secondary: #9aa5c0;
+                --text-muted: #6b7a9a;
+                --text-accent: var(--black);
+                --heading-primary: #ffffff;
+                --accent-label: var(--sunbeam);
+                
+
+                /* Nav */
+                --nav-bg: rgba(10, 12, 20, 0.92);
+                --nav-link-color: #9aa5c0;
+
+                /* Tab buttons */
+                --tab-btn-bg: #2a3354;
+                --tab-btn-color: #c8d4f0;
+                --tab-btn-active-bg: var(--sunbeam);
+                --tab-btn-active-color: #111111;
+                --gradient-accent-color: var(--white);
+
+                /* Cards */
+                --card-bg: #1a1f2e;
+                --card-shadow: 0 -4px 24px rgba(0,0,0,0.4), 0 25px 60px rgba(0,0,0,0.5);
+                --update-bg: var(--surface);
+
+                /* Footer */
+                --footer-bg: rgba(8, 10, 18, 0.97);
+
+                /* Modal */
+                --modal-bg: rgba(0,0,0,0.97);
+                --placeholder-gradient: linear-gradient(135deg, #1e2640 0%, #0d1020 100%);
+
+                /* Shadows → highlights in dark mode */
+                --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
+                --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
+
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .file-item:hover,
+            .album-item:hover,
+            .coach-card:hover,
+            .photo-item:hover {
+                box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.35);
+            }
+
+            .tab-button:hover {
+                box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.4);
+            }
         }
     
         * {
@@ -67,7 +160,7 @@ permalink: /boys-track/
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--surface-subtle);
-            color: #1a202c;
+            color: var(--text-primary);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
@@ -75,12 +168,14 @@ permalink: /boys-track/
     
         /* ── NAV ── */
         .nav-bar {
-            background: var(--white);
+            background: var(--nav-bg);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--nav-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
     
         .nav-content {
@@ -109,7 +204,7 @@ permalink: /boys-track/
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--minnetonka-blue);
+            color: var(--heading-primary);
         }
     
         .nav-links {
@@ -120,14 +215,14 @@ permalink: /boys-track/
         }
     
         .nav-links a {
-            color: var(--text-secondary);
+            color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 500;
             position: relative;
         }
     
         .nav-links a:hover {
-            color: var(--minnetonka-blue);
+            color: var(--accent-label);
         }
     
         .nav-links a::after {
@@ -137,7 +232,7 @@ permalink: /boys-track/
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, var(--minnetonka-blue), var(--midnight));
+            background: linear-gradient(135deg, var(--accent-label), var(--gradient-accent-color));
             transition: width 0.3s ease;
         }
     
@@ -192,10 +287,10 @@ permalink: /boys-track/
 
         /* Tab buttons sit above the white card overlap zone */
         .tab-buttons-wrapper {
-            background: var(--white);
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 2rem 0rem 1.5rem;
-            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
+            box-shadow: var(--card-shadow);
             position: relative;
             z-index: 1;
             margin-left: 2rem;
@@ -212,8 +307,8 @@ permalink: /boys-track/
         }
     
         .tab-button {
-            background: var(--minnetonka-blue);
-            color: var(--white);
+            background: var(--tab-btn-bg);
+            color: var(--tab-btn-color);
             border: none;
             padding: 1rem 2rem;
             border-radius: 12px;
@@ -230,15 +325,15 @@ permalink: /boys-track/
         }
     
         .tab-button.active {
-            background: var(--sunbeam);
-            color: var(--black);
+            background: var(--tab-btn-active-bg);
+            color: var(--tab-btn-active-color);
             box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
         }
     
         /* ── TAB CONTENT (white card) ── */
         .tab-content {
             display: none;
-            background: var(--white);
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 28px 26px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
@@ -254,7 +349,7 @@ permalink: /boys-track/
         }
     
         .tab-content h2 {
-            color: var(--minnetonka-blue);
+            color: var(--heading-primary);
             font-size: var(--text-xl);
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -262,7 +357,7 @@ permalink: /boys-track/
         }
 
         .tab-content h3 {
-            color: var(--minnetonka-blue);
+            color: var(--heading-secondary);
             font-size: 22px;
             font-weight: 700;
             letter-spacing: -0.01em;
@@ -301,7 +396,7 @@ permalink: /boys-track/
     
         /* ── UPDATE ITEMS ── */
         .update-item {
-            background: #f7f8fa;
+            background: var(--update-bg);
             border: 1px solid var(--border);
             border-left: 4px solid var(--minnetonka-blue);
             border-radius: 12px;
@@ -390,12 +485,11 @@ permalink: /boys-track/
             gap: 2rem;
             transition: all 0.3s ease;
         }
-    
+
         .file-item:hover {
-            background: var(--white);
+            background: var(--surface);
             transform: translateX(5px);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border-color: var(--lake);
         }
     
         .file-name {
@@ -411,8 +505,8 @@ permalink: /boys-track/
         }
     
         .download-button {
-            background: var(--minnetonka-blue);
-            color: var(--white);
+            background: var(--accent-label);
+            color: var(--text-accent);
             border: none;
             padding: 0.5rem 1.5rem;
             border-radius: 8px;
@@ -423,14 +517,13 @@ permalink: /boys-track/
         }
     
         .download-button:hover {
-            background: var(--midnight);
             transform: scale(1.05);
             box-shadow: 0 4px 12px rgba(0, 54, 152, 0.3);
         }
     
         /* ── INSTAGRAM HANDLE ── */
         .instagram-handle {
-            color: var(--minnetonka-blue);
+            color: var(--accent-label);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -458,7 +551,7 @@ permalink: /boys-track/
 
         /* ── X Handle ── */
         .x-handle {
-           color: var(--minnetonka-blue);
+           color: var(--accent-label);
            text-decoration: none;
            font-weight: 600;
            transition: all 0.3s ease;
@@ -516,7 +609,7 @@ permalink: /boys-track/
             height: 120px;
             border-radius: 50%;
             margin: 0 auto 1rem;
-            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            background: var(--placeholder-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -593,7 +686,7 @@ permalink: /boys-track/
         .album-cover {
             width: 100%;
             aspect-ratio: 16/9;
-            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            background: var(--placeholder-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -630,8 +723,8 @@ permalink: /boys-track/
         /* ── BACK BUTTON ── */
         .back-button {
             background: var(--surface-subtle);
-            color: var(--minnetonka-blue);
-            border: 2px solid var(--minnetonka-blue);
+            color: var(--accent-label);
+            border: 2px solid var(--accent-label);
             padding: 0.75rem 1.5rem;
             border-radius: 10px;
             font-size: 1rem;
@@ -639,10 +732,10 @@ permalink: /boys-track/
             cursor: pointer;
             transition: all 0.3s ease;
         }
-    
+
         .back-button:hover {
-            background: var(--minnetonka-blue);
-            color: var(--white);
+            background: var(--accent-label);
+            color: #ffffff;
             transform: translateX(-4px);
         }
     
@@ -656,7 +749,7 @@ permalink: /boys-track/
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: var(--modal-bg);
             animation: fadeIn 0.3s ease;
         }
     
@@ -844,7 +937,7 @@ permalink: /boys-track/
     
         /* ── FOOTER ── */
         footer {
-            background: rgba(26, 32, 44, 0.97);
+            background: var(--footer-bg);
             backdrop-filter: blur(10px);
             color: white;
             padding: 2rem;
@@ -886,7 +979,7 @@ permalink: /boys-track/
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(255, 255, 255, 0.97);
+                background: var(--nav-bg);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
                 padding: 1rem 0;
@@ -1045,10 +1138,10 @@ permalink: /boys-track/
         }
 
         .tip-title {
-            font-size: var(--text-base);
-            font-weight: 600;
-            color: var(--minnetonka-blue);
-        }
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--accent-label);
+}
     </style>
 </head>
 <body>
