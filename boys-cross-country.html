@@ -1356,8 +1356,10 @@ body.modal-open {
 
                     return albumItem;
                 }
+                    let currentAlbumRequestId = 0;
 
                     async function openAlbum(albumId, albumName) {
+                        const requestId = ++currentAlbumRequestId;
                         currentAlbumId = albumId;
 
                         document.getElementById('albums-view').style.display = 'none';
@@ -1370,24 +1372,25 @@ body.modal-open {
                         photoGrid.innerHTML = '';
                         loadingMessage.style.display = 'block';
                         loadingMessage.textContent = 'Loading photos...';
-                        loadingMessage.style.color = 'var(--text-primary)';
+                        loadingMessage.style.color = 'var(--sky)'; // or 'var(--text-primary)' for light theme pages
 
                         let retries = 3;
                         while (retries > 0) {
-                            try {
-                                let response;
-                                let url;
+                            // Bail out if a newer request has started
+                            if (requestId !== currentAlbumRequestId) return;
 
-                                // Check if this is the "All Photos" album
+                            try {
+                                let url;
                                 if (albumId === 'ALL_PHOTOS') {
                                     url = ALL_PHOTOS_SCRIPT_URL;
-                                    console.log('Fetching ALL photos from:', url); // DEBUG
                                 } else {
                                     url = `${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`;
-                                    console.log('Fetching album photos from:', url); // DEBUG
                                 }
 
-                                response = await fetch(url);
+                                const response = await fetch(url);
+
+                                // Check again after the await
+                                if (requestId !== currentAlbumRequestId) return;
 
                                 if (!response.ok) {
                                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -1395,11 +1398,14 @@ body.modal-open {
 
                                 const data = await response.json();
 
+                                // Check again after the await
+                                if (requestId !== currentAlbumRequestId) return;
+
                                 if (data.success && data.photos) {
                                     loadingMessage.style.display = 'none';
 
                                     if (data.photos.length === 0) {
-                                        photoGrid.innerHTML = '<p style="color: var(--text-primary);">No photos in this album yet.</p>';
+                                        photoGrid.innerHTML = '<p>No photos in this album yet.</p>';
                                         return;
                                     }
 
@@ -1432,16 +1438,16 @@ body.modal-open {
                                         photoGrid.appendChild(photoItem);
                                     });
 
-                                    // Preload first few images with delay
                                     for (let i = 0; i < Math.min(3, data.photos.length); i++) {
                                         setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
                                     }
 
-                                    return; // Success, exit retry loop
+                                    return;
                                 } else {
                                     throw new Error(data.error || 'Unknown error');
                                 }
                             } catch (error) {
+                                if (requestId !== currentAlbumRequestId) return;
                                 console.error(`Error fetching album photos (${retries} retries left):`, error);
                                 retries--;
 
@@ -1455,7 +1461,6 @@ body.modal-open {
                             }
                         }
                     }
-
                 function backToAlbums() {
                     document.getElementById('albums-view').style.display = 'block';
                     document.getElementById('album-photos-view').style.display = 'none';
