@@ -6,1624 +6,1629 @@ permalink: /boys-cross-country/
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Minnetonka Boys Cross Country team information, race schedules, photos, updates, and coach contacts.">
-    <meta name="keywords" content="Minnetonka Boys Cross Country, Tonka XC, High School Cross Country, Minnesota Running">
-    
-    <title>Boys Cross Country - Tonka Track & Field</title>
-    
-    <meta property="og:title" content="Boys Cross Country - Tonka Track & Field">
-    <meta property="og:description" content="Minnetonka Boys Cross Country - Building champions one stride at a time">
-    <meta property="og:type" content="website">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description"
+		content="Minnetonka Boys Cross Country team information, race schedules, photos, updates, and coach contacts.">
+	<meta name="keywords"
+		content="Minnetonka Boys Cross Country, Tonka XC, High School Cross Country, Minnesota Running">
 
-    <link rel="icon" type="image/png" href="../favicons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="../favicons/favicon.svg" />
-    <link rel="shortcut icon" href="../favicons/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
-    <link rel="manifest" href="../favicons/site.webmanifest" />
+	<title>Boys Cross Country - Tonka Track & Field</title>
 
-    <style>
-        /* Minnetonka Color Palette */
-        :root {
-            --minnetonka-blue: #003698;
-            --midnight: #002870;
-            --white: #ffffff;
-            --black: #000000;
-            --lake: #5395FF;
-            --sky: #8BB4FD;
-            --grape: rgb(108, 7, 135);
-            --sunbeam: rgb(241, 177, 51);
-            --mint: rgb(7, 143, 150);
-            /* Light theme tokens */
-            --surface: #ffffff;
-            --surface-subtle: #f5f7fa;
-            --border: #e2e8f0;
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --text-muted: #718096;
-        }
-    
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-    
-        html,
-        body {
-            height: 100%;
-        }
-    
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--surface-subtle);
-            color: var(--text-primary);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-        }
-    
-        /* ── NAV ── */
-        .nav-bar {
-            background: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-        }
-    
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-            position: relative;
-        }
-    
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-        }
-    
-        .logo-m-img {
-            height: 2.5rem;
-            width: auto;
-            display: block;
-        }
-    
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--minnetonka-blue);
-        }
-    
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            transition: max-height 0.3s ease, opacity 0.3s ease;
-        }
-    
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-        }
-    
-        .nav-links a:hover {
-            color: var(--minnetonka-blue);
-        }
-    
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, var(--minnetonka-blue), var(--midnight));
-            transition: width 0.3s ease;
-        }
-    
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-    
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 4px;
-        }
-    
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-secondary);
-            border-radius: 3px;
-            transition: all 0.3s ease;
-        }
-    
-        /* ── LAYOUT ── */
-        .main-content {
-            flex: 1 0 auto;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-            width: 100%;
-        }
-    
-        /* ── PAGE HEADER ── */
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-    
-        .page-header h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--minnetonka-blue);
-        }
-    
-        .page-header p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-        }
-    
-        /* ── TAB BUTTONS ── */
-        .tab-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-    
-        .tab-button {
-            background: var(--minnetonka-blue);
-            color: var(--white);
-            border: none;
-            padding: 0.875rem 1.5rem;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
-        }
-    
-        .tab-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
-        }
-    
-        .tab-button.active {
-            background: var(--sunbeam);
-            color: var(--black);
-            box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
-        }
-    
-        /* ── TAB CONTENT (white card) ── */
-        .tab-content {
-            display: none;
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-            border: 1px solid var(--border);
-            animation: fadeIn 0.5s ease;
-        }
-    
-        .tab-content.active {
-            display: block;
-        }
-    
-        .tab-content h2 {
-            color: var(--minnetonka-blue);
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-    
-        .tab-content p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-    
-        /* ── UPDATE ITEMS ── */
-        .update-item {
-            background: var(--surface-subtle);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--minnetonka-blue);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-    
-        .update-item h3 {
-            color: var(--minnetonka-blue);
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
-    
-        .update-date {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-style: italic;
-            margin-bottom: 0.75rem;
-        }
-    
-        /* ── PHOTO GRID ── */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-    
-        .photo-item {
-            background: var(--surface-subtle);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 3rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-    
-        .photo-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            border-color: var(--lake);
-        }
-    
-        .photo-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    
-        .photo-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.65);
-            color: white;
-            padding: 0.5rem;
-            font-size: 0.9rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-    
-        .photo-item:hover .photo-caption {
-            transform: translateY(0);
-        }
-    
-        /* ── FILE LIST ── */
-        .file-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-    
-        .file-item {
-            background: var(--surface-subtle);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 2rem;
-            transition: all 0.3s ease;
-        }
-    
-        .file-item:hover {
-            background: var(--white);
-            transform: translateX(5px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            border-color: var(--lake);
-        }
-    
-        .file-name {
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-    
-        .file-description {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
-        }
-    
-        .download-button {
-            background: var(--minnetonka-blue);
-            color: var(--white);
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-    
-        .download-button:hover {
-            background: var(--midnight);
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0, 54, 152, 0.3);
-        }
-    
-        /* ── INSTAGRAM HANDLE ── */
-        .instagram-handle {
-            color: var(--minnetonka-blue);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-    
-        .instagram-handle:hover {
-            color: #e1306c;
-        }
-    
-        .instagram-handle::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #e1306c 0%, #c13584 50%, #833ab4 100%);
-            transition: width 0.3s ease;
-        }
-    
-        .instagram-handle:hover::after {
-            width: 100%;
-        }
-    
-        /* ── COACH CARDS ── */
-        .coaches-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-    
-        .coach-card {
-            background: var(--surface-subtle);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-    
-        .coach-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            border-color: var(--lake);
-        }
-    
-        .coach-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            border: 3px solid var(--sunbeam);
-        }
-    
-        .coach-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    
-        .coach-image-placeholder {
-            font-size: 2.5rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-    
-        .coach-name {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-        }
-    
-        .coach-title {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-    
-        .email-button {
-            display: inline-block;
-            background: var(--sunbeam);
-            color: var(--black);
-            border: none;
-            padding: 0.5rem 1.25rem;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-    
-        .email-button:hover {
-            filter: brightness(1.08);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
-        }
+	<meta property="og:title" content="Boys Cross Country - Tonka Track & Field">
+	<meta property="og:description" content="Minnetonka Boys Cross Country - Building champions one stride at a time">
+	<meta property="og:type" content="website">
 
-        .email-button.disabled {
-            background: #4a5568;
-            color: #a0aec0;
-            cursor: not-allowed;
-            pointer-events: none;
-            opacity: 0.6;
-        }
+	<link rel="icon" type="image/png" href="../favicons/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/svg+xml" href="../favicons/favicon.svg" />
+	<link rel="shortcut icon" href="../favicons/favicon.ico" />
+	<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
+	<link rel="manifest" href="../favicons/site.webmanifest" />
 
-        .email-button.disabled:hover {
-            transform: none;
-            box-shadow: none;
-            filter: none;
-        }
-    
-        /* ── ALBUMS GRID ── */
-        .albums-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-    
-        .album-item {
-            background: var(--surface-subtle);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-    
-        .album-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-            border-color: var(--lake);
-        }
-    
-        .album-cover {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-    
-        .album-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    
-        .album-cover-placeholder {
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.35);
-        }
-    
-        .album-info {
-            padding: 1.25rem;
-        }
-    
-        .album-name {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-        }
-    
-        .album-description {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-    
-        /* ── BACK BUTTON ── */
-        .back-button {
-            background: var(--surface-subtle);
-            color: var(--minnetonka-blue);
-            border: 2px solid var(--minnetonka-blue);
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-    
-        .back-button:hover {
-            background: var(--minnetonka-blue);
-            color: var(--white);
-            transform: translateX(-4px);
-        }
-    
-        /* ── PHOTO MODAL ── */
-/* Photo Modal */
-.photo-modal {
-    display: none;
-    position: fixed;
-    z-index: 3000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    animation: fadeIn 0.3s ease;
-}
+	<style>
+		/* Minnetonka Color Palette */
+		:root {
+			--minnetonka-blue: #003698;
+			--midnight: #002870;
+			--white: #ffffff;
+			--black: #000000;
+			--lake: #5395FF;
+			--sky: #8BB4FD;
+			--grape: rgb(108, 7, 135);
+			--sunbeam: rgb(241, 177, 51);
+			--mint: rgb(7, 143, 150);
+			/* Light theme tokens */
+			--surface: #ffffff;
+			--surface-subtle: #f5f7fa;
+			--border: #e2e8f0;
+			--text-primary: #1a202c;
+			--text-secondary: #4a5568;
+			--text-muted: #718096;
+		}
 
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-.photo-modal.active {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+			background: var(--surface-subtle);
+			color: var(--text-primary);
+			line-height: 1.6;
+			display: flex;
+			flex-direction: column;
+		}
+
+		/* ── NAV ── */
+		.nav-bar {
+			background: var(--white);
+			padding: 1rem 0;
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+		}
+
+		.nav-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 2rem;
+			position: relative;
+		}
+
+		.logo {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			text-decoration: none;
+		}
+
+		.logo-m-img {
+			height: 2.5rem;
+			width: auto;
+			display: block;
+		}
+
+		.logo-text {
+			font-size: 1.8rem;
+			font-weight: 800;
+			color: var(--minnetonka-blue);
+		}
+
+		.nav-links {
+			display: flex;
+			gap: 2rem;
+			list-style: none;
+			transition: max-height 0.3s ease, opacity 0.3s ease;
+		}
+
+		.nav-links a {
+			color: var(--text-secondary);
+			text-decoration: none;
+			font-weight: 500;
+			position: relative;
+		}
+
+		.nav-links a:hover {
+			color: var(--minnetonka-blue);
+		}
+
+		.nav-links a::after {
+			content: '';
+			position: absolute;
+			bottom: -5px;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background: linear-gradient(135deg, var(--minnetonka-blue), var(--midnight));
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover::after {
+			width: 100%;
+		}
+
+		.hamburger {
+			display: none;
+			flex-direction: column;
+			cursor: pointer;
+			gap: 4px;
+		}
+
+		.hamburger span {
+			width: 25px;
+			height: 3px;
+			background: var(--text-secondary);
+			border-radius: 3px;
+			transition: all 0.3s ease;
+		}
+
+		/* ── LAYOUT ── */
+		.main-content {
+			flex: 1 0 auto;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 2rem 1rem;
+			width: 100%;
+		}
+
+		/* ── PAGE HEADER ── */
+		.page-header {
+			text-align: center;
+			margin-bottom: 3rem;
+		}
+
+		.page-header h1 {
+			font-size: 2rem;
+			font-weight: 800;
+			color: var(--minnetonka-blue);
+		}
+
+		.page-header p {
+			font-size: 1.2rem;
+			color: var(--text-secondary);
+		}
+
+		/* ── TAB BUTTONS ── */
+		.tab-buttons {
+			display: flex;
+			gap: 1rem;
+			margin-bottom: 2rem;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.tab-button {
+			background: var(--minnetonka-blue);
+			color: var(--white);
+			border: none;
+			padding: 0.875rem 1.5rem;
+			border-radius: 12px;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
+		}
+
+		.tab-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+		}
+
+		.tab-button.active {
+			background: var(--sunbeam);
+			color: var(--black);
+			box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
+		}
+
+		/* ── TAB CONTENT (white card) ── */
+		.tab-content {
+			display: none;
+			background: var(--surface);
+			border-radius: 20px;
+			padding: 3rem;
+			box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+			border: 1px solid var(--border);
+			animation: fadeIn 0.5s ease;
+		}
+
+		.tab-content.active {
+			display: block;
+		}
+
+		.tab-content h2 {
+			color: var(--minnetonka-blue);
+			font-size: 2.5rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.tab-content p {
+			color: var(--text-secondary);
+			font-size: 1.1rem;
+			line-height: 1.8;
+			margin-bottom: 1rem;
+		}
+
+		/* ── UPDATE ITEMS ── */
+		.update-item {
+			background: var(--surface-subtle);
+			border: 1px solid var(--border);
+			border-left: 4px solid var(--minnetonka-blue);
+			border-radius: 12px;
+			padding: 1.5rem;
+			margin-bottom: 1rem;
+		}
+
+		.update-item h3 {
+			color: var(--minnetonka-blue);
+			font-size: 1.4rem;
+			margin-bottom: 0.5rem;
+		}
+
+		.update-date {
+			color: var(--text-muted);
+			font-size: 0.9rem;
+			font-style: italic;
+			margin-bottom: 0.75rem;
+		}
+
+		/* ── PHOTO GRID ── */
+		.photo-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			gap: 1rem;
+		}
+
+		.photo-item {
+			background: var(--surface-subtle);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			overflow: hidden;
+			aspect-ratio: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--text-muted);
+			font-size: 3rem;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			position: relative;
+		}
+
+		.photo-item:hover {
+			transform: scale(1.03);
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+			border-color: var(--lake);
+		}
+
+		.photo-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.photo-caption {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: rgba(0, 0, 0, 0.65);
+			color: white;
+			padding: 0.5rem;
+			font-size: 0.9rem;
+			transform: translateY(100%);
+			transition: transform 0.3s ease;
+		}
+
+		.photo-item:hover .photo-caption {
+			transform: translateY(0);
+		}
+
+		/* ── FILE LIST ── */
+		.file-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		.file-item {
+			background: var(--surface-subtle);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 1.5rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 2rem;
+			transition: all 0.3s ease;
+		}
+
+		.file-item:hover {
+			background: var(--white);
+			transform: translateX(5px);
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+			border-color: var(--lake);
+		}
+
+		.file-name {
+			color: var(--text-primary);
+			font-size: 1.1rem;
+			font-weight: 600;
+		}
+
+		.file-description {
+			color: var(--text-muted);
+			font-size: 0.9rem;
+			margin-top: 0.25rem;
+		}
+
+		.download-button {
+			background: var(--minnetonka-blue);
+			color: var(--white);
+			border: none;
+			padding: 0.5rem 1.5rem;
+			border-radius: 8px;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			white-space: nowrap;
+		}
+
+		.download-button:hover {
+			background: var(--midnight);
+			transform: scale(1.05);
+			box-shadow: 0 4px 12px rgba(0, 54, 152, 0.3);
+		}
+
+		/* ── INSTAGRAM HANDLE ── */
+		.instagram-handle {
+			color: var(--minnetonka-blue);
+			text-decoration: none;
+			font-weight: 600;
+			transition: all 0.3s ease;
+			position: relative;
+		}
+
+		.instagram-handle:hover {
+			color: #e1306c;
+		}
+
+		.instagram-handle::after {
+			content: '';
+			position: absolute;
+			bottom: -2px;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background: linear-gradient(90deg, #e1306c 0%, #c13584 50%, #833ab4 100%);
+			transition: width 0.3s ease;
+		}
+
+		.instagram-handle:hover::after {
+			width: 100%;
+		}
+
+		/* ── COACH CARDS ── */
+		.coaches-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+			gap: 1.5rem;
+			margin-top: 1.5rem;
+		}
+
+		.coach-card {
+			background: var(--surface-subtle);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			padding: 1.5rem;
+			text-align: center;
+			transition: all 0.3s ease;
+		}
+
+		.coach-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+			border-color: var(--lake);
+		}
+
+		.coach-image {
+			width: 120px;
+			height: 120px;
+			border-radius: 50%;
+			margin: 0 auto 1rem;
+			background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			border: 3px solid var(--sunbeam);
+		}
+
+		.coach-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.coach-image-placeholder {
+			font-size: 2.5rem;
+			color: rgba(255, 255, 255, 0.5);
+		}
+
+		.coach-name {
+			color: var(--text-primary);
+			font-size: 1.2rem;
+			font-weight: 700;
+			margin-bottom: 0.4rem;
+		}
+
+		.coach-title {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+			margin-bottom: 1rem;
+		}
+
+		.email-button {
+			display: inline-block;
+			background: var(--sunbeam);
+			color: var(--black);
+			border: none;
+			padding: 0.5rem 1.25rem;
+			border-radius: 8px;
+			font-weight: 600;
+			font-size: 0.95rem;
+			cursor: pointer;
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.email-button:hover {
+			filter: brightness(1.08);
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
+		}
+
+		.email-button.disabled {
+			background: #4a5568;
+			color: #a0aec0;
+			cursor: not-allowed;
+			pointer-events: none;
+			opacity: 0.6;
+		}
+
+		.email-button.disabled:hover {
+			transform: none;
+			box-shadow: none;
+			filter: none;
+		}
+
+		/* ── ALBUMS GRID ── */
+		.albums-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 1.5rem;
+		}
+
+		.album-item {
+			background: var(--surface-subtle);
+			border: 1px solid var(--border);
+			border-radius: 16px;
+			overflow: hidden;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.album-item:hover {
+			transform: translateY(-6px);
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+			border-color: var(--lake);
+		}
+
+		.album-cover {
+			width: 100%;
+			aspect-ratio: 16/9;
+			background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+		}
+
+		.album-cover img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.album-cover-placeholder {
+			font-size: 4rem;
+			color: rgba(255, 255, 255, 0.35);
+		}
+
+		.album-info {
+			padding: 1.25rem;
+		}
+
+		.album-name {
+			color: var(--text-primary);
+			font-size: 1.2rem;
+			font-weight: 700;
+			margin-bottom: 0.4rem;
+		}
+
+		.album-description {
+			color: var(--text-muted);
+			font-size: 0.9rem;
+		}
+
+		/* ── BACK BUTTON ── */
+		.back-button {
+			background: var(--surface-subtle);
+			color: var(--minnetonka-blue);
+			border: 2px solid var(--minnetonka-blue);
+			padding: 0.75rem 1.5rem;
+			border-radius: 10px;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
+
+		.back-button:hover {
+			background: var(--minnetonka-blue);
+			color: var(--white);
+			transform: translateX(-4px);
+		}
+
+		/* ── PHOTO MODAL ── */
+		/* Photo Modal */
+		.photo-modal {
+			display: none;
+			position: fixed;
+			z-index: 3000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.95);
+			animation: fadeIn 0.3s ease;
+		}
 
 
-.photo-modal-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
-    z-index: 3001;
-}
+		.photo-modal.active {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
 
 
-.photo-modal-content {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-}
+		.photo-modal-header {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 1rem 2rem;
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
+			z-index: 3001;
+		}
 
 
-.photo-modal-close {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid var(--white);
-    color: var(--white);
-    font-size: 1.5rem;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+		.photo-modal-content {
+			max-width: 90%;
+			max-height: 90%;
+			object-fit: contain;
+		}
 
 
-.photo-modal-close:hover {
-    background: var(--white);
-    color: var(--black);
-    transform: rotate(90deg);
-}
+		.photo-modal-close {
+			background: rgba(255, 255, 255, 0.1);
+			border: 2px solid var(--white);
+			color: var(--white);
+			font-size: 1.5rem;
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: all 0.3s ease;
+		}
 
 
-.photo-modal-close:hover svg path {
-    stroke: var(--black);
-}
+		.photo-modal-close:hover {
+			background: var(--white);
+			color: var(--black);
+			transform: rotate(90deg);
+		}
 
 
-.photo-modal-actions {
-    display: flex;
-    gap: 1rem;
-}
+		.photo-modal-close:hover svg path {
+			stroke: var(--black);
+		}
 
 
-.photo-action-button {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid var(--white);
-    color: var(--white);
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
+		.photo-modal-actions {
+			display: flex;
+			gap: 1rem;
+		}
 
 
-.photo-action-button:hover {
-    background: var(--sunbeam);
-    color: var(--black);
-    border-color: var(--sunbeam);
-    transform: translateY(-2px);
-}
+		.photo-action-button {
+			background: rgba(255, 255, 255, 0.1);
+			border: 2px solid var(--white);
+			color: var(--white);
+			padding: 0.75rem 1.5rem;
+			border-radius: 12px;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
 
 
-.photo-modal-content-wrapper {
-    max-width: 90vw;
-    max-height: 85vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+		.photo-action-button:hover {
+			background: var(--sunbeam);
+			color: var(--black);
+			border-color: var(--sunbeam);
+			transform: translateY(-2px);
+		}
 
 
-.photo-modal-content {
-    max-width: 100%;
-    max-height: 85vh;
-    object-fit: contain;
-    border-radius: 8px;
-}
+		.photo-modal-content-wrapper {
+			max-width: 90vw;
+			max-height: 85vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 
 
-.photo-modal-caption {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    color: white;
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 1.2rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    z-index: 3001;
-}
+		.photo-modal-content {
+			max-width: 100%;
+			max-height: 85vh;
+			object-fit: contain;
+			border-radius: 8px;
+		}
 
 
-/* Hide body scroll when modal is open */
-body.modal-open {
-    overflow: hidden;
-}
+		.photo-modal-caption {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			color: white;
+			text-align: center;
+			padding: 1.5rem;
+			font-size: 1.2rem;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+			z-index: 3001;
+		}
 
 
-/* Navigation arrows for gallery */
-.photo-nav-arrow {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid var(--white);
-    color: var(--white);
-    font-size: 2rem;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 3001;
-}
+		/* Hide body scroll when modal is open */
+		body.modal-open {
+			overflow: hidden;
+		}
 
 
-.photo-nav-arrow:hover {
-    background: var(--white);
-    color: var(--black);
-}
+		/* Navigation arrows for gallery */
+		.photo-nav-arrow {
+			position: fixed;
+			top: 50%;
+			transform: translateY(-50%);
+			background: rgba(255, 255, 255, 0.1);
+			border: 2px solid var(--white);
+			color: var(--white);
+			font-size: 2rem;
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			z-index: 3001;
+		}
 
 
-.photo-nav-arrow.left {
-    left: 2rem;
-}
+		.photo-nav-arrow:hover {
+			background: var(--white);
+			color: var(--black);
+		}
 
 
-.photo-nav-arrow.right {
-    right: 2rem;
-}
+		.photo-nav-arrow.left {
+			left: 2rem;
+		}
 
-    
-        .photo-modal-counter {
-            position: fixed;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-            z-index: 3001;
-        }
-    
-        .photo-loading-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 2rem;
-        }
-    
-        /* ── FOOTER ── */
-        footer {
-            background: rgba(26, 32, 44, 0.97);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 2rem;
-            margin-top: 4rem;
-            text-align: center;
-            flex-shrink: 0;
-        }
-    
-        /* ── ANIMATION ── */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-    
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    
-        /* ── MOBILE ── */
-        @media (max-width: 900px) {
-            .nav-content {
-                padding: 0 1rem;
-            }
-    
-            .logo-m-img {
-                height: 2rem;
-            }
-    
-            .logo-text {
-                font-size: 1.2rem;
-            }
-    
-            .nav-links {
-                position: absolute;
-                z-index: 1000;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(255, 255, 255, 0.97);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                padding: 1rem 0;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease, opacity 0.3s ease;
-                opacity: 0;
-                gap: 0;
-            }
-    
-            .nav-links li {
-                width: 100%;
-            }
-    
-            .nav-links a {
-                display: block;
-                padding: 1rem 2rem;
-                width: 100%;
-            }
-    
-            .nav-links.active {
-                max-height: 400px;
-                opacity: 1;
-            }
-    
-            .hamburger {
-                display: flex;
-                z-index: 1001;
-            }
-    
-            .hamburger.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-    
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-                transform: scale(0);
-            }
-    
-            .hamburger.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
-    
-            .main-content {
-                padding: 2rem 1rem;
-            }
-    
-            .page-header h1 {
-                font-size: 2rem;
-            }
-    
-            .tab-content {
-                padding: 1.5rem;
-            }
-    
-            .tab-content h2 {
-                font-size: 1.75rem;
-            }
-    
-            .tab-button {
-                padding: 0.875rem 1.5rem;
-                font-size: 1rem;
-            }
-    
-            .photo-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-    
-            .photo-action-button span {
-                display: none;
-            }
-    
-            .photo-nav-arrow {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-    
-            .photo-nav-arrow.left {
-                left: 1rem;
-            }
-    
-            .photo-nav-arrow.right {
-                right: 1rem;
-            }
-    
-            .photo-modal-content {
-                width: 95vw;
-                height: 90vh;
-                object-fit: contain;
-                border-radius: 8px;
-            }
-    
-            .menu-backdrop {
-                position: fixed;
-                top: 72px;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.5);
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s ease;
-                z-index: 999;
-            }
-    
-            .menu-backdrop.active {
-                opacity: 1;
-                pointer-events: auto;
-            }
-        }
-    
-        @media (max-width: 600px) {
-            .coaches-grid {
-                grid-template-columns: 1fr;
-            }
-    
-            .tab-buttons {
-                gap: 0.5rem;
-            }
-    
-            .tab-button {
-                padding: 0.75rem 1rem;
-                font-size: 0.95rem;
-            }
-        }
-    
-        </style>
+
+		.photo-nav-arrow.right {
+			right: 2rem;
+		}
+
+
+		.photo-modal-counter {
+			position: fixed;
+			bottom: 1.5rem;
+			left: 50%;
+			transform: translateX(-50%);
+			color: rgba(255, 255, 255, 0.7);
+			font-size: 0.9rem;
+			z-index: 3001;
+		}
+
+		.photo-loading-overlay {
+			position: absolute;
+			inset: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--white);
+			font-size: 2rem;
+		}
+
+		/* ── FOOTER ── */
+		footer {
+			background: rgba(26, 32, 44, 0.97);
+			backdrop-filter: blur(10px);
+			color: white;
+			padding: 2rem;
+			margin-top: 4rem;
+			text-align: center;
+			flex-shrink: 0;
+		}
+
+		/* ── ANIMATION ── */
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		/* ── MOBILE ── */
+		@media (max-width: 900px) {
+			.nav-content {
+				padding: 0 1rem;
+			}
+
+			.logo-m-img {
+				height: 2rem;
+			}
+
+			.logo-text {
+				font-size: 1.2rem;
+			}
+
+			.nav-links {
+				position: absolute;
+				z-index: 1000;
+				top: 100%;
+				left: 0;
+				right: 0;
+				background: rgba(255, 255, 255, 0.97);
+				backdrop-filter: blur(10px);
+				flex-direction: column;
+				padding: 1rem 0;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				max-height: 0;
+				overflow: hidden;
+				transition: max-height 0.3s ease, opacity 0.3s ease;
+				opacity: 0;
+				gap: 0;
+			}
+
+			.nav-links li {
+				width: 100%;
+			}
+
+			.nav-links a {
+				display: block;
+				padding: 1rem 2rem;
+				width: 100%;
+			}
+
+			.nav-links.active {
+				max-height: 400px;
+				opacity: 1;
+			}
+
+			.hamburger {
+				display: flex;
+				z-index: 1001;
+			}
+
+			.hamburger.active span:nth-child(1) {
+				transform: rotate(45deg) translate(5px, 5px);
+			}
+
+			.hamburger.active span:nth-child(2) {
+				opacity: 0;
+				transform: scale(0);
+			}
+
+			.hamburger.active span:nth-child(3) {
+				transform: rotate(-45deg) translate(5px, -5px);
+			}
+
+			.main-content {
+				padding: 2rem 1rem;
+			}
+
+			.page-header h1 {
+				font-size: 2rem;
+			}
+
+			.tab-content {
+				padding: 1.5rem;
+			}
+
+			.tab-content h2 {
+				font-size: 1.75rem;
+			}
+
+			.tab-button {
+				padding: 0.875rem 1.5rem;
+				font-size: 1rem;
+			}
+
+			.photo-grid {
+				grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			}
+
+			.photo-action-button span {
+				display: none;
+			}
+
+			.photo-nav-arrow {
+				width: 50px;
+				height: 50px;
+				font-size: 1.5rem;
+			}
+
+			.photo-nav-arrow.left {
+				left: 1rem;
+			}
+
+			.photo-nav-arrow.right {
+				right: 1rem;
+			}
+
+			.photo-modal-content {
+				width: 95vw;
+				height: 90vh;
+				object-fit: contain;
+				border-radius: 8px;
+			}
+
+			.menu-backdrop {
+				position: fixed;
+				top: 72px;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.5);
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 0.3s ease;
+				z-index: 999;
+			}
+
+			.menu-backdrop.active {
+				opacity: 1;
+				pointer-events: auto;
+			}
+		}
+
+		@media (max-width: 600px) {
+			.coaches-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.tab-buttons {
+				gap: 0.5rem;
+			}
+
+			.tab-button {
+				padding: 0.75rem 1rem;
+				font-size: 0.95rem;
+			}
+		}
+	</style>
 </head>
+
 <body>
-    <nav class="nav-bar">
-        <div class="nav-content">
-            <a href="../" class="logo">
-                <img src="../images/minnetonka-M-logo.png" alt="Minnetonka M" class="logo-m-img">
-                <span class="logo-text">TONKA TRACK</span>        
-            </a>
-            <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links" id="navMenu">
-                <li><a href="../" onclick="closeMenu()">Home</a></li>
-                <li><a href="../news/" onclick="closeMenu()">News</a></li>
-                <li><a href="../sports/" onclick="closeMenu()">Sports</a></li>
-                <li><a href="../mtfcca/" onclick="closeMenu()">MTFCCA</a></li>
-                <li><a href="../contact/" onclick="closeMenu()">Contact</a></li>
-           </ul>
-        </div>
-        <div class="menu-backdrop" id="menuBackdrop"></div>
-    </nav>
+	<nav class="nav-bar">
+		<div class="nav-content">
+			<a href="../" class="logo">
+				<img src="../images/minnetonka-M-logo.png" alt="Minnetonka M" class="logo-m-img">
+				<span class="logo-text">TONKA TRACK</span>
+			</a>
+			<div class="hamburger" onclick="toggleMenu()">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<ul class="nav-links" id="navMenu">
+				<li><a href="../" onclick="closeMenu()">Home</a></li>
+				<li><a href="../news/" onclick="closeMenu()">News</a></li>
+				<li><a href="../sports/" onclick="closeMenu()">Sports</a></li>
+				<li><a href="../mtfcca/" onclick="closeMenu()">MTFCCA</a></li>
+				<li><a href="../contact/" onclick="closeMenu()">Contact</a></li>
+			</ul>
+		</div>
+		<div class="menu-backdrop" id="menuBackdrop"></div>
+	</nav>
 
-    <div class="main-content">
-        <div class="page-header">
-            <h1>Boys Cross Country</h1>
-            <p>Building champions, one stride at a time</p>
-        </div>
+	<div class="main-content">
+		<div class="page-header">
+			<h1>Boys Cross Country</h1>
+			<p>Building champions, one stride at a time</p>
+		</div>
 
-        <div class="tab-buttons">
-            <button class="tab-button active" onclick="showTab('home')">Home</button>
-            <button class="tab-button" onclick="showTab('updates')">Updates</button>
-            <button class="tab-button" onclick="showTab('photos')">Photos</button>
-            <button class="tab-button" onclick="showTab('files')">Files</button>
-            <button class="tab-button" onclick="showTab('coaches')">Coaches</button>
-        </div>
+		<div class="tab-buttons">
+			<button class="tab-button active" onclick="showTab('home')">Home</button>
+			<button class="tab-button" onclick="showTab('updates')">Updates</button>
+			<button class="tab-button" onclick="showTab('photos')">Photos</button>
+			<button class="tab-button" onclick="showTab('files')">Files</button>
+			<button class="tab-button" onclick="showTab('coaches')">Coaches</button>
+		</div>
 
-        <div id="home-tab" class="tab-content active">
-            <h2>Welcome to Boys Cross Country</h2>
-            <p>Welcome to Minnetonka Boys Cross Country! We are dedicated to developing student-athletes who excel both on the course and in the classroom.</p>
-            <p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned runner or new to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
-            <p>You can follow our Instagram <a href="https://www.instagram.com/tonkadistance/" target="_blank" rel="noopener noreferrer"
-                class="instagram-handle">@tonkadistance</a> for the latest updates and team highlights.</p>
-            <div class="update-item">
-                <h3>Season Information</h3>
-                <p>Practice times, meet schedules, and important announcements will be posted here throughout the season.</p>
-            </div>
-        </div>
+		<div id="home-tab" class="tab-content active">
+			<h2>Welcome to Boys Cross Country</h2>
+			<p>Welcome to Minnetonka Boys Cross Country! We are dedicated to developing student-athletes who excel both
+				on the course and in the classroom.</p>
+			<p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned runner or new
+				to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
+			<p>You can follow our Instagram <a href="https://www.instagram.com/tonkadistance/" target="_blank"
+					rel="noopener noreferrer" class="instagram-handle">@tonkadistance</a> for the latest updates and
+				team highlights.</p>
+			<div class="update-item">
+				<h3>Season Information</h3>
+				<p>Practice times, meet schedules, and important announcements will be posted here throughout the
+					season.</p>
+			</div>
+		</div>
 
-        <div id="updates-tab" class="tab-content">
-            <h2>Latest Updates</h2>
-            
-            <p>No current updates. Please check back later!</p>
-        </div>
+		<div id="updates-tab" class="tab-content">
+			<h2>Latest Updates</h2>
 
-        <div id="photos-tab" class="tab-content">
-            <div id="albums-view">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h2 style="margin: 0;">Photo Albums</h2>
-                </div>
-                <p id="albums-loading-message" style="color: var(--text-primary);">Loading albums...</p>
-        
-                <div class="albums-grid" id="albums-grid">
-                    <!-- Albums will be loaded here -->
-                </div>
-            </div>
-        
-            <div id="album-photos-view" style="display: none;">
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                    <button class="back-button" onclick="backToAlbums()">← Back to Albums</button>
-                    <h2 id="album-title" style="margin: 0;"></h2>
-                </div>
-                <p id="photos-loading-message" style="color: var(--text-primary);">Loading photos...</p>
-        
-                <div class="photo-grid" id="photo-grid">
-                    <!-- Photos will be loaded here -->
-                </div>
-            </div>
-        </div>
+			<p>No current updates. Please check back later!</p>
+		</div>
 
-        <div id="files-tab" class="tab-content">
-            <h2>Team Files & Resources</h2>
-            <p id="loading-message" style="color: var(--text-primary);">Loading files...</p>
-        
-            <div class="file-list" id="file-list">
-                <!-- Files will be loaded here dynamically -->
-            </div>
-        </div>
+		<div id="photos-tab" class="tab-content">
+			<div id="albums-view">
+				<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+					<h2 style="margin: 0;">Photo Albums</h2>
+				</div>
+				<p id="albums-loading-message" style="color: var(--text-primary);">Loading albums...</p>
 
-        <div id="coaches-tab" class="tab-content">
-            <h2>Boys Cross Country</h2>
-            <div class="coaches-grid">
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jeff-renlund.png" alt="Jeff Renlund">
-                    </div>
-                    <div class="coach-name">Jeff Renlund</div>
-                    <div class="coach-title">Head Coach</div>
-                    <a href="mailto:Jeffrey.Renlund@minnetonkaschools.org" class="email-button">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jacob-peterson.jpg" alt="Jacob Peterson">
-                    </div>
-                    <div class="coach-name">Jacob Peterson (JP)</div>
-                    <div class="coach-title">Assistant Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/titus-winders.jpg" alt="Titus Winders">
-                    </div>
-                    <div class="coach-name">Titus Winders</div>
-                    <div class="coach-title">Assistant Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-            </div>
-        </div>
+				<div class="albums-grid" id="albums-grid">
+					<!-- Albums will be loaded here -->
+				</div>
+			</div>
 
-        <!-- Photo Modal -->
-        <div id="photo-modal" class="photo-modal">
-            <div class="photo-modal-header">
-                <button class="photo-modal-close" id="modal-close-btn" onclick="closePhotoModal()">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 5L5 15M5 5L15 15" stroke="white" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                </button>
-                <div class="photo-modal-actions">
-                    <button class="photo-action-button" id="download-btn">
-                        <span>📥</span>
-                        <span>Download</span>
-                    </button>
-                    <button class="photo-action-button" id="share-btn">
-                        <span>🔗</span>
-                        <span>Share</span>
-                    </button>
-                </div>
-            </div>
-        
-            <div class="photo-nav-arrow left" id="prev-photo" onclick="navigatePhoto(-1)" style="display: none;">‹</div>
-        
-            <div class="photo-modal-content-wrapper">
-                <div class="photo-loading" id="photo-loading">Loading...</div>
-                <img class="photo-modal-content" id="modal-image" style="display: none;">
-            </div>
-        
-            <div class="photo-nav-arrow right" id="next-photo" onclick="navigatePhoto(1)" style="display: none;">›</div>
-        
-            <div id="modal-caption" class="photo-modal-caption"></div>
-        </div>
+			<div id="album-photos-view" style="display: none;">
+				<div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+					<button class="back-button" onclick="backToAlbums()">← Back to Albums</button>
+					<h2 id="album-title" style="margin: 0;"></h2>
+				</div>
+				<p id="photos-loading-message" style="color: var(--text-primary);">Loading photos...</p>
+
+				<div class="photo-grid" id="photo-grid">
+					<!-- Photos will be loaded here -->
+				</div>
+			</div>
+		</div>
+
+		<div id="files-tab" class="tab-content">
+			<h2>Team Files & Resources</h2>
+			<p id="loading-message" style="color: var(--text-primary);">Loading files...</p>
+
+			<div class="file-list" id="file-list">
+				<!-- Files will be loaded here dynamically -->
+			</div>
+		</div>
+
+		<div id="coaches-tab" class="tab-content">
+			<h2>Boys Cross Country</h2>
+			<div class="coaches-grid">
+				<div class="coach-card">
+					<div class="coach-image">
+						<img src="../images/jeff-renlund.png" alt="Jeff Renlund">
+					</div>
+					<div class="coach-name">Jeff Renlund</div>
+					<div class="coach-title">Head Coach</div>
+					<a href="mailto:Jeffrey.Renlund@minnetonkaschools.org" class="email-button">Send Email</a>
+				</div>
+				<div class="coach-card">
+					<div class="coach-image">
+						<img src="../images/jacob-peterson.jpg" alt="Jacob Peterson">
+					</div>
+					<div class="coach-name">Jacob Peterson (JP)</div>
+					<div class="coach-title">Assistant Coach</div>
+					<a href="#" class="email-button disabled">Send Email</a>
+				</div>
+				<div class="coach-card">
+					<div class="coach-image">
+						<img src="../images/titus-winders.jpg" alt="Titus Winders">
+					</div>
+					<div class="coach-name">Titus Winders</div>
+					<div class="coach-title">Assistant Coach</div>
+					<a href="#" class="email-button disabled">Send Email</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Photo Modal -->
+		<div id="photo-modal" class="photo-modal">
+			<div class="photo-modal-header">
+				<button class="photo-modal-close" id="modal-close-btn" onclick="closePhotoModal()">
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M15 5L5 15M5 5L15 15" stroke="white" stroke-width="2" stroke-linecap="round" />
+					</svg>
+				</button>
+				<div class="photo-modal-actions">
+					<button class="photo-action-button" id="download-btn">
+						<span>📥</span>
+						<span>Download</span>
+					</button>
+					<button class="photo-action-button" id="share-btn">
+						<span>🔗</span>
+						<span>Share</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="photo-nav-arrow left" id="prev-photo" onclick="navigatePhoto(-1)" style="display: none;">‹</div>
+
+			<div class="photo-modal-content-wrapper">
+				<div class="photo-loading" id="photo-loading">Loading...</div>
+				<img class="photo-modal-content" id="modal-image" style="display: none;">
+			</div>
+
+			<div class="photo-nav-arrow right" id="next-photo" onclick="navigatePhoto(1)" style="display: none;">›</div>
+
+			<div id="modal-caption" class="photo-modal-caption"></div>
+		</div>
+	</div>
+
+	<footer>
+		<p>&copy; 2026 Tonka Track & Field. Building champions, one stride at a time.</p>
+	</footer>
+
+	<script>
+		function toggleMenu() {
+			const menu = document.getElementById('navMenu');
+			const hamburger = document.querySelector('.hamburger');
+			const backdrop = document.getElementById('menuBackdrop');
+
+			menu.classList.toggle('active');
+			hamburger.classList.toggle('active');
+			backdrop.classList.toggle('active');
+		}
+
+		function closeMenu() {
+			const menu = document.getElementById('navMenu');
+			const hamburger = document.querySelector('.hamburger');
+			const backdrop = document.getElementById('menuBackdrop');
+
+			menu.classList.remove('active');
+			hamburger.classList.remove('active');
+			backdrop.classList.remove('active');
+		}
+		document.addEventListener('click', function (event) {
+			const menu = document.getElementById('navMenu');
+			const hamburger = document.querySelector('.hamburger');
+			const backdrop = document.getElementById('menuBackdrop');
+
+			// Check if menu is open and click is outside the nav-content
+			if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
+				menu.classList.remove('active');
+				hamburger.classList.remove('active');
+				backdrop.classList.remove('active');
+			}
+		});
+
+		function showTab(tabName) {
+			// Hide all tabs
+			const tabs = document.querySelectorAll('.tab-content');
+			tabs.forEach(tab => tab.classList.remove('active'));
+
+			// Remove active class from all buttons
+			const buttons = document.querySelectorAll('.tab-button');
+			buttons.forEach(button => button.classList.remove('active'));
+
+			// Show selected tab
+			document.getElementById(tabName + '-tab').classList.add('active');
+
+			// Add active class to clicked button
+			event.target.classList.add('active');
+		}
+
+		// Google Apps Script Web App URL
+		// Google Apps Script Web App URL (universal script)
+		const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
+
+		// Team-specific folder IDs
+		const TEAM_FILES_FOLDER_ID = '14X4jyyR7Gm25R2uF2Swvd3Ir0_8bN_Jg';  // The folder containing PDFs and documents
+		const TEAM_PHOTOS_FOLDER_ID = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1'; // The folder containing photo albums
+
+		async function loadFiles() {
+			const fileListContainer = document.getElementById('file-list');
+			const loadingMessage = document.getElementById('loading-message');
+
+			try {
+				const response = await fetch(`${APPS_SCRIPT_URL}?action=files&folderId=${TEAM_FILES_FOLDER_ID}`);
+				const data = await response.json();
+
+				if (data.success && data.files) {
+					loadingMessage.style.display = 'none';
+
+					if (data.files.length === 0) {
+						fileListContainer.innerHTML = '<p style="color: var(--text-primary);">No files available at this time.</p>';
+						return;
+					}
+
+					// Clear existing content
+					fileListContainer.innerHTML = '';
+
+					// Create file items
+					data.files.forEach(file => {
+						const fileItem = document.createElement('div');
+						fileItem.className = 'file-item';
+
+						// Format file size
+						const fileSizeKB = (file.size / 1024).toFixed(2);
+						const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+						const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+
+						fileItem.innerHTML = `
+    <div>
+        <div class="file-name">${file.name}</div>
+        <div class="file-description">${file.description} • ${displaySize}</div>
     </div>
-
-    <footer>
-        <p>&copy; 2026 Tonka Track & Field. Building champions, one stride at a time.</p>
-    </footer>
-
-    <script>
-        function toggleMenu() {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
-
-                menu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                backdrop.classList.toggle('active');
-            }
-
-            function closeMenu() {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
-
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                backdrop.classList.remove('active');
-            }
-            document.addEventListener('click', function (event) {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
-
-                // Check if menu is open and click is outside the nav-content
-                if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    backdrop.classList.remove('active');
-                }
-            }); 
-
-        function showTab(tabName) {
-            // Hide all tabs
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-
-            // Remove active class from all buttons
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => button.classList.remove('active'));
-
-            // Show selected tab
-            document.getElementById(tabName + '-tab').classList.add('active');
-
-            // Add active class to clicked button
-            event.target.classList.add('active');
-        }
-
-        // Google Apps Script Web App URL
-        // Google Apps Script Web App URL (universal script)
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
-
-        // Team-specific folder IDs
-        const TEAM_FILES_FOLDER_ID = '14X4jyyR7Gm25R2uF2Swvd3Ir0_8bN_Jg';  // The folder containing PDFs and documents
-        const TEAM_PHOTOS_FOLDER_ID = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1'; // The folder containing photo albums
-
-            async function loadFiles() {
-                const fileListContainer = document.getElementById('file-list');
-                const loadingMessage = document.getElementById('loading-message');
-
-                try {
-                    const response = await fetch(`${APPS_SCRIPT_URL}?action=files&folderId=${TEAM_FILES_FOLDER_ID}`);
-                    const data = await response.json();
-
-                    if (data.success && data.files) {
-                        loadingMessage.style.display = 'none';
-
-                        if (data.files.length === 0) {
-                            fileListContainer.innerHTML = '<p style="color: var(--text-primary);">No files available at this time.</p>';
-                            return;
-                        }
-
-                        // Clear existing content
-                        fileListContainer.innerHTML = '';
-
-                        // Create file items
-                        data.files.forEach(file => {
-                            const fileItem = document.createElement('div');
-                            fileItem.className = 'file-item';
-
-                            // Format file size
-                            const fileSizeKB = (file.size / 1024).toFixed(2);
-                            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                            const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
-
-                            fileItem.innerHTML = `
-                    <div>
-                        <div class="file-name">${file.name}</div>
-                        <div class="file-description">${file.description} • ${displaySize}</div>
-                    </div>
-                    <button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">Download</button>
-                `;
-
-                            fileListContainer.appendChild(fileItem);
-                        });
-                    } else {
-                        loadingMessage.textContent = 'Error loading files. Please try again later.';
-                        loadingMessage.style.color = '#ff6b6b';
-                    }
-                } catch (error) {
-                    console.error('Error fetching files:', error);
-                    loadingMessage.textContent = 'Unable to load files. Please check your connection.';
-                    loadingMessage.style.color = '#ff6b6b';
-                }
-            }
-
-            // Load files when the page loads
-            document.addEventListener('DOMContentLoaded', loadFiles);
-
-            // Also reload files when switching to the files tab
-            function showTab(tabName) {
-                // Hide all tabs
-                const tabs = document.querySelectorAll('.tab-content');
-                tabs.forEach(tab => tab.classList.remove('active'));
-
-                // Remove active class from all buttons
-                const buttons = document.querySelectorAll('.tab-button');
-                buttons.forEach(button => button.classList.remove('active'));
-
-                // Show selected tab
-                document.getElementById(tabName + '-tab').classList.add('active');
-
-                // Add active class to clicked button
-                event.target.classList.add('active');
-
-                // Reload files if switching to files tab
-                if (tabName === 'files') {
-                    loadFiles();
-                }
-            }
-
-            // Photo Albums functionality
-                const ALBUMS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=photoAlbums';
-                const ALBUM_PHOTOS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=albumPhotos';
-                const ALL_PHOTOS_SCRIPT_URL = `https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=allPhotos&folderId=${TEAM_PHOTOS_FOLDER_ID}`;
-
-                let currentAlbumId = null;
-                let currentPhotoIndex = 0;
-                let currentPhotosArray = [];
-                let imageCache = new Map();
-
-                // Preload image function
-                function preloadImage(url, fallbackUrl) {
-                    if (imageCache.has(url)) {
-                        return Promise.resolve();
-                    }
-
-                    return new Promise((resolve, reject) => {
-                        const img = new Image();
-
-                        img.onload = () => {
-                            imageCache.set(url, img);
-                            resolve();
-                        };
-
-                        img.onerror = () => {
-                            // Try fallback if primary fails
-                            if (fallbackUrl && fallbackUrl !== url) {
-                                const fallbackImg = new Image();
-                                fallbackImg.onload = () => {
-                                    imageCache.set(url, fallbackImg);
-                                    resolve();
-                                };
-                                fallbackImg.onerror = () => reject();
-                                fallbackImg.src = fallbackUrl;
-                            } else {
-                                reject();
-                            }
-                        };
-
-                        img.src = url;
-                    });
-                }
-
-                async function loadPhotoAlbums() {
-                    const albumsGrid = document.getElementById('albums-grid');
-                    const loadingMessage = document.getElementById('albums-loading-message');
-
-                    try {
-                        const response = await fetch(`${APPS_SCRIPT_URL}?action=photoAlbums&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
-                        const data = await response.json();
-
-                        if (data.success && data.albums) {
-                            loadingMessage.style.display = 'none';
-
-                            if (data.albums.length === 0 && data.allPhotosCount === 0) {
-                                albumsGrid.innerHTML = '<p style="color: var(--text-primary);">No photo albums yet. Check back soon!</p>';
-                                return;
-                            }
-
-                            albumsGrid.innerHTML = '';
-
-                            // Add "All Photos" album with all photos from everywhere
-                            if (data.allPhotosCount > 0) {
-                                const allPhotosAlbum = createAlbumItem({
-                                    id: 'ALL_PHOTOS', // Special ID
-                                    name: 'All Photos',
-                                    description: `${data.allPhotosCount} photos`,
-                                    photoCount: data.allPhotosCount,
-                                    coverPhotoUrl: data.allPhotosCover ? `https://drive.google.com/thumbnail?id=${data.allPhotosCover}&sz=w400` : null
-                                });
-                                albumsGrid.appendChild(allPhotosAlbum);
-                            }
-
-                            // Add each subfolder album
-                            data.albums.forEach(album => {
-                                const albumItem = createAlbumItem(album);
-                                albumsGrid.appendChild(albumItem);
-                            });
-                        } else {
-                            loadingMessage.textContent = 'Error loading albums. Please try again later.';
-                            loadingMessage.style.color = '#ff6b6b';
-                        }
-                    } catch (error) {
-                        console.error('Error fetching albums:', error);
-                        loadingMessage.textContent = 'Unable to load albums. Please check your connection.';
-                        loadingMessage.style.color = '#ff6b6b';
-                    }
-                }
-
-                // Preload adjacent images for smooth navigation
-                function preloadAdjacentImages(index) {
-                    if (index > 0) {
-                        preloadImage(currentPhotosArray[index - 1].fullUrl);
-                    }
-                    if (index < currentPhotosArray.length - 1) {
-                        preloadImage(currentPhotosArray[index + 1].fullUrl);
-                    }
-                }
-
-
-                function createAlbumItem(album) {
-                    const albumItem = document.createElement('div');
-                    albumItem.className = 'album-item';
-                    albumItem.onclick = () => openAlbum(album.id, album.name);
-
-                    const cover = document.createElement('div');
-                    cover.className = 'album-cover';
-
-                    if (album.coverPhotoUrl) {
-                        const img = document.createElement('img');
-                        img.src = album.coverPhotoUrl;
-                        img.alt = album.name;
-                        img.loading = 'lazy';
-                        img.decoding = 'async';
-                        cover.appendChild(img);
-                    } else {
-                        const placeholder = document.createElement('div');
-                        placeholder.className = 'album-cover-placeholder';
-                        placeholder.textContent = '📷';
-                        cover.appendChild(placeholder);
-                    }
-
-                    const info = document.createElement('div');
-                    info.className = 'album-info';
-
-                    const name = document.createElement('div');
-                    name.className = 'album-name';
-                    name.textContent = album.name;
-
-                    const description = document.createElement('div');
-                    description.className = 'album-description';
-                    description.textContent = album.description;
-
-                    info.appendChild(name);
-                    info.appendChild(description);
-
-                    albumItem.appendChild(cover);
-                    albumItem.appendChild(info);
-
-                    return albumItem;
-                }
-                    let currentAlbumRequestId = 0;
-
-                    async function openAlbum(albumId, albumName) {
-                        const requestId = ++currentAlbumRequestId;
-                        currentAlbumId = albumId;
-
-                        document.getElementById('albums-view').style.display = 'none';
-                        document.getElementById('album-photos-view').style.display = 'block';
-                        document.getElementById('album-title').textContent = albumName;
-
-                        const photoGrid = document.getElementById('photo-grid');
-                        const loadingMessage = document.getElementById('photos-loading-message');
-
-                        photoGrid.innerHTML = '';
-                        loadingMessage.style.display = 'block';
-                        loadingMessage.textContent = 'Loading photos...';
-                        loadingMessage.style.color = 'var(--sky)'; // or 'var(--text-primary)' for light theme pages
-
-                        let retries = 3;
-                        while (retries > 0) {
-                            // Bail out if a newer request has started
-                            if (requestId !== currentAlbumRequestId) return;
-
-                            try {
-                                let url;
-                                if (albumId === 'ALL_PHOTOS') {
-                                    url = ALL_PHOTOS_SCRIPT_URL;
-                                } else {
-                                    url = `${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`;
-                                }
-
-                                const response = await fetch(url);
-
-                                // Check again after the await
-                                if (requestId !== currentAlbumRequestId) return;
-
-                                if (!response.ok) {
-                                    throw new Error(`HTTP error! status: ${response.status}`);
-                                }
-
-                                const data = await response.json();
-
-                                // Check again after the await
-                                if (requestId !== currentAlbumRequestId) return;
-
-                                if (data.success && data.photos) {
-                                    loadingMessage.style.display = 'none';
-
-                                    if (data.photos.length === 0) {
-                                        photoGrid.innerHTML = '<p>No photos in this album yet.</p>';
-                                        return;
-                                    }
-
-                                    currentPhotosArray = data.photos;
-
-                                    data.photos.forEach((photo, index) => {
-                                        const photoItem = document.createElement('div');
-                                        photoItem.className = 'photo-item';
-                                        photoItem.onclick = () => openPhotoModal(index);
-
-                                        const img = document.createElement('img');
-                                        img.src = photo.thumbnailUrl;
-                                        img.alt = photo.name;
-                                        img.loading = 'lazy';
-                                        img.decoding = 'async';
-
-                                        img.onerror = function () {
-                                            this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50%" y="50%" font-size="40" text-anchor="middle" dy=".3em">📷</text></svg>';
-                                        };
-
-                                        photoItem.appendChild(img);
-
-                                        if (photo.caption) {
-                                            const caption = document.createElement('div');
-                                            caption.className = 'photo-caption';
-                                            caption.textContent = photo.caption;
-                                            photoItem.appendChild(caption);
-                                        }
-
-                                        photoGrid.appendChild(photoItem);
-                                    });
-
-                                    for (let i = 0; i < Math.min(3, data.photos.length); i++) {
-                                        setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
-                                    }
-
-                                    return;
-                                } else {
-                                    throw new Error(data.error || 'Unknown error');
-                                }
-                            } catch (error) {
-                                if (requestId !== currentAlbumRequestId) return;
-                                console.error(`Error fetching album photos (${retries} retries left):`, error);
-                                retries--;
-
-                                if (retries > 0) {
-                                    loadingMessage.textContent = `Loading photos... (retrying in 1 second)`;
-                                    await new Promise(resolve => setTimeout(resolve, 1000));
-                                } else {
-                                    loadingMessage.textContent = 'Unable to load photos. Please check your connection.';
-                                    loadingMessage.style.color = '#ff6b6b';
-                                }
-                            }
-                        }
-                    }
-                function backToAlbums() {
-                    document.getElementById('albums-view').style.display = 'block';
-                    document.getElementById('album-photos-view').style.display = 'none';
-                    currentAlbumId = null;
-                    currentPhotosArray = [];
-                }
-
-                async function openPhotoModal(index) {
-                        currentPhotoIndex = index;
-                        const photo = currentPhotosArray[index];
-
-                        const modal = document.getElementById('photo-modal');
-                        const modalImg = document.getElementById('modal-image');
-                        const modalCaption = document.getElementById('modal-caption');
-                        const loading = document.getElementById('photo-loading');
-                        const downloadBtn = document.getElementById('download-btn');
-                        const shareBtn = document.getElementById('share-btn');
-
-                        // Hide navbar
-                        document.querySelector('.nav-bar').style.display = 'none';
-
-                        // Prevent body scroll
-                        document.body.classList.add('modal-open');
-
-                        modal.classList.add('active');
-                        modalImg.style.display = 'none';
-                        loading.style.display = 'block';
-                        loading.textContent = 'Loading high-resolution image...';
-
-                        // Show/hide navigation arrows
-                        document.getElementById('prev-photo').style.display = index > 0 ? 'flex' : 'none';
-                        document.getElementById('next-photo').style.display = index < currentPhotosArray.length - 1 ? 'flex' : 'none';
-
-                        // Set up download button
-                        downloadBtn.onclick = () => downloadPhoto(photo.downloadUrl, photo.name);
-
-                        // Set up share button
-                        shareBtn.onclick = () => sharePhoto(photo);
-
-                        // Try multiple URL formats for loading
-                        const urlsToTry = [
-                            { url: photo.fullUrl, timeout: 60000, label: 'high-resolution image' }, // 60 seconds for main image
-                            { url: photo.fallbackUrl, timeout: 30000, label: 'alternate source' },
-                            { url: photo.downloadUrl, timeout: 30000, label: 'download source' },
-                            { url: photo.thumbnailUrl, timeout: 15000, label: 'preview image' }
-                        ].filter(item => item.url); // Remove any undefined URLs
-
-                        let imageLoaded = false;
-                        let currentUrlIndex = 0;
-
-                        // Progress indicator for first image
-                        let progressInterval;
-                        let secondsElapsed = 0;
-
-                        while (currentUrlIndex < urlsToTry.length && !imageLoaded) {
-                            const currentItem = urlsToTry[currentUrlIndex];
-                            const currentUrl = currentItem.url;
-
-                            try {
-                                // Check cache first
-                                if (imageCache.has(currentUrl)) {
-                                    modalImg.src = currentUrl;
-                                    modalImg.style.display = 'block';
-                                    loading.style.display = 'none';
-                                    imageLoaded = true;
-                                    break;
-                                }
-
-                                // Show appropriate loading message
-                                if (currentUrlIndex === 0) {
-                                    loading.textContent = 'Loading high-resolution image...';
-                                    loading.style.color = 'var(--white)';
-
-                                    // Start progress indicator for first image only
-                                    secondsElapsed = 0;
-                                    progressInterval = setInterval(() => {
-                                        secondsElapsed++;
-                                        loading.textContent = `Loading high-resolution image... (${secondsElapsed}s)`;
-                                    }, 1000);
-                                } else {
-                                    loading.textContent = `Trying ${currentItem.label}... (${currentUrlIndex + 1}/${urlsToTry.length})`;
-                                    loading.style.color = 'var(--white)';
-                                }
-
-                                await new Promise((resolve, reject) => {
-                                    const img = new Image();
-                                    const timeout = setTimeout(() => {
-                                        reject(new Error('Image load timeout'));
-                                    }, currentItem.timeout);
-
-                                    img.onload = () => {
-                                        clearTimeout(timeout);
-                                        if (progressInterval) {
-                                            clearInterval(progressInterval);
-                                            progressInterval = null;
-                                        }
-                                        imageCache.set(currentUrl, img);
-                                        resolve();
-                                    };
-
-                                    img.onerror = () => {
-                                        clearTimeout(timeout);
-                                        if (progressInterval) {
-                                            clearInterval(progressInterval);
-                                            progressInterval = null;
-                                        }
-                                        reject(new Error('Image load failed'));
-                                    };
-
-                                    img.src = currentUrl;
-                                });
-
-                                // If we get here, image loaded successfully
-                                if (progressInterval) {
-                                    clearInterval(progressInterval);
-                                    progressInterval = null;
-                                }
-
-                                modalImg.src = currentUrl;
-
-                                // Force the image to take maximum space
-                                modalImg.onload = function () {
-                                    const windowWidth = window.innerWidth;
-                                    const windowHeight = window.innerHeight;
-                                    const availableHeight = windowHeight - 180; // Account for header/footer
-                                    const availableWidth = windowWidth - 40; // Account for padding
-
-                                    const imgRatio = this.naturalWidth / this.naturalHeight;
-                                    const viewportRatio = availableWidth / availableHeight;
-
-                                    if (imgRatio > viewportRatio) {
-                                        // Image is wider - fit to width
-                                        this.style.width = availableWidth + 'px';
-                                        this.style.height = 'auto';
-                                    } else {
-                                        // Image is taller - fit to height
-                                        this.style.height = availableHeight + 'px';
-                                        this.style.width = 'auto';
-                                    }
-                                };
-
-                                modalImg.style.display = 'block';
-                                loading.style.display = 'none';
-                                imageLoaded = true;
-
-                                // Show success message briefly if it took a while
-                                if (currentUrlIndex === 0 && secondsElapsed > 5) {
-                                    const successMsg = document.createElement('div');
-                                    successMsg.style.cssText = `
+    <button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">Open</button>
+`;
+
+						fileListContainer.appendChild(fileItem);
+					});
+				} else {
+					loadingMessage.textContent = 'Error loading files. Please try again later.';
+					loadingMessage.style.color = '#ff6b6b';
+				}
+			} catch (error) {
+				console.error('Error fetching files:', error);
+				loadingMessage.textContent = 'Unable to load files. Please check your connection.';
+				loadingMessage.style.color = '#ff6b6b';
+			}
+		}
+
+		// Load files when the page loads
+		document.addEventListener('DOMContentLoaded', loadFiles);
+
+		// Also reload files when switching to the files tab
+		function showTab(tabName) {
+			// Hide all tabs
+			const tabs = document.querySelectorAll('.tab-content');
+			tabs.forEach(tab => tab.classList.remove('active'));
+
+			// Remove active class from all buttons
+			const buttons = document.querySelectorAll('.tab-button');
+			buttons.forEach(button => button.classList.remove('active'));
+
+			// Show selected tab
+			document.getElementById(tabName + '-tab').classList.add('active');
+
+			// Add active class to clicked button
+			event.target.classList.add('active');
+
+			// Reload files if switching to files tab
+			if (tabName === 'files') {
+				loadFiles();
+			}
+		}
+
+		// Photo Albums functionality
+		const ALBUMS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=photoAlbums';
+		const ALBUM_PHOTOS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=albumPhotos';
+		const ALL_PHOTOS_SCRIPT_URL = `https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=allPhotos&folderId=${TEAM_PHOTOS_FOLDER_ID}`;
+
+		let currentAlbumId = null;
+		let currentPhotoIndex = 0;
+		let currentPhotosArray = [];
+		let imageCache = new Map();
+
+		// Preload image function
+		function preloadImage(url, fallbackUrl) {
+			if (imageCache.has(url)) {
+				return Promise.resolve();
+			}
+
+			return new Promise((resolve, reject) => {
+				const img = new Image();
+
+				img.onload = () => {
+					imageCache.set(url, img);
+					resolve();
+				};
+
+				img.onerror = () => {
+					// Try fallback if primary fails
+					if (fallbackUrl && fallbackUrl !== url) {
+						const fallbackImg = new Image();
+						fallbackImg.onload = () => {
+							imageCache.set(url, fallbackImg);
+							resolve();
+						};
+						fallbackImg.onerror = () => reject();
+						fallbackImg.src = fallbackUrl;
+					} else {
+						reject();
+					}
+				};
+
+				img.src = url;
+			});
+		}
+
+		async function loadPhotoAlbums() {
+			const albumsGrid = document.getElementById('albums-grid');
+			const loadingMessage = document.getElementById('albums-loading-message');
+
+			try {
+				const response = await fetch(`${APPS_SCRIPT_URL}?action=photoAlbums&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
+				const data = await response.json();
+
+				if (data.success && data.albums) {
+					loadingMessage.style.display = 'none';
+
+					if (data.albums.length === 0 && data.allPhotosCount === 0) {
+						albumsGrid.innerHTML = '<p style="color: var(--text-primary);">No photo albums yet. Check back soon!</p>';
+						return;
+					}
+
+					albumsGrid.innerHTML = '';
+
+					// Add "All Photos" album with all photos from everywhere
+					if (data.allPhotosCount > 0) {
+						const allPhotosAlbum = createAlbumItem({
+							id: 'ALL_PHOTOS', // Special ID
+							name: 'All Photos',
+							description: `${data.allPhotosCount} photos`,
+							photoCount: data.allPhotosCount,
+							coverPhotoUrl: data.allPhotosCover ? `https://drive.google.com/thumbnail?id=${data.allPhotosCover}&sz=w400` : null
+						});
+						albumsGrid.appendChild(allPhotosAlbum);
+					}
+
+					// Add each subfolder album
+					data.albums.forEach(album => {
+						const albumItem = createAlbumItem(album);
+						albumsGrid.appendChild(albumItem);
+					});
+				} else {
+					loadingMessage.textContent = 'Error loading albums. Please try again later.';
+					loadingMessage.style.color = '#ff6b6b';
+				}
+			} catch (error) {
+				console.error('Error fetching albums:', error);
+				loadingMessage.textContent = 'Unable to load albums. Please check your connection.';
+				loadingMessage.style.color = '#ff6b6b';
+			}
+		}
+
+		// Preload adjacent images for smooth navigation
+		function preloadAdjacentImages(index) {
+			if (index > 0) {
+				preloadImage(currentPhotosArray[index - 1].fullUrl);
+			}
+			if (index < currentPhotosArray.length - 1) {
+				preloadImage(currentPhotosArray[index + 1].fullUrl);
+			}
+		}
+
+
+		function createAlbumItem(album) {
+			const albumItem = document.createElement('div');
+			albumItem.className = 'album-item';
+			albumItem.onclick = () => openAlbum(album.id, album.name);
+
+			const cover = document.createElement('div');
+			cover.className = 'album-cover';
+
+			if (album.coverPhotoUrl) {
+				const img = document.createElement('img');
+				img.src = album.coverPhotoUrl;
+				img.alt = album.name;
+				img.loading = 'lazy';
+				img.decoding = 'async';
+				cover.appendChild(img);
+			} else {
+				const placeholder = document.createElement('div');
+				placeholder.className = 'album-cover-placeholder';
+				placeholder.textContent = '📷';
+				cover.appendChild(placeholder);
+			}
+
+			const info = document.createElement('div');
+			info.className = 'album-info';
+
+			const name = document.createElement('div');
+			name.className = 'album-name';
+			name.textContent = album.name;
+
+			const description = document.createElement('div');
+			description.className = 'album-description';
+			description.textContent = album.description;
+
+			info.appendChild(name);
+			info.appendChild(description);
+
+			albumItem.appendChild(cover);
+			albumItem.appendChild(info);
+
+			return albumItem;
+		}
+		let currentAlbumRequestId = 0;
+
+		async function openAlbum(albumId, albumName) {
+			const requestId = ++currentAlbumRequestId;
+			currentAlbumId = albumId;
+
+			document.getElementById('albums-view').style.display = 'none';
+			document.getElementById('album-photos-view').style.display = 'block';
+			document.getElementById('album-title').textContent = albumName;
+
+			const photoGrid = document.getElementById('photo-grid');
+			const loadingMessage = document.getElementById('photos-loading-message');
+
+			photoGrid.innerHTML = '';
+			loadingMessage.style.display = 'block';
+			loadingMessage.textContent = 'Loading photos...';
+			loadingMessage.style.color = 'var(--sky)'; // or 'var(--text-primary)' for light theme pages
+
+			let retries = 3;
+			while (retries > 0) {
+				// Bail out if a newer request has started
+				if (requestId !== currentAlbumRequestId) return;
+
+				try {
+					let url;
+					if (albumId === 'ALL_PHOTOS') {
+						url = ALL_PHOTOS_SCRIPT_URL;
+					} else {
+						url = `${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`;
+					}
+
+					const response = await fetch(url);
+
+					// Check again after the await
+					if (requestId !== currentAlbumRequestId) return;
+
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
+					}
+
+					const data = await response.json();
+
+					// Check again after the await
+					if (requestId !== currentAlbumRequestId) return;
+
+					if (data.success && data.photos) {
+						loadingMessage.style.display = 'none';
+
+						if (data.photos.length === 0) {
+							photoGrid.innerHTML = '<p>No photos in this album yet.</p>';
+							return;
+						}
+
+						currentPhotosArray = data.photos;
+
+						data.photos.forEach((photo, index) => {
+							const photoItem = document.createElement('div');
+							photoItem.className = 'photo-item';
+							photoItem.onclick = () => openPhotoModal(index);
+
+							const img = document.createElement('img');
+							img.src = photo.thumbnailUrl;
+							img.alt = photo.name;
+							img.loading = 'lazy';
+							img.decoding = 'async';
+
+							img.onerror = function () {
+								this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50%" y="50%" font-size="40" text-anchor="middle" dy=".3em">📷</text></svg>';
+							};
+
+							photoItem.appendChild(img);
+
+							if (photo.caption) {
+								const caption = document.createElement('div');
+								caption.className = 'photo-caption';
+								caption.textContent = photo.caption;
+								photoItem.appendChild(caption);
+							}
+
+							photoGrid.appendChild(photoItem);
+						});
+
+						for (let i = 0; i < Math.min(3, data.photos.length); i++) {
+							setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
+						}
+
+						return;
+					} else {
+						throw new Error(data.error || 'Unknown error');
+					}
+				} catch (error) {
+					if (requestId !== currentAlbumRequestId) return;
+					console.error(`Error fetching album photos (${retries} retries left):`, error);
+					retries--;
+
+					if (retries > 0) {
+						loadingMessage.textContent = `Loading photos... (retrying in 1 second)`;
+						await new Promise(resolve => setTimeout(resolve, 1000));
+					} else {
+						loadingMessage.textContent = 'Unable to load photos. Please check your connection.';
+						loadingMessage.style.color = '#ff6b6b';
+					}
+				}
+			}
+		}
+		function backToAlbums() {
+			document.getElementById('albums-view').style.display = 'block';
+			document.getElementById('album-photos-view').style.display = 'none';
+			currentAlbumId = null;
+			currentPhotosArray = [];
+		}
+
+		async function openPhotoModal(index) {
+			currentPhotoIndex = index;
+			const photo = currentPhotosArray[index];
+
+			const modal = document.getElementById('photo-modal');
+			const modalImg = document.getElementById('modal-image');
+			const modalCaption = document.getElementById('modal-caption');
+			const loading = document.getElementById('photo-loading');
+			const downloadBtn = document.getElementById('download-btn');
+			const shareBtn = document.getElementById('share-btn');
+
+			// Hide navbar
+			document.querySelector('.nav-bar').style.display = 'none';
+
+			// Prevent body scroll
+			document.body.classList.add('modal-open');
+
+			modal.classList.add('active');
+			modalImg.style.display = 'none';
+			loading.style.display = 'block';
+			loading.textContent = 'Loading high-resolution image...';
+
+			// Show/hide navigation arrows
+			document.getElementById('prev-photo').style.display = index > 0 ? 'flex' : 'none';
+			document.getElementById('next-photo').style.display = index < currentPhotosArray.length - 1 ? 'flex' : 'none';
+
+			// Set up download button
+			downloadBtn.onclick = () => downloadPhoto(photo.downloadUrl, photo.name);
+
+			// Set up share button
+			shareBtn.onclick = () => sharePhoto(photo);
+
+			// Try multiple URL formats for loading
+			const urlsToTry = [
+				{ url: photo.fullUrl, timeout: 60000, label: 'high-resolution image' }, // 60 seconds for main image
+				{ url: photo.fallbackUrl, timeout: 30000, label: 'alternate source' },
+				{ url: photo.downloadUrl, timeout: 30000, label: 'download source' },
+				{ url: photo.thumbnailUrl, timeout: 15000, label: 'preview image' }
+			].filter(item => item.url); // Remove any undefined URLs
+
+			let imageLoaded = false;
+			let currentUrlIndex = 0;
+
+			// Progress indicator for first image
+			let progressInterval;
+			let secondsElapsed = 0;
+
+			while (currentUrlIndex < urlsToTry.length && !imageLoaded) {
+				const currentItem = urlsToTry[currentUrlIndex];
+				const currentUrl = currentItem.url;
+
+				try {
+					// Check cache first
+					if (imageCache.has(currentUrl)) {
+						modalImg.src = currentUrl;
+						modalImg.style.display = 'block';
+						loading.style.display = 'none';
+						imageLoaded = true;
+						break;
+					}
+
+					// Show appropriate loading message
+					if (currentUrlIndex === 0) {
+						loading.textContent = 'Loading high-resolution image...';
+						loading.style.color = 'var(--white)';
+
+						// Start progress indicator for first image only
+						secondsElapsed = 0;
+						progressInterval = setInterval(() => {
+							secondsElapsed++;
+							loading.textContent = `Loading high-resolution image... (${secondsElapsed}s)`;
+						}, 1000);
+					} else {
+						loading.textContent = `Trying ${currentItem.label}... (${currentUrlIndex + 1}/${urlsToTry.length})`;
+						loading.style.color = 'var(--white)';
+					}
+
+					await new Promise((resolve, reject) => {
+						const img = new Image();
+						const timeout = setTimeout(() => {
+							reject(new Error('Image load timeout'));
+						}, currentItem.timeout);
+
+						img.onload = () => {
+							clearTimeout(timeout);
+							if (progressInterval) {
+								clearInterval(progressInterval);
+								progressInterval = null;
+							}
+							imageCache.set(currentUrl, img);
+							resolve();
+						};
+
+						img.onerror = () => {
+							clearTimeout(timeout);
+							if (progressInterval) {
+								clearInterval(progressInterval);
+								progressInterval = null;
+							}
+							reject(new Error('Image load failed'));
+						};
+
+						img.src = currentUrl;
+					});
+
+					// If we get here, image loaded successfully
+					if (progressInterval) {
+						clearInterval(progressInterval);
+						progressInterval = null;
+					}
+
+					modalImg.src = currentUrl;
+
+					// Force the image to take maximum space
+					modalImg.onload = function () {
+						const windowWidth = window.innerWidth;
+						const windowHeight = window.innerHeight;
+						const availableHeight = windowHeight - 180; // Account for header/footer
+						const availableWidth = windowWidth - 40; // Account for padding
+
+						const imgRatio = this.naturalWidth / this.naturalHeight;
+						const viewportRatio = availableWidth / availableHeight;
+
+						if (imgRatio > viewportRatio) {
+							// Image is wider - fit to width
+							this.style.width = availableWidth + 'px';
+							this.style.height = 'auto';
+						} else {
+							// Image is taller - fit to height
+							this.style.height = availableHeight + 'px';
+							this.style.width = 'auto';
+						}
+					};
+
+					modalImg.style.display = 'block';
+					loading.style.display = 'none';
+					imageLoaded = true;
+
+					// Show success message briefly if it took a while
+					if (currentUrlIndex === 0 && secondsElapsed > 5) {
+						const successMsg = document.createElement('div');
+						successMsg.style.cssText = `
                                         position: fixed;
                                         top: 80px;
                                         left: 50%;
@@ -1635,136 +1640,150 @@ body.modal-open {
                                         font-weight: 600;
                                         z-index: 3002;
                                     `;
-                                    successMsg.textContent = 'Image loaded!';
-                                    document.body.appendChild(successMsg);
+						successMsg.textContent = 'Image loaded!';
+						document.body.appendChild(successMsg);
 
-                                    setTimeout(() => {
-                                        successMsg.remove();
-                                    }, 2000);
-                                }
+						setTimeout(() => {
+							successMsg.remove();
+						}, 2000);
+					}
 
-                                // Preload adjacent images
-                                setTimeout(() => preloadAdjacentImages(index), 500);
+					// Preload adjacent images
+					setTimeout(() => preloadAdjacentImages(index), 500);
 
-                            } catch (error) {
-                                console.error(`Failed to load image from ${currentItem.label}:`, error);
+				} catch (error) {
+					console.error(`Failed to load image from ${currentItem.label}:`, error);
 
-                                // Clear progress interval if it exists
-                                if (progressInterval) {
-                                    clearInterval(progressInterval);
-                                    progressInterval = null;
-                                }
+					// Clear progress interval if it exists
+					if (progressInterval) {
+						clearInterval(progressInterval);
+						progressInterval = null;
+					}
 
-                                currentUrlIndex++;
+					currentUrlIndex++;
 
-                                // If this was the last URL, show error
-                                if (currentUrlIndex >= urlsToTry.length) {
-                                    loading.textContent = 'Unable to load image. Please try again later.';
-                                    loading.style.color = '#ff6b6b';
+					// If this was the last URL, show error
+					if (currentUrlIndex >= urlsToTry.length) {
+						loading.textContent = 'Unable to load image. Please try again later.';
+						loading.style.color = '#ff6b6b';
 
-                                    // Keep loading message visible for 3 seconds
-                                    setTimeout(() => {
-                                        loading.style.display = 'none';
-                                    }, 3000);
-                                }
-                            }
-                        }
+						// Keep loading message visible for 3 seconds
+						setTimeout(() => {
+							loading.style.display = 'none';
+						}, 3000);
+					}
+				}
+			}
 
-                        // Set caption
-                        if (photo.caption) {
-                            modalCaption.textContent = photo.caption;
-                            modalCaption.style.display = 'block';
-                        } else {
-                            modalCaption.style.display = 'none';
-                        }
-                    }
+			// Set caption
+			if (photo.caption) {
+				modalCaption.textContent = photo.caption;
+				modalCaption.style.display = 'block';
+			} else {
+				modalCaption.style.display = 'none';
+			}
+		}
 
-                function navigatePhoto(direction) {
-                    const newIndex = currentPhotoIndex + direction;
-                    if (newIndex >= 0 && newIndex < currentPhotosArray.length) {
-                        openPhotoModal(newIndex);
-                    }
-                }
+		function navigatePhoto(direction) {
+			const newIndex = currentPhotoIndex + direction;
+			if (newIndex >= 0 && newIndex < currentPhotosArray.length) {
+				openPhotoModal(newIndex);
+			}
+		}
 
-                function closePhotoModal() {
-                    const modal = document.getElementById('photo-modal');
-                    modal.classList.remove('active');
+		function closePhotoModal() {
+			const modal = document.getElementById('photo-modal');
+			modal.classList.remove('active');
 
-                    // Show navbar again
-                    document.querySelector('.nav-bar').style.display = 'block';
+			// Show navbar again
+			document.querySelector('.nav-bar').style.display = 'block';
 
-                    // Re-enable body scroll
-                    document.body.classList.remove('modal-open');
-                }
+			// Re-enable body scroll
+			document.body.classList.remove('modal-open');
+		}
 
-                function downloadPhoto(url, filename) {
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = filename;
-                    a.target = '_blank';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                }
+		function downloadPhoto(url, filename) {
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = filename;
+			a.target = '_blank';
+			document.body.appendChild(a);
+			a.click();
+			document.body.removeChild(a);
+		}
 
-                async function sharePhoto(photo) {
-                    const shareData = {
-                        title: photo.name,
-                        text: photo.caption || 'Check out this photo from Tonka Track!',
-                        url: photo.fullUrl
-                    };
+		function openFileViewer(downloadUrl, fileName) {
+			// Convert download URL to a viewable URL
+			// Google Drive download URLs: https://drive.google.com/uc?id=FILE_ID&export=download
+			// Viewable URLs:              https://drive.google.com/file/d/FILE_ID/view
+			const match = downloadUrl.match(/[?&]id=([^&]+)/);
+			let viewUrl = downloadUrl;
+			if (match) {
+				const fileId = match[1];
+				viewUrl = `https://drive.google.com/file/d/${fileId}/view`;
+			}
+			window.open(viewUrl, '_blank');
+		}
 
-                    try {
-                        if (navigator.share) {
-                            // Use native share if available (mobile)
-                            await navigator.share(shareData);
-                        } else {
-                            // Fallback: Copy link to clipboard
-                            await navigator.clipboard.writeText(photo.fullUrl);
-                            alert('Link copied to clipboard!');
-                        }
-                    } catch (error) {
-                        console.error('Error sharing:', error);
-                        // Fallback: show share URL
-                        prompt('Copy this link to share:', photo.fullUrl);
-                    }
-                }
+		async function sharePhoto(photo) {
+			const shareData = {
+				title: photo.name,
+				text: photo.caption || 'Check out this photo from Tonka Track!',
+				url: photo.fullUrl
+			};
 
-                // Keyboard navigation
-                document.addEventListener('keydown', (e) => {
-                    const modal = document.getElementById('photo-modal');
-                    if (modal.classList.contains('active')) {
-                        if (e.key === 'Escape') {
-                            closePhotoModal();
-                        } else if (e.key === 'ArrowLeft') {
-                            navigatePhoto(-1);
-                        } else if (e.key === 'ArrowRight') {
-                            navigatePhoto(1);
-                        }
-                    }
-                });
+			try {
+				if (navigator.share) {
+					// Use native share if available (mobile)
+					await navigator.share(shareData);
+				} else {
+					// Fallback: Copy link to clipboard
+					await navigator.clipboard.writeText(photo.fullUrl);
+					alert('Link copied to clipboard!');
+				}
+			} catch (error) {
+				console.error('Error sharing:', error);
+				// Fallback: show share URL
+				prompt('Copy this link to share:', photo.fullUrl);
+			}
+		}
 
-                // Update showTab function
-                function showTab(tabName) {
-                    const tabs = document.querySelectorAll('.tab-content');
-                    tabs.forEach(tab => tab.classList.remove('active'));
+		// Keyboard navigation
+		document.addEventListener('keydown', (e) => {
+			const modal = document.getElementById('photo-modal');
+			if (modal.classList.contains('active')) {
+				if (e.key === 'Escape') {
+					closePhotoModal();
+				} else if (e.key === 'ArrowLeft') {
+					navigatePhoto(-1);
+				} else if (e.key === 'ArrowRight') {
+					navigatePhoto(1);
+				}
+			}
+		});
 
-                    const buttons = document.querySelectorAll('.tab-button');
-                    buttons.forEach(button => button.classList.remove('active'));
+		// Update showTab function
+		function showTab(tabName) {
+			const tabs = document.querySelectorAll('.tab-content');
+			tabs.forEach(tab => tab.classList.remove('active'));
 
-                    document.getElementById(tabName + '-tab').classList.add('active');
-                    event.target.classList.add('active');
+			const buttons = document.querySelectorAll('.tab-button');
+			buttons.forEach(button => button.classList.remove('active'));
 
-                    if (tabName === 'files') {
-                        loadFiles();
-                    } else if (tabName === 'photos') {
-                        document.getElementById('albums-view').style.display = 'block';
-                        document.getElementById('album-photos-view').style.display = 'none';
-                        loadPhotoAlbums();
-                    }
-                }
+			document.getElementById(tabName + '-tab').classList.add('active');
+			event.target.classList.add('active');
+
+			if (tabName === 'files') {
+				loadFiles();
+			} else if (tabName === 'photos') {
+				document.getElementById('albums-view').style.display = 'block';
+				document.getElementById('album-photos-view').style.display = 'none';
+				loadPhotoAlbums();
+			}
+		}
 
 
-    </script>
+	</script>
 </body>
+
 </html>

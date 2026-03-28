@@ -10,10 +10,11 @@ permalink: /girls-cross-country/
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Minnetonka Girls Cross Country team information, race schedules, photos, updates, and coach contacts.">
-    <meta name="keywords" content="Minnetonka Girls Cross Country, Tonka XC, High School Cross Country, Minnesota Running">
-    
+    <meta name="keywords"
+        content="Minnetonka Girls Cross Country, Tonka XC, High School Cross Country, Minnesota Running">
+
     <title>Girls Cross Country - Tonka Track & Field</title>
-    
+
     <meta property="og:title" content="Girls Cross Country - Tonka Track & Field">
     <meta property="og:description" content="Minnetonka Girls Cross Country - Strong strides. Stronger minds.">
     <meta property="og:type" content="website">
@@ -32,7 +33,7 @@ permalink: /girls-cross-country/
             --midnight: #002870;
             --white: #ffffff;
             --black: #000000;
-            
+
             /* Secondary/Accent Colors */
             --lake: #5395FF;
             --sky: #8BB4FD;
@@ -47,7 +48,8 @@ permalink: /girls-cross-country/
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
         }
 
@@ -286,7 +288,8 @@ permalink: /girls-cross-country/
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 2rem; /* Adds space between text and button */
+            gap: 2rem;
+            /* Adds space between text and button */
             transition: all 0.3s ease;
         }
 
@@ -352,6 +355,7 @@ permalink: /girls-cross-country/
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -459,7 +463,7 @@ permalink: /girls-cross-country/
                 transition: opacity 0.3s ease;
                 z-index: 999;
             }
-            
+
             .menu-backdrop.active {
                 opacity: 1;
                 pointer-events: auto;
@@ -571,7 +575,8 @@ permalink: /girls-cross-country/
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 80px 20px 100px 20px; /* Space for header and footer */
+            padding: 80px 20px 100px 20px;
+            /* Space for header and footer */
         }
 
         .photo-modal-content {
@@ -708,7 +713,8 @@ permalink: /girls-cross-country/
             }
 
             .photo-action-button span {
-                display: none; /* Hide text on mobile, keep icons */
+                display: none;
+                /* Hide text on mobile, keep icons */
             }
 
             .photo-nav-arrow {
@@ -743,86 +749,86 @@ permalink: /girls-cross-country/
             gap: 1.5rem;
         }
 
-            .album-item {
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 16px;
-                overflow: hidden;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                border: 2px solid transparent;
-            }
+        .album-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
 
-            .album-item:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-                border: 2px solid var(--sunbeam);
-            }
+        .album-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--sunbeam);
+        }
 
-            .album-cover {
-                width: 100%;
-                aspect-ratio: 16/9;
-                background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-            }
+        .album-cover {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-            .album-cover img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
+        .album-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-            .album-cover-placeholder {
-                font-size: 4rem;
-                color: rgba(255, 255, 255, 0.3);
-            }
+        .album-cover-placeholder {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
 
-            .album-info {
-                padding: 1.25rem;
-            }
+        .album-info {
+            padding: 1.25rem;
+        }
 
-            .album-name {
-                color: var(--white);
-                font-size: 1.3rem;
-                font-weight: 700;
-                margin-bottom: 0.5rem;
-            }
+        .album-name {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
 
-            .album-description {
-                color: var(--sky);
-                font-size: 0.95rem;
-            }
+        .album-description {
+            color: var(--sky);
+            font-size: 0.95rem;
+        }
 
-            /* Back Button */
-            .back-button {
-                background: rgba(255, 255, 255, 0.1);
-                color: var(--white);
-                border: 2px solid var(--sky);
-                padding: 0.75rem 1.5rem;
-                border-radius: 10px;
-                font-size: 1rem;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
+        /* Back Button */
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 2px solid var(--sky);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-            .back-button:hover {
-                background: var(--sky);
-                color: var(--midnight);
-                transform: translateX(-5px);
-            }
+        .back-button:hover {
+            background: var(--sky);
+            color: var(--midnight);
+            transform: translateX(-5px);
+        }
 
-            /* Photo Grid (update existing) */
-            .photo-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 1rem;
-            }
+        /* Photo Grid (update existing) */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
 
-            /* Coach Cards */
-            .coaches-grid {
+        /* Coach Cards */
+        .coaches-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
@@ -912,6 +918,7 @@ permalink: /girls-cross-country/
         }
     </style>
 </head>
+
 <body>
     <nav class="nav-bar">
         <div class="nav-content">
@@ -951,65 +958,74 @@ permalink: /girls-cross-country/
 
         <div id="home-tab" class="tab-content active">
             <h2>Welcome to Girls Cross Country</h2>
-            <p>Welcome to Minnetonka Girls Cross Country! We are dedicated to developing student-athletes who excel both on the course and in the classroom.</p>
-            <p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned runner or new to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
+            <p>Welcome to Minnetonka Girls Cross Country! We are dedicated to developing student-athletes who excel both
+                on the course and in the classroom.</p>
+            <p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned runner or new
+                to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
             <div class="update-item">
                 <h3>Running Watches</h3>
-                <p>A running watch is essential for competitive running! Something that has a stopwatch on it is fine, or a GPS watch with
-                wrist-based heartrate if you want to get extra fancy. A GPS watch has the added perk of being able to upload data to
-                Strava or other community activity-trackers. Visit a local running store if you have questions!</p>
+                <p>A running watch is essential for competitive running! Something that has a stopwatch on it is fine,
+                    or a GPS watch with
+                    wrist-based heartrate if you want to get extra fancy. A GPS watch has the added perk of being able
+                    to upload data to
+                    Strava or other community activity-trackers. Visit a local running store if you have questions!</p>
             </div>
             <div class="update-item">
                 <h3>Running Shoes</h3>
-                <p>It is important to get properly fitted for running shoes at a specialty running store. This will reduce so many cases of
-                shin splints at the beginning of the season! The store will usually give cross country athletes a discount, so let them
-                know that your daughter is on the Minnetonka Cross Country Team!</p>
+                <p>It is important to get properly fitted for running shoes at a specialty running store. This will
+                    reduce so many cases of
+                    shin splints at the beginning of the season! The store will usually give cross country athletes a
+                    discount, so let them
+                    know that your daughter is on the Minnetonka Cross Country Team!</p>
             </div>
             <div class="update-item">
                 <h3>Local Running Stores</h3>
-                <p style="margin-bottom: 1.5rem;">Support these local running specialty stores for all your gear needs!</p>
-            
+                <p style="margin-bottom: 1.5rem;">Support these local running specialty stores for all your gear needs!
+                </p>
+
                 <p style="margin-bottom: 1rem;">
                     <strong style="color: var(--sunbeam); font-size: 1.1rem;">Lakes Running Co</strong><br>
                     Located in downtown Excelsior<br>
                     218 Water Street, Excelsior, MN 55331<br>
                     <a href="tel:952-470-5444" style="color: var(--sky); text-decoration: none;">(952) 470-5444</a>
                 </p>
-            
+
                 <p style="margin-bottom: 1rem;">
                     <strong style="color: var(--sunbeam); font-size: 1.1rem;">Gear Running</strong><br>
                     Located at 44th and France<br>
                     4406 France Avenue South, Edina, MN 55410-1345<br>
                     <a href="tel:952-926-2645" style="color: var(--sky); text-decoration: none;">(952) 926-2645</a>
                 </p>
-            
+
                 <p style="margin-bottom: 1rem;">
                     <strong style="color: var(--sunbeam); font-size: 1.1rem;">Gear West</strong><br>
                     Located on Hwy 12 in Long Lake<br>
                     1786 W Wayzata Blvd Suite B, Long Lake, MN 55356<br>
                     <a href="tel:952-473-0377" style="color: var(--sky); text-decoration: none;">(952) 473-0377</a>
                 </p>
-            
+
                 <p style="margin-bottom: 0;">
                     <strong style="color: var(--sunbeam); font-size: 1.1rem;">TC Running</strong><br>
                     Located on the SE Corner of Shady Oak Road and Hwy 62<br>
                     6405 City West Pkwy # B5, Eden Prairie, MN 55344<br>
                     <a href="tel:952-944-7386" style="color: var(--sky); text-decoration: none;">(952) 944-7386</a>
                 </p>
-            </div>  
+            </div>
             <div class="update-item">
                 <h3>Result Websites</h3>
-                <p style="margin-bottom: 1.5rem;">Find meet results and athlete performance data through these resources:</p>
-            
+                <p style="margin-bottom: 1.5rem;">Find meet results and athlete performance data through these
+                    resources:</p>
+
                 <p style="margin-bottom: 1.5rem;">
                     <strong style="color: var(--sunbeam); font-size: 1.1rem;">Live Results & Recent Meets</strong><br>
                     This website compiles recent results from numerous timing companies, often including splits:<br>
                     <a href="https://live.athletic.net/meet-list" target="_blank" rel="noopener noreferrer"
                         style="color: var(--sky); text-decoration: underline;">Athletic.net Meet List</a>
                 </p>
-            
+
                 <p style="margin-bottom: 1.5rem;">
-                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">Historical Results - Timing Companies</strong><br>
+                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">Historical Results - Timing
+                        Companies</strong><br>
                     <a href="https://www.wayzatatiming.com/results.html" target="_blank" rel="noopener noreferrer"
                         style="color: var(--sky); text-decoration: underline;">Wayzata Results</a><br>
                     <a href="https://www.gsetiming.com/results/" target="_blank" rel="noopener noreferrer"
@@ -1021,22 +1037,24 @@ permalink: /girls-cross-country/
                     <a href="https://www.onlineraceresults.com/" target="_blank" rel="noopener noreferrer"
                         style="color: var(--sky); text-decoration: underline;">Online Race Results</a>
                 </p>
-            
+
                 <p style="margin-bottom: 0;">
-                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">Athlete Career Times & Rankings</strong><br>
-                    Popular websites for looking up high school athletes and their career times. Some information may be restricted
+                    <strong style="color: var(--sunbeam); font-size: 1.1rem;">Athlete Career Times &
+                        Rankings</strong><br>
+                    Popular websites for looking up high school athletes and their career times. Some information may be
+                    restricted
                     without a subscription.<br>
                     <a href="https://mn.milesplit.com/" target="_blank" rel="noopener noreferrer"
                         style="color: var(--sky); text-decoration: underline;">MileSplit MN</a><br>
                     <a href="https://www.athletic.net/" target="_blank" rel="noopener noreferrer"
                         style="color: var(--sky); text-decoration: underline;">Athletic.Net</a>
-                </p>  
+                </p>
             </div>
         </div>
 
         <div id="updates-tab" class="tab-content">
             <h2>Latest Updates</h2>
-            
+
             <p>No current updates. Please check back later!</p>
         </div>
 
@@ -1046,19 +1064,19 @@ permalink: /girls-cross-country/
                     <h2 style="margin: 0;">Photo Albums</h2>
                 </div>
                 <p id="albums-loading-message" style="color: var(--sky);">Loading albums...</p>
-        
+
                 <div class="albums-grid" id="albums-grid">
                     <!-- Albums will be loaded here -->
                 </div>
             </div>
-        
+
             <div id="album-photos-view" style="display: none;">
                 <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
                     <button class="back-button" onclick="backToAlbums()">← Back to Albums</button>
                     <h2 id="album-title" style="margin: 0;"></h2>
                 </div>
                 <p id="photos-loading-message" style="color: var(--sky);">Loading photos...</p>
-        
+
                 <div class="photo-grid" id="photo-grid">
                     <!-- Photos will be loaded here -->
                 </div>
@@ -1068,7 +1086,7 @@ permalink: /girls-cross-country/
         <div id="files-tab" class="tab-content">
             <h2>Team Files & Resources</h2>
             <p id="loading-message" style="color: var(--sky);">Loading files...</p>
-        
+
             <div class="file-list" id="file-list">
                 <!-- Files will be loaded here dynamically -->
             </div>
@@ -1148,16 +1166,16 @@ permalink: /girls-cross-country/
                     </button>
                 </div>
             </div>
-        
+
             <div class="photo-nav-arrow left" id="prev-photo" onclick="navigatePhoto(-1)" style="display: none;">‹</div>
-        
+
             <div class="photo-modal-content-wrapper">
                 <div class="photo-loading" id="photo-loading">Loading...</div>
                 <img class="photo-modal-content" id="modal-image" style="display: none;">
             </div>
-        
+
             <div class="photo-nav-arrow right" id="next-photo" onclick="navigatePhoto(1)" style="display: none;">›</div>
-        
+
             <div id="modal-caption" class="photo-modal-caption"></div>
         </div>
     </div>
@@ -1168,36 +1186,36 @@ permalink: /girls-cross-country/
 
     <script>
         function toggleMenu() {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
 
-                menu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                backdrop.classList.toggle('active');
-            }
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            backdrop.classList.toggle('active');
+        }
 
-            function closeMenu() {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
 
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+            backdrop.classList.remove('active');
+        }
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
+
+            // Check if menu is open and click is outside the nav-content
+            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
                 menu.classList.remove('active');
                 hamburger.classList.remove('active');
                 backdrop.classList.remove('active');
             }
-            document.addEventListener('click', function (event) {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
-
-                // Check if menu is open and click is outside the nav-content
-                if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    backdrop.classList.remove('active');
-                }
-            }); 
+        });
 
         function showTab(tabName) {
             // Hide all tabs
@@ -1257,7 +1275,7 @@ permalink: /girls-cross-country/
                             <div class="file-name">${file.name}</div>
                             <div class="file-description">${file.description} • ${displaySize}</div>
                         </div>
-                        <button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">Download</button>
+                        <button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">Open</button>
                     `;
 
                         fileListContainer.appendChild(fileItem);
@@ -1302,7 +1320,7 @@ permalink: /girls-cross-country/
         const ALBUMS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=photoAlbums';
         const ALBUM_PHOTOS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=albumPhotos';
         const ALL_PHOTOS_SCRIPT_URL = `https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec?action=allPhotos&folderId=${TEAM_PHOTOS_FOLDER_ID}`;
-        
+
         let currentAlbumId = null;
         let currentPhotoIndex = 0;
         let currentPhotosArray = [];
@@ -1439,111 +1457,111 @@ permalink: /girls-cross-country/
 
             return albumItem;
         }
-            let currentAlbumRequestId = 0;
+        let currentAlbumRequestId = 0;
 
-            async function openAlbum(albumId, albumName) {
-                const requestId = ++currentAlbumRequestId;
-                currentAlbumId = albumId;
+        async function openAlbum(albumId, albumName) {
+            const requestId = ++currentAlbumRequestId;
+            currentAlbumId = albumId;
 
-                document.getElementById('albums-view').style.display = 'none';
-                document.getElementById('album-photos-view').style.display = 'block';
-                document.getElementById('album-title').textContent = albumName;
+            document.getElementById('albums-view').style.display = 'none';
+            document.getElementById('album-photos-view').style.display = 'block';
+            document.getElementById('album-title').textContent = albumName;
 
-                const photoGrid = document.getElementById('photo-grid');
-                const loadingMessage = document.getElementById('photos-loading-message');
+            const photoGrid = document.getElementById('photo-grid');
+            const loadingMessage = document.getElementById('photos-loading-message');
 
-                photoGrid.innerHTML = '';
-                loadingMessage.style.display = 'block';
-                loadingMessage.textContent = 'Loading photos...';
-                loadingMessage.style.color = 'var(--sky)'; // or 'var(--text-primary)' for light theme pages
+            photoGrid.innerHTML = '';
+            loadingMessage.style.display = 'block';
+            loadingMessage.textContent = 'Loading photos...';
+            loadingMessage.style.color = 'var(--sky)'; // or 'var(--text-primary)' for light theme pages
 
-                let retries = 3;
-                while (retries > 0) {
-                    // Bail out if a newer request has started
+            let retries = 3;
+            while (retries > 0) {
+                // Bail out if a newer request has started
+                if (requestId !== currentAlbumRequestId) return;
+
+                try {
+                    let url;
+                    if (albumId === 'ALL_PHOTOS') {
+                        url = ALL_PHOTOS_SCRIPT_URL;
+                    } else {
+                        url = `${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`;
+                    }
+
+                    const response = await fetch(url);
+
+                    // Check again after the await
                     if (requestId !== currentAlbumRequestId) return;
 
-                    try {
-                        let url;
-                        if (albumId === 'ALL_PHOTOS') {
-                            url = ALL_PHOTOS_SCRIPT_URL;
-                        } else {
-                            url = `${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`;
-                        }
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
 
-                        const response = await fetch(url);
+                    const data = await response.json();
 
-                        // Check again after the await
-                        if (requestId !== currentAlbumRequestId) return;
+                    // Check again after the await
+                    if (requestId !== currentAlbumRequestId) return;
 
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
+                    if (data.success && data.photos) {
+                        loadingMessage.style.display = 'none';
 
-                        const data = await response.json();
-
-                        // Check again after the await
-                        if (requestId !== currentAlbumRequestId) return;
-
-                        if (data.success && data.photos) {
-                            loadingMessage.style.display = 'none';
-
-                            if (data.photos.length === 0) {
-                                photoGrid.innerHTML = '<p>No photos in this album yet.</p>';
-                                return;
-                            }
-
-                            currentPhotosArray = data.photos;
-
-                            data.photos.forEach((photo, index) => {
-                                const photoItem = document.createElement('div');
-                                photoItem.className = 'photo-item';
-                                photoItem.onclick = () => openPhotoModal(index);
-
-                                const img = document.createElement('img');
-                                img.src = photo.thumbnailUrl;
-                                img.alt = photo.name;
-                                img.loading = 'lazy';
-                                img.decoding = 'async';
-
-                                img.onerror = function () {
-                                    this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50%" y="50%" font-size="40" text-anchor="middle" dy=".3em">📷</text></svg>';
-                                };
-
-                                photoItem.appendChild(img);
-
-                                if (photo.caption) {
-                                    const caption = document.createElement('div');
-                                    caption.className = 'photo-caption';
-                                    caption.textContent = photo.caption;
-                                    photoItem.appendChild(caption);
-                                }
-
-                                photoGrid.appendChild(photoItem);
-                            });
-
-                            for (let i = 0; i < Math.min(3, data.photos.length); i++) {
-                                setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
-                            }
-
+                        if (data.photos.length === 0) {
+                            photoGrid.innerHTML = '<p>No photos in this album yet.</p>';
                             return;
-                        } else {
-                            throw new Error(data.error || 'Unknown error');
                         }
-                    } catch (error) {
-                        if (requestId !== currentAlbumRequestId) return;
-                        console.error(`Error fetching album photos (${retries} retries left):`, error);
-                        retries--;
 
-                        if (retries > 0) {
-                            loadingMessage.textContent = `Loading photos... (retrying in 1 second)`;
-                            await new Promise(resolve => setTimeout(resolve, 1000));
-                        } else {
-                            loadingMessage.textContent = 'Unable to load photos. Please check your connection.';
-                            loadingMessage.style.color = '#ff6b6b';
+                        currentPhotosArray = data.photos;
+
+                        data.photos.forEach((photo, index) => {
+                            const photoItem = document.createElement('div');
+                            photoItem.className = 'photo-item';
+                            photoItem.onclick = () => openPhotoModal(index);
+
+                            const img = document.createElement('img');
+                            img.src = photo.thumbnailUrl;
+                            img.alt = photo.name;
+                            img.loading = 'lazy';
+                            img.decoding = 'async';
+
+                            img.onerror = function () {
+                                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50%" y="50%" font-size="40" text-anchor="middle" dy=".3em">📷</text></svg>';
+                            };
+
+                            photoItem.appendChild(img);
+
+                            if (photo.caption) {
+                                const caption = document.createElement('div');
+                                caption.className = 'photo-caption';
+                                caption.textContent = photo.caption;
+                                photoItem.appendChild(caption);
+                            }
+
+                            photoGrid.appendChild(photoItem);
+                        });
+
+                        for (let i = 0; i < Math.min(3, data.photos.length); i++) {
+                            setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
                         }
+
+                        return;
+                    } else {
+                        throw new Error(data.error || 'Unknown error');
+                    }
+                } catch (error) {
+                    if (requestId !== currentAlbumRequestId) return;
+                    console.error(`Error fetching album photos (${retries} retries left):`, error);
+                    retries--;
+
+                    if (retries > 0) {
+                        loadingMessage.textContent = `Loading photos... (retrying in 1 second)`;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    } else {
+                        loadingMessage.textContent = 'Unable to load photos. Please check your connection.';
+                        loadingMessage.style.color = '#ff6b6b';
                     }
                 }
             }
+        }
         function backToAlbums() {
             document.getElementById('albums-view').style.display = 'block';
             document.getElementById('album-photos-view').style.display = 'none';
@@ -1776,6 +1794,19 @@ permalink: /girls-cross-country/
             document.body.removeChild(a);
         }
 
+        function openFileViewer(downloadUrl, fileName) {
+            // Convert download URL to a viewable URL
+            // Google Drive download URLs: https://drive.google.com/uc?id=FILE_ID&export=download
+            // Viewable URLs:              https://drive.google.com/file/d/FILE_ID/view
+            const match = downloadUrl.match(/[?&]id=([^&]+)/);
+            let viewUrl = downloadUrl;
+            if (match) {
+                const fileId = match[1];
+                viewUrl = `https://drive.google.com/file/d/${fileId}/view`;
+            }
+            window.open(viewUrl, '_blank');
+        }
+
         async function sharePhoto(photo) {
             const shareData = {
                 title: photo.name,
@@ -1836,4 +1867,5 @@ permalink: /girls-cross-country/
 
     </script>
 </body>
+
 </html>
