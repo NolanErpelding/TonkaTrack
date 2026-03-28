@@ -49,6 +49,7 @@ permalink: /boys-track/
             --heading-primary: var(--minnetonka-blue);
             --heading-secondary: var(--minnetonka-blue);
             --accent-label: var(--minnetonka-blue);
+            --highlight: var(--sky);
 
             /* Nav */
             --nav-bg: #ffffff;
@@ -101,6 +102,7 @@ permalink: /boys-track/
                 --text-accent: var(--black);
                 --heading-primary: #ffffff;
                 --accent-label: var(--sunbeam);
+                --highlight: var(--sunbeam);
                 
 
                 /* Nav */
@@ -110,7 +112,6 @@ permalink: /boys-track/
                 /* Tab buttons */
                 --tab-btn-bg: #2a3354;
                 --tab-btn-color: #c8d4f0;
-                --tab-btn-active-bg: var(--sunbeam);
                 --tab-btn-active-color: #111111;
                 --gradient-accent-color: var(--white);
 
@@ -134,9 +135,7 @@ permalink: /boys-track/
         }
 
         @media (prefers-color-scheme: dark) {
-            .file-item:hover,
             .album-item:hover,
-            .coach-card:hover,
             .photo-item:hover {
                 box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.35);
             }
@@ -441,7 +440,7 @@ permalink: /boys-track/
         .photo-item:hover {
             transform: scale(1.03);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            border-color: var(--lake);
+            border-color: var(--highlight);
         }
     
         .photo-item img {
@@ -601,7 +600,7 @@ permalink: /boys-track/
         .coach-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            border-color: var(--lake);
+            border-color: var(--highlight);
         }
     
         .coach-image {
@@ -660,6 +659,20 @@ permalink: /boys-track/
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
         }
+
+        .email-button.disabled {
+            background: #4a5568;
+            color: #a0aec0;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .email-button.disabled:hover {
+            transform: none;
+            box-shadow: none;
+            filter: none;
+        }
     
         /* ── ALBUMS GRID ── */
         .albums-grid {
@@ -680,7 +693,7 @@ permalink: /boys-track/
         .album-item:hover {
             transform: translateY(-6px);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-            border-color: var(--lake);
+            border-color: var(--highlight);
         }
     
         .album-cover {
@@ -1132,7 +1145,7 @@ permalink: /boys-track/
             margin: 0;
         }
 
-        .loading-message {
+        p.loading-message {
             color: var(--text-muted);
             font-size: var(--text-base);
         }
@@ -1516,7 +1529,7 @@ permalink: /boys-track/
                     loadingMessage.style.display = 'none';
 
                     if (data.files.length === 0) {
-                        fileListContainer.innerHTML = '<p style="color: var(--sky);">No files available at this time.</p>';
+                        fileListContainer.innerHTML = '<p style="color: var(--text-muted);">No files available at this time.</p>';
                         return;
                     }
 
@@ -1634,7 +1647,7 @@ permalink: /boys-track/
                     loadingMessage.style.display = 'none';
 
                     if (data.albums.length === 0 && data.allPhotosCount === 0) {
-                        albumsGrid.innerHTML = '<p style="color: var(--sky);">No photo albums yet. Check back soon!</p>';
+                        albumsGrid.innerHTML = '<p style="color: var(--text-muted);">No photo albums yet. Check back soon!</p>';
                         return;
                     }
 
@@ -1737,7 +1750,7 @@ permalink: /boys-track/
             photoGrid.innerHTML = '';
             loadingMessage.style.display = 'block';
             loadingMessage.textContent = 'Loading photos...';
-            loadingMessage.style.color = 'var(--sky)'; // or 'var(--text-primary)' for light theme pages
+            loadingMessage.style.color = 'var(--text-muted)';
 
             let retries = 3;
             while (retries > 0) {
