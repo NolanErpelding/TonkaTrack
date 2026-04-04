@@ -17,7 +17,7 @@ permalink: /
     <meta property="og:title" content="Tonka Track & Field">
     <meta property="og:description" content="Home of Minnetonka Track & Field and Cross Country">
     <meta property="og:type" content="website">
-    
+
     <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="favicons/favicon.svg" />
     <link rel="shortcut icon" href="favicons/favicon.ico" />
@@ -27,19 +27,82 @@ permalink: /
     <style>
         /* Minnetonka Color Palette */
         :root {
-            /* Primary Colors */
+            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
-            --white: #ffffff;
-            --black: #000000;
-            
-            /* Secondary/Accent Colors */
             --lake: #5395FF;
             --sky: #8BB4FD;
             --grape: rgb(108, 7, 135);
             --sunbeam: rgb(241, 177, 51);
             --mint: rgb(7, 143, 150);
-            --grey: #1a202c
+
+            /* Light mode semantic tokens (default) */
+            --white: #ffffff;
+            --black: #000000;
+            --surface: #ffffff;
+            --surface-subtle: #f5f7fa;
+            --border: #e2e8f0;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --heading-primary: var(--minnetonka-blue);
+            --accent-label: var(--minnetonka-blue);
+            --highlight: var(--sky);
+            --grey: #1a202c;
+
+            /* Nav */
+            --nav-bg: #ffffff;
+            --nav-link-color: #4a5568;
+            --gradient-accent-color: var(--midnight);
+
+            /* Cards */
+            --card-bg: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+            /* Footer */
+            --footer-bg: rgba(26, 32, 44, 0.95);
+
+            /* Nav shadow */
+            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            /* Type scale */
+            --text-xs: 14px;
+            --text-sm: 15px;
+            --text-base: 16px;
+            --text-md: 18px;
+            --text-lg: 20px;
+            --text-xl: 26px;
+            --text-2xl: 40px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --surface: #11161F;
+                --surface-subtle: #090E17;
+                --border: #2e3650;
+                --text-primary: #e8edf8;
+                --text-secondary: #9aa5c0;
+                --text-muted: #6b7a9a;
+                --heading-primary: #ffffff;
+                --accent-label: var(--sunbeam);
+                --highlight: var(--sunbeam);
+                --grey: #e8edf8;
+
+                /* Nav */
+                --nav-bg: rgba(10, 12, 20, 0.92);
+                --nav-link-color: #9aa5c0;
+                --gradient-accent-color: var(--white);
+
+                /* Cards */
+                --card-bg: #1a1f2e;
+                --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
+
+                /* Footer */
+                --footer-bg: rgba(8, 10, 18, 0.97);
+
+                /* Nav shadow */
+                --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
+            }
         }
 
         * {
@@ -48,21 +111,23 @@ permalink: /
             box-sizing: border-box;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
-            
+
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--white);
+            background: var(--surface);
             background-attachment: fixed;
             background-size: cover;
             color: var(--grey);
             line-height: 1.6;
             overscroll-behavior: none;
-            
+
         }
+
         .page-wrapper {
             display: flex;
             flex-direction: column;
@@ -71,7 +136,7 @@ permalink: /
         }
 
         .nav-bar {
-            background: rgb(255, 255, 255);
+            background: var(--nav-bg);
             padding: 1rem 0;
             position: fixed;
             top: 0;
@@ -79,7 +144,9 @@ permalink: /
             right: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--nav-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .nav-content {
@@ -108,7 +175,7 @@ permalink: /
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--minnetonka-blue);
+            color: var(--heading-primary);
         }
 
         .nav-links {
@@ -119,14 +186,14 @@ permalink: /
         }
 
         .nav-links a {
-            color: #4a5568;
+            color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 500;
             position: relative;
         }
 
         .nav-links a:hover {
-            color: var(--minnetonka-blue);
+            color: var(--accent-label);
         }
 
         .nav-links a::after {
@@ -136,7 +203,7 @@ permalink: /
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            background: linear-gradient(135deg, var(--accent-label) 0%, var(--gradient-accent-color) 100%);
             transition: width 0.3s ease;
         }
 
@@ -154,7 +221,7 @@ permalink: /
         .hamburger span {
             width: 25px;
             height: 3px;
-            background: #4a5568;
+            background: var(--nav-link-color);
             border-radius: 3px;
             transition: all 0.3s ease;
         }
@@ -187,12 +254,10 @@ permalink: /
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                to right,
-                rgba(0, 28, 80, 0.72) 0%,
-                rgba(0, 28, 80, 0.45) 55%,
-                rgba(0, 28, 80, 0.10) 100%
-            );
+            background: linear-gradient(to right,
+                    rgba(0, 28, 80, 0.72) 0%,
+                    rgba(0, 28, 80, 0.45) 55%,
+                    rgba(0, 28, 80, 0.10) 100%);
         }
 
         .hero-bottom-fade {
@@ -201,7 +266,7 @@ permalink: /
             left: 0;
             width: 100%;
             height: 22%;
-            background: linear-gradient(to bottom, transparent 30%, white 100%);
+            background: linear-gradient(to bottom, transparent 30%, var(--surface) 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -231,19 +296,26 @@ permalink: /
             font-weight: 600;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
         }
 
         .scroll-indicator svg {
             width: 28px;
             height: 28px;
             stroke: white;
-            filter: drop-shadow(0 1px 4px rgba(0,0,0,0.4));
+            filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.4));
         }
 
         @keyframes scrollBounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50%       { transform: translateX(-50%) translateY(8px); }
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(8px);
+            }
         }
 
         .hero-content {
@@ -260,16 +332,16 @@ permalink: /
             line-height: 1.05;
             margin-bottom: 1.25rem;
             color: var(--white);
-            text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
         }
 
         .hero p {
             font-size: 1.15rem;
-            color: rgba(255,255,255,0.88);
+            color: rgba(255, 255, 255, 0.88);
             margin-bottom: 2.25rem;
             line-height: 1.7;
             max-width: 520px;
-            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
         }
 
         .cta-button {
@@ -328,7 +400,7 @@ permalink: /
 
         .info-icon i {
             font-size: 3rem;
-        }   
+        }
 
         .info-item h3 {
             font-size: 1rem;
@@ -346,10 +418,10 @@ permalink: /
         }
 
         .card {
-            background: var(--white);
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
@@ -417,21 +489,41 @@ permalink: /
             gap: 1rem;
         }
 
+        /* ── CARD TYPOGRAPHY ── */
+        /* Primary heading inside a card (athlete name, section title) */
         .card h2 {
             font-size: 3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            color: var(--minnetonka-blue);
+            color: var(--heading-primary);
         }
 
+        /* Body copy inside a card */
         .card p {
-            color: #4a5568;
+            color: var(--text-secondary);
             line-height: 1.8;
             font-size: 1.3rem;
         }
 
+        /* Secondary label / sub-heading inside a card (e.g. team members list) */
+        .card .card-label {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--accent-label);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* Small supporting text inside a card (e.g. year, date, note) */
+        .card small,
+        .card .text-small {
+            font-size: var(--text-xs);
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
         footer {
-            background: rgba(26, 32, 44, 0.95);
+            background: var(--footer-bg);
             backdrop-filter: blur(10px);
             color: white;
             padding: 2rem;
@@ -471,7 +563,7 @@ permalink: /
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(255, 255, 255, 0.95);
+                background: var(--nav-bg);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
                 padding: 1rem 0;
@@ -495,7 +587,7 @@ permalink: /
 
             .nav-links.active {
                 max-height: 400px;
-              	opacity: 1;
+                opacity: 1;
             }
 
             .hamburger {
@@ -522,11 +614,9 @@ permalink: /
             }
 
             .hero-bg::after {
-                background: linear-gradient(
-                    to right,
-                    rgba(0, 28, 80, 0.65) 0%,
-                    rgba(0, 28, 80, 0.50) 100%
-                );
+                background: linear-gradient(to right,
+                        rgba(0, 28, 80, 0.65) 0%,
+                        rgba(0, 28, 80, 0.50) 100%);
             }
 
             .hero-content {
@@ -619,6 +709,7 @@ permalink: /
                 padding: 1.5rem 1rem;
                 font-size: 0.9rem;
             }
+
             .menu-backdrop {
                 position: fixed;
                 top: 72px;
@@ -631,7 +722,7 @@ permalink: /
                 transition: opacity 0.3s ease;
                 z-index: 999;
             }
-            
+
             .menu-backdrop.active {
                 opacity: 1;
                 pointer-events: auto;
@@ -640,6 +731,7 @@ permalink: /
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
+
 <body>
     <div class="page-wrapper">
         <nav class="nav-bar">
@@ -663,26 +755,28 @@ permalink: /
             </div>
             <div class="menu-backdrop" id="menuBackdrop"></div>
         </nav>
-        
+
         <div class="main-content">
             <section class="hero">
                 <div class="hero-bg"></div>
                 <div class="hero-bottom-fade"></div>
                 <div class="scroll-indicator">
                     <span>Scroll</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
                 </div>
                 <div class="hero-content">
                     <h1>Your Home for Tonka Track &amp; Field</h1>
                     <p>Everything you need in one place—team updates, meet schedules, photo galleries, and resources for
-                        athletes and families. Follow our boys and girls cross country and track &amp; field teams as they
+                        athletes and families. Follow our boys and girls cross country and track &amp; field teams as
+                        they
                         train, compete, and build a legacy of excellence.</p>
                     <a href="learn-more/" class="cta-button">Learn More</a>
                 </div>
             </section>
-    
+
             <section class="info-section">
                 <div class="sports-grid">
                     <div class="info-item" onclick="window.location.href='girls-cross-country/'">
@@ -711,7 +805,7 @@ permalink: /
                     </div>
                 </div>
             </section>
-    
+
             <div class="cards-grid">
                 <div class="card">
                     <div class="athlete-image">
@@ -719,38 +813,44 @@ permalink: /
                     </div>
                     <div class="athlete-card">
                         <h2>Sean Fries</h2>
-                        <p>9th place at Footlocker Nationals, earning All-American Status. An incredible achievement representing Tonka Track at the highest level.</p>
+                        <p>9th place at Footlocker Nationals, earning All-American Status. An incredible achievement
+                            representing Tonka Track at the highest level.</p>
                     </div>
                 </div>
-    
+
                 <div class="card">
                     <div class="athlete-image">
                         <img src="images/claire-kohler-gatorade-medium.webp" alt="Claire Kohler">
                     </div>
                     <div class="athlete-card">
                         <h2>Claire Kohler</h2>
-                        <p>2024 Gatorade Minnesota Track Athlete of the Year! A true champion both on and off the track. We're incredibly proud of your achievements!</p>
+                        <p>2024 Gatorade Minnesota Track Athlete of the Year! A true champion both on and off the track.
+                            We're incredibly proud of your achievements!</p>
                     </div>
                 </div>
-    
+
                 <div class="card">
                     <div class="athlete-image">
                         <img src="images/all-american-sprint-medley-medium.webp" alt="Sprint Medley Relay Team">
                     </div>
                     <div class="athlete-card">
                         <h2>Sprint Medley Relay Team</h2>
-                        <p>Our All-American Sprint Medley relay team set a Hayward Field high school record at Nike Nationals in June 2024!</p>
-                        <p style="margin-top: 1rem; font-weight: 600;">Team: Evie Malec, Claire Kohler, Zeal Kuku, Charlotte Roehl</p>
+                        <p>Our All-American Sprint Medley relay team set a Hayward Field high school record at Nike
+                            Nationals in June 2024!</p>
+                        <p style="margin-top: 1rem; font-weight: 600;">Team: Evie Malec, Claire Kohler, Zeal Kuku,
+                            Charlotte Roehl</p>
                     </div>
                 </div>
-    
+
                 <div class="card">
                     <div class="athlete-image">
                         <img src="images/matt-wilkinson.webp" alt="Matt Wilkinson">
                     </div>
                     <div class="athlete-card">
                         <h2>Matt Wilkinson</h2>
-                        <p>Former Minnetonka High School, Carleton, Gophers track athlete Matthew Wilkinson finished second in the 3000-meter steeplechase final at the U.S. track and field trials and claimed a spot in the Olympics.</p>
+                        <p>Former Minnetonka High School, Carleton, Gophers track athlete Matthew Wilkinson finished
+                            second in the 3000-meter steeplechase final at the U.S. track and field trials and claimed a
+                            spot in the Olympics.</p>
                     </div>
                 </div>
             </div>
@@ -780,56 +880,57 @@ permalink: /
             menu.classList.remove('active');
             hamburger.classList.remove('active');
             backdrop.classList.remove('active');
-        }   
+        }
         document.addEventListener('click', function (event) {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
 
-                // Check if menu is open and click is outside the nav-content
-                if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    backdrop.classList.remove('active');
+            // Check if menu is open and click is outside the nav-content
+            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                backdrop.classList.remove('active');
+            }
+        });
+        // ── Hero fade-to-white on scroll ──
+        const heroFade = document.getElementById('heroFadeOverlay');
+        const hero = document.querySelector('.hero');
+
+        function updateHeroFade() {
+            const heroHeight = hero.offsetHeight;
+            const scrolled = window.scrollY;
+            // Fade starts at 10% scroll, completes at 60% of hero height
+            const progress = Math.min(Math.max((scrolled - heroHeight * 0.1) / (heroHeight * 0.5), 0), 1);
+            heroFade.style.opacity = progress;
+        }
+
+        window.addEventListener('scroll', updateHeroFade, { passive: true });
+
+        // ── Cards scroll-in ──
+        const cards = document.querySelectorAll('.card');
+
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    cardObserver.unobserve(entry.target);
                 }
-            }); 
-            // ── Hero fade-to-white on scroll ──
-                const heroFade = document.getElementById('heroFadeOverlay');
-                const hero = document.querySelector('.hero');
+            });
+        }, { threshold: 0.15 });
 
-                function updateHeroFade() {
-                    const heroHeight = hero.offsetHeight;
-                    const scrolled = window.scrollY;
-                    // Fade starts at 10% scroll, completes at 60% of hero height
-                    const progress = Math.min(Math.max((scrolled - heroHeight * 0.1) / (heroHeight * 0.5), 0), 1);
-                    heroFade.style.opacity = progress;
-                }
+        cards.forEach(card => cardObserver.observe(card));
+        // ── Scroll indicator fade out ──
+        const scrollIndicator = document.querySelector('.scroll-indicator');
 
-                window.addEventListener('scroll', updateHeroFade, { passive: true });
-
-                // ── Cards scroll-in ──
-                const cards = document.querySelectorAll('.card');
-
-                const cardObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            cardObserver.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.15 });
-
-                cards.forEach(card => cardObserver.observe(card));
-                // ── Scroll indicator fade out ──
-                    const scrollIndicator = document.querySelector('.scroll-indicator');
-
-                    window.addEventListener('scroll', () => {
-                        if (window.scrollY > 40) {
-                            scrollIndicator.classList.add('hidden');
-                        } else {
-                            scrollIndicator.classList.remove('hidden');
-                        }
-                    }, { passive: true });
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                scrollIndicator.classList.add('hidden');
+            } else {
+                scrollIndicator.classList.remove('hidden');
+            }
+        }, { passive: true });
     </script>
 </body>
+
 </html>
