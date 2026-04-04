@@ -12,7 +12,7 @@ permalink: /mtfcca/
         content="Minnetonka Track & Field and Cross Country Association (MTFCCA) - supporting Tonka running programs through fundraising and community engagement.">
     <meta name="keywords" content="MTFCCA, Minnetonka Track Association, Turkey Trot, Tonka Running Support">
     
-    <title>MTFCCA - Tonka Track & Field</title>
+    <title>MTFCCA</title>
     
     <meta property="og:title" content="MTFCCA - Tonka Track & Field">
     <meta property="og:description" content="Supporting Minnetonka Track & Field and Cross Country programs">
@@ -27,51 +27,110 @@ permalink: /mtfcca/
     <style>
         /* Minnetonka Color Palette */
         :root {
-            /* Primary Colors */
+            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
-            --white: #ffffff;
-            --black: #000000;
-
-            /* Secondary/Accent Colors */
             --lake: #5395FF;
             --sky: #8BB4FD;
-            --grape: rgb(108, 7, 135);
-            --sunbeam: rgb(241, 177, 51);
-            --mint: rgb(7, 143, 150);
+            --grape: #6C0787;
+            --sunbeam: #F1B133;
+            --mint: #078F96;
+    
+            /* Light mode semantic tokens (default) */
+            --white: #ffffff;
+            --black: #000000;
+            --accent-color: var(--mint);
+            --surface: #ffffff;
+            --surface-subtle: #f5f7fa;
+            --border: #e2e8f0;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --text-accent: var(--white);
+            --heading-primary: var(--minnetonka-blue);
+            --accent-label: var(--minnetonka-blue);
+            --highlight: var(--sky);
+    
+            /* Nav */
+            --nav-bg: #ffffff;
+            --nav-link-color: #4a5568;
+            --gradient-accent-color: var(--midnight);
+    
+            /* Cards */
+            --card-bg: #ffffff;
+            --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
+            --section-bg: var(--white);
+    
+            /* Footer */
+            --footer-bg: rgba(26, 32, 44, 0.95);
+    
+            /* Nav shadow */
+            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
+    
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --accent-color: var(--sunbeam);
+                --surface: #11161F;
+                --surface-subtle: #090E17;
+                --border: #2e3650;
+                --text-primary: #e8edf8;
+                --text-secondary: #9aa5c0;
+                --text-muted: #6b7a9a;
+                --text-accent: var(--black);
+                --heading-primary: #ffffff;
+                --accent-label: var(--sunbeam);
+                --highlight: var(--sunbeam);
+    
+                /* Nav */
+                --nav-bg: rgba(10, 12, 20, 0.92);
+                --nav-link-color: #9aa5c0;
+                --gradient-accent-color: var(--white);
+    
+                /* Cards */
+                --card-bg: #1a1f2e;
+                --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
+                --section-bg: #1a1f2e;
+    
+                /* Footer */
+                --footer-bg: rgba(8, 10, 18, 0.97);
+    
+                /* Nav shadow */
+                --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
+            }
+        }
+    
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+    
         html,
         body {
             height: 100%;
         }
-
+    
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--white);
-            background-attachment: fixed;
-            background-size: cover;
-            color: #1a202c;
+            background: var(--surface);
+            color: var(--text-primary);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
         }
-
+    
         .nav-bar {
-            background: rgb(255, 255, 255);
+            background: var(--nav-bg);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--nav-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
-
+    
         .nav-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -81,43 +140,43 @@ permalink: /mtfcca/
             padding: 0 2rem;
             position: relative;
         }
-
+    
         .logo {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
         }
-
+    
         .logo-m-img {
             height: 2.5rem;
             width: auto;
             display: block;
         }
-
+    
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--minnetonka-blue);
+            color: var(--heading-primary);
         }
-
+    
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-
+    
         .nav-links a {
-            color: #4a5568;
+            color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 500;
             position: relative;
         }
-
+    
         .nav-links a:hover {
-            color: var(--minnetonka-blue);
+            color: var(--accent-label);
         }
-
+    
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -125,29 +184,29 @@ permalink: /mtfcca/
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            background: linear-gradient(135deg, var(--accent-label) 0%, var(--gradient-accent-color) 100%);
             transition: width 0.3s ease;
         }
-
+    
         .nav-links a:hover::after {
             width: 100%;
         }
-
+    
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
             gap: 4px;
         }
-
+    
         .hamburger span {
             width: 25px;
             height: 3px;
-            background: #4a5568;
+            background: var(--nav-link-color);
             border-radius: 3px;
             transition: all 0.3s ease;
         }
-
+    
         .main-content {
             flex: 1 0 auto;
             max-width: 1200px;
@@ -155,87 +214,88 @@ permalink: /mtfcca/
             padding: 3rem 2rem;
             width: 100%;
         }
+    
+        .page-hero {
+			background: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
+			padding: 3.5rem 2rem 3.5rem;
+			text-align: center;
+		}
 
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+		.page-hero h1 {
+			font-size: 3rem;
+			font-weight: 800;
+			color: var(--white);
+			margin-bottom: 0.5rem;
+		}
 
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--minnetonka-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: #4a5568;
-        }
-
+		.page-hero p {
+			font-size: 1.2rem;
+			color: var(--sky);
+		}
+    
         .content-section {
-            background: var(--minnetonka-blue);
+            background: var(--section-bg);
             border-radius: 20px;
             padding: 3rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
             margin-bottom: 2rem;
             animation: fadeIn 0.6s ease-out forwards;
         }
 
         .content-section h2 {
-            color: var(--white);
+            color: var(--heading-primary);
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
         }
-
+    
         .content-section h3 {
-            color: var(--sunbeam);
+            color: var(--accent-label);
             font-size: 1.5rem;
             margin-top: 1.5rem;
             margin-bottom: 1rem;
         }
-
+    
         .content-section p {
-            color: var(--sky);
+            color: var(--text-secondary);
             font-size: 1.2rem;
             line-height: 1.8;
             margin-bottom: 1rem;
         }
-
+    
         .content-section ul {
-            color: var(--sky);
+            color: var(--text-secondary);
             font-size: 1.2rem;
             line-height: 1.8;
             margin-left: 2rem;
             margin-bottom: 1rem;
         }
-
+    
         .content-section li {
             margin-bottom: 0.5rem;
         }
-
+    
         .leadership-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
             margin-bottom: 1.5rem;
         }
-
+    
         .leader-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--surface-subtle);
             border-radius: 16px;
             padding: 2rem;
             text-align: center;
             transition: all 0.3s ease;
             border: 2px solid transparent;
         }
-
+    
         .leader-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--sunbeam);
+            border: 2px solid var(--accent-color);
         }
-
+    
         .leader-image {
             width: 150px;
             height: 150px;
@@ -246,39 +306,39 @@ permalink: /mtfcca/
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border: 3px solid var(--sunbeam);
+            border: 3px solid var(--accent-color);
         }
-
+    
         .leader-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
+    
         .leader-image-placeholder {
             font-size: 3rem;
             color: rgba(255, 255, 255, 0.5);
         }
-
+    
         .leader-name {
-            color: var(--white);
+            color: var(--heading-primary);
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
-
+    
         .leader-title {
-            color: var(--sunbeam);
+            color: var(--text-muted);
             font-size: 1.1rem;
             font-weight: 600;
         }
-
+    
         .contact-wrapper {
             text-align: center;
         }
-
+    
         .contact-box {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--surface-subtle);
             border-radius: 12px;
             padding: 1rem 1.5rem;
             text-align: center;
@@ -289,80 +349,71 @@ permalink: /mtfcca/
             border: 2px solid transparent;
             text-decoration: none;
         }
-
+    
         .contact-box:hover {
-            background: var(--sunbeam);
-            border: 2px solid var(--sunbeam);
+            background: var(--accent-color);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(241, 177, 51, 0.4);
+            box-shadow: 0 6px 20px var(--accent-color);
         }
-
+    
         .contact-box p {
-            color: var(--sky);
+            color: var(--text-secondary);
             margin-bottom: 0.5rem;
             font-size: 1rem;
             transition: all 0.3s ease;
         }
-
+    
         .contact-box:hover p {
             color: var(--black);
         }
-
+    
         .contact-box span {
-            color: var(--sunbeam);
+            color: var(--accent-label);
             text-decoration: none;
             font-size: 1.1rem;
             font-weight: 600;
             transition: all 0.3s ease;
         }
-
+    
         .contact-box:hover span {
             color: var(--black);
         }
-
-        .contact-wrapper {
-            text-align: center;
-        }
-
+    
         .help-content {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 2rem;
-            align-items: start;
+            display: block; 
+            width: 100%;
         }
-
+    
         .help-text {
             min-width: 0;
         }
-
+    
         .help-image {
-            width: 100%;
+            float: right;
+            width: 300px;
+            margin: 0 0 20px 20px;
             aspect-ratio: 1;
             border-radius: 16px;
             overflow: hidden;
             background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            top: 2rem;
         }
-
+    
         .help-image img {
             width: 100%;
             height: 100%;
             object-fit: contain;
             background: rgba(255, 255, 255, 0.05);
         }
-
+    
         .image-placeholder {
             font-size: 4rem;
             color: rgba(255, 255, 255, 0.3);
             text-align: center;
             line-height: 1.3;
         }
-
+    
         footer {
-            background: rgba(26, 32, 44, 0.95);
+            background: var(--footer-bg);
             backdrop-filter: blur(10px);
             color: white;
             padding: 2rem;
@@ -370,51 +421,51 @@ permalink: /mtfcca/
             text-align: center;
             flex-shrink: 0;
         }
-
+    
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(20px);
             }
-
+    
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
+    
         .content-section:nth-child(1) {
             animation-delay: 0.1s;
         }
-
+    
         .content-section:nth-child(2) {
             animation-delay: 0.2s;
         }
-
+    
         .content-section:nth-child(3) {
             animation-delay: 0.3s;
         }
-
+    
         @media (max-width: 900px) {
             .nav-content {
                 padding: 0 1rem;
             }
-
+    
             .logo-m-img {
                 height: 2rem;
             }
-
+    
             .logo-text {
                 font-size: 1.2rem;
             }
-
+    
             .nav-links {
                 position: absolute;
                 z-index: 1000;
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(255, 255, 255, 0.95);
+                background: var(--nav-bg);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
                 padding: 1rem 0;
@@ -425,110 +476,85 @@ permalink: /mtfcca/
                 opacity: 0;
                 gap: 0;
             }
-
+    
             .nav-links li {
                 width: 100%;
             }
-
+    
             .nav-links a {
                 display: block;
                 padding: 1rem 2rem;
                 width: 100%;
             }
-
+    
             .nav-links.active {
                 max-height: 400px;
                 opacity: 1;
             }
-
+    
             .hamburger {
                 display: flex;
                 z-index: 1001;
             }
-
+    
             .hamburger.active span:nth-child(1) {
                 transform: rotate(45deg) translate(5px, 5px);
             }
-
+    
             .hamburger.active span:nth-child(2) {
                 opacity: 0;
                 transform: scale(0);
             }
-
+    
             .hamburger.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(5px, -5px);
             }
-
+    
             .main-content {
                 padding: 2rem 1rem;
             }
-
+    
             .page-header h1 {
                 font-size: 2rem;
             }
-
+    
             .content-section {
                 padding: 1.5rem;
             }
-
+    
             .content-section h2 {
                 font-size: 1.75rem;
             }
-
+    
             .content-section h3 {
                 font-size: 1.25rem;
             }
-
+    
             .content-section p,
             .content-section ul {
                 font-size: 1rem;
             }
-
+    
             .leadership-grid {
                 grid-template-columns: 1fr;
             }
-
-            .congrats-banner h2 {
-                font-size: 1.75rem;
-            }
-
-            .meeting-banner {
-                padding: 1.5rem;
-            }
-
-            .meeting-banner h2 {
-                font-size: 1.75rem;
-            }
-
-            .meeting-banner h3 {
-                font-size: 1.1rem;
-            }
-
-            .meeting-banner p,
-            .meeting-banner ul {
-                font-size: 1rem;
-            }
-
-            .leadership-grid {
-                grid-template-columns: 1fr;
-            }
-
+    
             .help-content {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
-
+    
             .help-image {
                 order: 2;
                 position: relative;
                 top: 0;
                 aspect-ratio: 16/9;
             }
-
+    
             .help-text {
                 order: 1;
             }
-
+    
             .menu-backdrop {
                 position: fixed;
                 top: 72px;
@@ -541,19 +567,20 @@ permalink: /mtfcca/
                 transition: opacity 0.3s ease;
                 z-index: 999;
             }
-            
+    
             .menu-backdrop.active {
                 opacity: 1;
                 pointer-events: auto;
             }
         }
-
+    
         @media (min-width: 769px) and (max-width: 1100px) {
             .leadership-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-    </style>
+    
+        </style>
 </head>
 
 <body>
@@ -579,11 +606,12 @@ permalink: /mtfcca/
         <div class="menu-backdrop" id="menuBackdrop"></div>
     </nav>
 
+    <div class="page-hero">
+        <h1>MTFCCA</h1>
+        <p>Minnetonka Track & Field and Cross Country Association</p>
+    </div>
+
     <div class="main-content">
-        <div class="page-header">
-            <h1>MTFCCA</h1>
-            <p>Minnetonka Track & Field and Cross Country Association</p>
-        </div>
 
         <div class="content-section">
             <h2>What We Do As An Association</h2>
@@ -660,6 +688,10 @@ permalink: /mtfcca/
         <div class="content-section">
             <h2>How You Can Help</h2>
             <div class="help-content">
+                <div class="help-image">
+                    <img src="../images/turkey-trot-logo.webp" alt="Tonka Turkey Trot 5K"
+                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'image-placeholder\'>🦃<br>Turkey Trot 5K</div>'">
+                </div>
                 <div class="help-text">
                     <p>There is a need for volunteers to continue the success of the MTFCCA. the same core group of
                         parents have shouldered
@@ -684,15 +716,11 @@ permalink: /mtfcca/
                         for a few years in the future.</p>
                     <p>For more info about the turkey trot and to sign up go to <a
                             href="https://www.minnetonkaschools.org/turkey-trot"
-                            style="color: var(--sunbeam); text-decoration: none; font-weight: 600;">
+                            style="color: var(--accent-label); text-decoration: none; font-weight: 600;">
                             our Turkey Trot page</a> or contact us to sponsor at <a
                             href="mailto:tonkaturkeytrot@gmail.com"
-                            style="color: var(--sunbeam); text-decoration: none; font-weight: 600;">tonkaturkeytrot@gmail.com</a>.
+                            style="color: var(--accent-label); text-decoration: none; font-weight: 600;">tonkaturkeytrot@gmail.com</a>.
                     </p>
-                </div>
-                <div class="help-image">
-                    <img src="../images/turkey-trot-logo.webp" alt="Tonka Turkey Trot 5K"
-                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'image-placeholder\'>🦃<br>Turkey Trot 5K</div>'">
                 </div>
             </div>
         </div>
