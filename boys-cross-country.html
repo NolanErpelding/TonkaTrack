@@ -469,21 +469,79 @@ permalink: /boys-cross-country/
 			margin-top: 0.25rem;
 		}
 
+		.file-actions {
+			display: flex;
+			gap: 0.75rem;
+			flex-shrink: 0;
+		}
+
 		.download-button {
-			background: var(--accent-label);
-			color: var(--text-accent);
-			border: none;
-			padding: 0.5rem 1.5rem;
-			border-radius: 8px;
-			font-weight: 600;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 0;
+			
+			width: 44px;
+			height: 44px;
+			padding: 10px;
+			
+			border-radius: 10px;
+			background: var(--tab-btn-bg);
+			border: 1px solid var(--border);
+			box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
+
 			cursor: pointer;
-			transition: all 0.3s ease;
+			overflow: hidden;
 			white-space: nowrap;
+
+			transition: all 0.25s ease;
+		}
+
+		.icon {
+			width: 20px;
+			height: 20px;
+			object-fit: contain;
+			flex-shrink: 0;
+
+			background-color: var(--tab-btn-color);
+
+			/* Use the SVG as a mask */
+			-webkit-mask-repeat: no-repeat;
+			mask-repeat: no-repeat;
+			-webkit-mask-size: contain;
+			mask-size: contain;
+			-webkit-mask-position: center;
+			mask-position: center;
+		}
+
+		.icon-open {
+			-webkit-mask-image: url('images/arrow-up-right-from-square.svg');
+			mask-image: url('images/arrow-up-right-from-square.svg');
+		}
+
+		.icon-download {
+			-webkit-mask-image: url('images/download-arrow.svg');
+			mask-image: url('images/download-arrow.svg');
+		}
+
+		.download-button:hover .icon {
+			background-color: var(--black);
+		}
+
+		.download-button button-text {
+			opacity: 0;
+			margin-left: 0;
+			transition: opacity 0.2s ease, margin-left 0.25s ease;
 		}
 
 		.download-button:hover {
-			transform: scale(1.05);
-			box-shadow: 0 4px 12px rgba(0, 54, 152, 0.3);
+			width: 120px;
+			background: var(--sunbeam);
+			box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
+		}
+
+		.download-button:hover button-text {
+			opacity: 1;
 		}
 
 		/* ── INSTAGRAM HANDLE ── */
@@ -1286,11 +1344,22 @@ permalink: /boys-cross-country/
 						const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
 
 						fileItem.innerHTML = `
-							<div>
+							<div class="file-info">
 								<div class="file-name">${file.name}</div>
 								<div class="file-description">${file.description} • ${displaySize}</div>
 							</div>
-							<button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">Open</button>
+
+							<div class="file-actions">
+								<button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">
+									<span class="icon icon-open"></span>
+									<button-text>Open</button-text>
+								</button>
+
+								<button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">
+									<span class="icon icon-download"></span>
+									<button-text>Download</button-text>
+								</button>
+							</div>
 						`;
 						fileListContainer.appendChild(fileItem);
 					});
