@@ -11,9 +11,9 @@ permalink: /news/
     <meta name="description"
         content="Latest news, updates, and announcements from Minnetonka Track & Field and Cross Country teams.">
     <meta name="keywords" content="Minnetonka Track News, Tonka Cross Country Updates, High School Sports News">
-    
+
     <title>Latest News - Tonka Track & Field</title>
-    
+
     <meta property="og:title" content="News - Tonka Track & Field">
     <meta property="og:description" content="Latest updates from Minnetonka Track & Field and Cross Country">
     <meta property="og:type" content="website">
@@ -23,19 +23,81 @@ permalink: /news/
     <link rel="shortcut icon" href="../favicons/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
     <link rel="manifest" href="../favicons/site.webmanifest" />
-    
+
     <style>
         /* Minnetonka Color Palette */
         :root {
+            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
-            --white: #ffffff;
-            --black: #000000;
             --lake: #5395FF;
             --sky: #8BB4FD;
             --grape: #6C0787;
             --sunbeam: #F1B133;
             --mint: #078F96;
+
+            /* Light mode semantic tokens (default) */
+            --white: #ffffff;
+            --black: #000000;
+            --accent-color: var(--mint);
+            --surface: #ffffff;
+            --surface-subtle: #f5f7fa;
+            --border: #e2e8f0;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --text-accent: var(--white);
+            --heading-primary: var(--minnetonka-blue);
+            --accent-label: var(--minnetonka-blue);
+            --highlight: var(--sky);
+
+            /* Nav */
+            --nav-bg: #ffffff;
+            --nav-link-color: #4a5568;
+            --gradient-accent-color: var(--midnight);
+
+            /* Cards */
+            --card-bg: #ffffff;
+            --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
+            --section-bg: var(--white);
+
+            /* Footer */
+            --footer-bg: rgba(26, 32, 44, 0.95);
+
+            /* Nav shadow */
+            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --accent-color: var(--sunbeam);
+                --surface: #11161F;
+                --surface-subtle: #090E17;
+                --border: #2e3650;
+                --text-primary: #e8edf8;
+                --text-secondary: #9aa5c0;
+                --text-muted: #6b7a9a;
+                --text-accent: var(--black);
+                --heading-primary: #ffffff;
+                --accent-label: var(--sunbeam);
+                --highlight: var(--sunbeam);
+
+                /* Nav */
+                --nav-bg: rgba(10, 12, 20, 0.92);
+                --nav-link-color: #9aa5c0;
+                --gradient-accent-color: var(--white);
+
+                /* Cards */
+                --card-bg: #1a1f2e;
+                --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
+                --section-bg: #1a1f2e;
+
+                /* Footer */
+                --footer-bg: rgba(8, 10, 18, 0.97);
+
+                /* Nav shadow */
+                --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
+            }
         }
 
         * {
@@ -44,20 +106,30 @@ permalink: /news/
             box-sizing: border-box;
         }
 
+        html,
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--white);
-            color: #1a202c;
-            line-height: 1.6;
+            height: 100%;
         }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--surface);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── NAV ── */
         .nav-bar {
-            background: rgb(255, 255, 255);
+            background: var(--nav-bg);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--nav-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .nav-content {
@@ -86,7 +158,7 @@ permalink: /news/
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--minnetonka-blue);
+            color: var(--heading-primary);
         }
 
         .nav-links {
@@ -96,7 +168,7 @@ permalink: /news/
         }
 
         .nav-links a {
-            color: #4a5568;
+            color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
@@ -104,7 +176,22 @@ permalink: /news/
         }
 
         .nav-links a:hover {
-            color: var(--minnetonka-blue);
+            color: var(--accent-label);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--accent-label) 0%, var(--gradient-accent-color) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .hamburger {
@@ -117,41 +204,46 @@ permalink: /news/
         .hamburger span {
             width: 25px;
             height: 3px;
-            background: #4a5568;
+            background: var(--nav-link-color);
             border-radius: 3px;
             transition: all 0.3s ease;
         }
 
-        .page-header {
-            color: var(--minnetonka-blue);
-            padding: 3rem 2rem;
+        /* ── HERO ── */
+        .page-hero {
+            background: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
+            padding: 3.5rem 2rem 3.5rem;
             text-align: center;
-            margin-bottom: 3rem;
         }
 
-        .page-header h1 {
+        .page-hero h1 {
             font-size: 3rem;
             font-weight: 800;
+            color: var(--white);
             margin-bottom: 0.5rem;
         }
 
-        .page-header p {
+        .page-hero p {
             font-size: 1.2rem;
-            color: #4a5568;
+            color: var(--sky);
         }
 
+        /* ── MAIN CONTENT ── */
         .main-content {
+            flex: 1 0 auto;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem 4rem;
+            padding: 3rem 2rem 4rem;
+            width: 100%;
         }
 
+        /* ── ARTICLES ── */
         .article {
-            background: var(--minnetonka-blue);
+            background: var(--section-bg);
             border-radius: 20px;
             padding: 2.5rem;
             margin-bottom: 2.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
             animation: fadeIn 0.6s ease-out;
         }
 
@@ -159,24 +251,15 @@ permalink: /news/
             margin-bottom: 1.5rem;
         }
 
-        .article-date {
-            color: var(--sunbeam);
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(139, 180, 253, 0.3);
-        }
-
         .article-title {
-            color: var(--white);
+            color: var(--heading-primary);
             font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
 
         .article-content {
-            color: var(--sky);
+            color: var(--text-secondary);
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 1.5rem;
@@ -193,6 +276,16 @@ permalink: /news/
             margin-bottom: 1rem;
         }
 
+        .article-date {
+            color: var(--accent-color);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── INLINE PHOTO ── */
         .inline-photo {
             float: right;
             margin: 0 0 1rem 1.5rem;
@@ -208,13 +301,14 @@ permalink: /news/
         }
 
         .photo-caption {
-            color: var(--sunbeam);
+            color: var(--inline-photo-caption);
             font-size: 0.9rem;
             font-style: italic;
             margin-top: 0.5rem;
             text-align: center;
         }
 
+        /* ── PHOTO GALLERY ── */
         .photo-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -254,13 +348,17 @@ permalink: /news/
             font-size: 3rem;
         }
 
+        /* ── FOOTER ── */
         footer {
-            background: rgba(26, 32, 44, 0.95);
+            background: var(--footer-bg);
+            backdrop-filter: blur(10px);
             color: white;
             padding: 2rem;
             text-align: center;
+            flex-shrink: 0;
         }
 
+        /* ── ANIMATION ── */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -273,6 +371,7 @@ permalink: /news/
             }
         }
 
+        /* ── MOBILE ── */
         @media (max-width: 768px) {
             .nav-content {
                 padding: 0 1rem;
@@ -292,7 +391,7 @@ permalink: /news/
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(255, 255, 255, 0.95);
+                background: var(--nav-bg);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
                 padding: 1rem 0;
@@ -337,16 +436,12 @@ permalink: /news/
                 transform: rotate(-45deg) translate(5px, -5px);
             }
 
-            .page-header {
-                padding: 2rem 1rem;
-            }
-
-            .page-header h1 {
+            .page-hero h1 {
                 font-size: 2rem;
             }
 
             .main-content {
-                padding: 0 1rem 2rem;
+                padding: 2rem 1rem;
             }
 
             .article {
@@ -355,6 +450,13 @@ permalink: /news/
 
             .article-title {
                 font-size: 1.5rem;
+            }
+
+            .inline-photo {
+                float: none;
+                margin: 0 0 1rem 0;
+                max-width: 100%;
+                width: 100%;
             }
 
             .menu-backdrop {
@@ -369,7 +471,7 @@ permalink: /news/
                 transition: opacity 0.3s ease;
                 z-index: 999;
             }
-            
+
             .menu-backdrop.active {
                 opacity: 1;
                 pointer-events: auto;
@@ -401,7 +503,7 @@ permalink: /news/
         <div class="menu-backdrop" id="menuBackdrop"></div>
     </nav>
 
-    <div class="page-header">
+    <div class="page-hero">
         <h1>Latest News</h1>
         <p>Stay updated with the latest from Tonka Track & Field</p>
     </div>
@@ -413,17 +515,25 @@ permalink: /news/
                 <h2 class="article-title">New website redesign</h2>
             </div>
             <div class="article-content">
-                <p>Our cross country and track & field programs have a brand new digital home, thanks to cross country team member Nolan Erpelding,
-                    who wanted to give something back to a program that has given him so much. As a runner on the Minnetonka cross
-                    country team, Nolan found himself constantly frustrated with the old website—trying to check meet times on his phone
-                    meant endless zooming and scrolling. Instead of just complaining about it, he decided to fix it himself.</p>
-                
-                <p>Nolan poured his own personal time into building the new website from scratch, learning HTML, CSS, and JavaScript along the way. 
-                    He took the time to fine tune every detail, from the color scheme that reflects Minnetonka's colors to the hamburger menu on mobile
+                <p>Our cross country and track & field programs have a brand new digital home, thanks to cross country
+                    team member Nolan Erpelding,
+                    who wanted to give something back to a program that has given him so much. As a runner on the
+                    Minnetonka cross
+                    country team, Nolan found himself constantly frustrated with the old website—trying to check meet
+                    times on his phone
+                    meant endless zooming and scrolling. Instead of just complaining about it, he decided to fix it
+                    himself.</p>
+
+                <p>Nolan poured his own personal time into building the new website from scratch, learning HTML, CSS,
+                    and JavaScript along the way.
+                    He took the time to fine tune every detail, from the color scheme that reflects Minnetonka's colors
+                    to the hamburger menu on mobile
                     that helps make the site work well on any device.</p>
-                <p>We are incredibly grateful for Nolan's dedication and hard work in creating this new website. It's a testament to the spirit of 
-                    our team, we hope this website serves as a valuable resource for all our athletes, parents, and fans.</p>
-            
+                <p>We are incredibly grateful for Nolan's dedication and hard work in creating this new website. It's a
+                    testament to the spirit of
+                    our team, we hope this website serves as a valuable resource for all our athletes, parents, and
+                    fans.</p>
+
             </div>
             <div class="article-date">February 5, 2025</div>
         </article>
@@ -464,21 +574,35 @@ permalink: /news/
                 <h2 class="article-title">Former Head Track Coach, Joe Lane, Passed Away</h2>
             </div>
             <div class="article-content">
-                <p>We are so sad to write that Joe Lane passed away on Wednesday, June 28, 2017. Joe coached boys' track and field at
-                    Minnetonka from 1971-2000. He was an assistant with Bob Rogness from 1971-72, and became the boys' head coach in 1973.
-                    His teams were legendary, finishing in the top 10 at State numerous times, and winning the State title in 1976.</p>
-                <p>"Joe coached and taught at Minnetonka both in the middle schools and at the high school levels. He touched countless
-                    lives in so many ways. He had a passion for kids and coaching that was apparent from the moment you met him! His
-                    knowledge was surpassed only by the kindness of his heart. Joe also had a stubborn streak that made you know he meant
+                <p>We are so sad to write that Joe Lane passed away on Wednesday, June 28, 2017. Joe coached boys' track
+                    and field at
+                    Minnetonka from 1971-2000. He was an assistant with Bob Rogness from 1971-72, and became the boys'
+                    head coach in 1973.
+                    His teams were legendary, finishing in the top 10 at State numerous times, and winning the State
+                    title in 1976.</p>
+                <p>"Joe coached and taught at Minnetonka both in the middle schools and at the high school levels. He
+                    touched countless
+                    lives in so many ways. He had a passion for kids and coaching that was apparent from the moment you
+                    met him! His
+                    knowledge was surpassed only by the kindness of his heart. Joe also had a stubborn streak that made
+                    you know he meant
                     business!!!! All of these attributes combined to make Joe the wonderful person he was.</p>
-                <p>On a personal note, I was blessed to meet Joe in 1985, my first year coaching at Minnetonka. He was a wonderful friend,
-                    a great mentor, and a caring human being. We were blessed with a great staff, and my days working with Joe and Bob
-                    Rogness are some of my favorite memories. As track and field athletes, we all know that it is not only about all the
-                    meters we run, or the throws, or the jumps that we do. The relationships that we make are truly some of the greatest
-                    memories that we will take with us. As I contacted former athletes to let them know of Joe's passing, one thing was
-                    clear-the huge impact that he had made on their lives. Many people commented "He always believed in me." "He is the one
-                    who pushed me". "Joe helped me believe in myself". "He had a huge impact on my life". THIS is Joe's legacy. The world is
-                    better for having had him and we are better people for having known him. Thank you, Joe. Jane Reimer-Morgan"</p>
+                <p>On a personal note, I was blessed to meet Joe in 1985, my first year coaching at Minnetonka. He was a
+                    wonderful friend,
+                    a great mentor, and a caring human being. We were blessed with a great staff, and my days working
+                    with Joe and Bob
+                    Rogness are some of my favorite memories. As track and field athletes, we all know that it is not
+                    only about all the
+                    meters we run, or the throws, or the jumps that we do. The relationships that we make are truly some
+                    of the greatest
+                    memories that we will take with us. As I contacted former athletes to let them know of Joe's
+                    passing, one thing was
+                    clear-the huge impact that he had made on their lives. Many people commented "He always believed in
+                    me." "He is the one
+                    who pushed me". "Joe helped me believe in myself". "He had a huge impact on my life". THIS is Joe's
+                    legacy. The world is
+                    better for having had him and we are better people for having known him. Thank you, Joe. Jane
+                    Reimer-Morgan"</p>
             </div>
             <div class="article-date">June 28, 2017</div>
         </article>
@@ -490,36 +614,36 @@ permalink: /news/
 
     <script>
         function toggleMenu() {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
 
-                menu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                backdrop.classList.toggle('active');
-            }
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            backdrop.classList.toggle('active');
+        }
 
-            function closeMenu() {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
 
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+            backdrop.classList.remove('active');
+        }
+
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
+
+            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
                 menu.classList.remove('active');
                 hamburger.classList.remove('active');
                 backdrop.classList.remove('active');
             }
-            document.addEventListener('click', function (event) {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
-
-                // Check if menu is open and click is outside the nav-content
-                if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    backdrop.classList.remove('active');
-                }
-            }); 
+        });
     </script>
 </body>
 
