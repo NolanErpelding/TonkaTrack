@@ -506,22 +506,91 @@ permalink: /girls-cross-country/
             margin-top: 0.25rem;
         }
     
-        .download-button {
-            background: var(--accent-label);
-            color: var(--text-accent);
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-        }
-    
-        .download-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0, 54, 152, 0.3);
-        }
+        .file-actions {
+			display: flex;
+			gap: 0.75rem;
+			flex-shrink: 0;
+		}
+
+		.download-button {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 0;
+			
+			width: 44px;
+			height: 44px;
+			padding: 10px;
+			
+			border-radius: 10px;
+			background: var(--tab-btn-bg);
+			border: 1px solid var(--border);
+			box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
+
+			cursor: pointer;
+			overflow: hidden;
+			white-space: nowrap;
+
+			transition: all 0.25s ease;
+		}
+
+		.icon {
+			width: 20px;
+			height: 20px;
+			object-fit: contain;
+			flex-shrink: 0;
+
+			background-color: var(--tab-btn-color);
+
+			/* Use the SVG as a mask */
+			-webkit-mask-repeat: no-repeat;
+			mask-repeat: no-repeat;
+			-webkit-mask-size: contain;
+			mask-size: contain;
+			-webkit-mask-position: center;
+			mask-position: center;
+		}
+
+		.icon-open {
+			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
+			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
+		}
+
+		.icon-download {
+			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+		}
+
+		.download-button:hover .icon {
+			background-color: var(--black);
+		}
+
+		.download-button button-text {
+			opacity: 0;
+			margin-left: 0;
+			font-size: var(--text-sm);
+			font-weight: 600;
+			transition: opacity 0.2s ease, margin-left 0.25s ease;
+			white-space: nowrap;
+		}
+
+		@media (hover: hover) {
+			.download-button:hover {
+				background: var(--sunbeam);
+				box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
+			}
+
+			@media (min-width: 1024px) {
+				.download-button:hover {
+					width: 120px;
+				}
+
+				.download-button:hover button-text {
+					opacity: 1;
+					margin-left: 8px;
+				}
+			}
+		}
     
         /* ── INSTAGRAM HANDLE ── */
         .instagram-handle {
@@ -1495,11 +1564,22 @@ permalink: /girls-cross-country/
                         const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
                         const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
                         fileItem.innerHTML = `
-							<div>
+							<div class="file-info">
 								<div class="file-name">${file.name}</div>
 								<div class="file-description">${file.description} • ${displaySize}</div>
 							</div>
-							<button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">Open</button>
+
+							<div class="file-actions">
+								<button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">
+									<span class="icon icon-open"></span>
+									<button-text>Open</button-text>
+								</button>
+
+								<button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">
+									<span class="icon icon-download"></span>
+									<button-text>Download</button-text>
+								</button>
+							</div>
 						`;
                         fileListContainer.appendChild(fileItem);
                     });
