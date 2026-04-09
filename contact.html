@@ -11,9 +11,9 @@ permalink: /contact/
     <meta name="description"
         content="Contact Minnetonka Track & Field and Cross Country coaches and staff. Get in touch with team administrators and the MTFCCA board.">
     <meta name="keywords" content="Minnetonka Track Contact, Tonka Cross Country Coaches, MTFCCA Contact">
-    
-    <title>Contact Us - Tonka Track & Field</title>
-    
+
+    <title>Contact Us</title>
+
     <meta property="og:title" content="Contact Us - Tonka Track & Field">
     <meta property="og:description" content="Get in touch with Minnetonka Track & Field and Cross Country">
     <meta property="og:type" content="website">
@@ -23,19 +23,81 @@ permalink: /contact/
     <link rel="shortcut icon" href="../favicons/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
     <link rel="manifest" href="../favicons/site.webmanifest" />
-    
+
     <style>
         /* Minnetonka Color Palette */
         :root {
+            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
-            --white: #ffffff;
-            --black: #000000;
             --lake: #5395FF;
             --sky: #8BB4FD;
             --grape: #6C0787;
             --sunbeam: #F1B133;
             --mint: #078F96;
+
+            /* Light mode semantic tokens (default) */
+            --white: #ffffff;
+            --black: #000000;
+            --accent-color: var(--mint);
+            --surface: #ffffff;
+            --surface-subtle: #f5f7fa;
+            --border: #e2e8f0;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --text-accent: var(--white);
+            --heading-primary: var(--minnetonka-blue);
+            --accent-label: var(--minnetonka-blue);
+            --highlight: var(--sky);
+
+            /* Nav */
+            --nav-bg: #ffffff;
+            --nav-link-color: #4a5568;
+            --gradient-accent-color: var(--midnight);
+
+            /* Cards */
+            --card-bg: #ffffff;
+            --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
+            --section-bg: var(--white);
+
+            /* Footer */
+            --footer-bg: rgba(26, 32, 44, 0.95);
+
+            /* Nav shadow */
+            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --accent-color: var(--sunbeam);
+                --surface: #11161F;
+                --surface-subtle: #090E17;
+                --border: #2e3650;
+                --text-primary: #e8edf8;
+                --text-secondary: #9aa5c0;
+                --text-muted: #6b7a9a;
+                --text-accent: var(--black);
+                --heading-primary: #ffffff;
+                --accent-label: var(--sunbeam);
+                --highlight: var(--sunbeam);
+
+                /* Nav */
+                --nav-bg: rgba(10, 12, 20, 0.92);
+                --nav-link-color: #9aa5c0;
+                --gradient-accent-color: var(--white);
+
+                /* Cards */
+                --card-bg: #1a1f2e;
+                --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
+                --section-bg: #1a1f2e;
+
+                /* Footer */
+                --footer-bg: rgba(8, 10, 18, 0.97);
+
+                /* Nav shadow */
+                --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
+            }
         }
 
         * {
@@ -51,20 +113,23 @@ permalink: /contact/
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--white);
-            color: #1a202c;
+            background: var(--surface);
+            color: var(--text-primary);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
         }
 
+        /* ── NAV ── */
         .nav-bar {
-            background: rgb(255, 255, 255);
+            background: var(--nav-bg);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--nav-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .nav-content {
@@ -93,7 +158,7 @@ permalink: /contact/
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
-            color: var(--minnetonka-blue);
+            color: var(--heading-primary);
         }
 
         .nav-links {
@@ -103,14 +168,14 @@ permalink: /contact/
         }
 
         .nav-links a {
-            color: #4a5568;
+            color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 500;
             position: relative;
         }
 
         .nav-links a:hover {
-            color: var(--minnetonka-blue);
+            color: var(--accent-label);
         }
 
         .nav-links a::after {
@@ -120,7 +185,7 @@ permalink: /contact/
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, var(--minnetonka-blue) 0%, var(--midnight) 100%);
+            background: linear-gradient(135deg, var(--accent-label) 0%, var(--gradient-accent-color) 100%);
             transition: width 0.3s ease;
         }
 
@@ -138,11 +203,31 @@ permalink: /contact/
         .hamburger span {
             width: 25px;
             height: 3px;
-            background: #4a5568;
+            background: var(--nav-link-color);
             border-radius: 3px;
             transition: all 0.3s ease;
         }
 
+        /* ── HERO ── */
+        .page-hero {
+            background: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
+            padding: 3.5rem 2rem 3.5rem;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            color: var(--sky);
+        }
+
+        /* ── MAIN CONTENT ── */
         .main-content {
             flex: 1 0 auto;
             max-width: 1200px;
@@ -151,24 +236,7 @@ permalink: /contact/
             width: 100%;
         }
 
-        .page-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--minnetonka-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: #4a5568;
-        }
-
-        /* Tab Navigation */
+        /* ── TAB BUTTONS ── */
         .tab-buttons {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -199,13 +267,13 @@ permalink: /contact/
             color: var(--black);
         }
 
-        /* Tab Content */
+        /* ── TAB CONTENT ── */
         .tab-content {
             display: none;
-            background: var(--minnetonka-blue);
+            background: var(--section-bg);
             border-radius: 20px;
             padding: 3rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
             animation: fadeIn 0.5s ease;
         }
 
@@ -214,13 +282,14 @@ permalink: /contact/
         }
 
         .tab-content h2 {
-            color: var(--white);
+            color: var(--heading-primary);
             font-size: 2.5rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
             text-align: center;
         }
 
-        /* Coaches Grid */
+        /* ── COACHES GRID ── */
         .coaches-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -228,18 +297,18 @@ permalink: /contact/
         }
 
         .coach-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--surface-subtle);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 1.5rem;
             text-align: center;
             transition: all 0.3s ease;
-            border: 2px solid transparent;
         }
 
         .coach-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--sunbeam);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: var(--highlight);
         }
 
         .coach-image {
@@ -252,7 +321,7 @@ permalink: /contact/
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border: 3px solid var(--sunbeam);
+            border: 3px solid var(--accent-color);
         }
 
         .coach-image img {
@@ -267,21 +336,21 @@ permalink: /contact/
         }
 
         .coach-name {
-            color: var(--white);
+            color: var(--text-primary);
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
         .coach-title {
-            color: var(--sky);
+            color: var(--text-muted);
             font-size: 1rem;
             margin-bottom: 1rem;
         }
 
         .email-button {
             display: inline-block;
-            background: var(--sunbeam);
+            background: var(--accent-color);
             color: var(--black);
             padding: 0.75rem 1.5rem;
             border-radius: 10px;
@@ -297,8 +366,8 @@ permalink: /contact/
         }
 
         .email-button.disabled {
-            background: #4a5568;
-            color: #a0aec0;
+            background: var(--border);
+            color: var(--text-muted);
             cursor: not-allowed;
             pointer-events: none;
             opacity: 0.6;
@@ -310,42 +379,33 @@ permalink: /contact/
             filter: none;
         }
 
-        /* MTFCCA Section */
+        /* ── MTFCCA SECTION ── */
         .mtfcca-section {
-            background: var(--minnetonka-blue);
+            background: var(--section-bg);
             border-radius: 20px;
             padding: 2.5rem;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-top: 3rem;
+            box-shadow: var(--card-shadow);
+            margin-top: 2rem;
             animation: fadeIn 0.6s ease-out forwards;
         }
 
         .mtfcca-section h2 {
-            color: var(--white);
+            color: var(--heading-primary);
             font-size: 2.2rem;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
 
         .mtfcca-section p {
-            color: var(--sky);
+            color: var(--text-secondary);
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
         }
 
-        .mtfcca-section .email-button {
-            background: var(--sunbeam);
-            color: var(--black);
-        }
-
-        .mtfcca-section .email-button:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
-        }
-
+        /* ── FOOTER ── */
         footer {
-            background: rgba(26, 32, 44, 0.95);
+            background: var(--footer-bg);
             backdrop-filter: blur(10px);
             color: white;
             padding: 2rem;
@@ -354,6 +414,7 @@ permalink: /contact/
             flex-shrink: 0;
         }
 
+        /* ── ANIMATION ── */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -366,7 +427,7 @@ permalink: /contact/
             }
         }
 
-        /* Mobile Styles */
+        /* ── MOBILE ── */
         @media (max-width: 900px) {
             .nav-content {
                 padding: 0 1rem;
@@ -386,7 +447,7 @@ permalink: /contact/
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: rgba(255, 255, 255, 0.95);
+                background: var(--nav-bg);
                 backdrop-filter: blur(10px);
                 flex-direction: column;
                 padding: 1rem 0;
@@ -431,16 +492,12 @@ permalink: /contact/
                 transform: rotate(-45deg) translate(5px, -5px);
             }
 
-            .main-content {
-                padding: 2rem 1rem;
-            }
-
-            .page-header h1 {
+            .page-hero h1 {
                 font-size: 2rem;
             }
 
-            .page-header p {
-                font-size: 1rem;
+            .main-content {
+                padding: 2rem 1rem;
             }
 
             .tab-content {
@@ -493,7 +550,7 @@ permalink: /contact/
                 transition: opacity 0.3s ease;
                 z-index: 999;
             }
-            
+
             .menu-backdrop.active {
                 opacity: 1;
                 pointer-events: auto;
@@ -531,18 +588,19 @@ permalink: /contact/
         <div class="menu-backdrop" id="menuBackdrop"></div>
     </nav>
 
+    <div class="page-hero">
+        <h1>Contact Our Coaches</h1>
+        <p>Get in touch with our coaching staff</p>
+    </div>
+
     <div class="main-content">
-        <div class="page-header">
-            <h1>Contact Our Coaches</h1>
-            <p>Get in touch with our coaching staff</p>
-        </div>
 
         <!-- Tab Buttons -->
         <div class="tab-buttons">
-            <button class="tab-button active" onclick="showTab('girls-xc')">Girls Cross Country</button>
-            <button class="tab-button" onclick="showTab('boys-xc')">Boys Cross Country</button>
-            <button class="tab-button" onclick="showTab('girls-track')">Girls Track & Field</button>
-            <button class="tab-button" onclick="showTab('boys-track')">Boys Track & Field</button>
+            <button class="tab-button active" onclick="showTab('girls-xc', event)">Girls Cross Country</button>
+            <button class="tab-button" onclick="showTab('boys-xc', event)">Boys Cross Country</button>
+            <button class="tab-button" onclick="showTab('girls-track', event)">Girls Track & Field</button>
+            <button class="tab-button" onclick="showTab('boys-track', event)">Boys Track & Field</button>
         </div>
 
         <!-- Girls Cross Country Tab -->
@@ -551,7 +609,8 @@ permalink: /contact/
             <div class="coaches-grid">
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/rebecca-wessley.jpg" alt="Rebecca Wesley">             
+                        <img src="../images/rebecca-wessley.jpg" alt="Rebecca Wesley"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Rebecca Wesley</div>
                     <div class="coach-title">Head Coach</div>
@@ -567,7 +626,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/cassie-klein.jpg" alt="Cassie Klein">
+                        <img src="../images/cassie-klein.jpg" alt="Cassie Klein"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Cassie Klein</div>
                     <div class="coach-title">Assistant Coach</div>
@@ -575,7 +635,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/heidi-leighton.jpg" alt="Heidi Leighton">
+                        <img src="../images/heidi-leighton.jpg" alt="Heidi Leighton"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Heidi Leighton</div>
                     <div class="coach-title">Assistant Coach</div>
@@ -583,15 +644,17 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/amanda-montplaisir.jpg" alt="Amanda Montplaisir">
+                        <img src="../images/amanda-montplaisir.jpg" alt="Amanda Montplaisir"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Amanda Montplaisir</div>
                     <div class="coach-title">Assistant Coach</div>
-                        <a href="#" class="email-button disabled">Send Email</a>
+                    <a href="#" class="email-button disabled">Send Email</a>
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/stacie-olson.jpg" alt="Stacie Olson">
+                        <img src="../images/stacie-olson.jpg" alt="Stacie Olson"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Stacie Olson</div>
                     <div class="coach-title">MME Girls Head Coach</div>
@@ -599,7 +662,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/beth-keskey.jpg" alt="Beth Keskey">
+                        <img src="../images/beth-keskey.jpg" alt="Beth Keskey"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Beth Keskey</div>
                     <div class="coach-title">MMW Girls Head Coach</div>
@@ -614,7 +678,8 @@ permalink: /contact/
             <div class="coaches-grid">
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/jeff-renlund.png" alt="Jeff Renlund">
+                        <img src="../images/jeff-renlund.png" alt="Jeff Renlund"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Jeff Renlund</div>
                     <div class="coach-title">Head Coach</div>
@@ -622,7 +687,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/jacob-peterson.jpg" alt="Jacob Peterson">
+                        <img src="../images/jacob-peterson.jpg" alt="Jacob Peterson"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Jacob Peterson (JP)</div>
                     <div class="coach-title">Assistant Coach</div>
@@ -630,7 +696,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/titus-winders.jpg" alt="Titus Winders">
+                        <img src="../images/titus-winders.jpg" alt="Titus Winders"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Titus Winders</div>
                     <div class="coach-title">Assistant Coach</div>
@@ -645,7 +712,8 @@ permalink: /contact/
             <div class="coaches-grid">
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan">
+                        <img src="../images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Jane Reimer-Morgan</div>
                     <div class="coach-title">Head Coach</div>
@@ -653,7 +721,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/tonya-andruskiewicz.jpg" alt="Tonya Andruskiewicz">
+                        <img src="../images/tonya-andruskiewicz.jpg" alt="Tonya Andruskiewicz"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Tonya Andruskiewicz</div>
                     <div class="coach-title">Horizontal Jumps</div>
@@ -661,7 +730,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/sarah-becher.jpg" alt="Sarah Becher">
+                        <img src="../images/sarah-becher.jpg" alt="Sarah Becher"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Sarah Becher</div>
                     <div class="coach-title">Throws</div>
@@ -669,7 +739,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/jenna-buss.jpg" alt="Jenna Buss">
+                        <img src="../images/jenna-buss.jpg" alt="Jenna Buss"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Jenna Buss</div>
                     <div class="coach-title">High Jump</div>
@@ -677,7 +748,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/kristine-jensen-gehrmann.jpg" alt="Kristine Jensen Gehrmann">
+                        <img src="../images/kristine-jensen-gehrmann.jpg" alt="Kristine Jensen Gehrmann"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Kristine Jensen Gehrmann</div>
                     <div class="coach-title">Distance</div>
@@ -685,7 +757,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/krista-larson.jpg" alt="Krista Larson">
+                        <img src="../images/krista-larson.jpg" alt="Krista Larson"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Krista Larson</div>
                     <div class="coach-title">Hurdles</div>
@@ -701,7 +774,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/leeann-leblanc.jpg" alt="LeeAnn LeBlanc">
+                        <img src="../images/leeann-leblanc.jpg" alt="LeeAnn LeBlanc"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">LeeAnn LeBlanc</div>
                     <div class="coach-title">Distance</div>
@@ -724,7 +798,8 @@ permalink: /contact/
             <div class="coaches-grid">
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/james-finch.png" alt="James Finch">
+                        <img src="../images/james-finch.png" alt="James Finch"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">James Finch</div>
                     <div class="coach-title">Head Coach</div>
@@ -732,7 +807,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/john-steffen.jpg" alt="John Steffen">
+                        <img src="../images/john-steffen.jpg" alt="John Steffen"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">John Steffen</div>
                     <div class="coach-title">Jumps / Hurdles</div>
@@ -740,7 +816,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/dan-murphy.jpeg" alt="Dan Murphy">
+                        <img src="../images/dan-murphy.jpeg" alt="Dan Murphy"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Dan Murphy</div>
                     <div class="coach-title">Sprints / Relays</div>
@@ -748,7 +825,8 @@ permalink: /contact/
                 </div>
                 <div class="coach-card">
                     <div class="coach-image">
-                        <img src="../images/jeff-renlund.png" alt="Jeff Renlund">
+                        <img src="../images/jeff-renlund.png" alt="Jeff Renlund"
+                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
                     </div>
                     <div class="coach-name">Jeff Renlund</div>
                     <div class="coach-title">Distance</div>
@@ -811,38 +889,38 @@ permalink: /contact/
 
     <script>
         function toggleMenu() {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
 
-                menu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-                backdrop.classList.toggle('active');
-            }
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            backdrop.classList.toggle('active');
+        }
 
-            function closeMenu() {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
 
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+            backdrop.classList.remove('active');
+        }
+
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
+
+            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
                 menu.classList.remove('active');
                 hamburger.classList.remove('active');
                 backdrop.classList.remove('active');
             }
-            document.addEventListener('click', function (event) {
-                const menu = document.getElementById('navMenu');
-                const hamburger = document.querySelector('.hamburger');
-                const backdrop = document.getElementById('menuBackdrop');
+        });
 
-                // Check if menu is open and click is outside the nav-content
-                if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                    menu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                    backdrop.classList.remove('active');
-                }
-            }); 
-
-        function showTab(tabName) {
+        function showTab(tabName, event) {
             // Hide all tabs
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
