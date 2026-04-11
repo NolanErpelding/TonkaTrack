@@ -545,15 +545,21 @@ permalink: /learn-more/
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
         }
 
         .faq-question::after {
-            content: "+";
-            font-size: 1.5rem;
+            content: none;
+        }
+
+        .faq-toggle-icon {
+            flex-shrink: 0;
+            align-self: flex-start;
+            margin-top: 4px;
             transition: transform 0.3s ease;
         }
 
-        .faq-item.active .faq-question::after {
+        .faq-item.active .faq-toggle-icon {
             transform: rotate(45deg);
         }
 
@@ -1034,7 +1040,12 @@ permalink: /learn-more/
             <h2>Frequently Asked Questions</h2>
             <div class="faq-container">
                 <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">Do I need experience to join?</div>
+                    <div class="faq-question">Do I need experience to join?
+                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
                     <div class="faq-answer">
                         Not at all! Many of our most successful athletes started with no running experience. Our
                         coaches work with athletes of all levels, from complete beginners to experienced runners.
@@ -1042,7 +1053,12 @@ permalink: /learn-more/
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">Can I participate in other sports?</div>
+                    <div class="faq-question">Can I participate in other sports?
+                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
                     <div class="faq-answer">
                         Yes! Many of our athletes are multi-sport participants. Track and field especially
                         accommodates this since it's a spring sport. For cross country (fall), we encourage you to
@@ -1051,7 +1067,12 @@ permalink: /learn-more/
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">What if I'm not very fast?</div>
+                    <div class="faq-question">What if I'm not very fast?
+                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
                     <div class="faq-answer">
                         Speed is just one aspect of track and field! We have events for all types of athletes:
                         distance running, sprinting, jumping, and throwing. Success in our program is measured by
@@ -1060,7 +1081,12 @@ permalink: /learn-more/
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">What's the difference between track and cross country?</div>
+                    <div class="faq-question">What's the difference between track and cross country?
+                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
                     <div class="faq-answer">
                         Cross country is run in the fall and involves racing on trails, grass, and natural terrain,
                         typically 5K (3.1 miles). Track and field is in the spring and takes place on a track with
@@ -1069,7 +1095,12 @@ permalink: /learn-more/
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">How much does it cost to participate?</div>
+                    <div class="faq-question">How much does it cost to participate?
+                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
                     <div class="faq-answer">
                         Program fees vary by season. Financial assistance is available for families who need it, and
                         we have a used equipment exchange. No student is turned away due to cost. Contact the
@@ -1077,7 +1108,12 @@ permalink: /learn-more/
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">What if I get injured?</div>
+                    <div class="faq-question">What if I get injured?
+                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
                     <div class="faq-answer">
                         Our coaches work closely with athletic trainers to ensure safe training and recovery. If
                         you're injured, we'll help you with rehabilitation and a safe return to competition. Many
@@ -1085,7 +1121,12 @@ permalink: /learn-more/
                     </div>
                 </div>
                 <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">Can I try different events in track and field?</div>
+                    <div class="faq-question">Can I try different events in track and field?
+                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
                     <div class="faq-answer">
                         Absolutely! The beginning of the season is a great time to try different events. Our coaches
                         will help you find the events that best suit your strengths and interests. Many athletes

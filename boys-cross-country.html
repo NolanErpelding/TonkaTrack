@@ -30,12 +30,12 @@ permalink: /boys-cross-country/
 		:root {
 			/* Brand colors — never change */
 			--minnetonka-blue: #003698;
-            --midnight: #002870;
-            --lake: #5395FF;
-            --sky: #8BB4FD;
-            --grape: #6C0787;
-            --sunbeam: #F1B133;
-            --mint: #078F96;
+			--midnight: #002870;
+			--lake: #5395FF;
+			--sky: #8BB4FD;
+			--grape: #6C0787;
+			--sunbeam: #F1B133;
+			--mint: #078F96;
 
 			/* Light mode semantic tokens (default) */
 			--white: #ffffff;
@@ -123,18 +123,6 @@ permalink: /boys-cross-country/
 			}
 		}
 
-		@media (prefers-color-scheme: dark) {
-
-			.album-item:hover,
-			.photo-item:hover {
-				box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.35);
-			}
-
-			.tab-button:hover {
-				box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.4);
-			}
-		}
-
 		* {
 			margin: 0;
 			padding: 0;
@@ -210,8 +198,14 @@ permalink: /boys-cross-country/
 			position: relative;
 		}
 
-		.nav-links a:hover {
-			color: var(--accent-label);
+		@media (hover: hover) {
+			.nav-links a:hover {
+				color: var(--accent-label);
+			}
+
+			.nav-links a:hover::after {
+				width: 100%;
+			}
 		}
 
 		.nav-links a::after {
@@ -225,9 +219,7 @@ permalink: /boys-cross-country/
 			transition: width 0.3s ease;
 		}
 
-		.nav-links a:hover::after {
-			width: 100%;
-		}
+
 
 		.hamburger {
 			display: none;
@@ -306,9 +298,11 @@ permalink: /boys-cross-country/
 			box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
 		}
 
-		.tab-button:hover {
-			transform: translateY(-2px);
-			box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+		@media (hover: hover) {
+			.tab-button:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+			}
 		}
 
 		.tab-button.active {
@@ -403,10 +397,16 @@ permalink: /boys-cross-country/
 			position: relative;
 		}
 
-		.photo-item:hover {
-			transform: scale(1.03);
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-			border-color: var(--highlight);
+		@media (hover: hover) {
+			.photo-item:hover {
+				transform: scale(1.03);
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+				border-color: var(--highlight);
+			}
+
+			.photo-item:hover .photo-caption {
+				transform: translateY(0);
+			}
 		}
 
 		.photo-item img {
@@ -428,10 +428,6 @@ permalink: /boys-cross-country/
 			transition: transform 0.3s ease;
 		}
 
-		.photo-item:hover .photo-caption {
-			transform: translateY(0);
-		}
-
 		/* ── FILE LIST ── */
 		.file-list {
 			display: flex;
@@ -451,10 +447,12 @@ permalink: /boys-cross-country/
 			transition: all 0.3s ease;
 		}
 
-		.file-item:hover {
-			background: var(--surface);
-			transform: translateX(5px);
-			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+		@media (hover: hover) {
+			.file-item:hover {
+				background: var(--surface);
+				transform: translateX(5px);
+				box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+			}
 		}
 
 		.file-name {
@@ -480,11 +478,11 @@ permalink: /boys-cross-country/
 			align-items: center;
 			justify-content: flex-start;
 			gap: 0;
-			
+
 			width: 44px;
 			height: 44px;
 			padding: 10px;
-			
+
 			border-radius: 10px;
 			background: var(--tab-btn-bg);
 			border: 1px solid var(--border);
@@ -524,10 +522,6 @@ permalink: /boys-cross-country/
 			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
 		}
 
-		.download-button:hover .icon {
-			background-color: var(--black);
-		}
-
 		.download-button button-text {
 			opacity: 0;
 			margin-left: 0;
@@ -538,6 +532,10 @@ permalink: /boys-cross-country/
 		}
 
 		@media (hover: hover) {
+			.download-button:hover .icon {
+				background-color: var(--black);
+			}
+
 			.download-button:hover {
 				background: var(--sunbeam);
 				box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
@@ -564,10 +562,6 @@ permalink: /boys-cross-country/
 			position: relative;
 		}
 
-		.instagram-handle:hover {
-			color: #e1306c;
-		}
-
 		.instagram-handle::after {
 			content: '';
 			position: absolute;
@@ -579,9 +573,16 @@ permalink: /boys-cross-country/
 			transition: width 0.3s ease;
 		}
 
-		.instagram-handle:hover::after {
-			width: 100%;
+		@media (hover: hover) {
+			.instagram-handle:hover::after {
+				width: 100%;
+			}
+
+			.instagram-handle:hover {
+				color: #e1306c;
+			}
 		}
+
 
 		/* ── COACH CARDS ── */
 		.coaches-grid {
@@ -600,10 +601,12 @@ permalink: /boys-cross-country/
 			transition: all 0.3s ease;
 		}
 
-		.coach-card:hover {
-			transform: translateY(-4px);
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-			border-color: var(--highlight);
+		@media (hover: hover) {
+			.coach-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+				border-color: var(--highlight);
+			}
 		}
 
 		.coach-image {
@@ -657,12 +660,6 @@ permalink: /boys-cross-country/
 			transition: all 0.3s ease;
 		}
 
-		.email-button:hover {
-			filter: brightness(1.08);
-			transform: translateY(-2px);
-			box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
-		}
-
 		.email-button.disabled {
 			background: #4a5568;
 			color: #a0aec0;
@@ -671,10 +668,18 @@ permalink: /boys-cross-country/
 			opacity: 0.6;
 		}
 
-		.email-button.disabled:hover {
-			transform: none;
-			box-shadow: none;
-			filter: none;
+		@media (hover: hover) {
+			.email-button.disabled:hover {
+				transform: none;
+				box-shadow: none;
+				filter: none;
+			}
+
+			.email-button:hover {
+				filter: brightness(1.08);
+				transform: translateY(-2px);
+				box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
+			}
 		}
 
 		/* ── ALBUMS GRID ── */
@@ -693,10 +698,12 @@ permalink: /boys-cross-country/
 			transition: all 0.3s ease;
 		}
 
-		.album-item:hover {
-			transform: translateY(-6px);
-			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-			border-color: var(--highlight);
+		@media (hover: hover) {
+			.album-item:hover {
+				transform: translateY(-6px);
+				box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+				border-color: var(--highlight);
+			}
 		}
 
 		.album-cover {
@@ -749,10 +756,12 @@ permalink: /boys-cross-country/
 			transition: all 0.3s ease;
 		}
 
-		.back-button:hover {
-			background: var(--accent-label);
-			color: #ffffff;
-			transform: translateX(-4px);
+		@media (hover: hover) {
+			.back-button:hover {
+				background: var(--accent-label);
+				color: #ffffff;
+				transform: translateX(-4px);
+			}
 		}
 
 		/* ── PHOTO MODAL ── */
@@ -803,14 +812,16 @@ permalink: /boys-cross-country/
 			transition: all 0.3s ease;
 		}
 
-		.photo-modal-close:hover {
-			background: var(--white);
-			color: var(--black);
-			transform: rotate(90deg);
-		}
+		@media (hover: hover) {
+			.photo-modal-close:hover {
+				background: var(--white);
+				color: var(--black);
+				transform: rotate(90deg);
+			}
 
-		.photo-modal-close:hover svg path {
-			stroke: var(--black);
+			.photo-modal-close:hover svg path {
+				stroke: var(--black);
+			}
 		}
 
 		.photo-modal-actions {
@@ -833,11 +844,13 @@ permalink: /boys-cross-country/
 			gap: 0.5rem;
 		}
 
-		.photo-action-button:hover {
-			background: var(--sunbeam);
-			color: var(--black);
-			border-color: var(--sunbeam);
-			transform: translateY(-2px);
+		@media (hover: hover) {
+			.photo-action-button:hover {
+				background: var(--sunbeam);
+				color: var(--black);
+				border-color: var(--sunbeam);
+				transform: translateY(-2px);
+			}
 		}
 
 		.photo-modal-content-wrapper {
@@ -891,9 +904,11 @@ permalink: /boys-cross-country/
 			z-index: 3001;
 		}
 
-		.photo-nav-arrow:hover {
-			background: var(--white);
-			color: var(--black);
+		@media (hover: hover) {
+			.photo-nav-arrow:hover {
+				background: var(--white);
+				color: var(--black);
+			}
 		}
 
 		.photo-nav-arrow.left {
