@@ -180,10 +180,6 @@ permalink: /learn-more/
             position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-label);
-        }
-
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -195,8 +191,14 @@ permalink: /learn-more/
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        @media (hover: hover) {
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .nav-links a:hover {
+                color: var(--accent-label);
+            }
         }
 
         .hamburger {
@@ -328,8 +330,10 @@ permalink: /learn-more/
             transition: all 0.3s ease;
         }
 
-        .program-card:hover {
-            transform: translateY(-5px);
+        @media (hover: hover) {
+            .program-card:hover {
+                transform: translateY(-5px);
+            }
         }
 
         .program-card.summer {
@@ -476,10 +480,12 @@ permalink: /learn-more/
             border: 2px solid transparent;
         }
 
-        .coach-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-            border: 2px solid var(--accent-color);
+        @media (hover: hover) {
+            .coach-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+                border: 2px solid var(--accent-color);
+            }
         }
 
         .coach-image {
@@ -534,8 +540,10 @@ permalink: /learn-more/
             transition: all 0.3s ease;
         }
 
-        .faq-item:hover {
-            border-color: var(--accent-color);
+        @media (hover: hover) {
+            .faq-item:hover {
+                border-color: var(--accent-color);
+            }
         }
 
         .faq-question {

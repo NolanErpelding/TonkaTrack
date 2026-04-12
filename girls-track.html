@@ -35,7 +35,7 @@ permalink: /girls-track/
             --grape: #6C0787;
             --sunbeam: #F1B133;
             --mint: #078F96;
-    
+
             /* Light mode semantic tokens (default) */
             --white: #ffffff;
             --black: #000000;
@@ -50,36 +50,36 @@ permalink: /girls-track/
             --heading-secondary: var(--minnetonka-blue);
             --accent-label: var(--minnetonka-blue);
             --highlight: var(--sky);
-    
+
             /* Nav */
             --nav-bg: #ffffff;
             --nav-link-color: #4a5568;
-    
+
             /* Hero */
             --hero-bg: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
-    
+
             /* Tab buttons */
             --tab-btn-bg: var(--minnetonka-blue);
             --tab-btn-color: #ffffff;
             --tab-btn-active-bg: var(--sunbeam);
             --tab-btn-active-color: #000000;
             --gradient-accent-color: var(--midnight);
-    
+
             /* Cards / content panels */
             --card-bg: #ffffff;
             --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
             --update-bg: #f7f8fa;
-    
+
             /* Footer */
             --footer-bg: rgba(26, 32, 44, 0.97);
-    
+
             /* Modal */
             --modal-bg: rgba(0, 0, 0, 0.95);
             --placeholder-gradient: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
-    
+
             /* Shadows */
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    
+
             /* Type scale */
             --text-xs: 14px;
             --text-sm: 15px;
@@ -89,7 +89,7 @@ permalink: /girls-track/
             --text-xl: 26px;
             --text-2xl: 40px;
         }
-    
+
         @media (prefers-color-scheme: dark) {
             :root {
                 /* Reassign semantic tokens for dark mode */
@@ -103,60 +103,60 @@ permalink: /girls-track/
                 --heading-primary: #ffffff;
                 --accent-label: var(--sunbeam);
                 --highlight: var(--sunbeam);
-    
-    
+
+
                 /* Nav */
                 --nav-bg: rgba(10, 12, 20, 0.92);
                 --nav-link-color: #9aa5c0;
-    
+
                 /* Tab buttons */
                 --tab-btn-bg: #2a3354;
                 --tab-btn-color: #c8d4f0;
                 --tab-btn-active-color: #111111;
                 --gradient-accent-color: var(--white);
-    
+
                 /* Cards */
                 --card-bg: #1a1f2e;
                 --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4), 0 25px 60px rgba(0, 0, 0, 0.5);
                 --update-bg: var(--surface);
-    
+
                 /* Footer */
                 --footer-bg: rgba(8, 10, 18, 0.97);
-    
+
                 /* Modal */
                 --modal-bg: rgba(0, 0, 0, 0.97);
                 --placeholder-gradient: linear-gradient(135deg, #1e2640 0%, #0d1020 100%);
-    
+
                 /* Shadows → highlights in dark mode */
                 --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
                 --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
-    
+
             }
         }
-    
+
         @media (prefers-color-scheme: dark) {
-    
+
             .album-item:hover,
             .photo-item:hover {
                 box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.35);
             }
-    
+
             .tab-button:hover {
                 box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.4);
             }
         }
-    
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-    
+
         html,
         body {
             height: 100%;
         }
-    
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--surface);
@@ -165,7 +165,7 @@ permalink: /girls-track/
             display: flex;
             flex-direction: column;
         }
-    
+
         /* ── NAV ── */
         .nav-bar {
             background: var(--nav-bg);
@@ -177,7 +177,7 @@ permalink: /girls-track/
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-    
+
         .nav-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -187,44 +187,40 @@ permalink: /girls-track/
             padding: 0 2rem;
             position: relative;
         }
-    
+
         .logo {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
         }
-    
+
         .logo-m-img {
             height: 2.5rem;
             width: auto;
             display: block;
         }
-    
+
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--heading-primary);
         }
-    
+
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
             transition: max-height 0.3s ease, opacity 0.3s ease;
         }
-    
+
         .nav-links a {
             color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 500;
             position: relative;
         }
-    
-        .nav-links a:hover {
-            color: var(--accent-label);
-        }
-    
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -235,18 +231,24 @@ permalink: /girls-track/
             background: linear-gradient(135deg, var(--accent-label), var(--gradient-accent-color));
             transition: width 0.3s ease;
         }
-    
-        .nav-links a:hover::after {
-            width: 100%;
+
+        @media (hover: hover) {
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .nav-links a:hover {
+                color: var(--accent-label);
+            }
         }
-    
+
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
             gap: 4px;
         }
-    
+
         .hamburger span {
             width: 25px;
             height: 3px;
@@ -254,26 +256,26 @@ permalink: /girls-track/
             border-radius: 3px;
             transition: all 0.3s ease;
         }
-    
+
         /* ── LAYOUT ── */
         .page-hero {
             background: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
             padding: 3.5rem 2rem 5.5rem;
             text-align: center;
         }
-    
+
         .page-hero h1 {
             font-size: 3rem;
             font-weight: 800;
             color: var(--white);
             margin-bottom: 0.5rem;
         }
-    
+
         .page-hero p {
             font-size: 1.2rem;
             color: var(--sky);
         }
-    
+
         /* White card overlapping the blue banner */
         .main-content {
             flex: 1 0 auto;
@@ -284,7 +286,7 @@ permalink: /girls-track/
             position: relative;
             z-index: 2;
         }
-    
+
         /* Tab buttons sit above the white card overlap zone */
         .tab-buttons-wrapper {
             background: var(--card-bg);
@@ -296,7 +298,7 @@ permalink: /girls-track/
             margin-left: 2rem;
             margin-right: 2rem;
         }
-    
+
         .tab-buttons {
             display: flex;
             gap: 1rem;
@@ -305,7 +307,7 @@ permalink: /girls-track/
             justify-content: center;
             padding: 0 2rem;
         }
-    
+
         .tab-button {
             background: var(--tab-btn-bg);
             color: var(--tab-btn-color);
@@ -318,18 +320,20 @@ permalink: /girls-track/
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
         }
-    
-        .tab-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+
+        @media (hover: hover) {
+            .tab-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+            }
         }
-    
+
         .tab-button.active {
             background: var(--tab-btn-active-bg);
             color: var(--tab-btn-active-color);
             box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
         }
-    
+
         /* ── TAB CONTENT (white card) ── */
         .tab-content {
             display: none;
@@ -343,11 +347,11 @@ permalink: /girls-track/
             margin-left: 2rem;
             margin-right: 2rem;
         }
-    
+
         .tab-content.active {
             display: block;
         }
-    
+
         .tab-content h2 {
             color: var(--heading-primary);
             font-size: var(--text-xl);
@@ -355,7 +359,7 @@ permalink: /girls-track/
             letter-spacing: -0.02em;
             margin-bottom: 1.25rem;
         }
-    
+
         .tab-content h3 {
             color: var(--heading-secondary);
             font-size: 22px;
@@ -363,7 +367,7 @@ permalink: /girls-track/
             letter-spacing: -0.01em;
             margin-bottom: 0.5rem;
         }
-    
+
         .tab-content p {
             color: var(--text-secondary);
             font-size: var(--text-base);
@@ -371,14 +375,14 @@ permalink: /girls-track/
             font-weight: 400;
             margin-bottom: 1rem;
         }
-    
+
         .tab-content small,
         .tab-content .text-small {
             font-size: var(--text-xs);
             line-height: 1.5;
             opacity: 0.85;
         }
-    
+
         a[href^="tel:"] {
             color: var(--grey);
             text-decoration: none;
@@ -386,14 +390,14 @@ permalink: /girls-track/
             border-bottom: 2px solid var(--grey);
             transition: all 0.3s ease;
         }
-    
-    
-        a[href^="tel:"]:hover {
-            color: var(--sunbeam) !important;
-            border-bottom-color: var(--sunbeam);
+
+        @media (hover: hover) {
+            a[href^="tel:"]:hover {
+                color: var(--sunbeam) !important;
+                border-bottom-color: var(--sunbeam);
+            }
         }
-    
-    
+
         /* ── UPDATE ITEMS ── */
         .update-item {
             background: var(--update-bg);
@@ -403,25 +407,25 @@ permalink: /girls-track/
             padding: 1.5rem;
             margin-bottom: 32px;
         }
-    
+
         .update-item h3 {
             margin-bottom: 0.5rem;
         }
-    
+
         .update-date {
             color: var(--text-muted);
             font-size: 0.9rem;
             font-style: italic;
             margin-bottom: 0.75rem;
         }
-    
+
         /* ── PHOTO GRID ── */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1rem;
         }
-    
+
         .photo-item {
             background: var(--surface-subtle);
             border: 1px solid var(--border);
@@ -437,19 +441,21 @@ permalink: /girls-track/
             transition: all 0.3s ease;
             position: relative;
         }
-    
-        .photo-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            border-color: var(--highlight);
+
+        @media (hover: hover) {
+            .photo-item:hover {
+                transform: scale(1.03);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                border-color: var(--highlight);
+            }
         }
-    
+
         .photo-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-    
+
         .photo-caption {
             position: absolute;
             bottom: 0;
@@ -462,11 +468,13 @@ permalink: /girls-track/
             transform: translateY(100%);
             transition: transform 0.3s ease;
         }
-    
-        .photo-item:hover .photo-caption {
-            transform: translateY(0);
+
+        @media (hover: hover) {
+            .photo-item:hover .photo-caption {
+                transform: translateY(0);
+            }
         }
-    
+
         /* ── FILE LIST ── */
         .file-list {
             display: flex;
@@ -474,7 +482,7 @@ permalink: /girls-track/
                 column;
             gap: 28px;
         }
-    
+
         .file-item {
             background: var(--surface-subtle);
             border: 1px solid var(--border);
@@ -486,111 +494,115 @@ permalink: /girls-track/
             gap: 2rem;
             transition: all 0.3s ease;
         }
-    
-        .file-item:hover {
-            background: var(--surface);
-            transform: translateX(5px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+        @media (hover: hover) {
+            .file-item:hover {
+                background: var(--surface);
+                transform: translateX(5px);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            }
         }
-    
+
         .file-name {
             color: var(--text-primary);
             font-size: 1rem;
             font-weight: 600;
         }
-    
+
         .file-description {
             color: var(--text-muted);
             font-size: 0.9rem;
             margin-top: 0.25rem;
         }
-    
+
         .file-actions {
-			display: flex;
-			gap: 0.75rem;
-			flex-shrink: 0;
-		}
+            display: flex;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
 
-		.download-button {
-			display: flex;
-			align-items: center;
-			justify-content: flex-start;
-			gap: 0;
-			
-			width: 44px;
-			height: 44px;
-			padding: 10px;
-			
-			border-radius: 10px;
-			background: var(--tab-btn-bg);
-			border: 1px solid var(--border);
-			box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
+        .download-button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
 
-			cursor: pointer;
-			overflow: hidden;
-			white-space: nowrap;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
 
-			transition: all 0.25s ease;
-		}
+            border-radius: 10px;
+            background: var(--tab-btn-bg);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
 
-		.icon {
-			width: 20px;
-			height: 20px;
-			object-fit: contain;
-			flex-shrink: 0;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
 
-			background-color: var(--tab-btn-color);
+            transition: all 0.25s ease;
+        }
 
-			/* Use the SVG as a mask */
-			-webkit-mask-repeat: no-repeat;
-			mask-repeat: no-repeat;
-			-webkit-mask-size: contain;
-			mask-size: contain;
-			-webkit-mask-position: center;
-			mask-position: center;
-		}
+        .icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
 
-		.icon-open {
-			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
-			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
-		}
+            background-color: var(--tab-btn-color);
 
-		.icon-download {
-			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
-			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
-		}
+            /* Use the SVG as a mask */
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
 
-		.download-button:hover .icon {
-			background-color: var(--black);
-		}
+        .icon-open {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
+        }
 
-		.download-button button-text {
-			opacity: 0;
-			margin-left: 0;
-			font-size: var(--text-sm);
-			font-weight: 600;
-			transition: opacity 0.2s ease, margin-left 0.25s ease;
-			white-space: nowrap;
-		}
+        .icon-download {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+        }
 
-		@media (hover: hover) {
-			.download-button:hover {
-				background: var(--sunbeam);
-				box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
-			}
+        @media (hover: hover) {
+            .download-button:hover .icon {
+                background-color: var(--black);
+            }
+        }
 
-			@media (min-width: 1024px) {
-				.download-button:hover {
-					width: 120px;
-				}
+        .download-button button-text {
+            opacity: 0;
+            margin-left: 0;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            transition: opacity 0.2s ease, margin-left 0.25s ease;
+            white-space: nowrap;
+        }
 
-				.download-button:hover button-text {
-					opacity: 1;
-					margin-left: 8px;
-				}
-			}
-		}
-    
+        @media (hover: hover) {
+            .download-button:hover {
+                background: var(--sunbeam);
+                box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
+            }
+
+            @media (min-width: 1024px) {
+                .download-button:hover {
+                    width: 120px;
+                }
+
+                .download-button:hover button-text {
+                    opacity: 1;
+                    margin-left: 8px;
+                }
+            }
+        }
+
         /* ── INSTAGRAM HANDLE ── */
         .instagram-handle {
             color: var(--accent-label);
@@ -599,11 +611,7 @@ permalink: /girls-track/
             transition: all 0.3s ease;
             position: relative;
         }
-    
-        .instagram-handle:hover {
-            color: #e1306c;
-        }
-    
+
         .instagram-handle::after {
             content: '';
             position: absolute;
@@ -614,11 +622,17 @@ permalink: /girls-track/
             background: linear-gradient(90deg, #e1306c 0%, #c13584 50%, #833ab4 100%);
             transition: width 0.3s ease;
         }
-    
-        .instagram-handle:hover::after {
-            width: 100%;
+
+        @media (hover: hover) {
+            .instagram-handle:hover::after {
+                width: 100%;
+            }
+
+            .instagram-handle:hover {
+                color: #e1306c;
+            }
         }
-    
+
         /* ── X Handle ── */
         .x-handle {
             color: var(--accent-label);
@@ -627,13 +641,7 @@ permalink: /girls-track/
             transition: all 0.3s ease;
             position: relative;
         }
-    
-    
-        .x-handle:hover {
-            color: #000000;
-        }
-    
-    
+
         .x-handle::after {
             content: '';
             position: absolute;
@@ -644,13 +652,18 @@ permalink: /girls-track/
             background: linear-gradient(90deg, #000000 0%, #14171A 100%);
             transition: width 0.3s ease;
         }
-    
-    
-        .x-handle:hover::after {
-            width: 100%;
+
+        @media (hover: hover) {
+            .x-handle:hover::after {
+                width: 100%;
+            }
+
+            .x-handle:hover {
+                color: #000000;
+            }
         }
-    
-    
+
+
         /* ── COACH CARDS ── */
         .coaches-grid {
             display: grid;
@@ -658,7 +671,7 @@ permalink: /girls-track/
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
-    
+
         .coach-card {
             background: var(--surface-subtle);
             border: 1px solid var(--border);
@@ -667,13 +680,15 @@ permalink: /girls-track/
             text-align: center;
             transition: all 0.3s ease;
         }
-    
-        .coach-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            border-color: var(--highlight);
+
+        @media (hover: hover) {
+            .coach-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+                border-color: var(--highlight);
+            }
         }
-    
+
         .coach-image {
             width: 120px;
             height: 120px;
@@ -686,31 +701,31 @@ permalink: /girls-track/
             overflow: hidden;
             border: 3px solid var(--sunbeam);
         }
-    
+
         .coach-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-    
+
         .coach-image-placeholder {
             font-size: 2.5rem;
             color: rgba(255, 255, 255, 0.5);
         }
-    
+
         .coach-name {
             color: var(--text-primary);
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 0.4rem;
         }
-    
+
         .coach-title {
             color: var(--text-secondary);
             font-size: 0.95rem;
             margin-bottom: 1rem;
         }
-    
+
         .email-button {
             display: inline-block;
             background: var(--sunbeam);
@@ -724,13 +739,7 @@ permalink: /girls-track/
             text-decoration: none;
             transition: all 0.3s ease;
         }
-    
-        .email-button:hover {
-            filter: brightness(1.08);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
-        }
-    
+
         .email-button.disabled {
             background: #4a5568;
             color: #a0aec0;
@@ -738,20 +747,28 @@ permalink: /girls-track/
             pointer-events: none;
             opacity: 0.6;
         }
-    
-        .email-button.disabled:hover {
-            transform: none;
-            box-shadow: none;
-            filter: none;
+
+        @media (hover: hover) {
+            .email-button.disabled:hover {
+                transform: none;
+                box-shadow: none;
+                filter: none;
+            }
+
+            .email-button:hover {
+                filter: brightness(1.08);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
+            }
         }
-    
+
         /* ── ALBUMS GRID ── */
         .albums-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
-    
+
         .album-item {
             background: var(--surface-subtle);
             border: 1px solid var(--border);
@@ -760,13 +777,15 @@ permalink: /girls-track/
             cursor: pointer;
             transition: all 0.3s ease;
         }
-    
-        .album-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-            border-color: var(--highlight);
+
+        @media (hover: hover) {
+            .album-item:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+                border-color: var(--highlight);
+            }
         }
-    
+
         .album-cover {
             width: 100%;
             aspect-ratio: 16/9;
@@ -776,34 +795,34 @@ permalink: /girls-track/
             justify-content: center;
             overflow: hidden;
         }
-    
+
         .album-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-    
+
         .album-cover-placeholder {
             font-size: 4rem;
             color: rgba(255, 255, 255, 0.35);
         }
-    
+
         .album-info {
             padding: 1.25rem;
         }
-    
+
         .album-name {
             color: var(--text-primary);
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 0.4rem;
         }
-    
+
         .album-description {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-    
+
         /* ── BACK BUTTON ── */
         .back-button {
             background: var(--surface-subtle);
@@ -816,13 +835,15 @@ permalink: /girls-track/
             cursor: pointer;
             transition: all 0.3s ease;
         }
-    
-        .back-button:hover {
-            background: var(--accent-label);
-            color: #ffffff;
-            transform: translateX(-4px);
+
+        @media (hover: hover) {
+            .back-button:hover {
+                background: var(--accent-label);
+                color: #ffffff;
+                transform: translateX(-4px);
+            }
         }
-    
+
         /* ── PHOTO MODAL ── */
         /* Photo Modal */
         .photo-modal {
@@ -836,16 +857,16 @@ permalink: /girls-track/
             background: var(--modal-bg);
             animation: fadeIn 0.3s ease;
         }
-    
-    
+
+
         .photo-modal.active {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
-    
-    
+
+
         .photo-modal-header {
             position: fixed;
             top: 0;
@@ -858,15 +879,15 @@ permalink: /girls-track/
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
             z-index: 3001;
         }
-    
-    
+
+
         .photo-modal-content {
             max-width: 90%;
             max-height: 90%;
             object-fit: contain;
         }
-    
-    
+
+
         .photo-modal-close {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid var(--white);
@@ -881,26 +902,26 @@ permalink: /girls-track/
             cursor: pointer;
             transition: all 0.3s ease;
         }
-    
-    
-        .photo-modal-close:hover {
-            background: var(--white);
-            color: var(--black);
-            transform: rotate(90deg);
+
+        @media (hover: hover) {
+            .photo-modal-close:hover {
+                background: var(--white);
+                color: var(--black);
+                transform: rotate(90deg);
+            }
+
+            .photo-modal-close:hover svg path {
+                stroke: var(--black);
+            }
         }
-    
-    
-        .photo-modal-close:hover svg path {
-            stroke: var(--black);
-        }
-    
-    
+
+
         .photo-modal-actions {
             display: flex;
             gap: 1rem;
         }
-    
-    
+
+
         .photo-action-button {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid var(--white);
@@ -915,16 +936,17 @@ permalink: /girls-track/
             align-items: center;
             gap: 0.5rem;
         }
-    
-    
-        .photo-action-button:hover {
-            background: var(--sunbeam);
-            color: var(--black);
-            border-color: var(--sunbeam);
-            transform: translateY(-2px);
+
+        @media (hover: hover) {
+            .photo-action-button:hover {
+                background: var(--sunbeam);
+                color: var(--black);
+                border-color: var(--sunbeam);
+                transform: translateY(-2px);
+            }
         }
-    
-    
+
+
         .photo-modal-content-wrapper {
             max-width: 90vw;
             max-height: 85vh;
@@ -932,16 +954,16 @@ permalink: /girls-track/
             align-items: center;
             justify-content: center;
         }
-    
-    
+
+
         .photo-modal-content {
             max-width: 100%;
             max-height: 85vh;
             object-fit: contain;
             border-radius: 8px;
         }
-    
-    
+
+
         .photo-modal-caption {
             position: fixed;
             bottom: 0;
@@ -954,14 +976,14 @@ permalink: /girls-track/
             background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
             z-index: 3001;
         }
-    
-    
+
+
         /* Hide body scroll when modal is open */
         body.modal-open {
             overflow: hidden;
         }
-    
-    
+
+
         /* Navigation arrows for gallery */
         .photo-nav-arrow {
             position: fixed;
@@ -981,24 +1003,25 @@ permalink: /girls-track/
             transition: all 0.3s ease;
             z-index: 3001;
         }
-    
-    
-        .photo-nav-arrow:hover {
-            background: var(--white);
-            color: var(--black);
+
+        @media (hover: hover) {
+            .photo-nav-arrow:hover {
+                background: var(--white);
+                color: var(--black);
+            }
         }
-    
-    
+
+
         .photo-nav-arrow.left {
             left: 2rem;
         }
-    
-    
+
+
         .photo-nav-arrow.right {
             right: 2rem;
         }
-    
-    
+
+
         .photo-modal-counter {
             position: fixed;
             bottom: 1.5rem;
@@ -1008,7 +1031,7 @@ permalink: /girls-track/
             font-size: 0.9rem;
             z-index: 3001;
         }
-    
+
         .photo-loading-overlay {
             position: absolute;
             inset: 0;
@@ -1018,7 +1041,7 @@ permalink: /girls-track/
             color: var(--white);
             font-size: 2rem;
         }
-    
+
         /* ── FOOTER ── */
         footer {
             background: var(--footer-bg);
@@ -1029,34 +1052,34 @@ permalink: /girls-track/
             text-align: center;
             flex-shrink: 0;
         }
-    
+
         /* ── ANIMATION ── */
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(20px);
             }
-    
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-    
+
         /* ── MOBILE ── */
         @media (max-width: 900px) {
             .nav-content {
                 padding: 0 1rem;
             }
-    
+
             .logo-m-img {
                 height: 2rem;
             }
-    
+
             .logo-text {
                 font-size: 1.2rem;
             }
-    
+
             .nav-links {
                 position: absolute;
                 z-index: 1000;
@@ -1074,95 +1097,95 @@ permalink: /girls-track/
                 opacity: 0;
                 gap: 0;
             }
-    
+
             .nav-links li {
                 width: 100%;
             }
-    
+
             .nav-links a {
                 display: block;
                 padding: 1rem 2rem;
                 width: 100%;
             }
-    
+
             .nav-links.active {
                 max-height: 400px;
                 opacity: 1;
             }
-    
+
             .hamburger {
                 display: flex;
                 z-index: 1001;
             }
-    
+
             .hamburger.active span:nth-child(1) {
                 transform: rotate(45deg) translate(5px, 5px);
             }
-    
+
             .hamburger.active span:nth-child(2) {
                 opacity: 0;
                 transform: scale(0);
             }
-    
+
             .hamburger.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(5px, -5px);
             }
-    
+
             .main-content {
                 padding: 2rem 1rem;
             }
-    
+
             .page-header h1 {
                 font-size: 2rem;
             }
-    
+
             .tab-content {
                 padding: 1.5rem;
             }
-    
+
             .tab-content h2 {
                 font-size: 1.75rem;
             }
-    
+
             .tab-buttons {
                 gap: 0.75rem;
                 padding: 0 1.5rem;
             }
-    
+
             .tab-button {
                 padding: 0.875rem 1.5rem;
                 font-size: 1rem;
             }
-    
+
             .photo-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
-    
+
             .photo-action-button span {
                 display: none;
             }
-    
+
             .photo-nav-arrow {
                 width: 50px;
                 height: 50px;
                 font-size: 1.5rem;
             }
-    
+
             .photo-nav-arrow.left {
                 left: 1rem;
             }
-    
+
             .photo-nav-arrow.right {
                 right: 1rem;
             }
-    
+
             .photo-modal-content {
                 width: 95vw;
                 height: 90vh;
                 object-fit: contain;
                 border-radius: 8px;
             }
-    
+
             .menu-backdrop {
                 position: fixed;
                 top: 72px;
@@ -1175,29 +1198,29 @@ permalink: /girls-track/
                 transition: opacity 0.3s ease;
                 z-index: 999;
             }
-    
+
             .menu-backdrop.active {
                 opacity: 1;
                 pointer-events: auto;
             }
         }
-    
+
         @media (max-width: 700px) {
             .coaches-grid {
                 grid-template-columns: 1fr;
             }
-    
+
             .tab-buttons {
                 gap: 0.5rem;
                 padding: 0 1rem;
             }
-    
+
             .tab-button {
                 padding: 0.75rem 1rem;
                 font-size: 0.90rem;
             }
         }
-    
+
         /* Utility layout helpers (replaces inline styles) */
         .flex-space-between {
             display: flex;
@@ -1205,23 +1228,23 @@ permalink: /girls-track/
             align-items: center;
             margin-bottom: 1.5rem;
         }
-    
+
         .flex-align-center {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
-    
+
         .h2-flush {
             margin: 0;
         }
-    
+
         p.loading-message {
             color: var(--text-muted);
             font-size: var(--text-base);
         }
-    
+
         .tip-title {
             font-size: var(--text-base);
             font-weight: 600;
@@ -1231,361 +1254,371 @@ permalink: /girls-track/
 </head>
 
 <body>
-	<nav class="nav-bar">
-		<div class="nav-content">
-			<a href="../" class="logo">
-				<img src="../images/minnetonka-M-logo.png" alt="Minnetonka M" class="logo-m-img">
-				<span class="logo-text">TONKA TRACK</span>
-			</a>
-			<div class="hamburger" onclick="toggleMenu()">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-			<ul class="nav-links" id="navMenu">
-				<li><a href="../" onclick="closeMenu()">Home</a></li>
-				<li><a href="../news/" onclick="closeMenu()">News</a></li>
-				<li><a href="../sports/" onclick="closeMenu()">Sports</a></li>
-				<li><a href="../mtfcca/" onclick="closeMenu()">MTFCCA</a></li>
-				<li><a href="../contact/" onclick="closeMenu()">Contact</a></li>
-			</ul>
-		</div>
-		<div class="menu-backdrop" id="menuBackdrop"></div>
-	</nav>
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="../" class="logo">
+                <img src="../images/minnetonka-M-logo.png" alt="Minnetonka M" class="logo-m-img">
+                <span class="logo-text">TONKA TRACK</span>
+            </a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="../" onclick="closeMenu()">Home</a></li>
+                <li><a href="../news/" onclick="closeMenu()">News</a></li>
+                <li><a href="../sports/" onclick="closeMenu()">Sports</a></li>
+                <li><a href="../mtfcca/" onclick="closeMenu()">MTFCCA</a></li>
+                <li><a href="../contact/" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+        <div class="menu-backdrop" id="menuBackdrop"></div>
+    </nav>
 
-	<div class="page-hero">
-		<h1>Girls Track & Field</h1>
-		<p>Speed. Strength. Precision.</p>
-	</div>
+    <div class="page-hero">
+        <h1>Girls Track & Field</h1>
+        <p>Speed. Strength. Precision.</p>
+    </div>
 
-	<div class="main-content">
-		<div class="tab-buttons-wrapper">
-			<div class="tab-buttons">
-				<button class="tab-button active" onclick="showTab('home')">Home</button>
-				<button class="tab-button" onclick="showTab('updates')">Updates</button>
-				<button class="tab-button" onclick="showTab('photos')">Photos</button>
-				<button class="tab-button" onclick="showTab('files')">Files</button>
-				<button class="tab-button" onclick="showTab('coaches')">Coaches</button>
-			</div>
-		</div>
+    <div class="main-content">
+        <div class="tab-buttons-wrapper">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="showTab('home')">Home</button>
+                <button class="tab-button" onclick="showTab('updates')">Updates</button>
+                <button class="tab-button" onclick="showTab('photos')">Photos</button>
+                <button class="tab-button" onclick="showTab('files')">Files</button>
+                <button class="tab-button" onclick="showTab('coaches')">Coaches</button>
+            </div>
+        </div>
 
-		<div id="home-tab" class="tab-content active">
-			<h2>Welcome to Girls Track & Field</h2>
-			<p>Welcome to Minnetonka Girls Track & Field! We are dedicated to developing student-athletes who excel both
-				on the track and in the classroom.</p>
-			<p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned athlete or
-				new to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
-			<p>You can follow our Instagram <a href="https://www.instagram.com/tonkagirlstrack/" target="_blank"
-					rel="noopener noreferrer" class="instagram-handle">@tonkagirlstrack</a> or on X 
-					<a href="https://x.com/Tonka_Track" target="_blank" rel="noopener noreferrer"
-					class="x-handle">@Tonka_Track</a> for the latest updates and team highlights.</p>
-			<div class="update-item">
-				<h3>Running Shoes</h3>
-				<p>Athletes get a discount at the following running stores, just tell the sales person that you are on the Minnetonka Track and Field Team.</p>
+        <div id="home-tab" class="tab-content active">
+            <h2>Welcome to Girls Track & Field</h2>
+            <p>Welcome to Minnetonka Girls Track & Field! We are dedicated to developing student-athletes who excel both
+                on the track and in the classroom.</p>
+            <p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned athlete or
+                new to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
+            <p>You can follow our Instagram <a href="https://www.instagram.com/tonkagirlstrack/" target="_blank"
+                    rel="noopener noreferrer" class="instagram-handle">@tonkagirlstrack</a> or on X
+                <a href="https://x.com/Tonka_Track" target="_blank" rel="noopener noreferrer"
+                    class="x-handle">@Tonka_Track</a> for the latest updates and team highlights.
+            </p>
+            <div class="update-item">
+                <h3>Running Shoes</h3>
+                <p>Athletes get a discount at the following running stores, just tell the sales person that you are on
+                    the Minnetonka Track and Field Team.</p>
 
-				<h3>Lakes Running Co</h3>
-				<p>
-					Located in downtown Excelsior<br>
-					218 Water Street, Excelsior, MN 55331<br>
-					<a href="tel:952-470-5444">(952) 470-5444</a>
-				</p>
-				<h3>Gear Running</h3>
-				<p>
-					Located at 44th and France<br>
-					4406 France Avenue South, Edina, MN 55410-1345<br>
-					<a href="tel:952-926-2645">(952) 926-2645</a>
-				</p>
-				<h3>Gear West</h3>
-				<p>
-					Located on Hwy 12 in Long Lake<br>
-					1786 W Wayzata Blvd Suite B, Long Lake, MN 55356<br>
-					<a href="tel:952-473-0377">(952) 473-0377</a>
-				</p>
-				<h3>TC Running - Discounts for parents too!</h3>
-				<p>
-					Located on the SE Corner of Shady Oak Road and Hwy 62<br>
-					6405 City West Pkwy # B5, Eden Prairie, MN 55344<br>
-					<a href="tel:952-944-7386">(952) 944-7386</a>
-				</p>
-			</div>
-			<div class="update-item">
-				<h3>Uniform Deposit</h3>
-				<p>A deposit check for uniforms is required before distribution.</p>
-				<p>Deposit checks can be made out to MTFCCA for $100 and delivered to Coach Finch at any time before
-					distribution. All checks will be shredded or returned after uniforms are returned at the end of the
-					season. Please reach out to me directly with any questions or concerns on this.</p>
-			</div>
-			<div class="update-item">
-				<h3>7 Tips for a Great Pre-Meet Meal</h3>
-				<p><span class="tip-title">1. Don't Experiment</span><br>
-					Don't try new foods on a meet day, it might cause unexpected problems.</p>
-				<p><span class="tip-title">2. Avoid Soft Drinks and Candy</span><br>
-					Sugar is your enemy, empty calories that don't provide long term fuel source.</p>
-				<p><span class="tip-title">3. High Carbohydrates</span><br>
-					Never can go wrong with breads, pasta, rice…pure long lasting energy source.</p>
-				<p><span class="tip-title">4. Timing</span><br>
-					Takes about 3 hours to empty the stomach of quality food.</p>
-				<p><span class="tip-title">5. Fluids</span><br>
-					Plenty of water and sports drinks…stay away from carbonated sugary soft drinks.</p>
-				<p><span class="tip-title">6. Avoid High Fat Intake</span><br>
-					Fat takes longer to digest and lots of water to process.</p>
-				<p><span class="tip-title">7. Limit Protein Intake</span><br>
-					Protein is a weak energy source, great for building tissue but limit the amount immediately prior to
-					competition. Protein is great for recovery after competitions or workouts.</p>
-			</div>
-			<div class="update-item">
-				<h3>Important Links</h3>
-				<p>Helpful resources for training, technique, and performance:</p>
-				<p><a href="https://trackandfieldtoolbox.net/category/field-events" target="_blank"
-						rel="noopener noreferrer"
-						style="color: var(--text-secondary); text-decoration: underline;">Track and Field Toolbox</a>
-					— Scroll through this site to find event specific articles and short videos. Conditioning, drills,
-					nutrition, and mental preparation are among many topics.</p>
-				<p><a href="https://www.athletic.net/team/12302/track-and-field-indoor/2026" target="_blank"
-						rel="noopener noreferrer"
-						style="color: var(--text-secondary); text-decoration: underline;">Athletic.net</a>
-					— Has a lot of info about races including personal times and team results.</p>
+                <h3>Lakes Running Co</h3>
+                <p>
+                    Located in downtown Excelsior<br>
+                    218 Water Street, Excelsior, MN 55331<br>
+                    <a href="tel:952-470-5444">(952) 470-5444</a>
+                </p>
+                <h3>Gear Running</h3>
+                <p>
+                    Located at 44th and France<br>
+                    4406 France Avenue South, Edina, MN 55410-1345<br>
+                    <a href="tel:952-926-2645">(952) 926-2645</a>
+                </p>
+                <h3>Gear West</h3>
+                <p>
+                    Located on Hwy 12 in Long Lake<br>
+                    1786 W Wayzata Blvd Suite B, Long Lake, MN 55356<br>
+                    <a href="tel:952-473-0377">(952) 473-0377</a>
+                </p>
+                <h3>TC Running - Discounts for parents too!</h3>
+                <p>
+                    Located on the SE Corner of Shady Oak Road and Hwy 62<br>
+                    6405 City West Pkwy # B5, Eden Prairie, MN 55344<br>
+                    <a href="tel:952-944-7386">(952) 944-7386</a>
+                </p>
+            </div>
+            <div class="update-item">
+                <h3>Uniform Deposit</h3>
+                <p>A deposit check for uniforms is required before distribution.</p>
+                <p>Deposit checks can be made out to MTFCCA for $100 and delivered to Coach Finch at any time before
+                    distribution. All checks will be shredded or returned after uniforms are returned at the end of the
+                    season. Please reach out to me directly with any questions or concerns on this.</p>
+            </div>
+            <div class="update-item">
+                <h3>7 Tips for a Great Pre-Meet Meal</h3>
+                <p><span class="tip-title">1. Don't Experiment</span><br>
+                    Don't try new foods on a meet day, it might cause unexpected problems.</p>
+                <p><span class="tip-title">2. Avoid Soft Drinks and Candy</span><br>
+                    Sugar is your enemy, empty calories that don't provide long term fuel source.</p>
+                <p><span class="tip-title">3. High Carbohydrates</span><br>
+                    Never can go wrong with breads, pasta, rice…pure long lasting energy source.</p>
+                <p><span class="tip-title">4. Timing</span><br>
+                    Takes about 3 hours to empty the stomach of quality food.</p>
+                <p><span class="tip-title">5. Fluids</span><br>
+                    Plenty of water and sports drinks…stay away from carbonated sugary soft drinks.</p>
+                <p><span class="tip-title">6. Avoid High Fat Intake</span><br>
+                    Fat takes longer to digest and lots of water to process.</p>
+                <p><span class="tip-title">7. Limit Protein Intake</span><br>
+                    Protein is a weak energy source, great for building tissue but limit the amount immediately prior to
+                    competition. Protein is great for recovery after competitions or workouts.</p>
+            </div>
+            <div class="update-item">
+                <h3>Important Links</h3>
+                <p>Helpful resources for training, technique, and performance:</p>
+                <p><a href="https://trackandfieldtoolbox.net/category/field-events" target="_blank"
+                        rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Track and Field Toolbox</a>
+                    — Scroll through this site to find event specific articles and short videos. Conditioning, drills,
+                    nutrition, and mental preparation are among many topics.</p>
+                <p><a href="https://www.athletic.net/team/12302/track-and-field-indoor/2026" target="_blank"
+                        rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Athletic.net</a>
+                    — Has a lot of info about races including personal times and team results.</p>
 
-				<h3>Videos</h3>
-				<p>
-					<a href="https://www.youtube.com/watch?v=VNj8YS_Gcpk" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: underline;">Torso Twists</a><br>
-					<a href="https://www.youtube.com/watch?v=SUDeeovoSmc" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: underline;">Hamstring Exercises</a> — No Equipment<br>
-					<a href="https://www.youtube.com/watch?v=-koP10y1qZI" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: underline;">Dumbbell Row</a><br>
-					<a href="https://www.youtube.com/watch?v=ZOwwBk642SI" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: underline;">Dumbbell Press</a><br>
-					<a href="https://www.youtube.com/watch?v=ajdFwa-qM98" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: underline;">Dumbbell Incline Fly</a><br>
-					<a href="https://www.youtube.com/watch?v=LoFb_PBPl9c" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: underline;">Dumbbell Flat Fly</a><br>
-					<a href="https://www.youtube.com/watch?v=1919eTCoESo" target="_blank" rel="noopener noreferrer" style="color: var(--text-secondary); text-decoration: underline;">Abdominal Strength Workout</a>
-				</p>
-			</div>
-		</div>
+                <h3>Videos</h3>
+                <p>
+                    <a href="https://www.youtube.com/watch?v=VNj8YS_Gcpk" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Torso Twists</a><br>
+                    <a href="https://www.youtube.com/watch?v=SUDeeovoSmc" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Hamstring Exercises</a> — No
+                    Equipment<br>
+                    <a href="https://www.youtube.com/watch?v=-koP10y1qZI" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Dumbbell Row</a><br>
+                    <a href="https://www.youtube.com/watch?v=ZOwwBk642SI" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Dumbbell Press</a><br>
+                    <a href="https://www.youtube.com/watch?v=ajdFwa-qM98" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Dumbbell Incline Fly</a><br>
+                    <a href="https://www.youtube.com/watch?v=LoFb_PBPl9c" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Dumbbell Flat Fly</a><br>
+                    <a href="https://www.youtube.com/watch?v=1919eTCoESo" target="_blank" rel="noopener noreferrer"
+                        style="color: var(--text-secondary); text-decoration: underline;">Abdominal Strength Workout</a>
+                </p>
+            </div>
+        </div>
 
-		<div id="updates-tab" class="tab-content">
-			<h2>Latest Updates</h2>
-			<div class="update-item">
-				<h3>Captains' Practices 2026</h3>
-				<div class="update-date">January 7, 2026</div>
-				<p>Practices run by our captains will be starting the first week in January and running through the
-					first week in March. They are held every Monday (that we have school) and Wednesday from 3:00–4:00
-					and are totally free to join. Join us for some fun running in the dome and getting to know each
-					other before the season officially starts in March!</p>
-			</div>
-		</div>
+        <div id="updates-tab" class="tab-content">
+            <h2>Latest Updates</h2>
+            <div class="update-item">
+                <h3>Captains' Practices 2026</h3>
+                <div class="update-date">January 7, 2026</div>
+                <p>Practices run by our captains will be starting the first week in January and running through the
+                    first week in March. They are held every Monday (that we have school) and Wednesday from 3:00–4:00
+                    and are totally free to join. Join us for some fun running in the dome and getting to know each
+                    other before the season officially starts in March!</p>
+            </div>
+        </div>
 
-		<div id="photos-tab" class="tab-content">
-			<div id="albums-view">
-				<div class="flex-space-between">
-					<h2 class="h2-flush">Photo Albums</h2>
-				</div>
-				<p id="albums-loading-message" class="loading-message">Loading albums...</p>
-				<div class="albums-grid" id="albums-grid"></div>
-			</div>
+        <div id="photos-tab" class="tab-content">
+            <div id="albums-view">
+                <div class="flex-space-between">
+                    <h2 class="h2-flush">Photo Albums</h2>
+                </div>
+                <p id="albums-loading-message" class="loading-message">Loading albums...</p>
+                <div class="albums-grid" id="albums-grid"></div>
+            </div>
 
-			<div id="album-photos-view" style="display: none;">
-				<div class="flex-align-center">
-					<button class="back-button" onclick="backToAlbums()">← Back to Albums</button>
-					<h2 id="album-title" class="h2-flush"></h2>
-				</div>
-				<p id="photos-loading-message" class="loading-message">Loading photos...</p>
-				<div class="photo-grid" id="photo-grid"></div>
-			</div>
-		</div>
+            <div id="album-photos-view" style="display: none;">
+                <div class="flex-align-center">
+                    <button class="back-button" onclick="backToAlbums()">← Back to Albums</button>
+                    <h2 id="album-title" class="h2-flush"></h2>
+                </div>
+                <p id="photos-loading-message" class="loading-message">Loading photos...</p>
+                <div class="photo-grid" id="photo-grid"></div>
+            </div>
+        </div>
 
-		<div id="files-tab" class="tab-content">
-			<h2>Team Files & Resources</h2>
-			<p id="loading-message" class="loading-message">Loading files...</p>
-			<div class="file-list" id="file-list"></div>
-		</div>
+        <div id="files-tab" class="tab-content">
+            <h2>Team Files & Resources</h2>
+            <p id="loading-message" class="loading-message">Loading files...</p>
+            <div class="file-list" id="file-list"></div>
+        </div>
 
-		<div id="coaches-tab" class="tab-content">
-			<h2>Girls Track & Field</h2>
-			<div class="coaches-grid">
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan">
-					</div>
-					<div class="coach-name">Jane Reimer-Morgan</div>
-					<div class="coach-title">Head Coach</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/tonya-andruskiewicz.jpg" alt="Tonya Andruskiewicz">
-					</div>
-					<div class="coach-name">Tonya Andruskiewicz</div>
-					<div class="coach-title">Horizontal Jumps</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/sarah-becher.jpg" alt="Sarah Becher">
-					</div>
-					<div class="coach-name">Sarah Becher</div>
-					<div class="coach-title">Throws</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/jenna-buss.jpg" alt="Jenna Buss">
-					</div>
-					<div class="coach-name">Jenna Buss</div>
-					<div class="coach-title">High Jump</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/kristine-jensen-gehrmann.jpg" alt="Kristine Jensen Gehrmann">
-					</div>
-					<div class="coach-name">Kristine Jensen Gehrmann</div>
-					<div class="coach-title">Distance</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/krista-larson.jpg" alt="Krista Larson">
-					</div>
-					<div class="coach-name">Krista Larson</div>
-					<div class="coach-title">Hurdles</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<div class="coach-image-placeholder">👤</div>
-					</div>
-					<div class="coach-name">Eric LeBlanc</div>
-					<div class="coach-title">Pole Vault</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/leeann-leblanc.jpg" alt="LeeAnn LeBlanc">
-					</div>
-					<div class="coach-name">LeeAnn LeBlanc</div>
-					<div class="coach-title">Distance</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<div class="coach-image-placeholder">👤</div>
-					</div>
-					<div class="coach-name">Megan Rank</div>
-					<div class="coach-title">Sprints</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-			</div>
-		</div>
+        <div id="coaches-tab" class="tab-content">
+            <h2>Girls Track & Field</h2>
+            <div class="coaches-grid">
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="../images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan">
+                    </div>
+                    <div class="coach-name">Jane Reimer-Morgan</div>
+                    <div class="coach-title">Head Coach</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="../images/tonya-andruskiewicz.jpg" alt="Tonya Andruskiewicz">
+                    </div>
+                    <div class="coach-name">Tonya Andruskiewicz</div>
+                    <div class="coach-title">Horizontal Jumps</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="../images/sarah-becher.jpg" alt="Sarah Becher">
+                    </div>
+                    <div class="coach-name">Sarah Becher</div>
+                    <div class="coach-title">Throws</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="../images/jenna-buss.jpg" alt="Jenna Buss">
+                    </div>
+                    <div class="coach-name">Jenna Buss</div>
+                    <div class="coach-title">High Jump</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="../images/kristine-jensen-gehrmann.jpg" alt="Kristine Jensen Gehrmann">
+                    </div>
+                    <div class="coach-name">Kristine Jensen Gehrmann</div>
+                    <div class="coach-title">Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="../images/krista-larson.jpg" alt="Krista Larson">
+                    </div>
+                    <div class="coach-name">Krista Larson</div>
+                    <div class="coach-title">Hurdles</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Eric LeBlanc</div>
+                    <div class="coach-title">Pole Vault</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <img src="../images/leeann-leblanc.jpg" alt="LeeAnn LeBlanc">
+                    </div>
+                    <div class="coach-name">LeeAnn LeBlanc</div>
+                    <div class="coach-title">Distance</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+                <div class="coach-card">
+                    <div class="coach-image">
+                        <div class="coach-image-placeholder">👤</div>
+                    </div>
+                    <div class="coach-name">Megan Rank</div>
+                    <div class="coach-title">Sprints</div>
+                    <a href="#" class="email-button disabled">Send Email</a>
+                </div>
+            </div>
+        </div>
 
-		<!-- Photo Modal -->
-		<div id="photo-modal" class="photo-modal">
-			<div class="photo-modal-header">
-				<button class="photo-modal-close" id="modal-close-btn" onclick="closePhotoModal()">
-					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M15 5L5 15M5 5L15 15" stroke="white" stroke-width="2" stroke-linecap="round" />
-					</svg>
-				</button>
-				<div class="photo-modal-actions">
-					<button class="photo-action-button" id="download-btn">
-						<span>📥</span>
-						<span>Download</span>
-					</button>
-					<button class="photo-action-button" id="share-btn">
-						<span>🔗</span>
-						<span>Share</span>
-					</button>
-				</div>
-			</div>
+        <!-- Photo Modal -->
+        <div id="photo-modal" class="photo-modal">
+            <div class="photo-modal-header">
+                <button class="photo-modal-close" id="modal-close-btn" onclick="closePhotoModal()">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 5L5 15M5 5L15 15" stroke="white" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+                <div class="photo-modal-actions">
+                    <button class="photo-action-button" id="download-btn">
+                        <span>📥</span>
+                        <span>Download</span>
+                    </button>
+                    <button class="photo-action-button" id="share-btn">
+                        <span>🔗</span>
+                        <span>Share</span>
+                    </button>
+                </div>
+            </div>
 
-			<div class="photo-nav-arrow left" id="prev-photo" onclick="navigatePhoto(-1)" style="display: none;">‹</div>
+            <div class="photo-nav-arrow left" id="prev-photo" onclick="navigatePhoto(-1)" style="display: none;">‹</div>
 
-			<div class="photo-modal-content-wrapper">
-				<div class="photo-loading" id="photo-loading">Loading...</div>
-				<img class="photo-modal-content" id="modal-image" style="display: none;">
-			</div>
+            <div class="photo-modal-content-wrapper">
+                <div class="photo-loading" id="photo-loading">Loading...</div>
+                <img class="photo-modal-content" id="modal-image" style="display: none;">
+            </div>
 
-			<div class="photo-nav-arrow right" id="next-photo" onclick="navigatePhoto(1)" style="display: none;">›</div>
+            <div class="photo-nav-arrow right" id="next-photo" onclick="navigatePhoto(1)" style="display: none;">›</div>
 
-			<div id="modal-caption" class="photo-modal-caption"></div>
-		</div>
-	</div>
+            <div id="modal-caption" class="photo-modal-caption"></div>
+        </div>
+    </div>
 
-	<footer>
-		<p>&copy; 2026 Tonka Track & Field. Building champions, one stride at a time.</p>
-	</footer>
+    <footer>
+        <p>&copy; 2026 Tonka Track & Field. Building champions, one stride at a time.</p>
+    </footer>
 
-	<script>
-		function toggleMenu() {
-			const menu = document.getElementById('navMenu');
-			const hamburger = document.querySelector('.hamburger');
-			const backdrop = document.getElementById('menuBackdrop');
-			menu.classList.toggle('active');
-			hamburger.classList.toggle('active');
-			backdrop.classList.toggle('active');
-		}
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
+            menu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            backdrop.classList.toggle('active');
+        }
 
-		function closeMenu() {
-			const menu = document.getElementById('navMenu');
-			const hamburger = document.querySelector('.hamburger');
-			const backdrop = document.getElementById('menuBackdrop');
-			menu.classList.remove('active');
-			hamburger.classList.remove('active');
-			backdrop.classList.remove('active');
-		}
+        function closeMenu() {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
+            menu.classList.remove('active');
+            hamburger.classList.remove('active');
+            backdrop.classList.remove('active');
+        }
 
-		document.addEventListener('click', function (event) {
-			const menu = document.getElementById('navMenu');
-			const hamburger = document.querySelector('.hamburger');
-			const backdrop = document.getElementById('menuBackdrop');
-			if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-				menu.classList.remove('active');
-				hamburger.classList.remove('active');
-				backdrop.classList.remove('active');
-			}
-		});
+        document.addEventListener('click', function (event) {
+            const menu = document.getElementById('navMenu');
+            const hamburger = document.querySelector('.hamburger');
+            const backdrop = document.getElementById('menuBackdrop');
+            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
+                menu.classList.remove('active');
+                hamburger.classList.remove('active');
+                backdrop.classList.remove('active');
+            }
+        });
 
-		const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
-		const TEAM_FILES_FOLDER_ID = '1FYjruHyPhYNwcH6qWcF_gYDR9ANw1qu_';
-		const TEAM_PHOTOS_FOLDER_ID = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
-		const ALL_PHOTOS_SCRIPT_URL = `${APPS_SCRIPT_URL}?action=allPhotos&folderId=${TEAM_PHOTOS_FOLDER_ID}`;
-		const ALBUM_PHOTOS_SCRIPT_URL = `${APPS_SCRIPT_URL}?action=albumPhotos`;
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
+        const TEAM_FILES_FOLDER_ID = '1FYjruHyPhYNwcH6qWcF_gYDR9ANw1qu_';
+        const TEAM_PHOTOS_FOLDER_ID = '1iJJURi3pZpsPnCwNvgtHwc1BatJlCPL1';
+        const ALL_PHOTOS_SCRIPT_URL = `${APPS_SCRIPT_URL}?action=allPhotos&folderId=${TEAM_PHOTOS_FOLDER_ID}`;
+        const ALBUM_PHOTOS_SCRIPT_URL = `${APPS_SCRIPT_URL}?action=albumPhotos`;
 
-		let currentAlbumId = null;
-		let currentPhotoIndex = 0;
-		let currentPhotosArray = [];
-		let imageCache = new Map();
-		let currentAlbumRequestId = 0;
+        let currentAlbumId = null;
+        let currentPhotoIndex = 0;
+        let currentPhotosArray = [];
+        let imageCache = new Map();
+        let currentAlbumRequestId = 0;
 
-		function showTab(tabName) {
-			document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-			document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
-			document.getElementById(tabName + '-tab').classList.add('active');
-			event.target.classList.add('active');
-			if (tabName === 'files') loadFiles();
-			else if (tabName === 'photos') {
-				document.getElementById('albums-view').style.display = 'block';
-				document.getElementById('album-photos-view').style.display = 'none';
-				loadPhotoAlbums();
-			}
-		}
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+            if (tabName === 'files') loadFiles();
+            else if (tabName === 'photos') {
+                document.getElementById('albums-view').style.display = 'block';
+                document.getElementById('album-photos-view').style.display = 'none';
+                loadPhotoAlbums();
+            }
+        }
 
-		async function loadFiles() {
-			const fileListContainer = document.getElementById('file-list');
-			const loadingMessage = document.getElementById('loading-message');
-			try {
-				const response = await fetch(`${APPS_SCRIPT_URL}?action=files&folderId=${TEAM_FILES_FOLDER_ID}`);
-				const data = await response.json();
-				if (data.success && data.files) {
-					loadingMessage.style.display = 'none';
-					if (data.files.length === 0) {
-						fileListContainer.innerHTML = '<p style="color: var(--text-muted);">No files available at this time.</p>';
-						return;
-					}
-					fileListContainer.innerHTML = '';
-					data.files.forEach(file => {
-						const fileItem = document.createElement('div');
-						fileItem.className = 'file-item';
-						const displaySize = file.size > 1024 * 1024
-							? `${(file.size / (1024 * 1024)).toFixed(2)} MB`
-							: `${(file.size / 1024).toFixed(2)} KB`;
-                            fileItem.innerHTML = `
+        async function loadFiles() {
+            const fileListContainer = document.getElementById('file-list');
+            const loadingMessage = document.getElementById('loading-message');
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=files&folderId=${TEAM_FILES_FOLDER_ID}`);
+                const data = await response.json();
+                if (data.success && data.files) {
+                    loadingMessage.style.display = 'none';
+                    if (data.files.length === 0) {
+                        fileListContainer.innerHTML = '<p style="color: var(--text-muted);">No files available at this time.</p>';
+                        return;
+                    }
+                    fileListContainer.innerHTML = '';
+                    data.files.forEach(file => {
+                        const fileItem = document.createElement('div');
+                        fileItem.className = 'file-item';
+                        const displaySize = file.size > 1024 * 1024
+                            ? `${(file.size / (1024 * 1024)).toFixed(2)} MB`
+                            : `${(file.size / 1024).toFixed(2)} KB`;
+                        fileItem.innerHTML = `
 							<div class="file-info">
 								<div class="file-name">${file.name}</div>
 								<div class="file-description">${file.description} • ${displaySize}</div>
@@ -1603,283 +1636,283 @@ permalink: /girls-track/
 								</button>
 							</div>
 						`;
-						fileListContainer.appendChild(fileItem);
-					});
-				} else {
-					loadingMessage.textContent = 'Error loading files. Please try again later.';
-					loadingMessage.style.color = '#ff6b6b';
-				}
-			} catch (error) {
-				loadingMessage.textContent = 'Unable to load files. Please check your connection.';
-				loadingMessage.style.color = '#ff6b6b';
-			}
-		}
+                        fileListContainer.appendChild(fileItem);
+                    });
+                } else {
+                    loadingMessage.textContent = 'Error loading files. Please try again later.';
+                    loadingMessage.style.color = '#ff6b6b';
+                }
+            } catch (error) {
+                loadingMessage.textContent = 'Unable to load files. Please check your connection.';
+                loadingMessage.style.color = '#ff6b6b';
+            }
+        }
 
-		document.addEventListener('DOMContentLoaded', loadFiles);
+        document.addEventListener('DOMContentLoaded', loadFiles);
 
-		function preloadImage(url, fallbackUrl) {
-			if (imageCache.has(url)) return Promise.resolve();
-			return new Promise((resolve, reject) => {
-				const img = new Image();
-				img.onload = () => { imageCache.set(url, img); resolve(); };
-				img.onerror = () => {
-					if (fallbackUrl && fallbackUrl !== url) {
-						const fallbackImg = new Image();
-						fallbackImg.onload = () => { imageCache.set(url, fallbackImg); resolve(); };
-						fallbackImg.onerror = () => reject();
-						fallbackImg.src = fallbackUrl;
-					} else { reject(); }
-				};
-				img.src = url;
-			});
-		}
+        function preloadImage(url, fallbackUrl) {
+            if (imageCache.has(url)) return Promise.resolve();
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => { imageCache.set(url, img); resolve(); };
+                img.onerror = () => {
+                    if (fallbackUrl && fallbackUrl !== url) {
+                        const fallbackImg = new Image();
+                        fallbackImg.onload = () => { imageCache.set(url, fallbackImg); resolve(); };
+                        fallbackImg.onerror = () => reject();
+                        fallbackImg.src = fallbackUrl;
+                    } else { reject(); }
+                };
+                img.src = url;
+            });
+        }
 
-		async function loadPhotoAlbums() {
-			const albumsGrid = document.getElementById('albums-grid');
-			const loadingMessage = document.getElementById('albums-loading-message');
-			try {
-				const response = await fetch(`${APPS_SCRIPT_URL}?action=photoAlbums&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
-				const data = await response.json();
-				if (data.success && data.albums) {
-					loadingMessage.style.display = 'none';
-					if (data.albums.length === 0 && data.allPhotosCount === 0) {
-						albumsGrid.innerHTML = '<p style="color: var(--text-muted);">No photo albums yet. Check back soon!</p>';
-						return;
-					}
-					albumsGrid.innerHTML = '';
-					if (data.allPhotosCount > 0) {
-						albumsGrid.appendChild(createAlbumItem({
-							id: 'ALL_PHOTOS', name: 'All Photos',
-							description: `${data.allPhotosCount} photos`,
-							photoCount: data.allPhotosCount,
-							coverPhotoUrl: data.allPhotosCover ? `https://drive.google.com/thumbnail?id=${data.allPhotosCover}&sz=w400` : null
-						}));
-					}
-					data.albums.forEach(album => albumsGrid.appendChild(createAlbumItem(album)));
-				} else {
-					loadingMessage.textContent = 'Error loading albums. Please try again later.';
-					loadingMessage.style.color = '#ff6b6b';
-				}
-			} catch (error) {
-				loadingMessage.textContent = 'Unable to load albums. Please check your connection.';
-				loadingMessage.style.color = '#ff6b6b';
-			}
-		}
+        async function loadPhotoAlbums() {
+            const albumsGrid = document.getElementById('albums-grid');
+            const loadingMessage = document.getElementById('albums-loading-message');
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=photoAlbums&folderId=${TEAM_PHOTOS_FOLDER_ID}`);
+                const data = await response.json();
+                if (data.success && data.albums) {
+                    loadingMessage.style.display = 'none';
+                    if (data.albums.length === 0 && data.allPhotosCount === 0) {
+                        albumsGrid.innerHTML = '<p style="color: var(--text-muted);">No photo albums yet. Check back soon!</p>';
+                        return;
+                    }
+                    albumsGrid.innerHTML = '';
+                    if (data.allPhotosCount > 0) {
+                        albumsGrid.appendChild(createAlbumItem({
+                            id: 'ALL_PHOTOS', name: 'All Photos',
+                            description: `${data.allPhotosCount} photos`,
+                            photoCount: data.allPhotosCount,
+                            coverPhotoUrl: data.allPhotosCover ? `https://drive.google.com/thumbnail?id=${data.allPhotosCover}&sz=w400` : null
+                        }));
+                    }
+                    data.albums.forEach(album => albumsGrid.appendChild(createAlbumItem(album)));
+                } else {
+                    loadingMessage.textContent = 'Error loading albums. Please try again later.';
+                    loadingMessage.style.color = '#ff6b6b';
+                }
+            } catch (error) {
+                loadingMessage.textContent = 'Unable to load albums. Please check your connection.';
+                loadingMessage.style.color = '#ff6b6b';
+            }
+        }
 
-		function preloadAdjacentImages(index) {
-			if (index > 0) preloadImage(currentPhotosArray[index - 1].fullUrl);
-			if (index < currentPhotosArray.length - 1) preloadImage(currentPhotosArray[index + 1].fullUrl);
-		}
+        function preloadAdjacentImages(index) {
+            if (index > 0) preloadImage(currentPhotosArray[index - 1].fullUrl);
+            if (index < currentPhotosArray.length - 1) preloadImage(currentPhotosArray[index + 1].fullUrl);
+        }
 
-		function createAlbumItem(album) {
-			const albumItem = document.createElement('div');
-			albumItem.className = 'album-item';
-			albumItem.onclick = () => openAlbum(album.id, album.name);
-			const cover = document.createElement('div');
-			cover.className = 'album-cover';
-			if (album.coverPhotoUrl) {
-				const img = document.createElement('img');
-				img.src = album.coverPhotoUrl; img.alt = album.name;
-				img.loading = 'lazy'; img.decoding = 'async';
-				cover.appendChild(img);
-			} else {
-				const placeholder = document.createElement('div');
-				placeholder.className = 'album-cover-placeholder';
-				placeholder.textContent = '📷';
-				cover.appendChild(placeholder);
-			}
-			const info = document.createElement('div');
-			info.className = 'album-info';
-			info.innerHTML = `<div class="album-name">${album.name}</div><div class="album-description">${album.description}</div>`;
-			albumItem.appendChild(cover);
-			albumItem.appendChild(info);
-			return albumItem;
-		}
+        function createAlbumItem(album) {
+            const albumItem = document.createElement('div');
+            albumItem.className = 'album-item';
+            albumItem.onclick = () => openAlbum(album.id, album.name);
+            const cover = document.createElement('div');
+            cover.className = 'album-cover';
+            if (album.coverPhotoUrl) {
+                const img = document.createElement('img');
+                img.src = album.coverPhotoUrl; img.alt = album.name;
+                img.loading = 'lazy'; img.decoding = 'async';
+                cover.appendChild(img);
+            } else {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'album-cover-placeholder';
+                placeholder.textContent = '📷';
+                cover.appendChild(placeholder);
+            }
+            const info = document.createElement('div');
+            info.className = 'album-info';
+            info.innerHTML = `<div class="album-name">${album.name}</div><div class="album-description">${album.description}</div>`;
+            albumItem.appendChild(cover);
+            albumItem.appendChild(info);
+            return albumItem;
+        }
 
-		async function openAlbum(albumId, albumName) {
-			const requestId = ++currentAlbumRequestId;
-			currentAlbumId = albumId;
-			document.getElementById('albums-view').style.display = 'none';
-			document.getElementById('album-photos-view').style.display = 'block';
-			document.getElementById('album-title').textContent = albumName;
-			const photoGrid = document.getElementById('photo-grid');
-			const loadingMessage = document.getElementById('photos-loading-message');
-			photoGrid.innerHTML = '';
-			loadingMessage.style.display = 'block';
-			loadingMessage.textContent = 'Loading photos...';
-			loadingMessage.style.color = 'var(--text-muted)';
-			let retries = 3;
-			while (retries > 0) {
-				if (requestId !== currentAlbumRequestId) return;
-				try {
-					const url = albumId === 'ALL_PHOTOS' ? ALL_PHOTOS_SCRIPT_URL : `${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`;
-					const response = await fetch(url);
-					if (requestId !== currentAlbumRequestId) return;
-					if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-					const data = await response.json();
-					if (requestId !== currentAlbumRequestId) return;
-					if (data.success && data.photos) {
-						loadingMessage.style.display = 'none';
-						if (data.photos.length === 0) { photoGrid.innerHTML = '<p>No photos in this album yet.</p>'; return; }
-						currentPhotosArray = data.photos;
-						data.photos.forEach((photo, index) => {
-							const photoItem = document.createElement('div');
-							photoItem.className = 'photo-item';
-							photoItem.onclick = () => openPhotoModal(index);
-							const img = document.createElement('img');
-							img.src = photo.thumbnailUrl; img.alt = photo.name;
-							img.loading = 'lazy'; img.decoding = 'async';
-							img.onerror = function () {
-								this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50%" y="50%" font-size="40" text-anchor="middle" dy=".3em">📷</text></svg>';
-							};
-							photoItem.appendChild(img);
-							if (photo.caption) {
-								const caption = document.createElement('div');
-								caption.className = 'photo-caption';
-								caption.textContent = photo.caption;
-								photoItem.appendChild(caption);
-							}
-							photoGrid.appendChild(photoItem);
-						});
-						for (let i = 0; i < Math.min(3, data.photos.length); i++) {
-							setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
-						}
-						return;
-					} else { throw new Error(data.error || 'Unknown error'); }
-				} catch (error) {
-					if (requestId !== currentAlbumRequestId) return;
-					retries--;
-					if (retries > 0) {
-						loadingMessage.textContent = `Loading photos... (retrying in 1 second)`;
-						await new Promise(resolve => setTimeout(resolve, 1000));
-					} else {
-						loadingMessage.textContent = 'Unable to load photos. Please check your connection.';
-						loadingMessage.style.color = '#ff6b6b';
-					}
-				}
-			}
-		}
+        async function openAlbum(albumId, albumName) {
+            const requestId = ++currentAlbumRequestId;
+            currentAlbumId = albumId;
+            document.getElementById('albums-view').style.display = 'none';
+            document.getElementById('album-photos-view').style.display = 'block';
+            document.getElementById('album-title').textContent = albumName;
+            const photoGrid = document.getElementById('photo-grid');
+            const loadingMessage = document.getElementById('photos-loading-message');
+            photoGrid.innerHTML = '';
+            loadingMessage.style.display = 'block';
+            loadingMessage.textContent = 'Loading photos...';
+            loadingMessage.style.color = 'var(--text-muted)';
+            let retries = 3;
+            while (retries > 0) {
+                if (requestId !== currentAlbumRequestId) return;
+                try {
+                    const url = albumId === 'ALL_PHOTOS' ? ALL_PHOTOS_SCRIPT_URL : `${ALBUM_PHOTOS_SCRIPT_URL}&folderId=${albumId}`;
+                    const response = await fetch(url);
+                    if (requestId !== currentAlbumRequestId) return;
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    if (requestId !== currentAlbumRequestId) return;
+                    if (data.success && data.photos) {
+                        loadingMessage.style.display = 'none';
+                        if (data.photos.length === 0) { photoGrid.innerHTML = '<p>No photos in this album yet.</p>'; return; }
+                        currentPhotosArray = data.photos;
+                        data.photos.forEach((photo, index) => {
+                            const photoItem = document.createElement('div');
+                            photoItem.className = 'photo-item';
+                            photoItem.onclick = () => openPhotoModal(index);
+                            const img = document.createElement('img');
+                            img.src = photo.thumbnailUrl; img.alt = photo.name;
+                            img.loading = 'lazy'; img.decoding = 'async';
+                            img.onerror = function () {
+                                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50%" y="50%" font-size="40" text-anchor="middle" dy=".3em">📷</text></svg>';
+                            };
+                            photoItem.appendChild(img);
+                            if (photo.caption) {
+                                const caption = document.createElement('div');
+                                caption.className = 'photo-caption';
+                                caption.textContent = photo.caption;
+                                photoItem.appendChild(caption);
+                            }
+                            photoGrid.appendChild(photoItem);
+                        });
+                        for (let i = 0; i < Math.min(3, data.photos.length); i++) {
+                            setTimeout(() => preloadImage(data.photos[i].fullUrl, data.photos[i].fallbackUrl), i * 500);
+                        }
+                        return;
+                    } else { throw new Error(data.error || 'Unknown error'); }
+                } catch (error) {
+                    if (requestId !== currentAlbumRequestId) return;
+                    retries--;
+                    if (retries > 0) {
+                        loadingMessage.textContent = `Loading photos... (retrying in 1 second)`;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                    } else {
+                        loadingMessage.textContent = 'Unable to load photos. Please check your connection.';
+                        loadingMessage.style.color = '#ff6b6b';
+                    }
+                }
+            }
+        }
 
-		function backToAlbums() {
-			document.getElementById('albums-view').style.display = 'block';
-			document.getElementById('album-photos-view').style.display = 'none';
-			currentAlbumId = null;
-			currentPhotosArray = [];
-		}
+        function backToAlbums() {
+            document.getElementById('albums-view').style.display = 'block';
+            document.getElementById('album-photos-view').style.display = 'none';
+            currentAlbumId = null;
+            currentPhotosArray = [];
+        }
 
-		async function openPhotoModal(index) {
-			currentPhotoIndex = index;
-			const photo = currentPhotosArray[index];
-			const modal = document.getElementById('photo-modal');
-			const modalImg = document.getElementById('modal-image');
-			const modalCaption = document.getElementById('modal-caption');
-			const loading = document.getElementById('photo-loading');
-			const downloadBtn = document.getElementById('download-btn');
-			const shareBtn = document.getElementById('share-btn');
-			document.querySelector('.nav-bar').style.display = 'none';
-			document.body.classList.add('modal-open');
-			modal.classList.add('active');
-			modalImg.style.display = 'none';
-			loading.style.display = 'block';
-			loading.textContent = 'Loading high-resolution image...';
-			document.getElementById('prev-photo').style.display = index > 0 ? 'flex' : 'none';
-			document.getElementById('next-photo').style.display = index < currentPhotosArray.length - 1 ? 'flex' : 'none';
-			downloadBtn.onclick = () => downloadPhoto(photo.downloadUrl, photo.name);
-			shareBtn.onclick = () => sharePhoto(photo);
-			const urlsToTry = [
-				{ url: photo.fullUrl, timeout: 60000, label: 'high-resolution image' },
-				{ url: photo.fallbackUrl, timeout: 30000, label: 'alternate source' },
-				{ url: photo.downloadUrl, timeout: 30000, label: 'download source' },
-				{ url: photo.thumbnailUrl, timeout: 15000, label: 'preview image' }
-			].filter(item => item.url);
-			let imageLoaded = false, currentUrlIndex = 0, progressInterval, secondsElapsed = 0;
-			while (currentUrlIndex < urlsToTry.length && !imageLoaded) {
-				const currentItem = urlsToTry[currentUrlIndex];
-				const currentUrl = currentItem.url;
-				try {
-					if (imageCache.has(currentUrl)) {
-						modalImg.src = currentUrl; modalImg.style.display = 'block';
-						loading.style.display = 'none'; imageLoaded = true; break;
-					}
-					if (currentUrlIndex === 0) {
-						loading.textContent = 'Loading high-resolution image...';
-						loading.style.color = 'var(--white)';
-						secondsElapsed = 0;
-						progressInterval = setInterval(() => { secondsElapsed++; loading.textContent = `Loading high-resolution image... (${secondsElapsed}s)`; }, 1000);
-					} else {
-						loading.textContent = `Trying ${currentItem.label}... (${currentUrlIndex + 1}/${urlsToTry.length})`;
-					}
-					await new Promise((resolve, reject) => {
-						const img = new Image();
-						const timeout = setTimeout(() => reject(new Error('timeout')), currentItem.timeout);
-						img.onload = () => { clearTimeout(timeout); if (progressInterval) { clearInterval(progressInterval); progressInterval = null; } imageCache.set(currentUrl, img); resolve(); };
-						img.onerror = () => { clearTimeout(timeout); if (progressInterval) { clearInterval(progressInterval); progressInterval = null; } reject(new Error('failed')); };
-						img.src = currentUrl;
-					});
-					if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
-					modalImg.src = currentUrl;
-					modalImg.onload = function () {
-						const availableHeight = window.innerHeight - 180;
-						const availableWidth = window.innerWidth - 40;
-						const imgRatio = this.naturalWidth / this.naturalHeight;
-						const viewportRatio = availableWidth / availableHeight;
-						if (imgRatio > viewportRatio) { this.style.width = availableWidth + 'px'; this.style.height = 'auto'; }
-						else { this.style.height = availableHeight + 'px'; this.style.width = 'auto'; }
-					};
-					modalImg.style.display = 'block'; loading.style.display = 'none'; imageLoaded = true;
-					setTimeout(() => preloadAdjacentImages(index), 500);
-				} catch (error) {
-					if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
-					currentUrlIndex++;
-					if (currentUrlIndex >= urlsToTry.length) {
-						loading.textContent = 'Unable to load image. Please try again later.';
-						loading.style.color = '#ff6b6b';
-						setTimeout(() => { loading.style.display = 'none'; }, 3000);
-					}
-				}
-			}
-			if (photo.caption) { modalCaption.textContent = photo.caption; modalCaption.style.display = 'block'; }
-			else { modalCaption.style.display = 'none'; }
-		}
+        async function openPhotoModal(index) {
+            currentPhotoIndex = index;
+            const photo = currentPhotosArray[index];
+            const modal = document.getElementById('photo-modal');
+            const modalImg = document.getElementById('modal-image');
+            const modalCaption = document.getElementById('modal-caption');
+            const loading = document.getElementById('photo-loading');
+            const downloadBtn = document.getElementById('download-btn');
+            const shareBtn = document.getElementById('share-btn');
+            document.querySelector('.nav-bar').style.display = 'none';
+            document.body.classList.add('modal-open');
+            modal.classList.add('active');
+            modalImg.style.display = 'none';
+            loading.style.display = 'block';
+            loading.textContent = 'Loading high-resolution image...';
+            document.getElementById('prev-photo').style.display = index > 0 ? 'flex' : 'none';
+            document.getElementById('next-photo').style.display = index < currentPhotosArray.length - 1 ? 'flex' : 'none';
+            downloadBtn.onclick = () => downloadPhoto(photo.downloadUrl, photo.name);
+            shareBtn.onclick = () => sharePhoto(photo);
+            const urlsToTry = [
+                { url: photo.fullUrl, timeout: 60000, label: 'high-resolution image' },
+                { url: photo.fallbackUrl, timeout: 30000, label: 'alternate source' },
+                { url: photo.downloadUrl, timeout: 30000, label: 'download source' },
+                { url: photo.thumbnailUrl, timeout: 15000, label: 'preview image' }
+            ].filter(item => item.url);
+            let imageLoaded = false, currentUrlIndex = 0, progressInterval, secondsElapsed = 0;
+            while (currentUrlIndex < urlsToTry.length && !imageLoaded) {
+                const currentItem = urlsToTry[currentUrlIndex];
+                const currentUrl = currentItem.url;
+                try {
+                    if (imageCache.has(currentUrl)) {
+                        modalImg.src = currentUrl; modalImg.style.display = 'block';
+                        loading.style.display = 'none'; imageLoaded = true; break;
+                    }
+                    if (currentUrlIndex === 0) {
+                        loading.textContent = 'Loading high-resolution image...';
+                        loading.style.color = 'var(--white)';
+                        secondsElapsed = 0;
+                        progressInterval = setInterval(() => { secondsElapsed++; loading.textContent = `Loading high-resolution image... (${secondsElapsed}s)`; }, 1000);
+                    } else {
+                        loading.textContent = `Trying ${currentItem.label}... (${currentUrlIndex + 1}/${urlsToTry.length})`;
+                    }
+                    await new Promise((resolve, reject) => {
+                        const img = new Image();
+                        const timeout = setTimeout(() => reject(new Error('timeout')), currentItem.timeout);
+                        img.onload = () => { clearTimeout(timeout); if (progressInterval) { clearInterval(progressInterval); progressInterval = null; } imageCache.set(currentUrl, img); resolve(); };
+                        img.onerror = () => { clearTimeout(timeout); if (progressInterval) { clearInterval(progressInterval); progressInterval = null; } reject(new Error('failed')); };
+                        img.src = currentUrl;
+                    });
+                    if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
+                    modalImg.src = currentUrl;
+                    modalImg.onload = function () {
+                        const availableHeight = window.innerHeight - 180;
+                        const availableWidth = window.innerWidth - 40;
+                        const imgRatio = this.naturalWidth / this.naturalHeight;
+                        const viewportRatio = availableWidth / availableHeight;
+                        if (imgRatio > viewportRatio) { this.style.width = availableWidth + 'px'; this.style.height = 'auto'; }
+                        else { this.style.height = availableHeight + 'px'; this.style.width = 'auto'; }
+                    };
+                    modalImg.style.display = 'block'; loading.style.display = 'none'; imageLoaded = true;
+                    setTimeout(() => preloadAdjacentImages(index), 500);
+                } catch (error) {
+                    if (progressInterval) { clearInterval(progressInterval); progressInterval = null; }
+                    currentUrlIndex++;
+                    if (currentUrlIndex >= urlsToTry.length) {
+                        loading.textContent = 'Unable to load image. Please try again later.';
+                        loading.style.color = '#ff6b6b';
+                        setTimeout(() => { loading.style.display = 'none'; }, 3000);
+                    }
+                }
+            }
+            if (photo.caption) { modalCaption.textContent = photo.caption; modalCaption.style.display = 'block'; }
+            else { modalCaption.style.display = 'none'; }
+        }
 
-		function navigatePhoto(direction) {
-			const newIndex = currentPhotoIndex + direction;
-			if (newIndex >= 0 && newIndex < currentPhotosArray.length) openPhotoModal(newIndex);
-		}
+        function navigatePhoto(direction) {
+            const newIndex = currentPhotoIndex + direction;
+            if (newIndex >= 0 && newIndex < currentPhotosArray.length) openPhotoModal(newIndex);
+        }
 
-		function closePhotoModal() {
-			document.getElementById('photo-modal').classList.remove('active');
-			document.querySelector('.nav-bar').style.display = 'block';
-			document.body.classList.remove('modal-open');
-		}
+        function closePhotoModal() {
+            document.getElementById('photo-modal').classList.remove('active');
+            document.querySelector('.nav-bar').style.display = 'block';
+            document.body.classList.remove('modal-open');
+        }
 
-		function downloadPhoto(url, filename) {
-			const a = document.createElement('a');
-			a.href = url; a.download = filename; a.target = '_blank';
-			document.body.appendChild(a); a.click(); document.body.removeChild(a);
-		}
+        function downloadPhoto(url, filename) {
+            const a = document.createElement('a');
+            a.href = url; a.download = filename; a.target = '_blank';
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
 
-		function openFileViewer(downloadUrl, fileName) {
-			const match = downloadUrl.match(/[?&]id=([^&]+)/);
-			window.open(match ? `https://drive.google.com/file/d/${match[1]}/view` : downloadUrl, '_blank');
-		}
+        function openFileViewer(downloadUrl, fileName) {
+            const match = downloadUrl.match(/[?&]id=([^&]+)/);
+            window.open(match ? `https://drive.google.com/file/d/${match[1]}/view` : downloadUrl, '_blank');
+        }
 
-		async function sharePhoto(photo) {
-			try {
-				if (navigator.share) await navigator.share({ title: photo.name, text: photo.caption || 'Check out this photo from Tonka Track!', url: photo.fullUrl });
-				else { await navigator.clipboard.writeText(photo.fullUrl); alert('Link copied to clipboard!'); }
-			} catch (error) { prompt('Copy this link to share:', photo.fullUrl); }
-		}
+        async function sharePhoto(photo) {
+            try {
+                if (navigator.share) await navigator.share({ title: photo.name, text: photo.caption || 'Check out this photo from Tonka Track!', url: photo.fullUrl });
+                else { await navigator.clipboard.writeText(photo.fullUrl); alert('Link copied to clipboard!'); }
+            } catch (error) { prompt('Copy this link to share:', photo.fullUrl); }
+        }
 
-		document.addEventListener('keydown', (e) => {
-			const modal = document.getElementById('photo-modal');
-			if (modal.classList.contains('active')) {
-				if (e.key === 'Escape') closePhotoModal();
-				else if (e.key === 'ArrowLeft') navigatePhoto(-1);
-				else if (e.key === 'ArrowRight') navigatePhoto(1);
-			}
-		});
-	</script>
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('photo-modal');
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') closePhotoModal();
+                else if (e.key === 'ArrowLeft') navigatePhoto(-1);
+                else if (e.key === 'ArrowRight') navigatePhoto(1);
+            }
+        });
+    </script>
 </body>
 
 </html>

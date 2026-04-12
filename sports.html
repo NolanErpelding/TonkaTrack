@@ -11,9 +11,9 @@ permalink: /sports/
     <meta name="description"
         content="Explore Minnetonka Track & Field and Cross Country teams - Boys and Girls Cross Country, Boys and Girls Track & Field programs.">
     <meta name="keywords" content="Minnetonka Track Teams, Tonka Cross Country Programs, High School Running Teams">
-    
+
     <title>Our Teams</title>
-    
+
     <meta property="og:title" content="Our Teams - Tonka Track & Field">
     <meta property="og:description" content="Boys and Girls Track & Field and Cross Country teams">
     <meta property="og:type" content="website">
@@ -23,7 +23,7 @@ permalink: /sports/
     <link rel="shortcut icon" href="../favicons/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
     <link rel="manifest" href="../favicons/site.webmanifest" />
-    
+
     <style>
         /* Minnetonka Color Palette */
         :root {
@@ -170,10 +170,6 @@ permalink: /sports/
             position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-label);
-        }
-
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -185,8 +181,14 @@ permalink: /sports/
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        @media (hover: hover) {
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .nav-links a:hover {
+                color: var(--accent-label);
+            }
         }
 
         .hamburger {
@@ -257,8 +259,10 @@ permalink: /sports/
             border-radius: 10px;
         }
 
-        .teams-container::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 54, 152, 0.5);
+        @media (hover: hover) {
+            .teams-container::-webkit-scrollbar-thumb:hover {
+                background: rgba(0, 54, 152, 0.5);
+            }
         }
 
         /* ── TEAM CARDS ── */
@@ -277,9 +281,11 @@ permalink: /sports/
             scroll-snap-align: start;
         }
 
-        .team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        @media (hover: hover) {
+            .team-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            }
         }
 
         .team-icon {
@@ -323,10 +329,12 @@ permalink: /sports/
             box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
         }
 
-        .team-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(241, 177, 51, 0.6);
-            filter: brightness(1.1);
+        @media (hover: hover) {
+            .team-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(241, 177, 51, 0.6);
+                filter: brightness(1.1);
+            }
         }
 
         @media (prefers-color-scheme: dark) {
@@ -475,7 +483,7 @@ permalink: /sports/
                 transition: opacity 0.3s ease;
                 z-index: 999;
             }
-            
+
             .menu-backdrop.active {
                 opacity: 1;
                 pointer-events: auto;

@@ -36,7 +36,7 @@ permalink: /girls-cross-country/
             --grape: #6C0787;
             --sunbeam: #F1B133;
             --mint: #078F96;
-    
+
             /* Light mode semantic tokens (default) */
             --white: #ffffff;
             --black: #000000;
@@ -51,36 +51,36 @@ permalink: /girls-cross-country/
             --heading-secondary: var(--minnetonka-blue);
             --accent-label: var(--minnetonka-blue);
             --highlight: var(--sky);
-    
+
             /* Nav */
             --nav-bg: #ffffff;
             --nav-link-color: #4a5568;
-    
+
             /* Hero */
             --hero-bg: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
-    
+
             /* Tab buttons */
             --tab-btn-bg: var(--minnetonka-blue);
             --tab-btn-color: #ffffff;
             --tab-btn-active-bg: var(--sunbeam);
             --tab-btn-active-color: #000000;
             --gradient-accent-color: var(--midnight);
-    
+
             /* Cards / content panels */
             --card-bg: #ffffff;
             --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
             --update-bg: #f7f8fa;
-    
+
             /* Footer */
             --footer-bg: rgba(26, 32, 44, 0.97);
-    
+
             /* Modal */
             --modal-bg: rgba(0, 0, 0, 0.95);
             --placeholder-gradient: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
-    
+
             /* Shadows */
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    
+
             /* Type scale */
             --text-xs: 14px;
             --text-sm: 15px;
@@ -90,7 +90,7 @@ permalink: /girls-cross-country/
             --text-xl: 26px;
             --text-2xl: 40px;
         }
-    
+
         @media (prefers-color-scheme: dark) {
             :root {
                 /* Reassign semantic tokens for dark mode */
@@ -104,60 +104,60 @@ permalink: /girls-cross-country/
                 --heading-primary: #ffffff;
                 --accent-label: var(--sunbeam);
                 --highlight: var(--sunbeam);
-    
-    
+
+
                 /* Nav */
                 --nav-bg: rgba(10, 12, 20, 0.92);
                 --nav-link-color: #9aa5c0;
-    
+
                 /* Tab buttons */
                 --tab-btn-bg: #2a3354;
                 --tab-btn-color: #c8d4f0;
                 --tab-btn-active-color: #111111;
                 --gradient-accent-color: var(--white);
-    
+
                 /* Cards */
                 --card-bg: #1a1f2e;
                 --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4), 0 25px 60px rgba(0, 0, 0, 0.5);
                 --update-bg: var(--surface);
-    
+
                 /* Footer */
                 --footer-bg: rgba(8, 10, 18, 0.97);
-    
+
                 /* Modal */
                 --modal-bg: rgba(0, 0, 0, 0.97);
                 --placeholder-gradient: linear-gradient(135deg, #1e2640 0%, #0d1020 100%);
-    
+
                 /* Shadows → highlights in dark mode */
                 --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
                 --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
-    
+
             }
         }
-    
+
         @media (prefers-color-scheme: dark) {
-    
+
             .album-item:hover,
             .photo-item:hover {
                 box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.35);
             }
-    
+
             .tab-button:hover {
                 box-shadow: 0 0 0 1px rgba(139, 180, 253, 0.4);
             }
         }
-    
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-    
+
         html,
         body {
             height: 100%;
         }
-    
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--surface);
@@ -166,7 +166,7 @@ permalink: /girls-cross-country/
             display: flex;
             flex-direction: column;
         }
-    
+
         /* ── NAV ── */
         .nav-bar {
             background: var(--nav-bg);
@@ -178,7 +178,7 @@ permalink: /girls-cross-country/
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-    
+
         .nav-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -188,44 +188,40 @@ permalink: /girls-cross-country/
             padding: 0 2rem;
             position: relative;
         }
-    
+
         .logo {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
         }
-    
+
         .logo-m-img {
             height: 2.5rem;
             width: auto;
             display: block;
         }
-    
+
         .logo-text {
             font-size: 1.8rem;
             font-weight: 800;
             color: var(--heading-primary);
         }
-    
+
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
             transition: max-height 0.3s ease, opacity 0.3s ease;
         }
-    
+
         .nav-links a {
             color: var(--nav-link-color);
             text-decoration: none;
             font-weight: 500;
             position: relative;
         }
-    
-        .nav-links a:hover {
-            color: var(--accent-label);
-        }
-    
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -236,18 +232,24 @@ permalink: /girls-cross-country/
             background: linear-gradient(135deg, var(--accent-label), var(--gradient-accent-color));
             transition: width 0.3s ease;
         }
-    
-        .nav-links a:hover::after {
-            width: 100%;
+
+        @media (hover: hover) {
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .nav-links a:hover {
+                color: var(--accent-label);
+            }
         }
-    
+
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
             gap: 4px;
         }
-    
+
         .hamburger span {
             width: 25px;
             height: 3px;
@@ -255,26 +257,26 @@ permalink: /girls-cross-country/
             border-radius: 3px;
             transition: all 0.3s ease;
         }
-    
+
         /* ── LAYOUT ── */
         .page-hero {
             background: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
             padding: 3.5rem 2rem 5.5rem;
             text-align: center;
         }
-    
+
         .page-hero h1 {
             font-size: 3rem;
             font-weight: 800;
             color: var(--white);
             margin-bottom: 0.5rem;
         }
-    
+
         .page-hero p {
             font-size: 1.2rem;
             color: var(--sky);
         }
-    
+
         /* White card overlapping the blue banner */
         .main-content {
             flex: 1 0 auto;
@@ -285,7 +287,7 @@ permalink: /girls-cross-country/
             position: relative;
             z-index: 2;
         }
-    
+
         /* Tab buttons sit above the white card overlap zone */
         .tab-buttons-wrapper {
             background: var(--card-bg);
@@ -297,7 +299,7 @@ permalink: /girls-cross-country/
             margin-left: 2rem;
             margin-right: 2rem;
         }
-    
+
         .tab-buttons {
             display: flex;
             gap: 1rem;
@@ -306,7 +308,7 @@ permalink: /girls-cross-country/
             justify-content: center;
             padding: 0 2rem;
         }
-    
+
         .tab-button {
             background: var(--tab-btn-bg);
             color: var(--tab-btn-color);
@@ -319,18 +321,20 @@ permalink: /girls-cross-country/
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
         }
-    
-        .tab-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+
+        @media (hover: hover) {
+            .tab-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+            }
         }
-    
+
         .tab-button.active {
             background: var(--tab-btn-active-bg);
             color: var(--tab-btn-active-color);
             box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
         }
-    
+
         /* ── TAB CONTENT (white card) ── */
         .tab-content {
             display: none;
@@ -344,11 +348,11 @@ permalink: /girls-cross-country/
             margin-left: 2rem;
             margin-right: 2rem;
         }
-    
+
         .tab-content.active {
             display: block;
         }
-    
+
         .tab-content h2 {
             color: var(--heading-primary);
             font-size: var(--text-xl);
@@ -356,7 +360,7 @@ permalink: /girls-cross-country/
             letter-spacing: -0.02em;
             margin-bottom: 1.25rem;
         }
-    
+
         .tab-content h3 {
             color: var(--heading-secondary);
             font-size: 22px;
@@ -364,7 +368,7 @@ permalink: /girls-cross-country/
             letter-spacing: -0.01em;
             margin-bottom: 0.5rem;
         }
-    
+
         .tab-content p {
             color: var(--text-secondary);
             font-size: var(--text-base);
@@ -372,14 +376,14 @@ permalink: /girls-cross-country/
             font-weight: 400;
             margin-bottom: 1rem;
         }
-    
+
         .tab-content small,
         .tab-content .text-small {
             font-size: var(--text-xs);
             line-height: 1.5;
             opacity: 0.85;
         }
-    
+
         a[href^="tel:"] {
             color: var(--grey);
             text-decoration: none;
@@ -387,14 +391,14 @@ permalink: /girls-cross-country/
             border-bottom: 2px solid var(--grey);
             transition: all 0.3s ease;
         }
-    
-    
-        a[href^="tel:"]:hover {
-            color: var(--sunbeam) !important;
-            border-bottom-color: var(--sunbeam);
+
+        @media (hover: hover) {
+            a[href^="tel:"]:hover {
+                color: var(--sunbeam) !important;
+                border-bottom-color: var(--sunbeam);
+            }
         }
-    
-    
+
         /* ── UPDATE ITEMS ── */
         .update-item {
             background: var(--update-bg);
@@ -404,25 +408,25 @@ permalink: /girls-cross-country/
             padding: 1.5rem;
             margin-bottom: 32px;
         }
-    
+
         .update-item h3 {
             margin-bottom: 0.5rem;
         }
-    
+
         .update-date {
             color: var(--text-muted);
             font-size: 0.9rem;
             font-style: italic;
             margin-bottom: 0.75rem;
         }
-    
+
         /* ── PHOTO GRID ── */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1rem;
         }
-    
+
         .photo-item {
             background: var(--surface-subtle);
             border: 1px solid var(--border);
@@ -438,19 +442,21 @@ permalink: /girls-cross-country/
             transition: all 0.3s ease;
             position: relative;
         }
-    
-        .photo-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            border-color: var(--highlight);
+
+        @media (hover: hover) {
+            .photo-item:hover {
+                transform: scale(1.03);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                border-color: var(--highlight);
+            }
         }
-    
+
         .photo-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-    
+
         .photo-caption {
             position: absolute;
             bottom: 0;
@@ -463,11 +469,13 @@ permalink: /girls-cross-country/
             transform: translateY(100%);
             transition: transform 0.3s ease;
         }
-    
-        .photo-item:hover .photo-caption {
-            transform: translateY(0);
+
+        @media (hover: hover) {
+            .photo-item:hover .photo-caption {
+                transform: translateY(0);
+            }
         }
-    
+
         /* ── FILE LIST ── */
         .file-list {
             display: flex;
@@ -475,7 +483,7 @@ permalink: /girls-cross-country/
                 column;
             gap: 28px;
         }
-    
+
         .file-item {
             background: var(--surface-subtle);
             border: 1px solid var(--border);
@@ -487,111 +495,115 @@ permalink: /girls-cross-country/
             gap: 2rem;
             transition: all 0.3s ease;
         }
-    
-        .file-item:hover {
-            background: var(--surface);
-            transform: translateX(5px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+        @media (hover: hover) {
+            .file-item:hover {
+                background: var(--surface);
+                transform: translateX(5px);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            }
         }
-    
+
         .file-name {
             color: var(--text-primary);
             font-size: 1rem;
             font-weight: 600;
         }
-    
+
         .file-description {
             color: var(--text-muted);
             font-size: 0.9rem;
             margin-top: 0.25rem;
         }
-    
+
         .file-actions {
-			display: flex;
-			gap: 0.75rem;
-			flex-shrink: 0;
-		}
+            display: flex;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
 
-		.download-button {
-			display: flex;
-			align-items: center;
-			justify-content: flex-start;
-			gap: 0;
-			
-			width: 44px;
-			height: 44px;
-			padding: 10px;
-			
-			border-radius: 10px;
-			background: var(--tab-btn-bg);
-			border: 1px solid var(--border);
-			box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
+        .download-button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
 
-			cursor: pointer;
-			overflow: hidden;
-			white-space: nowrap;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
 
-			transition: all 0.25s ease;
-		}
+            border-radius: 10px;
+            background: var(--tab-btn-bg);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
 
-		.icon {
-			width: 20px;
-			height: 20px;
-			object-fit: contain;
-			flex-shrink: 0;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
 
-			background-color: var(--tab-btn-color);
+            transition: all 0.25s ease;
+        }
 
-			/* Use the SVG as a mask */
-			-webkit-mask-repeat: no-repeat;
-			mask-repeat: no-repeat;
-			-webkit-mask-size: contain;
-			mask-size: contain;
-			-webkit-mask-position: center;
-			mask-position: center;
-		}
+        .icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
 
-		.icon-open {
-			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
-			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
-		}
+            background-color: var(--tab-btn-color);
 
-		.icon-download {
-			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
-			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
-		}
+            /* Use the SVG as a mask */
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
 
-		.download-button:hover .icon {
-			background-color: var(--black);
-		}
+        .icon-open {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
+        }
 
-		.download-button button-text {
-			opacity: 0;
-			margin-left: 0;
-			font-size: var(--text-sm);
-			font-weight: 600;
-			transition: opacity 0.2s ease, margin-left 0.25s ease;
-			white-space: nowrap;
-		}
+        .icon-download {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+        }
 
-		@media (hover: hover) {
-			.download-button:hover {
-				background: var(--sunbeam);
-				box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
-			}
+        @media (hover: hover) {
+            .download-button:hover .icon {
+                background-color: var(--black);
+            }
+        }
 
-			@media (min-width: 1024px) {
-				.download-button:hover {
-					width: 120px;
-				}
+        .download-button button-text {
+            opacity: 0;
+            margin-left: 0;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            transition: opacity 0.2s ease, margin-left 0.25s ease;
+            white-space: nowrap;
+        }
 
-				.download-button:hover button-text {
-					opacity: 1;
-					margin-left: 8px;
-				}
-			}
-		}
-    
+        @media (hover: hover) {
+            .download-button:hover {
+                background: var(--sunbeam);
+                box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
+            }
+
+            @media (min-width: 1024px) {
+                .download-button:hover {
+                    width: 120px;
+                }
+
+                .download-button:hover button-text {
+                    opacity: 1;
+                    margin-left: 8px;
+                }
+            }
+        }
+
         /* ── INSTAGRAM HANDLE ── */
         .instagram-handle {
             color: var(--accent-label);
@@ -600,11 +612,7 @@ permalink: /girls-cross-country/
             transition: all 0.3s ease;
             position: relative;
         }
-    
-        .instagram-handle:hover {
-            color: #e1306c;
-        }
-    
+
         .instagram-handle::after {
             content: '';
             position: absolute;
@@ -615,11 +623,17 @@ permalink: /girls-cross-country/
             background: linear-gradient(90deg, #e1306c 0%, #c13584 50%, #833ab4 100%);
             transition: width 0.3s ease;
         }
-    
-        .instagram-handle:hover::after {
-            width: 100%;
+
+        @media (hover: hover) {
+            .instagram-handle:hover::after {
+                width: 100%;
+            }
+
+            .instagram-handle:hover {
+                color: #e1306c;
+            }
         }
-    
+
         /* ── X Handle ── */
         .x-handle {
             color: var(--accent-label);
@@ -628,13 +642,7 @@ permalink: /girls-cross-country/
             transition: all 0.3s ease;
             position: relative;
         }
-    
-    
-        .x-handle:hover {
-            color: #000000;
-        }
-    
-    
+
         .x-handle::after {
             content: '';
             position: absolute;
@@ -645,13 +653,18 @@ permalink: /girls-cross-country/
             background: linear-gradient(90deg, #000000 0%, #14171A 100%);
             transition: width 0.3s ease;
         }
-    
-    
-        .x-handle:hover::after {
-            width: 100%;
+
+        @media (hover: hover) {
+            .x-handle:hover::after {
+                width: 100%;
+            }
+
+            .x-handle:hover {
+                color: #000000;
+            }
         }
-    
-    
+
+
         /* ── COACH CARDS ── */
         .coaches-grid {
             display: grid;
@@ -659,7 +672,7 @@ permalink: /girls-cross-country/
             gap: 1.5rem;
             margin-top: 1.5rem;
         }
-    
+
         .coach-card {
             background: var(--surface-subtle);
             border: 1px solid var(--border);
@@ -668,13 +681,15 @@ permalink: /girls-cross-country/
             text-align: center;
             transition: all 0.3s ease;
         }
-    
-        .coach-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            border-color: var(--highlight);
+
+        @media (hover: hover) {
+            .coach-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+                border-color: var(--highlight);
+            }
         }
-    
+
         .coach-image {
             width: 120px;
             height: 120px;
@@ -687,31 +702,31 @@ permalink: /girls-cross-country/
             overflow: hidden;
             border: 3px solid var(--sunbeam);
         }
-    
+
         .coach-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-    
+
         .coach-image-placeholder {
             font-size: 2.5rem;
             color: rgba(255, 255, 255, 0.5);
         }
-    
+
         .coach-name {
             color: var(--text-primary);
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 0.4rem;
         }
-    
+
         .coach-title {
             color: var(--text-secondary);
             font-size: 0.95rem;
             margin-bottom: 1rem;
         }
-    
+
         .email-button {
             display: inline-block;
             background: var(--sunbeam);
@@ -725,13 +740,7 @@ permalink: /girls-cross-country/
             text-decoration: none;
             transition: all 0.3s ease;
         }
-    
-        .email-button:hover {
-            filter: brightness(1.08);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
-        }
-    
+
         .email-button.disabled {
             background: #4a5568;
             color: #a0aec0;
@@ -739,20 +748,28 @@ permalink: /girls-cross-country/
             pointer-events: none;
             opacity: 0.6;
         }
-    
-        .email-button.disabled:hover {
-            transform: none;
-            box-shadow: none;
-            filter: none;
+
+        @media (hover: hover) {
+            .email-button.disabled:hover {
+                transform: none;
+                box-shadow: none;
+                filter: none;
+            }
+
+            .email-button:hover {
+                filter: brightness(1.08);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
+            }
         }
-    
+
         /* ── ALBUMS GRID ── */
         .albums-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
-    
+
         .album-item {
             background: var(--surface-subtle);
             border: 1px solid var(--border);
@@ -761,13 +778,15 @@ permalink: /girls-cross-country/
             cursor: pointer;
             transition: all 0.3s ease;
         }
-    
-        .album-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-            border-color: var(--highlight);
+
+        @media (hover: hover) {
+            .album-item:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+                border-color: var(--highlight);
+            }
         }
-    
+
         .album-cover {
             width: 100%;
             aspect-ratio: 16/9;
@@ -777,34 +796,34 @@ permalink: /girls-cross-country/
             justify-content: center;
             overflow: hidden;
         }
-    
+
         .album-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-    
+
         .album-cover-placeholder {
             font-size: 4rem;
             color: rgba(255, 255, 255, 0.35);
         }
-    
+
         .album-info {
             padding: 1.25rem;
         }
-    
+
         .album-name {
             color: var(--text-primary);
             font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 0.4rem;
         }
-    
+
         .album-description {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-    
+
         /* ── BACK BUTTON ── */
         .back-button {
             background: var(--surface-subtle);
@@ -817,13 +836,15 @@ permalink: /girls-cross-country/
             cursor: pointer;
             transition: all 0.3s ease;
         }
-    
-        .back-button:hover {
-            background: var(--accent-label);
-            color: #ffffff;
-            transform: translateX(-4px);
+
+        @media (hover: hover) {
+            .back-button:hover {
+                background: var(--accent-label);
+                color: #ffffff;
+                transform: translateX(-4px);
+            }
         }
-    
+
         /* ── PHOTO MODAL ── */
         /* Photo Modal */
         .photo-modal {
@@ -837,16 +858,16 @@ permalink: /girls-cross-country/
             background: var(--modal-bg);
             animation: fadeIn 0.3s ease;
         }
-    
-    
+
+
         .photo-modal.active {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
-    
-    
+
+
         .photo-modal-header {
             position: fixed;
             top: 0;
@@ -859,15 +880,15 @@ permalink: /girls-cross-country/
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent);
             z-index: 3001;
         }
-    
-    
+
+
         .photo-modal-content {
             max-width: 90%;
             max-height: 90%;
             object-fit: contain;
         }
-    
-    
+
+
         .photo-modal-close {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid var(--white);
@@ -882,26 +903,26 @@ permalink: /girls-cross-country/
             cursor: pointer;
             transition: all 0.3s ease;
         }
-    
-    
-        .photo-modal-close:hover {
-            background: var(--white);
-            color: var(--black);
-            transform: rotate(90deg);
+
+        @media (hover: hover) {
+            .photo-modal-close:hover {
+                background: var(--white);
+                color: var(--black);
+                transform: rotate(90deg);
+            }
+
+            .photo-modal-close:hover svg path {
+                stroke: var(--black);
+            }
         }
-    
-    
-        .photo-modal-close:hover svg path {
-            stroke: var(--black);
-        }
-    
-    
+
+
         .photo-modal-actions {
             display: flex;
             gap: 1rem;
         }
-    
-    
+
+
         .photo-action-button {
             background: rgba(255, 255, 255, 0.1);
             border: 2px solid var(--white);
@@ -916,16 +937,17 @@ permalink: /girls-cross-country/
             align-items: center;
             gap: 0.5rem;
         }
-    
-    
-        .photo-action-button:hover {
-            background: var(--sunbeam);
-            color: var(--black);
-            border-color: var(--sunbeam);
-            transform: translateY(-2px);
+
+        @media (hover: hover) {
+            .photo-action-button:hover {
+                background: var(--sunbeam);
+                color: var(--black);
+                border-color: var(--sunbeam);
+                transform: translateY(-2px);
+            }
         }
-    
-    
+
+
         .photo-modal-content-wrapper {
             max-width: 90vw;
             max-height: 85vh;
@@ -933,16 +955,16 @@ permalink: /girls-cross-country/
             align-items: center;
             justify-content: center;
         }
-    
-    
+
+
         .photo-modal-content {
             max-width: 100%;
             max-height: 85vh;
             object-fit: contain;
             border-radius: 8px;
         }
-    
-    
+
+
         .photo-modal-caption {
             position: fixed;
             bottom: 0;
@@ -955,14 +977,14 @@ permalink: /girls-cross-country/
             background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
             z-index: 3001;
         }
-    
-    
+
+
         /* Hide body scroll when modal is open */
         body.modal-open {
             overflow: hidden;
         }
-    
-    
+
+
         /* Navigation arrows for gallery */
         .photo-nav-arrow {
             position: fixed;
@@ -982,24 +1004,25 @@ permalink: /girls-cross-country/
             transition: all 0.3s ease;
             z-index: 3001;
         }
-    
-    
-        .photo-nav-arrow:hover {
-            background: var(--white);
-            color: var(--black);
+
+        @media (hover: hover) {
+            .photo-nav-arrow:hover {
+                background: var(--white);
+                color: var(--black);
+            }
         }
-    
-    
+
+
         .photo-nav-arrow.left {
             left: 2rem;
         }
-    
-    
+
+
         .photo-nav-arrow.right {
             right: 2rem;
         }
-    
-    
+
+
         .photo-modal-counter {
             position: fixed;
             bottom: 1.5rem;
@@ -1009,7 +1032,7 @@ permalink: /girls-cross-country/
             font-size: 0.9rem;
             z-index: 3001;
         }
-    
+
         .photo-loading-overlay {
             position: absolute;
             inset: 0;
@@ -1019,7 +1042,7 @@ permalink: /girls-cross-country/
             color: var(--white);
             font-size: 2rem;
         }
-    
+
         /* ── FOOTER ── */
         footer {
             background: var(--footer-bg);
@@ -1030,34 +1053,34 @@ permalink: /girls-cross-country/
             text-align: center;
             flex-shrink: 0;
         }
-    
+
         /* ── ANIMATION ── */
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(20px);
             }
-    
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-    
+
         /* ── MOBILE ── */
         @media (max-width: 900px) {
             .nav-content {
                 padding: 0 1rem;
             }
-    
+
             .logo-m-img {
                 height: 2rem;
             }
-    
+
             .logo-text {
                 font-size: 1.2rem;
             }
-    
+
             .nav-links {
                 position: absolute;
                 z-index: 1000;
@@ -1075,95 +1098,95 @@ permalink: /girls-cross-country/
                 opacity: 0;
                 gap: 0;
             }
-    
+
             .nav-links li {
                 width: 100%;
             }
-    
+
             .nav-links a {
                 display: block;
                 padding: 1rem 2rem;
                 width: 100%;
             }
-    
+
             .nav-links.active {
                 max-height: 400px;
                 opacity: 1;
             }
-    
+
             .hamburger {
                 display: flex;
                 z-index: 1001;
             }
-    
+
             .hamburger.active span:nth-child(1) {
                 transform: rotate(45deg) translate(5px, 5px);
             }
-    
+
             .hamburger.active span:nth-child(2) {
                 opacity: 0;
                 transform: scale(0);
             }
-    
+
             .hamburger.active span:nth-child(3) {
                 transform: rotate(-45deg) translate(5px, -5px);
             }
-    
+
             .main-content {
                 padding: 2rem 1rem;
             }
-    
+
             .page-header h1 {
                 font-size: 2rem;
             }
-    
+
             .tab-content {
                 padding: 1.5rem;
             }
-    
+
             .tab-content h2 {
                 font-size: 1.75rem;
             }
-    
+
             .tab-buttons {
                 gap: 0.75rem;
                 padding: 0 1.5rem;
             }
-    
+
             .tab-button {
                 padding: 0.875rem 1.5rem;
                 font-size: 1rem;
             }
-    
+
             .photo-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
-    
+
             .photo-action-button span {
                 display: none;
             }
-    
+
             .photo-nav-arrow {
                 width: 50px;
                 height: 50px;
                 font-size: 1.5rem;
             }
-    
+
             .photo-nav-arrow.left {
                 left: 1rem;
             }
-    
+
             .photo-nav-arrow.right {
                 right: 1rem;
             }
-    
+
             .photo-modal-content {
                 width: 95vw;
                 height: 90vh;
                 object-fit: contain;
                 border-radius: 8px;
             }
-    
+
             .menu-backdrop {
                 position: fixed;
                 top: 72px;
@@ -1176,29 +1199,29 @@ permalink: /girls-cross-country/
                 transition: opacity 0.3s ease;
                 z-index: 999;
             }
-    
+
             .menu-backdrop.active {
                 opacity: 1;
                 pointer-events: auto;
             }
         }
-    
+
         @media (max-width: 700px) {
             .coaches-grid {
                 grid-template-columns: 1fr;
             }
-    
+
             .tab-buttons {
                 gap: 0.5rem;
                 padding: 0 1rem;
             }
-    
+
             .tab-button {
                 padding: 0.75rem 1rem;
                 font-size: 0.90rem;
             }
         }
-    
+
         /* Utility layout helpers (replaces inline styles) */
         .flex-space-between {
             display: flex;
@@ -1206,23 +1229,23 @@ permalink: /girls-cross-country/
             align-items: center;
             margin-bottom: 1.5rem;
         }
-    
+
         .flex-align-center {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
-    
+
         .h2-flush {
             margin: 0;
         }
-    
+
         p.loading-message {
             color: var(--text-muted);
             font-size: var(--text-base);
         }
-    
+
         .tip-title {
             font-size: var(--text-base);
             font-weight: 600;
@@ -1332,7 +1355,7 @@ permalink: /girls-cross-country/
                 <h3>Historical Results — Timing Companies</h3>
                 <p>
                     <a href="https://www.wayzatatiming.com/results.html" target="_blank" rel="noopener noreferrer"
-                    style="color: var(--text-secondary); text-decoration: underline;">Wayzata Results</a><br>
+                        style="color: var(--text-secondary); text-decoration: underline;">Wayzata Results</a><br>
                     <a href="https://www.gsetiming.com/results/" target="_blank" rel="noopener noreferrer"
                         style="color: var(--text-secondary); text-decoration: underline;">GSE Timing</a><br>
                     <a href="https://appleracerberryjam.com/" target="_blank" rel="noopener noreferrer"

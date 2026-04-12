@@ -221,10 +221,6 @@ permalink: /boys-track/
             position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-label);
-        }
-
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -236,8 +232,14 @@ permalink: /boys-track/
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        @media (hover: hover) {
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .nav-links a:hover {
+                color: var(--accent-label);
+            }
         }
 
         .hamburger {
@@ -319,9 +321,11 @@ permalink: /boys-track/
             box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
         }
 
-        .tab-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+        @media (hover: hover) {
+            .tab-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+            }
         }
 
         .tab-button.active {
@@ -387,10 +391,11 @@ permalink: /boys-track/
             transition: all 0.3s ease;
         }
 
-
-        a[href^="tel:"]:hover {
-            color: var(--sunbeam) !important;
-            border-bottom-color: var(--sunbeam);
+        @media (hover: hover) {
+            a[href^="tel:"]:hover {
+                color: var(--sunbeam) !important;
+                border-bottom-color: var(--sunbeam);
+            }
         }
 
 
@@ -438,10 +443,12 @@ permalink: /boys-track/
             position: relative;
         }
 
-        .photo-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-            border-color: var(--highlight);
+        @media (hover: hover) {
+            .photo-item:hover {
+                transform: scale(1.03);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                border-color: var(--highlight);
+            }
         }
 
         .photo-item img {
@@ -463,8 +470,10 @@ permalink: /boys-track/
             transition: transform 0.3s ease;
         }
 
-        .photo-item:hover .photo-caption {
-            transform: translateY(0);
+        @media (hover: hover) {
+            .photo-item:hover .photo-caption {
+                transform: translateY(0);
+            }
         }
 
         /* ── FILE LIST ── */
@@ -487,10 +496,12 @@ permalink: /boys-track/
             transition: all 0.3s ease;
         }
 
-        .file-item:hover {
-            background: var(--surface);
-            transform: translateX(5px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        @media (hover: hover) {
+            .file-item:hover {
+                background: var(--surface);
+                transform: translateX(5px);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            }
         }
 
         .file-name {
@@ -506,90 +517,92 @@ permalink: /boys-track/
         }
 
         .file-actions {
-			display: flex;
-			gap: 0.75rem;
-			flex-shrink: 0;
-		}
+            display: flex;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
 
-		.download-button {
-			display: flex;
-			align-items: center;
-			justify-content: flex-start;
-			gap: 0;
-			
-			width: 44px;
-			height: 44px;
-			padding: 10px;
-			
-			border-radius: 10px;
-			background: var(--tab-btn-bg);
-			border: 1px solid var(--border);
-			box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
+        .download-button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
 
-			cursor: pointer;
-			overflow: hidden;
-			white-space: nowrap;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
 
-			transition: all 0.25s ease;
-		}
+            border-radius: 10px;
+            background: var(--tab-btn-bg);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
 
-		.icon {
-			width: 20px;
-			height: 20px;
-			object-fit: contain;
-			flex-shrink: 0;
+            cursor: pointer;
+            overflow: hidden;
+            white-space: nowrap;
 
-			background-color: var(--tab-btn-color);
+            transition: all 0.25s ease;
+        }
 
-			/* Use the SVG as a mask */
-			-webkit-mask-repeat: no-repeat;
-			mask-repeat: no-repeat;
-			-webkit-mask-size: contain;
-			mask-size: contain;
-			-webkit-mask-position: center;
-			mask-position: center;
-		}
+        .icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            flex-shrink: 0;
 
-		.icon-open {
-			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
-			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
-		}
+            background-color: var(--tab-btn-color);
 
-		.icon-download {
-			-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
-			mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
-		}
+            /* Use the SVG as a mask */
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: contain;
+            mask-size: contain;
+            -webkit-mask-position: center;
+            mask-position: center;
+        }
 
-		.download-button:hover .icon {
-			background-color: var(--black);
-		}
+        .icon-open {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M352 0c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L370.7 96 201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L416 141.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V32c0-17.7-14.3-32-32-32H352zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z'/%3E%3C/svg%3E");
+        }
 
-		.download-button button-text {
-			opacity: 0;
-			margin-left: 0;
-			font-size: var(--text-sm);
-			font-weight: 600;
-			transition: opacity 0.2s ease, margin-left 0.25s ease;
-			white-space: nowrap;
-		}
+        .icon-download {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64z'/%3E%3C/svg%3E");
+        }
 
-		@media (hover: hover) {
-			.download-button:hover {
-				background: var(--sunbeam);
-				box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
-			}
+        @media (hover: hover) {
+            .download-button:hover .icon {
+                background-color: var(--black);
+            }
+        }
 
-			@media (min-width: 1024px) {
-				.download-button:hover {
-					width: 120px;
-				}
+        .download-button button-text {
+            opacity: 0;
+            margin-left: 0;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            transition: opacity 0.2s ease, margin-left 0.25s ease;
+            white-space: nowrap;
+        }
 
-				.download-button:hover button-text {
-					opacity: 1;
-					margin-left: 8px;
-				}
-			}
-		}
+        @media (hover: hover) {
+            .download-button:hover {
+                background: var(--sunbeam);
+                box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
+            }
+
+            @media (min-width: 1024px) {
+                .download-button:hover {
+                    width: 120px;
+                }
+
+                .download-button:hover button-text {
+                    opacity: 1;
+                    margin-left: 8px;
+                }
+            }
+        }
 
         /* ── INSTAGRAM HANDLE ── */
         .instagram-handle {
@@ -598,10 +611,6 @@ permalink: /boys-track/
             font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
-        }
-
-        .instagram-handle:hover {
-            color: #e1306c;
         }
 
         .instagram-handle::after {
@@ -615,8 +624,14 @@ permalink: /boys-track/
             transition: width 0.3s ease;
         }
 
-        .instagram-handle:hover::after {
-            width: 100%;
+        @media (hover: hover) {
+            .instagram-handle:hover::after {
+                width: 100%;
+            }
+
+            .instagram-handle:hover {
+                color: #e1306c;
+            }
         }
 
         /* ── X Handle ── */
@@ -627,12 +642,6 @@ permalink: /boys-track/
             transition: all 0.3s ease;
             position: relative;
         }
-
-
-        .x-handle:hover {
-            color: #000000;
-        }
-
 
         .x-handle::after {
             content: '';
@@ -645,9 +654,14 @@ permalink: /boys-track/
             transition: width 0.3s ease;
         }
 
+        @media (hover: hover) {
+            .x-handle:hover::after {
+                width: 100%;
+            }
 
-        .x-handle:hover::after {
-            width: 100%;
+            .x-handle:hover {
+                color: #000000;
+            }
         }
 
 
@@ -668,10 +682,12 @@ permalink: /boys-track/
             transition: all 0.3s ease;
         }
 
-        .coach-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-            border-color: var(--highlight);
+        @media (hover: hover) {
+            .coach-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+                border-color: var(--highlight);
+            }
         }
 
         .coach-image {
@@ -725,10 +741,12 @@ permalink: /boys-track/
             transition: all 0.3s ease;
         }
 
-        .email-button:hover {
-            filter: brightness(1.08);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
+        @media (hover: hover) {
+            .email-button:hover {
+                filter: brightness(1.08);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(241, 177, 51, 0.4);
+            }
         }
 
         .email-button.disabled {
@@ -739,10 +757,12 @@ permalink: /boys-track/
             opacity: 0.6;
         }
 
-        .email-button.disabled:hover {
-            transform: none;
-            box-shadow: none;
-            filter: none;
+        @media (hover: hover) {
+            .email-button.disabled:hover {
+                transform: none;
+                box-shadow: none;
+                filter: none;
+            }
         }
 
         /* ── ALBUMS GRID ── */
@@ -761,10 +781,12 @@ permalink: /boys-track/
             transition: all 0.3s ease;
         }
 
-        .album-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-            border-color: var(--highlight);
+        @media (hover: hover) {
+            .album-item:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+                border-color: var(--highlight);
+            }
         }
 
         .album-cover {
@@ -817,10 +839,12 @@ permalink: /boys-track/
             transition: all 0.3s ease;
         }
 
-        .back-button:hover {
-            background: var(--accent-label);
-            color: #ffffff;
-            transform: translateX(-4px);
+        @media (hover: hover) {
+            .back-button:hover {
+                background: var(--accent-label);
+                color: #ffffff;
+                transform: translateX(-4px);
+            }
         }
 
         /* ── PHOTO MODAL ── */
@@ -882,16 +906,16 @@ permalink: /boys-track/
             transition: all 0.3s ease;
         }
 
+        @media (hover: hover) {
+            .photo-modal-close:hover {
+                background: var(--white);
+                color: var(--black);
+                transform: rotate(90deg);
+            }
 
-        .photo-modal-close:hover {
-            background: var(--white);
-            color: var(--black);
-            transform: rotate(90deg);
-        }
-
-
-        .photo-modal-close:hover svg path {
-            stroke: var(--black);
+            .photo-modal-close:hover svg path {
+                stroke: var(--black);
+            }
         }
 
 
@@ -916,14 +940,14 @@ permalink: /boys-track/
             gap: 0.5rem;
         }
 
-
-        .photo-action-button:hover {
-            background: var(--sunbeam);
-            color: var(--black);
-            border-color: var(--sunbeam);
-            transform: translateY(-2px);
+        @media (hover: hover) {
+            .photo-action-button:hover {
+                background: var(--sunbeam);
+                color: var(--black);
+                border-color: var(--sunbeam);
+                transform: translateY(-2px);
+            }
         }
-
 
         .photo-modal-content-wrapper {
             max-width: 90vw;
@@ -982,12 +1006,12 @@ permalink: /boys-track/
             z-index: 3001;
         }
 
-
-        .photo-nav-arrow:hover {
-            background: var(--white);
-            color: var(--black);
+        @media (hover: hover) {
+            .photo-nav-arrow:hover {
+                background: var(--white);
+                color: var(--black);
+            }
         }
-
 
         .photo-nav-arrow.left {
             left: 2rem;

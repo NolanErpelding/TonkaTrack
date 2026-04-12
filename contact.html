@@ -174,8 +174,10 @@ permalink: /contact/
             position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-label);
+        @media (hover: hover) {
+            .nav-links a:hover {
+                color: var(--accent-label);
+            }
         }
 
         .nav-links a::after {
@@ -189,8 +191,10 @@ permalink: /contact/
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        @media (hover: hover) {
+            .nav-links a:hover::after {
+                width: 100%;
+            }
         }
 
         .hamburger {
@@ -257,9 +261,11 @@ permalink: /contact/
             box-shadow: 0 4px 15px rgba(0, 54, 152, 0.3);
         }
 
-        .tab-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 54, 152, 0.4);
+        @media (hover: hover) {
+            .tab-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 54, 152, 0.4);
+            }
         }
 
         .tab-button.active {
@@ -305,10 +311,12 @@ permalink: /contact/
             transition: all 0.3s ease;
         }
 
-        .coach-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            border-color: var(--highlight);
+        @media (hover: hover) {
+            .coach-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                border-color: var(--highlight);
+            }
         }
 
         .coach-image {
@@ -359,12 +367,6 @@ permalink: /contact/
             transition: all 0.3s ease;
         }
 
-        .email-button:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
-        }
-
         .email-button.disabled {
             background: var(--border);
             color: var(--text-muted);
@@ -373,10 +375,18 @@ permalink: /contact/
             opacity: 0.6;
         }
 
-        .email-button.disabled:hover {
-            transform: none;
-            box-shadow: none;
-            filter: none;
+        @media (hover: hover) {
+            .email-button.disabled:hover {
+                transform: none;
+                box-shadow: none;
+                filter: none;
+            }
+
+            .email-button:hover {
+                filter: brightness(1.1);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
+            }
         }
 
         /* ── MTFCCA SECTION ── */
