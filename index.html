@@ -25,9 +25,7 @@ permalink: /
     <meta name="apple-mobile-web-app-title" content="MyWebSite" />
     <link rel="manifest" href="favicons/site.webmanifest" />
     <style>
-        /* Minnetonka Color Palette */
         :root {
-            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
             --lake: #5395FF;
@@ -35,8 +33,6 @@ permalink: /
             --grape: #6C0787;
             --sunbeam: #F1B133;
             --mint: #078F96;
-
-            /* Light mode semantic tokens (default) */
             --white: #ffffff;
             --black: #000000;
             --surface: #ffffff;
@@ -49,23 +45,13 @@ permalink: /
             --accent-label: var(--minnetonka-blue);
             --highlight: var(--sky);
             --grey: #1a202c;
-
-            /* Nav */
             --nav-bg: #ffffff;
             --nav-link-color: #4a5568;
             --gradient-accent-color: var(--midnight);
-
-            /* Cards */
             --card-bg: #ffffff;
             --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-
-            /* Footer */
             --footer-bg: rgba(26, 32, 44, 0.95);
-
-            /* Nav shadow */
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-            /* Type scale */
             --text-xs: 14px;
             --text-sm: 15px;
             --text-base: 16px;
@@ -87,20 +73,12 @@ permalink: /
                 --accent-label: var(--sunbeam);
                 --highlight: var(--sunbeam);
                 --grey: #e8edf8;
-
-                /* Nav */
                 --nav-bg: rgba(10, 12, 20, 0.92);
                 --nav-link-color: #9aa5c0;
                 --gradient-accent-color: var(--white);
-
-                /* Cards */
                 --card-bg: #1a1f2e;
                 --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
-
-                /* Footer */
                 --footer-bg: rgba(8, 10, 18, 0.97);
-
-                /* Nav shadow */
                 --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
             }
         }
@@ -114,7 +92,6 @@ permalink: /
         html,
         body {
             height: 100%;
-
         }
 
         body {
@@ -125,7 +102,6 @@ permalink: /
             color: var(--grey);
             line-height: 1.6;
             overscroll-behavior: none;
-
         }
 
         .page-wrapper {
@@ -192,6 +168,10 @@ permalink: /
             position: relative;
         }
 
+        .nav-links a:hover {
+            color: var(--accent-label);
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -203,14 +183,8 @@ permalink: /
             transition: width 0.3s ease;
         }
 
-        @media (hover: hover) {
-            .nav-links a:hover::after {
-                width: 100%;
-            }
-
-            .nav-links a:hover {
-                color: var(--accent-label);
-            }
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .hamburger {
@@ -232,7 +206,6 @@ permalink: /
             flex: 1 0 auto;
         }
 
-        /* ── FULL-BLEED HERO ── */
         .hero {
             position: relative;
             width: 100%;
@@ -251,7 +224,6 @@ permalink: /
             z-index: 0;
         }
 
-        /* dark blue-tinted gradient overlay, heavier on left */
         .hero-bg::after {
             content: '';
             position: absolute;
@@ -358,12 +330,10 @@ permalink: /
             box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
         }
 
-        @media (hover: hover) {
-            .cta-button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(241, 177, 51, 0.6);
-                filter: brightness(1.1);
-            }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(241, 177, 51, 0.6);
+            filter: brightness(1.1);
         }
 
         .info-section {
@@ -388,12 +358,10 @@ permalink: /
             border: 2px solid transparent;
         }
 
-        @media (hover: hover) {
-            .info-item:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 20px rgba(7, 143, 150, 0.6);
-                border: 2px solid var(--mint);
-            }
+        .info-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(7, 143, 150, 0.6);
+            border: 2px solid var(--mint);
         }
 
         .info-icon {
@@ -421,6 +389,14 @@ permalink: /
             max-width: 1200px;
             margin: 3rem auto;
             padding: 0 2rem;
+            min-height: 100px;
+        }
+
+        .cards-loading {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 3rem 0;
+            font-size: 1rem;
         }
 
         .card {
@@ -429,7 +405,6 @@ permalink: /
             padding: 2rem;
             box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
-            cursor: pointer;
             position: relative;
             overflow: hidden;
             display: grid;
@@ -450,15 +425,13 @@ permalink: /
             transition: transform 0.3s ease;
         }
 
-        @media (hover: hover) {
-            .card:hover::before {
-                transform: scaleX(1);
-            }
+        .card:hover::before {
+            transform: scaleX(1);
+        }
 
-            .card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
         .athlete-image {
@@ -469,9 +442,6 @@ permalink: /
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3rem;
-            font-weight: 700;
             flex-shrink: 0;
             align-self: center;
             overflow: hidden;
@@ -497,8 +467,6 @@ permalink: /
             gap: 1rem;
         }
 
-        /* ── CARD TYPOGRAPHY ── */
-        /* Primary heading inside a card (athlete name, section title) */
         .card h2 {
             font-size: 3rem;
             font-weight: 700;
@@ -506,28 +474,10 @@ permalink: /
             color: var(--heading-primary);
         }
 
-        /* Body copy inside a card */
         .card p {
             color: var(--text-secondary);
             line-height: 1.8;
             font-size: 1.3rem;
-        }
-
-        /* Secondary label / sub-heading inside a card (e.g. team members list) */
-        .card .card-label {
-            font-size: var(--text-sm);
-            font-weight: 600;
-            color: var(--accent-label);
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        /* Small supporting text inside a card (e.g. year, date, note) */
-        .card small,
-        .card .text-small {
-            font-size: var(--text-xs);
-            color: var(--text-muted);
-            line-height: 1.5;
         }
 
         footer {
@@ -704,15 +654,6 @@ permalink: /
                 height: 250px;
             }
 
-            .athlete-card {
-                grid-column: 1;
-            }
-
-            .cta-button {
-                font-size: 0.95rem;
-                padding: 0.875rem 1.5rem;
-            }
-
             footer {
                 padding: 1.5rem 1rem;
                 font-size: 0.9rem;
@@ -749,9 +690,7 @@ permalink: /
                     <span class="logo-text">TONKA TRACK</span>
                 </div>
                 <div class="hamburger" onclick="toggleMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </div>
                 <ul class="nav-links" id="navMenu">
                     <li><a href="index.html" onclick="closeMenu()">Home</a></li>
@@ -797,11 +736,11 @@ permalink: /
                     </div>
                     <div class="info-item" onclick="window.location.href='girls-track/'">
                         <div class="info-icon"><i class="fa-solid fa-bolt"></i></div>
-                        <h3>Girls Track & Field</h3>
+                        <h3>Girls Track &amp; Field</h3>
                     </div>
                     <div class="info-item" onclick="window.location.href='boys-track/'">
                         <div class="info-icon"><i class="fa-solid fa-trophy"></i></div>
-                        <h3>Boys Track & Field</h3>
+                        <h3>Boys Track &amp; Field</h3>
                     </div>
                     <div class="info-item" onclick="window.location.href='mtfcca/'">
                         <div class="info-icon"><i class="fa-solid fa-users"></i></div>
@@ -814,130 +753,170 @@ permalink: /
                 </div>
             </section>
 
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="athlete-image">
-                        <img src="images/shawn-fries-all-american.webp" alt="Sean Fries">
-                    </div>
-                    <div class="athlete-card">
-                        <h2>Sean Fries</h2>
-                        <p>9th place at Footlocker Nationals, earning All-American Status. An incredible achievement
-                            representing Tonka Track at the highest level.</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="athlete-image">
-                        <img src="images/claire-kohler-gatorade-medium.webp" alt="Claire Kohler">
-                    </div>
-                    <div class="athlete-card">
-                        <h2>Claire Kohler</h2>
-                        <p>2024 Gatorade Minnesota Track Athlete of the Year! A true champion both on and off the track.
-                            We're incredibly proud of your achievements!</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="athlete-image">
-                        <img src="images/all-american-sprint-medley-medium.webp" alt="Sprint Medley Relay Team">
-                    </div>
-                    <div class="athlete-card">
-                        <h2>Sprint Medley Relay Team</h2>
-                        <p>Our All-American Sprint Medley relay team set a Hayward Field high school record at Nike
-                            Nationals in June 2024!</p>
-                        <p style="margin-top: 1rem; font-weight: 600;">Team: Evie Malec, Claire Kohler, Zeal Kuku,
-                            Charlotte Roehl</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="athlete-image">
-                        <img src="images/matt-wilkinson.webp" alt="Matt Wilkinson">
-                    </div>
-                    <div class="athlete-card">
-                        <h2>Matt Wilkinson</h2>
-                        <p>Former Minnetonka High School, Carleton, Gophers track athlete Matthew Wilkinson finished
-                            second in the 3000-meter steeplechase final at the U.S. track and field trials and claimed a
-                            spot in the Olympics.</p>
-                    </div>
-                </div>
+            <div class="cards-grid" id="cards-grid">
+                <div class="cards-loading">Loading featured athletes…</div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Tonka Track & Field. Building champions, one stride at a time.</p>
+        <p>&copy; 2026 Tonka Track &amp; Field. Building champions, one stride at a time.</p>
     </footer>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
+        // ── CMS CONFIG ───────────────────────────────────────────────────────────
+        // Set your Google Spreadsheet ID here — same value used on every page.
+        // Find it in the sheet URL: docs.google.com/spreadsheets/d/THIS_PART/edit
+        const CMS_SPREADSHEET_ID = '1HiXgfyNGJQGdjiMWETThhsuBEpz_rwgr3bZxjLtLDlg'; // ← replace this
 
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            backdrop.classList.toggle('active');
+        // ── SHEETS HELPER ────────────────────────────────────────────────────────
+        /**
+         * Fetches rows from a publicly published Google Spreadsheet tab.
+         * Uses Google's free gviz/tq JSON endpoint — no Apps Script, no OAuth.
+         *
+         * REQUIREMENT: The spreadsheet must be published to the web.
+         *   File → Share → Publish to web → Publish (leave defaults, click Publish)
+         *
+         * Returns an array of plain objects keyed by the header row,
+         * filtered to active !== FALSE, sorted ascending by the order column.
+         */
+        async function fetchSheetRows(spreadsheetId, sheetName) {
+            const url =
+                'https://docs.google.com/spreadsheets/d/' +
+                spreadsheetId +
+                '/gviz/tq?tqx=out:json&sheet=' +
+                encodeURIComponent(sheetName);
+
+            const res = await fetch(url);
+            const text = await res.text();
+
+            // Google wraps the JSON in a JS callback wrapper — strip it
+            const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+            if (!match) throw new Error('Unexpected Sheets response format for sheet: ' + sheetName);
+
+            const json = JSON.parse(match[1]);
+            const table = json.table;
+
+            if (!table || !table.rows || table.rows.length === 0) return [];
+
+            // Build header array from column labels
+            const headers = table.cols.map(function (col) {
+                return (col.label || '').trim().toLowerCase().replace(/\s+/g, '_');
+            });
+
+            return table.rows
+                // Convert each row → plain object keyed by header
+                .map(function (row) {
+                    var obj = {};
+                    headers.forEach(function (h, i) {
+                        var cell = row.c ? row.c[i] : null;
+                        obj[h] = (cell && cell.v !== null && cell.v !== undefined)
+                            ? cell.v.toString()
+                            : '';
+                    });
+                    return obj;
+                })
+                // Drop rows where active = FALSE / false / 0 / NO
+                .filter(function (row) {
+                    var a = (row['active'] || '').trim().toUpperCase();
+                    return a !== 'FALSE' && a !== '0' && a !== 'NO';
+                })
+                // Sort ascending by the order column
+                .sort(function (a, b) {
+                    return (parseInt(a['order'], 10) || 0) - (parseInt(b['order'], 10) || 0);
+                });
+        }
+
+        // ── HOMEPAGE CARDS ───────────────────────────────────────────────────────
+        async function loadHomepageCards() {
+            const grid = document.getElementById('cards-grid');
+
+            try {
+                const rows = await fetchSheetRows(CMS_SPREADSHEET_ID, 'homepage_cards');
+
+                if (!rows.length) {
+                    grid.innerHTML = '';
+                    return;
+                }
+
+                grid.innerHTML = '';
+
+                rows.forEach(function (row) {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML =
+                        '<div class="athlete-image">' +
+                        (row.image_url
+                            ? '<img src="' + escapeAttr(row.image_url) + '" alt="' + escapeAttr(row.name) + '" loading="lazy">'
+                            : '') +
+                        '</div>' +
+                        '<div class="athlete-card">' +
+                        '<h2>' + escapeHtml(row.name) + '</h2>' +
+                        // description allows HTML in the sheet (bold, line breaks, etc.)
+                        '<p>' + row.description + '</p>' +
+                        '</div>';
+                    grid.appendChild(card);
+                });
+
+                // Re-attach scroll-in observer to the freshly rendered cards
+                const obs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+
+                grid.querySelectorAll('.card').forEach(function (c) { obs.observe(c); });
+
+            } catch (err) {
+                console.error('Failed to load homepage cards:', err);
+                grid.innerHTML = ''; // fail silently — rest of page is unaffected
+            }
+        }
+
+        // ── ESCAPE HELPERS ───────────────────────────────────────────────────────
+        function escapeHtml(str) {
+            return (str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function escapeAttr(str) {
+            return (str || '').replace(/"/g, '&quot;');
+        }
+
+        // ── NAV ──────────────────────────────────────────────────────────────────
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.getElementById('menuBackdrop').classList.toggle('active');
         }
 
         function closeMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
-
-            menu.classList.remove('active');
-            hamburger.classList.remove('active');
-            backdrop.classList.remove('active');
+            document.getElementById('navMenu').classList.remove('active');
+            document.querySelector('.hamburger').classList.remove('active');
+            document.getElementById('menuBackdrop').classList.remove('active');
         }
-        document.addEventListener('click', function (event) {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
 
-            // Check if menu is open and click is outside the nav-content
-            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                backdrop.classList.remove('active');
+        document.addEventListener('click', function (e) {
+            const menu = document.getElementById('navMenu');
+            if (menu.classList.contains('active') && !e.target.closest('.nav-content')) {
+                closeMenu();
             }
         });
-        // ── Hero fade-to-white on scroll ──
-        const heroFade = document.getElementById('heroFadeOverlay');
-        const hero = document.querySelector('.hero');
 
-        function updateHeroFade() {
-            const heroHeight = hero.offsetHeight;
-            const scrolled = window.scrollY;
-            // Fade starts at 10% scroll, completes at 60% of hero height
-            const progress = Math.min(Math.max((scrolled - heroHeight * 0.1) / (heroHeight * 0.5), 0), 1);
-            heroFade.style.opacity = progress;
-        }
-
-        window.addEventListener('scroll', updateHeroFade, { passive: true });
-
-        // ── Cards scroll-in ──
-        const cards = document.querySelectorAll('.card');
-
-        const cardObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    cardObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-
-        cards.forEach(card => cardObserver.observe(card));
-        // ── Scroll indicator fade out ──
+        // ── SCROLL INDICATOR ─────────────────────────────────────────────────────
         const scrollIndicator = document.querySelector('.scroll-indicator');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 40) {
-                scrollIndicator.classList.add('hidden');
-            } else {
-                scrollIndicator.classList.remove('hidden');
-            }
+        window.addEventListener('scroll', function () {
+            scrollIndicator.classList.toggle('hidden', window.scrollY > 40);
         }, { passive: true });
+
+        // ── INIT ─────────────────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', loadHomepageCards);
     </script>
 </body>
 
