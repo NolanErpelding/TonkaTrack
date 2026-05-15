@@ -25,9 +25,7 @@ permalink: /mtfcca/
     <link rel="manifest" href="../favicons/site.webmanifest" />
 
     <style>
-        /* Minnetonka Color Palette */
         :root {
-            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
             --lake: #5395FF;
@@ -35,8 +33,6 @@ permalink: /mtfcca/
             --grape: #6C0787;
             --sunbeam: #F1B133;
             --mint: #078F96;
-
-            /* Light mode semantic tokens (default) */
             --white: #ffffff;
             --black: #000000;
             --accent-color: var(--mint);
@@ -46,25 +42,14 @@ permalink: /mtfcca/
             --text-primary: #1a202c;
             --text-secondary: #4a5568;
             --text-muted: #718096;
-            --text-accent: var(--white);
             --heading-primary: var(--minnetonka-blue);
             --accent-label: var(--minnetonka-blue);
-            --highlight: var(--sky);
-
-            /* Nav */
             --nav-bg: #ffffff;
             --nav-link-color: #4a5568;
             --gradient-accent-color: var(--midnight);
-
-            /* Cards */
-            --card-bg: #ffffff;
             --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
             --section-bg: var(--white);
-
-            /* Footer */
             --footer-bg: rgba(26, 32, 44, 0.95);
-
-            /* Nav shadow */
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -72,30 +57,19 @@ permalink: /mtfcca/
             :root {
                 --accent-color: var(--sunbeam);
                 --surface: #11161F;
-                --surface-subtle: #090E17;
+                --surface-subtle: #1a1f2e;
                 --border: #2e3650;
                 --text-primary: #e8edf8;
                 --text-secondary: #9aa5c0;
                 --text-muted: #6b7a9a;
-                --text-accent: var(--black);
                 --heading-primary: #ffffff;
                 --accent-label: var(--sunbeam);
-                --highlight: var(--sunbeam);
-
-                /* Nav */
                 --nav-bg: rgba(10, 12, 20, 0.92);
                 --nav-link-color: #9aa5c0;
                 --gradient-accent-color: var(--white);
-
-                /* Cards */
-                --card-bg: #1a1f2e;
                 --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
                 --section-bg: #1a1f2e;
-
-                /* Footer */
                 --footer-bg: rgba(8, 10, 18, 0.97);
-
-                /* Nav shadow */
                 --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
             }
         }
@@ -120,6 +94,7 @@ permalink: /mtfcca/
             flex-direction: column;
         }
 
+        /* ── NAV ── */
         .nav-bar {
             background: var(--nav-bg);
             padding: 1rem 0;
@@ -173,6 +148,12 @@ permalink: /mtfcca/
             position: relative;
         }
 
+        @media (hover: hover) {
+            .nav-links a:hover {
+                color: var(--accent-label);
+            }
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -184,14 +165,8 @@ permalink: /mtfcca/
             transition: width 0.3s ease;
         }
 
-        @media (hover: hover) {
-            .nav-links a:hover::after {
-                width: 100%;
-            }
-
-            .nav-links a:hover {
-                color: var(--accent-label);
-            }
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .hamburger {
@@ -209,17 +184,10 @@ permalink: /mtfcca/
             transition: all 0.3s ease;
         }
 
-        .main-content {
-            flex: 1 0 auto;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            width: 100%;
-        }
-
+        /* ── HERO ── */
         .page-hero {
             background: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
-            padding: 3.5rem 2rem 3.5rem;
+            padding: 3.5rem 2rem;
             text-align: center;
         }
 
@@ -235,6 +203,23 @@ permalink: /mtfcca/
             color: var(--sky);
         }
 
+        /* ── MAIN ── */
+        .main-content {
+            flex: 1 0 auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            width: 100%;
+        }
+
+        .content-loading {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 4rem 0;
+            font-size: 1rem;
+        }
+
+        /* ── CONTENT SECTIONS ── */
         .content-section {
             background: var(--section-bg);
             border-radius: 20px;
@@ -242,6 +227,7 @@ permalink: /mtfcca/
             box-shadow: var(--card-shadow);
             margin-bottom: 2rem;
             animation: fadeIn 0.6s ease-out forwards;
+            overflow: auto;
         }
 
         .content-section h2 {
@@ -250,6 +236,7 @@ permalink: /mtfcca/
             margin-bottom: 1.5rem;
         }
 
+        /* h3 / p / ul from body HTML stored in sheet */
         .content-section h3 {
             color: var(--accent-label);
             font-size: 1.5rem;
@@ -264,7 +251,8 @@ permalink: /mtfcca/
             margin-bottom: 1rem;
         }
 
-        .content-section ul {
+        .content-section ul,
+        .content-section ol {
             color: var(--text-secondary);
             font-size: 1.2rem;
             line-height: 1.8;
@@ -276,6 +264,31 @@ permalink: /mtfcca/
             margin-bottom: 0.5rem;
         }
 
+        .content-section a {
+            color: var(--accent-label);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* ── SECTION IMAGE (floated right, e.g. turkey trot logo) ── */
+        .section-image {
+            float: right;
+            width: 300px;
+            margin: 0 0 20px 20px;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+        }
+
+        .section-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: var(--surface);
+        }
+
+        /* ── LEADERSHIP GRID ── */
         .leadership-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -284,7 +297,7 @@ permalink: /mtfcca/
         }
 
         .leader-card {
-            background: var(--surface-subtle);
+            background: var(--surface);
             border-radius: 16px;
             padding: 2rem;
             text-align: center;
@@ -337,12 +350,13 @@ permalink: /mtfcca/
             font-weight: 600;
         }
 
+        /* ── CONTACT BOX ── */
         .contact-wrapper {
             text-align: center;
         }
 
         .contact-box {
-            background: var(--surface-subtle);
+            background: var(--surface);
             border-radius: 12px;
             padding: 1rem 1.5rem;
             text-align: center;
@@ -354,18 +368,7 @@ permalink: /mtfcca/
             text-decoration: none;
         }
 
-        .contact-box p {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
         @media (hover: hover) {
-            .contact-box:hover p {
-                color: var(--black);
-            }
-
             .contact-box:hover {
                 background: var(--accent-color);
                 transform: translateY(-2px);
@@ -373,12 +376,24 @@ permalink: /mtfcca/
             }
         }
 
+        .contact-box p {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        @media (hover: hover) {
+            .contact-box:hover p {
+                color: var(--black);
+            }
+        }
+
         .contact-box span {
             color: var(--accent-label);
-            text-decoration: none;
             font-size: 1.1rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         @media (hover: hover) {
@@ -387,39 +402,7 @@ permalink: /mtfcca/
             }
         }
 
-        .help-content {
-            display: block;
-            width: 100%;
-        }
-
-        .help-text {
-            min-width: 0;
-        }
-
-        .help-image {
-            float: right;
-            width: 300px;
-            margin: 0 0 20px 20px;
-            aspect-ratio: 1;
-            border-radius: 16px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
-        }
-
-        .help-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: var(--surface);
-        }
-
-        .image-placeholder {
-            font-size: 4rem;
-            color: rgba(255, 255, 255, 0.3);
-            text-align: center;
-            line-height: 1.3;
-        }
-
+        /* ── FOOTER ── */
         footer {
             background: var(--footer-bg);
             backdrop-filter: blur(10px);
@@ -442,18 +425,7 @@ permalink: /mtfcca/
             }
         }
 
-        .content-section:nth-child(1) {
-            animation-delay: 0.1s;
-        }
-
-        .content-section:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .content-section:nth-child(3) {
-            animation-delay: 0.3s;
-        }
-
+        /* ── MOBILE ── */
         @media (max-width: 900px) {
             .nav-content {
                 padding: 0 1rem;
@@ -522,12 +494,13 @@ permalink: /mtfcca/
                 padding: 2rem 1rem;
             }
 
-            .page-header h1 {
+            .page-hero h1 {
                 font-size: 2rem;
             }
 
             .content-section {
                 padding: 1.5rem;
+                margin-bottom: 1.5rem;
             }
 
             .content-section h2 {
@@ -547,20 +520,11 @@ permalink: /mtfcca/
                 grid-template-columns: 1fr;
             }
 
-            .help-content {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .help-image {
-                order: 2;
-                position: relative;
-                top: 0;
+            .section-image {
+                float: none;
+                width: 100%;
+                margin: 0 0 1.5rem 0;
                 aspect-ratio: 16/9;
-            }
-
-            .help-text {
-                order: 1;
             }
 
             .menu-backdrop {
@@ -598,9 +562,7 @@ permalink: /mtfcca/
                 <span class="logo-text">TONKA TRACK</span>
             </a>
             <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
             <ul class="nav-links" id="navMenu">
                 <li><a href="../" onclick="closeMenu()">Home</a></li>
@@ -615,196 +577,239 @@ permalink: /mtfcca/
 
     <div class="page-hero">
         <h1>MTFCCA</h1>
-        <p>Minnetonka Track & Field and Cross Country Association</p>
+        <p>Minnetonka Track &amp; Field and Cross Country Association</p>
     </div>
 
-    <div class="main-content">
-
-        <div class="content-section">
-            <h2>What We Do As An Association</h2>
-            <p>The Minnetonka Track & Field and Cross Country Association (MTFCCA) was originally formed in 2004 in
-                order to raise money to build a new track for the high school. After an incredible effort, over $160,000
-                was raised and the track was completed with our trademark Minnetonka blue running surface. Our facility
-                has been compared to that of many elite colleges.</p>
-
-            <p>Currently, the association supports both the cross country and the track & field programs of the high
-                school but has broadened its charter to include the entire Minnetonka school district and local
-                community.</p>
-
-            <p>Anyone interested in learning more about the Association or joining please contact one of the Board
-                members.</p>
-        </div>
-
-        <div class="content-section">
-            <h2>MTFCCA Leadership</h2>
-            <div class="leadership-grid">
-                <div class="leader-card">
-                    <div class="leader-image">
-                        <img src="../images/erin-marasco.jpeg" alt="Erin Marasco"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'leader-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="leader-name">Erin Marasco</div>
-                    <div class="leader-title">President</div>
-                </div>
-                <div class="leader-card">
-                    <div class="leader-image">
-                        <img src="../images/leah-malec.jpg" alt="Leah Malec"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'leader-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="leader-name">Leah Malec</div>
-                    <div class="leader-title">Vice President</div>
-                </div>
-                <div class="leader-card">
-                    <div class="leader-image">
-                        <img src="../images/charlie-roehl.jpg" alt="Charlie Roehl"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'leader-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="leader-name">Charlie Roehl</div>
-                    <div class="leader-title">Treasurer</div>
-                </div>
-                <div class="leader-card">
-                    <div class="leader-image">
-                        <img src="../images/katy-gilles.jpeg" alt="Katy Gilles"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'leader-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="leader-name">Katy Gilles</div>
-                    <div class="leader-title">Secretary</div>
-                </div>
-            </div>
-
-            <div class="contact-wrapper">
-                <a href="mailto:mtfcca.board@gmail.com" class="contact-box">
-                    <p>Contact us at:</p>
-                    <span>mtfcca.board@gmail.com</span>
-                </a>
-            </div>
-        </div>
-
-        <div class="content-section">
-            <h2>Mission Statement</h2>
-            <p>The purpose of the Minnetonka Track & Field and Cross Country Association (MTFCCA) is to partner with the
-                Minnetonka School District and Minnetonka Community Education to promote all running sports and
-                activities throughout the district and greater Minnetonka community. We accomplish our mission by
-                promoting our Boys and Girls Track and Field and Cross Country programs in a variety of ways, and we
-                raise funds for these programs throughout the year. The annual Thanksgiving Day Tonka Turkey Trot 5K is
-                our marquee fundraising event. We believe that the proven lifelong benefits of running sports and
-                activities form a vital aspect of physical and mental health and wellness for community members of all
-                ages and abilities.</p>
-        </div>
-
-        <div class="content-section">
-            <h2>How You Can Help</h2>
-            <div class="help-content">
-                <div class="help-image">
-                    <img src="../images/turkey-trot-logo.webp" alt="Tonka Turkey Trot 5K"
-                        onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'image-placeholder\'>🦃<br>Turkey Trot 5K</div>'">
-                </div>
-                <div class="help-text">
-                    <p>There is a need for volunteers to continue the success of the MTFCCA. the same core group of
-                        parents have shouldered
-                        the load for many years. A special word of thanks to those parents. Many of these parents no
-                        longer have students
-                        in the program. If we could get a couple parents to volunteer from each grade level, it would
-                        contribute to continuity
-                        and transition from year to year.</p>
-
-                    <h3>Annual Turkey Trot 5K</h3>
-                    <p>Our signature Thanksgiving Day Tonka Turkey Trot 5K is our largest fundraiser of the year! This
-                        beloved
-                        community tradition brings together runners of all ages and abilities for a festive morning of
-                        fitness
-                        and fun. Registration fees directly support our track and field and cross country programs,
-                        helping fund
-                        equipment, coaching staff, facility improvements, and athlete development initiatives.</p>
-
-                    <p>To keep it going on for many years we need your support! A particular need is in the area of
-                        graphic arts, but any and
-                        all skills are welcome. If you can help a little or a lot, please consider helping this year and
-                        for a few years in the future.</p>
-                    <p>For more info about the turkey trot and to sign up go to <a
-                            href="https://www.minnetonkaschools.org/turkey-trot"
-                            style="color: var(--accent-label); text-decoration: none; font-weight: 600;">
-                            our Turkey Trot page</a> or contact us to sponsor at <a
-                            href="mailto:tonkaturkeytrot@gmail.com"
-                            style="color: var(--accent-label); text-decoration: none; font-weight: 600;">tonkaturkeytrot@gmail.com</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-section">
-            <h2>What We Do and Have Accomplished</h2>
-
-            <h3>Past Projects</h3>
-            <ul>
-                <li>MTFCCA was originally formed to raise money for our signature "Blue" track at the high school</li>
-                <li>Make annual contributions to the cost of equipment and other expenses, including:
-                    <ul>
-                        <li>New finish line display clock 2018</li>
-                        <li>Pay for additional Track & Field and Cross Country coaches as needed</li>
-                        <li>Paid $20,000 for a new pole vault pit</li>
-                        <li>Hurdle replacement program</li>
-                    </ul>
-                </li>
-                <li>Assist with some team fundraising activities</li>
-                <li>Pay for the rental of facility for annual banquet</li>
-                <li>Funded new Track & Field and Cross Country Website</li>
-                <li>Founded and organize the annual Thanksgiving Day "Tonka Turkey Trot 5K"</li>
-            </ul>
-
-            <h3>Current Projects</h3>
-            <ul>
-                <li>Donation to "girls run global" - This is a non-profit organization founded by former Minnetonka
-                    Cross country and track and field runner</li>
-                <li>Support the ongoing administrative needs of Track & Field and Cross Country teams and coaches
-                    throughout the district</li>
-            </ul>
-
-            <h3>Future Projects</h3>
-            <ul>
-                <li>Track resurfacing</li>
-                <li>Upgrading Middle School equipment</li>
-                <li>Field event audio systems</li>
-            </ul>
-        </div>
+    <div class="main-content" id="mtfcca-container">
+        <div class="content-loading">Loading…</div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Tonka Track & Field. Building champions, one stride at a time.</p>
+        <p>&copy; 2026 Tonka Track &amp; Field. Building champions, one stride at a time.</p>
     </footer>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
+        // ── CMS CONFIG ───────────────────────────────────────────────────────────
+        const CMS_SPREADSHEET_ID = '1HiXgfyNGJQGdjiMWETThhsuBEpz_rwgr3bZxjLtLDlg'; // ← replace this
 
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            backdrop.classList.toggle('active');
+        // ── SHEETS HELPER ────────────────────────────────────────────────────────
+        async function fetchSheetRows(spreadsheetId, sheetName) {
+            const url =
+                'https://docs.google.com/spreadsheets/d/' +
+                spreadsheetId +
+                '/gviz/tq?tqx=out:json&sheet=' +
+                encodeURIComponent(sheetName);
+
+            const res = await fetch(url);
+            const text = await res.text();
+
+            const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+            if (!match) throw new Error('Unexpected Sheets response for: ' + sheetName);
+
+            const json = JSON.parse(match[1]);
+            const table = json.table;
+
+            if (!table || !table.rows || table.rows.length === 0) return [];
+
+            const headers = table.cols.map(function (col) {
+                return (col.label || '').trim().toLowerCase().replace(/\s+/g, '_');
+            });
+
+            return table.rows
+                .map(function (row) {
+                    var obj = {};
+                    headers.forEach(function (h, i) {
+                        var cell = row.c ? row.c[i] : null;
+                        obj[h] = (cell && cell.v !== null && cell.v !== undefined)
+                            ? cell.v.toString() : '';
+                    });
+                    return obj;
+                })
+                .filter(function (row) {
+                    var a = (row['active'] || '').trim().toUpperCase();
+                    return a !== 'FALSE' && a !== '0' && a !== 'NO';
+                })
+                .sort(function (a, b) {
+                    return (parseInt(a['order'], 10) || 0) - (parseInt(b['order'], 10) || 0);
+                });
+        }
+
+        // ── BUILD LEADERS SECTION ────────────────────────────────────────────────
+        // Uses DOM methods throughout — no string escaping issues possible.
+        function buildLeadersSection(heading, leaders) {
+            const section = document.createElement('div');
+            section.className = 'content-section';
+
+            // Heading
+            const h2 = document.createElement('h2');
+            h2.textContent = heading;
+            section.appendChild(h2);
+
+            // Leader cards grid
+            const grid = document.createElement('div');
+            grid.className = 'leadership-grid';
+
+            leaders.forEach(function (leader) {
+                const card = document.createElement('div');
+                card.className = 'leader-card';
+
+                // Photo wrapper
+                const imageWrap = document.createElement('div');
+                imageWrap.className = 'leader-image';
+
+                if (leader.image_url && leader.image_url.trim()) {
+                    const img = document.createElement('img');
+                    img.src = leader.image_url;
+                    img.alt = leader.name;
+                    // On load failure swap in a placeholder emoji — no innerHTML tricks needed
+                    img.onerror = function () {
+                        img.remove();
+                        const ph = document.createElement('div');
+                        ph.className = 'leader-image-placeholder';
+                        ph.textContent = '👤';
+                        imageWrap.appendChild(ph);
+                    };
+                    imageWrap.appendChild(img);
+                } else {
+                    const ph = document.createElement('div');
+                    ph.className = 'leader-image-placeholder';
+                    ph.textContent = '👤';
+                    imageWrap.appendChild(ph);
+                }
+
+                // Name
+                const name = document.createElement('div');
+                name.className = 'leader-name';
+                name.textContent = leader.name;
+
+                // Title
+                const title = document.createElement('div');
+                title.className = 'leader-title';
+                title.textContent = leader.title;
+
+                card.appendChild(imageWrap);
+                card.appendChild(name);
+                card.appendChild(title);
+                grid.appendChild(card);
+            });
+
+            section.appendChild(grid);
+
+            // Contact box
+            const contactWrapper = document.createElement('div');
+            contactWrapper.className = 'contact-wrapper';
+
+            const contactLink = document.createElement('a');
+            contactLink.href = 'mailto:mtfcca.board@gmail.com';
+            contactLink.className = 'contact-box';
+
+            const contactLabel = document.createElement('p');
+            contactLabel.textContent = 'Contact us at:';
+
+            const contactEmail = document.createElement('span');
+            contactEmail.textContent = 'mtfcca.board@gmail.com';
+
+            contactLink.appendChild(contactLabel);
+            contactLink.appendChild(contactEmail);
+            contactWrapper.appendChild(contactLink);
+            section.appendChild(contactWrapper);
+
+            return section;
+        }
+
+        // ── BUILD TEXT SECTION ───────────────────────────────────────────────────
+        function buildTextSection(row) {
+            const section = document.createElement('div');
+            section.className = 'content-section';
+
+            // Heading
+            const h2 = document.createElement('h2');
+            h2.textContent = row.heading;
+            section.appendChild(h2);
+
+            // Optional floated image (e.g. turkey trot logo)
+            if (row.image_url && row.image_url.trim()) {
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'section-image';
+
+                const img = document.createElement('img');
+                img.src = row.image_url;
+                img.alt = row.heading;
+                img.loading = 'lazy';
+
+                imgWrap.appendChild(img);
+                // Must be appended before body so text wraps around it
+                section.appendChild(imgWrap);
+            }
+
+            // Body — stored as HTML in the sheet
+            const body = document.createElement('div');
+            body.innerHTML = row.body;
+            section.appendChild(body);
+
+            return section;
+        }
+
+        // ── LOAD PAGE ────────────────────────────────────────────────────────────
+        async function loadMtfcca() {
+            const container = document.getElementById('mtfcca-container');
+
+            try {
+                // Fetch both sheets in parallel — no waterfall delay
+                const [sections, leaders] = await Promise.all([
+                    fetchSheetRows(CMS_SPREADSHEET_ID, 'mtfcca_sections'),
+                    fetchSheetRows(CMS_SPREADSHEET_ID, 'mtfcca_leaders')
+                ]);
+
+                if (!sections.length) {
+                    container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:3rem 0;">No content yet.</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+
+                sections.forEach(function (row) {
+                    var el;
+
+                    if (row.section_id === 'leaders') {
+                        // Render the leadership grid at this position in the order
+                        el = buildLeadersSection(row.heading || 'MTFCCA Leadership', leaders);
+                    } else {
+                        // Render a standard text section
+                        el = buildTextSection(row);
+                    }
+
+                    container.appendChild(el);
+                });
+
+            } catch (err) {
+                console.error('Failed to load MTFCCA content:', err);
+                container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:3rem 0;">Unable to load content. Please try again later.</p>';
+            }
+        }
+
+        // ── NAV ──────────────────────────────────────────────────────────────────
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.getElementById('menuBackdrop').classList.toggle('active');
         }
 
         function closeMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
-
-            menu.classList.remove('active');
-            hamburger.classList.remove('active');
-            backdrop.classList.remove('active');
+            document.getElementById('navMenu').classList.remove('active');
+            document.querySelector('.hamburger').classList.remove('active');
+            document.getElementById('menuBackdrop').classList.remove('active');
         }
-        document.addEventListener('click', function (event) {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
 
-            // Check if menu is open and click is outside the nav-content
-            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                backdrop.classList.remove('active');
+        document.addEventListener('click', function (e) {
+            const menu = document.getElementById('navMenu');
+            if (menu.classList.contains('active') && !e.target.closest('.nav-content')) {
+                closeMenu();
             }
-        }); 
+        });
+
+        // ── INIT ─────────────────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', loadMtfcca);
     </script>
 </body>
 
