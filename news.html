@@ -12,7 +12,7 @@ permalink: /news/
         content="Latest news, updates, and announcements from Minnetonka Track & Field and Cross Country teams.">
     <meta name="keywords" content="Minnetonka Track News, Tonka Cross Country Updates, High School Sports News">
 
-    <title>Latest News</title>
+    <title>Latest News - Tonka Track & Field</title>
 
     <meta property="og:title" content="News - Tonka Track & Field">
     <meta property="og:description" content="Latest updates from Minnetonka Track & Field and Cross Country">
@@ -25,9 +25,7 @@ permalink: /news/
     <link rel="manifest" href="../favicons/site.webmanifest" />
 
     <style>
-        /* Minnetonka Color Palette */
         :root {
-            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
             --lake: #5395FF;
@@ -35,8 +33,6 @@ permalink: /news/
             --grape: #6C0787;
             --sunbeam: #F1B133;
             --mint: #078F96;
-
-            /* Light mode semantic tokens (default) */
             --white: #ffffff;
             --black: #000000;
             --accent-color: var(--mint);
@@ -50,22 +46,15 @@ permalink: /news/
             --heading-primary: var(--minnetonka-blue);
             --accent-label: var(--minnetonka-blue);
             --highlight: var(--sky);
-
-            /* Nav */
             --nav-bg: #ffffff;
             --nav-link-color: #4a5568;
             --gradient-accent-color: var(--midnight);
-
-            /* Cards */
             --card-bg: #ffffff;
             --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
             --section-bg: var(--white);
-
-            /* Footer */
             --footer-bg: rgba(26, 32, 44, 0.95);
-
-            /* Nav shadow */
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --inline-photo-caption: var(--text-muted);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -81,22 +70,15 @@ permalink: /news/
                 --heading-primary: #ffffff;
                 --accent-label: var(--sunbeam);
                 --highlight: var(--sunbeam);
-
-                /* Nav */
                 --nav-bg: rgba(10, 12, 20, 0.92);
                 --nav-link-color: #9aa5c0;
                 --gradient-accent-color: var(--white);
-
-                /* Cards */
                 --card-bg: #1a1f2e;
                 --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
                 --section-bg: #1a1f2e;
-
-                /* Footer */
                 --footer-bg: rgba(8, 10, 18, 0.97);
-
-                /* Nav shadow */
                 --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
+                --inline-photo-caption: var(--text-muted);
             }
         }
 
@@ -175,6 +157,10 @@ permalink: /news/
             position: relative;
         }
 
+        .nav-links a:hover {
+            color: var(--accent-label);
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -186,14 +172,8 @@ permalink: /news/
             transition: width 0.3s ease;
         }
 
-        @media (hover: hover) {
-            .nav-links a:hover::after {
-                width: 100%;
-            }
-
-            .nav-links a:hover {
-                color: var(--accent-label);
-            }
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .hamburger {
@@ -214,7 +194,7 @@ permalink: /news/
         /* ── HERO ── */
         .page-hero {
             background: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
-            padding: 3.5rem 2rem 3.5rem;
+            padding: 3.5rem 2rem;
             text-align: center;
         }
 
@@ -237,6 +217,14 @@ permalink: /news/
             margin: 0 auto;
             padding: 3rem 2rem 4rem;
             width: 100%;
+        }
+
+        /* ── LOADING / EMPTY STATES ── */
+        .news-loading {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 4rem 0;
+            font-size: 1rem;
         }
 
         /* ── ARTICLES ── */
@@ -266,16 +254,16 @@ permalink: /news/
             line-height: 1.8;
             margin-bottom: 1.5rem;
             overflow: auto;
+            /* clearfix for floated inline photo */
         }
 
-        .article-content::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-
+        /* Paragraphs inside body HTML from the sheet */
         .article-content p {
             margin-bottom: 1rem;
+        }
+
+        .article-content p:last-child {
+            margin-bottom: 0;
         }
 
         .article-date {
@@ -287,7 +275,7 @@ permalink: /news/
             border-top: 1px solid var(--border);
         }
 
-        /* ── INLINE PHOTO ── */
+        /* ── INLINE PHOTO (floated beside article text) ── */
         .inline-photo {
             float: right;
             margin: 0 0 1rem 1.5rem;
@@ -308,48 +296,6 @@ permalink: /news/
             font-style: italic;
             margin-top: 0.5rem;
             text-align: center;
-        }
-
-        /* ── PHOTO GALLERY ── */
-        .photo-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .photo-gallery-item {
-            aspect-ratio: 1;
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        @media (hover: hover) {
-            .photo-gallery-item:hover {
-                transform: scale(1.05);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            }
-        }
-
-        .photo-gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .photo-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 3rem;
         }
 
         /* ── FOOTER ── */
@@ -456,6 +402,7 @@ permalink: /news/
                 font-size: 1.5rem;
             }
 
+            /* On mobile the inline photo goes full-width above the text */
             .inline-photo {
                 float: none;
                 margin: 0 0 1rem 0;
@@ -492,9 +439,7 @@ permalink: /news/
                 <span class="logo-text">TONKA TRACK</span>
             </a>
             <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
             <ul class="nav-links" id="navMenu">
                 <li><a href="../" onclick="closeMenu()">Home</a></li>
@@ -509,145 +454,153 @@ permalink: /news/
 
     <div class="page-hero">
         <h1>Latest News</h1>
-        <p>Stay updated with the latest from Tonka Track & Field</p>
+        <p>Stay updated with the latest from Tonka Track &amp; Field</p>
     </div>
 
-    <div class="main-content">
-        <!-- Article 1 -->
-        <article class="article">
-            <div class="article-header">
-                <h2 class="article-title">New website redesign</h2>
-            </div>
-            <div class="article-content">
-                <p>Our cross country and track & field programs have a brand new digital home, thanks to cross country
-                    team member Nolan Erpelding,
-                    who wanted to give something back to a program that has given him so much. As a runner on the
-                    Minnetonka cross
-                    country team, Nolan found himself constantly frustrated with the old website—trying to check meet
-                    times on his phone
-                    meant endless zooming and scrolling. Instead of just complaining about it, he decided to fix it
-                    himself.</p>
-
-                <p>Nolan poured his own personal time into building the new website from scratch, learning HTML, CSS,
-                    and JavaScript along the way.
-                    He took the time to fine tune every detail, from the color scheme that reflects Minnetonka's colors
-                    to the hamburger menu on mobile
-                    that helps make the site work well on any device.</p>
-                <p>We are incredibly grateful for Nolan's dedication and hard work in creating this new website. It's a
-                    testament to the spirit of
-                    our team, we hope this website serves as a valuable resource for all our athletes, parents, and
-                    fans.</p>
-
-            </div>
-            <div class="article-date">February 5, 2025</div>
-        </article>
-
-        <!-- Article 2 -->
-        <article class="article">
-            <div class="article-header">
-                <h2 class="article-title">Former Boys Assistant CC Coach, Steve Hoag, passed away</h2>
-            </div>
-            <div class="article-content">
-                <p>Sadly, our boys cross country assistant coach for the past ten years, Steve Hoag passed away at home
-                    on September 15, 2017 at the age of 70. He had been recovering over the past year from double lung
-                    transplant surgery, and had developed pneumonia in late June of this year. His enthusiasm for
-                    working with young runners was truly amazing. He touched all those who were privileged to get to
-                    know him over the years.</p>
-
-                <div class="inline-photo">
-                    <img src="../images/steve-hoag.png" alt="Steve Hoag on a training run">
-                    <div class="photo-caption">Steve on a training run</div>
-                </div>
-
-                <p>He was a Minnesota running legend, having been Gopher All American distance runner and Big Ten 2 mile
-                    champ in his college days, and national caliber road runner in the 1970's. He placed 2nd in the 1975
-                    Boston Marathon (behind Bill Rodgers) in 2:11.39, and was ranked #4 in the world that year.</p>
-
-                <p>He owned and operated Marathon Sports running store in south Minneapolis for twenty plus years,
-                    before retiring to help coach at Richfield then Minnetonka. Tonka was so fortunate to have him
-                    coaching here over the years, and he will be greatly missed. He will be honored at the Griak
-                    Invitation at the University of Minnesota in a moment of silence just before the Division 1 college
-                    and High School Gold races.</p>
-            </div>
-            <div class="article-date">September 15, 2017</div>
-        </article>
-
-        <!-- Article 3 -->
-        <article class="article">
-            <div class="article-header">
-                <h2 class="article-title">Former Head Track Coach, Joe Lane, Passed Away</h2>
-            </div>
-            <div class="article-content">
-                <p>We are so sad to write that Joe Lane passed away on Wednesday, June 28, 2017. Joe coached boys' track
-                    and field at
-                    Minnetonka from 1971-2000. He was an assistant with Bob Rogness from 1971-72, and became the boys'
-                    head coach in 1973.
-                    His teams were legendary, finishing in the top 10 at State numerous times, and winning the State
-                    title in 1976.</p>
-                <p>"Joe coached and taught at Minnetonka both in the middle schools and at the high school levels. He
-                    touched countless
-                    lives in so many ways. He had a passion for kids and coaching that was apparent from the moment you
-                    met him! His
-                    knowledge was surpassed only by the kindness of his heart. Joe also had a stubborn streak that made
-                    you know he meant
-                    business!!!! All of these attributes combined to make Joe the wonderful person he was.</p>
-                <p>On a personal note, I was blessed to meet Joe in 1985, my first year coaching at Minnetonka. He was a
-                    wonderful friend,
-                    a great mentor, and a caring human being. We were blessed with a great staff, and my days working
-                    with Joe and Bob
-                    Rogness are some of my favorite memories. As track and field athletes, we all know that it is not
-                    only about all the
-                    meters we run, or the throws, or the jumps that we do. The relationships that we make are truly some
-                    of the greatest
-                    memories that we will take with us. As I contacted former athletes to let them know of Joe's
-                    passing, one thing was
-                    clear-the huge impact that he had made on their lives. Many people commented "He always believed in
-                    me." "He is the one
-                    who pushed me". "Joe helped me believe in myself". "He had a huge impact on my life". THIS is Joe's
-                    legacy. The world is
-                    better for having had him and we are better people for having known him. Thank you, Joe. Jane
-                    Reimer-Morgan"</p>
-            </div>
-            <div class="article-date">June 28, 2017</div>
-        </article>
+    <div class="main-content" id="news-container">
+        <div class="news-loading">Loading articles…</div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Tonka Track & Field. Building champions, one stride at a time.</p>
+        <p>&copy; 2026 Tonka Track &amp; Field. Building champions, one stride at a time.</p>
     </footer>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
+        // ── CMS CONFIG ───────────────────────────────────────────────────────────
+        // Same spreadsheet ID used across every page — just change it once here.
+        const CMS_SPREADSHEET_ID = '1HiXgfyNGJQGdjiMWETThhsuBEpz_rwgr3bZxjLtLDlg'; // ← replace this
 
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            backdrop.classList.toggle('active');
+        // ── SHEETS HELPER ────────────────────────────────────────────────────────
+        async function fetchSheetRows(spreadsheetId, sheetName) {
+            const url =
+                'https://docs.google.com/spreadsheets/d/' +
+                spreadsheetId +
+                '/gviz/tq?tqx=out:json&sheet=' +
+                encodeURIComponent(sheetName);
+
+            const res = await fetch(url);
+            const text = await res.text();
+
+            const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+            if (!match) throw new Error('Unexpected Sheets response format for: ' + sheetName);
+
+            const json = JSON.parse(match[1]);
+            const table = json.table;
+
+            if (!table || !table.rows || table.rows.length === 0) return [];
+
+            const headers = table.cols.map(function (col) {
+                return (col.label || '').trim().toLowerCase().replace(/\s+/g, '_');
+            });
+
+            return table.rows
+                .map(function (row) {
+                    var obj = {};
+                    headers.forEach(function (h, i) {
+                        var cell = row.c ? row.c[i] : null;
+                        obj[h] = (cell && cell.v !== null && cell.v !== undefined)
+                            ? cell.v.toString() : '';
+                    });
+                    return obj;
+                })
+                .filter(function (row) {
+                    var a = (row['active'] || '').trim().toUpperCase();
+                    return a !== 'FALSE' && a !== '0' && a !== 'NO';
+                })
+                .sort(function (a, b) {
+                    return (parseInt(a['order'], 10) || 0) - (parseInt(b['order'], 10) || 0);
+                });
+        }
+
+        // ── NEWS LOADER ──────────────────────────────────────────────────────────
+        async function loadNews() {
+            const container = document.getElementById('news-container');
+
+            try {
+                const rows = await fetchSheetRows(CMS_SPREADSHEET_ID, 'news_articles');
+
+                if (!rows.length) {
+                    container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:3rem 0;">No articles yet. Check back soon!</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+
+                rows.forEach(function (row) {
+                    const article = document.createElement('article');
+                    article.className = 'article';
+
+                    // Build inline photo HTML if image_url is provided
+                    var photoHtml = '';
+                    if (row.image_url && row.image_url.trim()) {
+                        photoHtml =
+                            '<div class="inline-photo">' +
+                            '<img src="' + escapeAttr(row.image_url) + '" ' +
+                            'alt="' + escapeAttr(row.image_caption || row.title) + '" ' +
+                            'loading="lazy">' +
+                            (row.image_caption
+                                ? '<div class="photo-caption">' + escapeHtml(row.image_caption) + '</div>'
+                                : '') +
+                            '</div>';
+                    }
+
+                    article.innerHTML =
+                        '<div class="article-header">' +
+                        '<h2 class="article-title">' + escapeHtml(row.title) + '</h2>' +
+                        '</div>' +
+                        '<div class="article-content">' +
+                        // Inline photo floats right — must come BEFORE the body text
+                        // so the text wraps around it correctly
+                        photoHtml +
+                        // body is stored as HTML in the sheet
+                        row.body +
+                        '</div>' +
+                        '<div class="article-date">' + escapeHtml(row.date) + '</div>';
+
+                    container.appendChild(article);
+                });
+
+            } catch (err) {
+                console.error('Failed to load news:', err);
+                container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:3rem 0;">Unable to load articles. Please try again later.</p>';
+            }
+        }
+
+        // ── ESCAPE HELPERS ───────────────────────────────────────────────────────
+        function escapeHtml(str) {
+            return (str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function escapeAttr(str) {
+            return (str || '').replace(/"/g, '&quot;');
+        }
+
+        // ── NAV ──────────────────────────────────────────────────────────────────
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.getElementById('menuBackdrop').classList.toggle('active');
         }
 
         function closeMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
-
-            menu.classList.remove('active');
-            hamburger.classList.remove('active');
-            backdrop.classList.remove('active');
+            document.getElementById('navMenu').classList.remove('active');
+            document.querySelector('.hamburger').classList.remove('active');
+            document.getElementById('menuBackdrop').classList.remove('active');
         }
 
-        document.addEventListener('click', function (event) {
+        document.addEventListener('click', function (e) {
             const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
-
-            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                backdrop.classList.remove('active');
+            if (menu.classList.contains('active') && !e.target.closest('.nav-content')) {
+                closeMenu();
             }
         });
+
+        // ── INIT ─────────────────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', loadNews);
     </script>
 </body>
 
