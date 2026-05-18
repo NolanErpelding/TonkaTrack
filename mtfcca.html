@@ -733,7 +733,7 @@ permalink: /mtfcca/
                 imgWrap.className = 'section-image';
 
                 const img = document.createElement('img');
-                img.src = row.image_url;
+                img.src = resolveImageUrl(row.image_url);
                 img.alt = row.heading;
                 img.loading = 'lazy';
 
