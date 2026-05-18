@@ -659,7 +659,7 @@ permalink: /mtfcca/
 
                 if (leader.image_url && leader.image_url.trim()) {
                     const img = document.createElement('img');
-                    img.src = leader.image_url;
+                    img.src = resolveImageUrl(leader.image_url);
                     img.alt = leader.name;
                     // On load failure swap in a placeholder emoji — no innerHTML tricks needed
                     img.onerror = function () {
@@ -786,6 +786,12 @@ permalink: /mtfcca/
                 console.error('Failed to load MTFCCA content:', err);
                 container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:3rem 0;">Unable to load content. Please try again later.</p>';
             }
+        }
+
+        const IMAGE_BASE = '../';
+        function resolveImageUrl(path) {
+            if (!path || path.startsWith('http')) return path;
+            return IMAGE_BASE + path;
         }
 
         // ── NAV ──────────────────────────────────────────────────────────────────
