@@ -535,7 +535,7 @@ permalink: /news/
                     if (row.image_url && row.image_url.trim()) {
                         photoHtml =
                             '<div class="inline-photo">' +
-                            '<img src="' + escapeAttr(row.image_url) + '" ' +
+                            '<img src="' + escapeAttr(resolveImageUrl(row.image_url)) + '" ' +
                             'alt="' + escapeAttr(row.image_caption || row.title) + '" ' +
                             'loading="lazy">' +
                             (row.image_caption
@@ -577,6 +577,12 @@ permalink: /news/
 
         function escapeAttr(str) {
             return (str || '').replace(/"/g, '&quot;');
+        }
+
+        const IMAGE_BASE = '../';
+        function resolveImageUrl(path) {
+            if (!path || path.startsWith('http')) return path;
+            return IMAGE_BASE + path;
         }
 
         // ── NAV ──────────────────────────────────────────────────────────────────
