@@ -25,9 +25,7 @@ permalink: /contact/
     <link rel="manifest" href="../favicons/site.webmanifest" />
 
     <style>
-        /* Minnetonka Color Palette */
         :root {
-            /* Brand colors — never change */
             --minnetonka-blue: #003698;
             --midnight: #002870;
             --lake: #5395FF;
@@ -35,8 +33,6 @@ permalink: /contact/
             --grape: #6C0787;
             --sunbeam: #F1B133;
             --mint: #078F96;
-
-            /* Light mode semantic tokens (default) */
             --white: #ffffff;
             --black: #000000;
             --accent-color: var(--mint);
@@ -50,22 +46,15 @@ permalink: /contact/
             --heading-primary: var(--minnetonka-blue);
             --accent-label: var(--minnetonka-blue);
             --highlight: var(--sky);
-
-            /* Nav */
             --nav-bg: #ffffff;
             --nav-link-color: #4a5568;
             --gradient-accent-color: var(--midnight);
-
-            /* Cards */
             --card-bg: #ffffff;
             --card-shadow: 0 -4px 24px rgba(0, 0, 0, 0.08), 0 25px 60px rgba(0, 0, 0, 0.12);
             --section-bg: var(--white);
-
-            /* Footer */
             --footer-bg: rgba(26, 32, 44, 0.95);
-
-            /* Nav shadow */
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --placeholder-gradient: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -81,22 +70,15 @@ permalink: /contact/
                 --heading-primary: #ffffff;
                 --accent-label: var(--sunbeam);
                 --highlight: var(--sunbeam);
-
-                /* Nav */
                 --nav-bg: rgba(10, 12, 20, 0.92);
                 --nav-link-color: #9aa5c0;
                 --gradient-accent-color: var(--white);
-
-                /* Cards */
                 --card-bg: #1a1f2e;
                 --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
                 --section-bg: #1a1f2e;
-
-                /* Footer */
                 --footer-bg: rgba(8, 10, 18, 0.97);
-
-                /* Nav shadow */
                 --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
+                --placeholder-gradient: linear-gradient(135deg, #1e2640 0%, #0d1020 100%);
             }
         }
 
@@ -174,12 +156,6 @@ permalink: /contact/
             position: relative;
         }
 
-        @media (hover: hover) {
-            .nav-links a:hover {
-                color: var(--accent-label);
-            }
-        }
-
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -194,6 +170,10 @@ permalink: /contact/
         @media (hover: hover) {
             .nav-links a:hover::after {
                 width: 100%;
+            }
+
+            .nav-links a:hover {
+                color: var(--accent-label);
             }
         }
 
@@ -295,6 +275,14 @@ permalink: /contact/
             text-align: center;
         }
 
+        /* ── LOADING STATE ── */
+        .coaches-loading {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 3rem 0;
+            font-size: 1rem;
+        }
+
         /* ── COACHES GRID ── */
         .coaches-grid {
             display: grid;
@@ -324,7 +312,7 @@ permalink: /contact/
             height: 120px;
             border-radius: 50%;
             margin: 0 auto 1rem;
-            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            background: var(--placeholder-gradient);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -376,16 +364,16 @@ permalink: /contact/
         }
 
         @media (hover: hover) {
-            .email-button.disabled:hover {
-                transform: none;
-                box-shadow: none;
-                filter: none;
-            }
-
             .email-button:hover {
                 filter: brightness(1.1);
                 transform: translateY(-2px);
                 box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
+            }
+
+            .email-button.disabled:hover {
+                transform: none;
+                box-shadow: none;
+                filter: none;
             }
         }
 
@@ -583,9 +571,7 @@ permalink: /contact/
                 <span class="logo-text">TONKA TRACK</span>
             </a>
             <div class="hamburger" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
             <ul class="nav-links" id="navMenu">
                 <li><a href="../" onclick="closeMenu()">Home</a></li>
@@ -606,345 +592,296 @@ permalink: /contact/
     <div class="main-content">
 
         <!-- Tab Buttons -->
-        <div class="tab-buttons">
-            <button class="tab-button active" onclick="showTab('girls-xc', event)">Girls Cross Country</button>
-            <button class="tab-button" onclick="showTab('boys-xc', event)">Boys Cross Country</button>
-            <button class="tab-button" onclick="showTab('girls-track', event)">Girls Track & Field</button>
-            <button class="tab-button" onclick="showTab('boys-track', event)">Boys Track & Field</button>
+        <div class="tab-buttons" id="tab-buttons">
+            <!-- Built dynamically once team list is known -->
         </div>
 
-        <!-- Girls Cross Country Tab -->
-        <div id="girls-xc-tab" class="tab-content active">
-            <h2>Girls Cross Country</h2>
-            <div class="coaches-grid">
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/rebecca-wessley.jpg" alt="Rebecca Wesley"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Rebecca Wesley</div>
-                    <div class="coach-title">Head Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-image-placeholder">👤</div>
-                    </div>
-                    <div class="coach-name">Bethany Brausen</div>
-                    <div class="coach-title">Assistant Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/cassie-klein.jpg" alt="Cassie Klein"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Cassie Klein</div>
-                    <div class="coach-title">Assistant Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/heidi-leighton.jpg" alt="Heidi Leighton"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Heidi Leighton</div>
-                    <div class="coach-title">Assistant Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/amanda-montplaisir.jpg" alt="Amanda Montplaisir"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Amanda Montplaisir</div>
-                    <div class="coach-title">Assistant Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/stacie-olson.jpg" alt="Stacie Olson"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Stacie Olson</div>
-                    <div class="coach-title">MME Girls Head Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/beth-keskey.jpg" alt="Beth Keskey"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Beth Keskey</div>
-                    <div class="coach-title">MMW Girls Head Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Boys Cross Country Tab -->
-        <div id="boys-xc-tab" class="tab-content">
-            <h2>Boys Cross Country</h2>
-            <div class="coaches-grid">
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jeff-renlund.png" alt="Jeff Renlund"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Jeff Renlund</div>
-                    <div class="coach-title">Head Coach</div>
-                    <a href="mailto:Jeffrey.Renlund@minnetonkaschools.org" class="email-button">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jacob-peterson.jpg" alt="Jacob Peterson"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Jacob Peterson (JP)</div>
-                    <div class="coach-title">Assistant Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/titus-winders.jpg" alt="Titus Winders"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Titus Winders</div>
-                    <div class="coach-title">Assistant Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Girls Track & Field Tab -->
-        <div id="girls-track-tab" class="tab-content">
-            <h2>Girls Track & Field</h2>
-            <div class="coaches-grid">
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Jane Reimer-Morgan</div>
-                    <div class="coach-title">Head Coach</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/tonya-andruskiewicz.jpg" alt="Tonya Andruskiewicz"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Tonya Andruskiewicz</div>
-                    <div class="coach-title">Horizontal Jumps</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/sarah-becher.jpg" alt="Sarah Becher"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Sarah Becher</div>
-                    <div class="coach-title">Throws</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jenna-buss.jpg" alt="Jenna Buss"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Jenna Buss</div>
-                    <div class="coach-title">High Jump</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/kristine-jensen-gehrmann.jpg" alt="Kristine Jensen Gehrmann"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Kristine Jensen Gehrmann</div>
-                    <div class="coach-title">Distance</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/krista-larson.jpg" alt="Krista Larson"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Krista Larson</div>
-                    <div class="coach-title">Hurdles</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-image-placeholder">👤</div>
-                    </div>
-                    <div class="coach-name">Eric LeBlanc</div>
-                    <div class="coach-title">Pole Vault</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/leeann-leblanc.jpg" alt="LeeAnn LeBlanc"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">LeeAnn LeBlanc</div>
-                    <div class="coach-title">Distance</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-image-placeholder">👤</div>
-                    </div>
-                    <div class="coach-name">Megan Rank</div>
-                    <div class="coach-title">Sprints</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Boys Track & Field Tab -->
-        <div id="boys-track-tab" class="tab-content">
-            <h2>Boys Track & Field</h2>
-            <div class="coaches-grid">
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/james-finch.png" alt="James Finch"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">James Finch</div>
-                    <div class="coach-title">Head Coach</div>
-                    <a href="mailto:james.finch@minnetonkaschools.org" class="email-button">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/john-steffen.jpg" alt="John Steffen"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">John Steffen</div>
-                    <div class="coach-title">Jumps / Hurdles</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/dan-murphy.jpeg" alt="Dan Murphy"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Dan Murphy</div>
-                    <div class="coach-title">Sprints / Relays</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jeff-renlund.png" alt="Jeff Renlund"
-                            onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'coach-image-placeholder\'>👤</div>'">
-                    </div>
-                    <div class="coach-name">Jeff Renlund</div>
-                    <div class="coach-title">Distance</div>
-                    <a href="mailto:Jeffrey.Renlund@minnetonkaschools.org" class="email-button">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-image-placeholder">👤</div>
-                    </div>
-                    <div class="coach-name">Ken Jugasek</div>
-                    <div class="coach-title">Horizontal Jumps</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-image-placeholder">👤</div>
-                    </div>
-                    <div class="coach-name">Eli Knutson</div>
-                    <div class="coach-title">Pole Vault</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-image-placeholder">👤</div>
-                    </div>
-                    <div class="coach-name">Jacob Peterson</div>
-                    <div class="coach-title">Asst. Distance</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-image-placeholder">👤</div>
-                    </div>
-                    <div class="coach-name">Dave Shoemaker</div>
-                    <div class="coach-title">Throws</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <div class="coach-image-placeholder">👤</div>
-                    </div>
-                    <div class="coach-name">Titus Winders</div>
-                    <div class="coach-title">Asst. Distance</div>
-                    <a href="#" class="email-button disabled">Send Email</a>
-                </div>
-            </div>
-        </div>
+        <!-- Tab panels injected here by JS -->
+        <div id="tab-panels"></div>
 
         <!-- MTFCCA Contact Section -->
         <div class="mtfcca-section">
             <h2>MTFCCA</h2>
-            <p>Contact the Minnetonka Track & Field and Cross Country Association</p>
+            <p>Contact the Minnetonka Track &amp; Field and Cross Country Association</p>
             <a href="mailto:mtfcca.board@gmail.com" class="email-button">Email MTFCCA Board</a>
         </div>
+
     </div>
 
     <footer>
-        <p>&copy; 2026 Tonka Track & Field. Building champions, one stride at a time.</p>
+        <p>&copy; 2026 Tonka Track &amp; Field. Building champions, one stride at a time.</p>
     </footer>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
+        // ── CMS CONFIG ───────────────────────────────────────────────────────────
+        // Same spreadsheet ID used across every page.
+        const CMS_SPREADSHEET_ID = '1HiXgfyNGJQGdjiMWETThhsuBEpz_rwgr3bZxjLtLDlg';
 
-            menu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            backdrop.classList.toggle('active');
+        // Sheet columns expected:
+        //   order | active | team | name | title | image_url | email
+        //
+        // "team" values must exactly match the TAB_ORDER entries below.
+        // Rows with active = FALSE / 0 / NO are skipped.
+        // Rows are sorted by the numeric "order" column within each team.
+
+        const TAB_ORDER = [
+            { key: 'girls-xc', label: 'Girls Cross Country' },
+            { key: 'boys-xc', label: 'Boys Cross Country' },
+            { key: 'girls-track', label: 'Girls Track & Field' },
+            { key: 'boys-track', label: 'Boys Track & Field' }
+        ];
+
+        // ── IMAGE PATH HELPER ────────────────────────────────────────────────────
+        const IMAGE_BASE = '../';
+        function resolveImageUrl(path) {
+            if (!path || path.trim() === '') return '';
+            if (path.startsWith('http://') || path.startsWith('https://')) return path;
+            return IMAGE_BASE + path.replace(/^\//, '');
+        }
+
+        // ── SHEETS HELPER ────────────────────────────────────────────────────────
+        async function fetchSheetRows(spreadsheetId, sheetName) {
+            const url =
+                'https://docs.google.com/spreadsheets/d/' +
+                spreadsheetId +
+                '/gviz/tq?tqx=out:json&sheet=' +
+                encodeURIComponent(sheetName) +
+                '&range=A2:Z';
+
+            const res = await fetch(url);
+            const text = await res.text();
+
+            const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+            if (!match) throw new Error('Unexpected Sheets response for: ' + sheetName);
+
+            const json = JSON.parse(match[1]);
+            const table = json.table;
+
+            if (!table || !table.rows || table.rows.length === 0) return [];
+
+            const headers = table.cols.map(function (col) {
+                return (col.label || '').trim().toLowerCase().replace(/\s+/g, '_');
+            });
+
+            return table.rows
+                .map(function (row) {
+                    var obj = {};
+                    headers.forEach(function (h, i) {
+                        var cell = row.c ? row.c[i] : null;
+                        obj[h] = (cell && cell.v !== null && cell.v !== undefined)
+                            ? cell.v.toString().trim()
+                            : '';
+                    });
+                    return obj;
+                })
+                .filter(function (row) {
+                    var a = (row['active'] || '').toUpperCase();
+                    return a !== 'FALSE' && a !== '0' && a !== 'NO';
+                })
+                .sort(function (a, b) {
+                    return (parseInt(a['order'], 10) || 0) - (parseInt(b['order'], 10) || 0);
+                });
+        }
+
+        // ── BUILD ONE COACH CARD ─────────────────────────────────────────────────
+        // Uses only createElement/appendChild — no attribute-injection via strings.
+        function buildCoachCard(coach) {
+            var card = document.createElement('div');
+            card.className = 'coach-card';
+
+            // Photo wrapper
+            var imageWrap = document.createElement('div');
+            imageWrap.className = 'coach-image';
+
+            var imageUrl = resolveImageUrl(coach.image_url || '');
+            if (imageUrl) {
+                var img = document.createElement('img');
+                img.alt = coach.name;
+                img.loading = 'lazy';
+                // On error swap in emoji placeholder — no innerHTML needed
+                img.onerror = function () {
+                    img.remove();
+                    var ph = document.createElement('div');
+                    ph.className = 'coach-image-placeholder';
+                    ph.textContent = '👤';
+                    imageWrap.appendChild(ph);
+                };
+                img.src = imageUrl; // set src last so onerror is wired first
+                imageWrap.appendChild(img);
+            } else {
+                var ph = document.createElement('div');
+                ph.className = 'coach-image-placeholder';
+                ph.textContent = '👤';
+                imageWrap.appendChild(ph);
+            }
+
+            // Name
+            var nameEl = document.createElement('div');
+            nameEl.className = 'coach-name';
+            nameEl.textContent = coach.name;
+
+            // Title
+            var titleEl = document.createElement('div');
+            titleEl.className = 'coach-title';
+            titleEl.textContent = coach.title;
+
+            // Email button
+            var emailEl = document.createElement('a');
+            emailEl.className = 'email-button';
+            emailEl.textContent = 'Send Email';
+
+            var email = (coach.email || '').trim();
+            if (email) {
+                emailEl.href = 'mailto:' + email;
+            } else {
+                emailEl.href = '#';
+                emailEl.classList.add('disabled');
+            }
+
+            card.appendChild(imageWrap);
+            card.appendChild(nameEl);
+            card.appendChild(titleEl);
+            card.appendChild(emailEl);
+
+            return card;
+        }
+
+        // ── BUILD ALL TABS ───────────────────────────────────────────────────────
+        function buildTabs(allCoaches) {
+            var tabButtonsEl = document.getElementById('tab-buttons');
+            var tabPanelsEl = document.getElementById('tab-panels');
+
+            // Group coaches by team key
+            var byTeam = {};
+            TAB_ORDER.forEach(function (t) { byTeam[t.key] = []; });
+
+            allCoaches.forEach(function (coach) {
+                var teamKey = (coach.team || '').trim();
+                if (byTeam[teamKey] !== undefined) {
+                    byTeam[teamKey].push(coach);
+                }
+            });
+
+            TAB_ORDER.forEach(function (team, index) {
+                // ── Tab button ──
+                var btn = document.createElement('button');
+                btn.className = 'tab-button' + (index === 0 ? ' active' : '');
+                btn.textContent = team.label;
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.tab-button').forEach(function (b) {
+                        b.classList.remove('active');
+                    });
+                    document.querySelectorAll('.tab-content').forEach(function (p) {
+                        p.classList.remove('active');
+                    });
+                    btn.classList.add('active');
+                    document.getElementById('panel-' + team.key).classList.add('active');
+                });
+                tabButtonsEl.appendChild(btn);
+
+                // ── Tab panel ──
+                var panel = document.createElement('div');
+                panel.id = 'panel-' + team.key;
+                panel.className = 'tab-content' + (index === 0 ? ' active' : '');
+
+                var heading = document.createElement('h2');
+                heading.textContent = team.label;
+                panel.appendChild(heading);
+
+                var coaches = byTeam[team.key];
+
+                if (coaches.length === 0) {
+                    var empty = document.createElement('p');
+                    empty.className = 'coaches-loading';
+                    empty.textContent = 'No coaches listed yet.';
+                    panel.appendChild(empty);
+                } else {
+                    var grid = document.createElement('div');
+                    grid.className = 'coaches-grid';
+                    coaches.forEach(function (coach) {
+                        grid.appendChild(buildCoachCard(coach));
+                    });
+                    panel.appendChild(grid);
+                }
+
+                tabPanelsEl.appendChild(panel);
+            });
+        }
+
+        // ── LOAD CONTACT PAGE ────────────────────────────────────────────────────
+        async function loadContact() {
+            // Show loading placeholders inside each panel while we fetch
+            var tabButtonsEl = document.getElementById('tab-buttons');
+            var tabPanelsEl = document.getElementById('tab-panels');
+
+            // Skeleton tab buttons so layout doesn't jump
+            TAB_ORDER.forEach(function (team, index) {
+                var btn = document.createElement('button');
+                btn.className = 'tab-button' + (index === 0 ? ' active' : '');
+                btn.textContent = team.label;
+                btn.disabled = true;
+                tabButtonsEl.appendChild(btn);
+
+                var panel = document.createElement('div');
+                panel.id = 'panel-' + team.key;
+                panel.className = 'tab-content' + (index === 0 ? ' active' : '');
+
+                var h2 = document.createElement('h2');
+                h2.textContent = team.label;
+                panel.appendChild(h2);
+
+                var loading = document.createElement('p');
+                loading.className = 'coaches-loading';
+                loading.textContent = 'Loading coaches…';
+                panel.appendChild(loading);
+
+                tabPanelsEl.appendChild(panel);
+            });
+
+            try {
+                var rows = await fetchSheetRows(CMS_SPREADSHEET_ID, 'coaches');
+
+                // Replace skeleton with real content
+                tabButtonsEl.innerHTML = '';
+                tabPanelsEl.innerHTML = '';
+                buildTabs(rows);
+            } catch (err) {
+                console.error('Failed to load contact coaches:', err);
+
+                // Replace skeleton panels with error message
+                tabPanelsEl.querySelectorAll('.coaches-loading').forEach(function (el) {
+                    el.textContent = 'Unable to load coaches. Please try again later.';
+                });
+
+                // Re-enable tab buttons (which were left as skeletons)
+                tabButtonsEl.querySelectorAll('.tab-button').forEach(function (btn) {
+                    btn.disabled = false;
+                });
+            }
+        }
+
+        // ── NAV ──────────────────────────────────────────────────────────────────
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+            document.querySelector('.hamburger').classList.toggle('active');
+            document.getElementById('menuBackdrop').classList.toggle('active');
         }
 
         function closeMenu() {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
-
-            menu.classList.remove('active');
-            hamburger.classList.remove('active');
-            backdrop.classList.remove('active');
+            document.getElementById('navMenu').classList.remove('active');
+            document.querySelector('.hamburger').classList.remove('active');
+            document.getElementById('menuBackdrop').classList.remove('active');
         }
 
-        document.addEventListener('click', function (event) {
-            const menu = document.getElementById('navMenu');
-            const hamburger = document.querySelector('.hamburger');
-            const backdrop = document.getElementById('menuBackdrop');
-
-            if (menu.classList.contains('active') && !event.target.closest('.nav-content')) {
-                menu.classList.remove('active');
-                hamburger.classList.remove('active');
-                backdrop.classList.remove('active');
+        document.addEventListener('click', function (e) {
+            var menu = document.getElementById('navMenu');
+            if (menu.classList.contains('active') && !e.target.closest('.nav-content')) {
+                closeMenu();
             }
         });
 
-        function showTab(tabName, event) {
-            // Hide all tabs
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-
-            // Remove active class from all buttons
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => button.classList.remove('active'));
-
-            // Show selected tab
-            document.getElementById(tabName + '-tab').classList.add('active');
-
-            // Add active class to clicked button
-            event.target.classList.add('active');
-        }
+        // ── INIT ─────────────────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', loadContact);
     </script>
 </body>
 
