@@ -55,6 +55,10 @@ permalink: /contact/
             --footer-bg: rgba(26, 32, 44, 0.95);
             --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --placeholder-gradient: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+            --tab-btn-bg: var(--minnetonka-blue);
+            --tab-btn-color: #ffffff;
+            --tab-btn-active-bg: var(--sunbeam);
+            --tab-btn-active-color: #000000;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -79,6 +83,9 @@ permalink: /contact/
                 --footer-bg: rgba(8, 10, 18, 0.97);
                 --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
                 --placeholder-gradient: linear-gradient(135deg, #1e2640 0%, #0d1020 100%);
+                --tab-btn-bg: #2a3354;
+                --tab-btn-color: #c8d4f0;
+                --tab-btn-active-color: #111111;
             }
         }
 
@@ -195,7 +202,7 @@ permalink: /contact/
         /* ── HERO ── */
         .page-hero {
             background: linear-gradient(135deg, var(--midnight) 0%, var(--minnetonka-blue) 100%);
-            padding: 3.5rem 2rem 3.5rem;
+            padding: 3.5rem 2rem 5.5rem;
             text-align: center;
         }
 
@@ -214,53 +221,73 @@ permalink: /contact/
         /* ── MAIN CONTENT ── */
         .main-content {
             flex: 1 0 auto;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
+            max-width: 1300px;
+            margin: -60px auto 0;
+            padding: 0 2rem 3rem;
             width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         /* ── TAB BUTTONS ── */
+        .tab-buttons-wrapper {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem 0rem 1.5rem;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            z-index: 1;
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+
         .tab-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
             gap: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 2rem;
         }
 
         .tab-button {
-            background: var(--minnetonka-blue);
-            color: var(--white);
+            background: var(--tab-btn-bg);
+            color: var(--tab-btn-color);
             border: none;
             padding: 1rem 2rem;
             border-radius: 12px;
-            font-size: 1.1rem;
+            font-size: var(--text-sm);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
         }
 
         @media (hover: hover) {
             .tab-button:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0, 54, 152, 0.4);
+                box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
             }
         }
 
         .tab-button.active {
-            background: var(--sunbeam);
-            color: var(--black);
+            background: var(--tab-btn-active-bg);
+            color: var(--tab-btn-active-color);
+            box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
         }
 
         /* ── TAB CONTENT ── */
         .tab-content {
             display: none;
-            background: var(--section-bg);
+            background: var(--card-bg);
             border-radius: 20px;
-            padding: 3rem;
-            box-shadow: var(--card-shadow);
+            padding: 28px 26px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: none;
             animation: fadeIn 0.5s ease;
+            margin-top: 2rem;
+            margin-left: 2rem;
+            margin-right: 2rem;
         }
 
         .tab-content.active {
@@ -384,7 +411,7 @@ permalink: /contact/
             padding: 2.5rem;
             text-align: center;
             box-shadow: var(--card-shadow);
-            margin-top: 2rem;
+            margin: 2rem 32px 0 32px;
             animation: fadeIn 0.6s ease-out forwards;
         }
 
@@ -506,13 +533,19 @@ permalink: /contact/
                 font-size: 1.75rem;
             }
 
-            .tab-button {
-                padding: 0.875rem 1.5rem;
-                font-size: 1rem;
+            .tab-buttons-wrapper {
+                margin-left: 1rem;
+                margin-right: 1rem;
             }
 
             .tab-buttons {
-                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+                padding: 0 1.5rem;
+            }
+
+            .tab-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 1rem;
             }
 
             .coaches-grid {
@@ -560,6 +593,22 @@ permalink: /contact/
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (max-width: 700px) {
+            .coaches-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-buttons {
+                gap: 0.5rem;
+                padding: 0 1rem;
+            }
+
+            .tab-button {
+                padding: 0.75rem 1rem;
+                font-size: 0.90rem;
+            }
+        }
     </style>
 </head>
 
@@ -592,8 +641,10 @@ permalink: /contact/
     <div class="main-content">
 
         <!-- Tab Buttons -->
-        <div class="tab-buttons" id="tab-buttons">
-            <!-- Built dynamically once team list is known -->
+        <div class="tab-buttons-wrapper">
+            <div class="tab-buttons" id="tab-buttons">
+                <!-- Built dynamically once team list is known -->
+            </div>
         </div>
 
         <!-- Tab panels injected here by JS -->
