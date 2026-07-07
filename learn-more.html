@@ -244,6 +244,14 @@ permalink: /learn-more/
             width: 100%;
         }
 
+        /* ── LOADING / EMPTY STATES ── */
+        .content-loading {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 4rem 0;
+            font-size: 1rem;
+        }
+
         /* ── CONTENT SECTIONS: matches mtfcca.html ── */
         .content-section {
             background: var(--section-bg);
@@ -285,6 +293,11 @@ permalink: /learn-more/
 
         .content-section li {
             margin-bottom: 0.5rem;
+        }
+
+        .content-section a {
+            color: var(--accent-label);
+            text-decoration: underline;
         }
 
         /* ── SEASONAL PROGRAM CARDS ── */
@@ -605,6 +618,24 @@ permalink: /learn-more/
             text-decoration: underline;
         }
 
+        /* ── SECTION IMAGE (floated, if a text section provides one) ── */
+        .section-image {
+            float: right;
+            width: 300px;
+            margin: 0 0 20px 20px;
+            aspect-ratio: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--lake) 0%, var(--midnight) 100%);
+        }
+
+        .section-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: var(--surface);
+        }
+
         /* ── FOOTER ── */
         footer {
             background: var(--footer-bg);
@@ -745,6 +776,13 @@ permalink: /learn-more/
                 grid-template-columns: 1fr;
             }
 
+            .section-image {
+                float: none;
+                width: 100%;
+                margin: 0 0 1.5rem 0;
+                aspect-ratio: 16/9;
+            }
+
             .menu-backdrop {
                 position: fixed;
                 top: 72px;
@@ -811,339 +849,8 @@ permalink: /learn-more/
         <p>Gain insight into our programs and see why they are for you</p>
     </div>
 
-    <div class="main-content">
-
-        <!-- Overview -->
-        <div class="content-section">
-            <h2>Everyone Is Welcome</h2>
-            <p>Tonka Track & Field and Cross Country programs are open to all students, regardless of experience or
-                fitness level. Our coaching staff is dedicated to helping each athlete reach their personal goals,
-                whether that's competing at the state level or simply getting in shape and making friends.</p>
-            <p>We believe that running is for everyone. Our programs are designed to meet athletes where they are
-                and help them grow both as competitors and as people. No tryouts, no cuts—just commitment, hard
-                work, and a supportive team environment.</p>
-        </div>
-
-        <!-- Seasonal Programs -->
-        <div class="content-section">
-            <h2>Year-Round Programs</h2>
-            <div class="programs-scroll-container">
-                <div class="programs-grid">
-                    <div class="program-card summer">
-                        <span class="season-label">Summer</span>
-                        <h3>Cross Country Training</h3>
-                        <ul>
-                            <li>Boys Cross Country Preseason</li>
-                            <li>Girls Cross Country Preseason</li>
-                            <li>Base building and conditioning</li>
-                            <li>Team building activities</li>
-                        </ul>
-                    </div>
-                    <div class="program-card fall">
-                        <span class="season-label">Fall</span>
-                        <h3>Cross Country Season</h3>
-                        <ul>
-                            <li>Boys High School XC</li>
-                            <li>Girls High School XC</li>
-                            <li>Boys Middle School XC</li>
-                            <li>Girls Middle School XC</li>
-                        </ul>
-                    </div>
-                    <div class="program-card winter">
-                        <span class="season-label">Winter</span>
-                        <h3>Track & Field Training</h3>
-                        <ul>
-                            <li>Winter Run Club</li>
-                            <li>Track & Field Preseason</li>
-                            <li>Strength and conditioning</li>
-                            <li>Indoor training options</li>
-                        </ul>
-                    </div>
-                    <div class="program-card spring">
-                        <span class="season-label">Spring</span>
-                        <h3>Track & Field Season</h3>
-                        <ul>
-                            <li>Boys Track & Field</li>
-                            <li>Girls Track & Field</li>
-                            <li>All events: sprints, distance, jumps, throws</li>
-                            <li>Middle School opportunities</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Eligibility -->
-        <div class="content-section">
-            <h2>Eligibility & Requirements</h2>
-            <div class="two-column">
-                <div class="column">
-                    <h3>Grade Eligibility</h3>
-                    <ul>
-                        <li>High School Programs: Grades 9-12</li>
-                        <li>Middle School Programs: Grades 6-8</li>
-                        <li>Cross Country Preseason: All Ages</li>
-                        <li>All other programs: Grades 9-12</li>
-                    </ul>
-                </div>
-                <div class="column">
-                    <h3>Academic Requirements</h3>
-                    <ul>
-                        <li>Maintain academic eligibility per MSHSL guidelines</li>
-                        <li>Attend regularly and communicate absences</li>
-                        <li>Balance athletics with schoolwork</li>
-                        <li>Represent Minnetonka with integrity</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Time Commitment -->
-        <div class="content-section">
-            <h2>Time Commitment</h2>
-            <p>Being part of our program requires dedication, but we work with athletes to balance sports,
-                academics, and other activities.</p>
-            <div class="two-column">
-                <div class="column">
-                    <h3>During Season</h3>
-                    <ul>
-                        <li>Daily practice: ~2 hours after school</li>
-                        <li>Weekend meets: 2-4 hours (varies by event)</li>
-                        <li>Total: 12-15 hours per week</li>
-                        <li>Season length: 10-12 weeks</li>
-                    </ul>
-                </div>
-                <div class="column">
-                    <h3>Off-Season (Optional)</h3>
-                    <ul>
-                        <li>Winter Run Club: 3-4 days/week</li>
-                        <li>Summer training: Flexible schedule</li>
-                        <li>Strength training opportunities</li>
-                        <li>No mandatory attendance</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- What You'll Gain -->
-        <div class="content-section">
-            <h2>What You'll Gain</h2>
-            <p>Joining track and field or cross country offers benefits that extend far beyond the finish line.</p>
-            <div class="two-column">
-                <div class="column">
-                    <h3>Athletic Development</h3>
-                    <ul>
-                        <li>Improved cardiovascular fitness and endurance</li>
-                        <li>Strength, speed, and agility training</li>
-                        <li>Expert coaching in your chosen events</li>
-                        <li>Competitive experience at all levels</li>
-                        <li>Potential for college athletic opportunities</li>
-                    </ul>
-                </div>
-                <div class="column">
-                    <h3>Life Skills</h3>
-                    <ul>
-                        <li>Time management and discipline</li>
-                        <li>Goal setting and achievement</li>
-                        <li>Resilience and mental toughness</li>
-                        <li>Teamwork and leadership</li>
-                        <li>Lifelong friendships and community</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Coaches -->
-        <div class="content-section">
-            <h2>Meet Our Coaches</h2>
-            <p>Our experienced coaching staff is dedicated to developing athletes of all abilities and helping them
-                reach their full potential.</p>
-            <div class="coaches-grid">
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jeff-renlund.png" alt="Jeff Renlund">
-                    </div>
-                    <div class="coach-name">Jeff Renlund</div>
-                    <div class="coach-title">Boys Cross Country Head Coach</div>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/rebecca-wessley.jpg" alt="Rebecca Wesley">
-                    </div>
-                    <div class="coach-name">Rebecca Wesley</div>
-                    <div class="coach-title">Girls Cross Country Head Coach</div>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/james-finch.png" alt="James Finch">
-                    </div>
-                    <div class="coach-name">James Finch</div>
-                    <div class="coach-title">Boys Track & Field Head Coach</div>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-image">
-                        <img src="../images/jane-reimer-morgan.jpg" alt="Jane Reimer-Morgan">
-                    </div>
-                    <div class="coach-name">Jane Reimer-Morgan</div>
-                    <div class="coach-title">Girls Track & Field Head Coach</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Equipment & Costs -->
-        <div class="content-section">
-            <h2>Equipment & Costs</h2>
-            <div class="two-column">
-                <div class="column">
-                    <h3>Required Equipment</h3>
-                    <ul>
-                        <li>Running shoes (specific to your event)</li>
-                        <li>Athletic clothing and weather-appropriate gear</li>
-                        <li>Water bottle</li>
-                        <li>Team uniform (provided)</li>
-                    </ul>
-                    <h3>Estimated Costs</h3>
-                    <ul>
-                        <li>Program fee: $[amount] per season</li>
-                        <li>Running shoes: $80-150</li>
-                        <li>Travel expenses: Varies by competition</li>
-                        <li>Optional team gear: $50-100</li>
-                    </ul>
-                </div>
-                <div class="column">
-                    <h3>Financial Assistance</h3>
-                    <ul>
-                        <li>Financial aid available for families in need</li>
-                        <li>Used equipment exchange program</li>
-                        <li>No student turned away due to cost</li>
-                        <li>Contact coaches for confidential assistance</li>
-                    </ul>
-                    <h3>What's Provided</h3>
-                    <ul>
-                        <li>Competition uniforms</li>
-                        <li>Training equipment and facilities</li>
-                        <li>Coaching and instruction</li>
-                        <li>Team events and activities</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- How to Join -->
-        <div class="content-section">
-            <h2>How to Join</h2>
-            <p>Getting started with Tonka Track & Cross Country is easy! Follow these steps to join our team.</p>
-            <ol class="join-list">
-                <li>Complete the online registration form <a href="https://1976a.cf.wordwareinc.com" target="_blank"
-                        rel="noopener noreferrer">EduTrak</a></li>
-                <li>Submit required athletic physical and health forms</li>
-                <li>Pay program fees or apply for financial assistance</li>
-                <li>Attend the first team meeting or practice</li>
-                <li>Start training with your new team!</li>
-            </ol>
-        </div>
-
-        <!-- FAQ -->
-        <div class="content-section">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-container">
-                <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">Do I need experience to join?
-                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        Not at all! Many of our most successful athletes started with no running experience. Our
-                        coaches work with athletes of all levels, from complete beginners to experienced runners.
-                        We'll help you develop the skills and fitness you need to succeed.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">Can I participate in other sports?
-                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        Yes! Many of our athletes are multi-sport participants. Track and field especially
-                        accommodates this since it's a spring sport. For cross country (fall), we encourage you to
-                        talk with coaches about your schedule and commitments. Off-season training is flexible and
-                        optional.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">What if I'm not very fast?
-                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        Speed is just one aspect of track and field! We have events for all types of athletes:
-                        distance running, sprinting, jumping, and throwing. Success in our program is measured by
-                        personal improvement, not just winning races. Every athlete competes against their own
-                        previous performance.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">What's the difference between track and cross country?
-                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        Cross country is run in the fall and involves racing on trails, grass, and natural terrain,
-                        typically 5K (3.1 miles). Track and field is in the spring and takes place on a track with
-                        various events including sprints, distance, hurdles, relays, jumps, and throws. Many
-                        athletes participate in both!
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">How much does it cost to participate?
-                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        Program fees vary by season. Financial assistance is available for families who need it, and
-                        we have a used equipment exchange. No student is turned away due to cost. Contact the
-                        coaches for specific fee information and financial aid options.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">What if I get injured?
-                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        Our coaches work closely with athletic trainers to ensure safe training and recovery. If
-                        you're injured, we'll help you with rehabilitation and a safe return to competition. Many
-                        athletes also take on team support roles while recovering, staying connected to the team.
-                    </div>
-                </div>
-                <div class="faq-item" onclick="toggleFAQ(this)">
-                    <div class="faq-question">Can I try different events in track and field?
-                        <svg class="faq-toggle-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        Absolutely! The beginning of the season is a great time to try different events. Our coaches
-                        will help you find the events that best suit your strengths and interests. Many athletes
-                        compete in multiple events.
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <div class="main-content" id="learnmore-container">
+        <div class="content-loading">Loading…</div>
     </div>
 
     <footer>
@@ -1151,6 +858,337 @@ permalink: /learn-more/
     </footer>
 
     <script>
+        // ── CMS CONFIG ───────────────────────────────────────────────────────────
+        // Same spreadsheet ID used across every page — just change it once here.
+        const CMS_SPREADSHEET_ID = '1HiXgfyNGJQGdjiMWETThhsuBEpz_rwgr3bZxjLtLDlg'; // ← replace this
+
+        // ── SHEETS HELPER ────────────────────────────────────────────────────────
+        /**
+         * Fetches rows from a publicly published Google Spreadsheet tab.
+         * Uses Google's free gviz/tq JSON endpoint — no Apps Script, no OAuth.
+         *
+         * REQUIREMENT: The spreadsheet must be published to the web.
+         *   File → Share → Publish to web → Publish (leave defaults, click Publish)
+         *
+         * Returns an array of plain objects keyed by the header row,
+         * filtered to active !== FALSE, sorted ascending by the order column.
+         */
+        async function fetchSheetRows(spreadsheetId, sheetName) {
+            const url =
+                'https://docs.google.com/spreadsheets/d/' +
+                spreadsheetId +
+                '/gviz/tq?tqx=out:json&sheet=' +
+                encodeURIComponent(sheetName);
+
+            const res = await fetch(url);
+            const text = await res.text();
+
+            // Google wraps the JSON in a JS callback wrapper — strip it
+            const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+            if (!match) throw new Error('Unexpected Sheets response format for sheet: ' + sheetName);
+
+            const json = JSON.parse(match[1]);
+            const table = json.table;
+
+            if (!table || !table.rows || table.rows.length === 0) return [];
+
+            // Build header array from column labels
+            const headers = table.cols.map(function (col) {
+                return (col.label || '').trim().toLowerCase().replace(/\s+/g, '_');
+            });
+
+            return table.rows
+                // Convert each row → plain object keyed by header
+                .map(function (row) {
+                    var obj = {};
+                    headers.forEach(function (h, i) {
+                        var cell = row.c ? row.c[i] : null;
+                        obj[h] = (cell && cell.v !== null && cell.v !== undefined)
+                            ? cell.v.toString()
+                            : '';
+                    });
+                    return obj;
+                })
+                // Drop rows where active = FALSE / false / 0 / NO
+                .filter(function (row) {
+                    var a = (row['active'] || '').trim().toUpperCase();
+                    return a !== 'FALSE' && a !== '0' && a !== 'NO';
+                })
+                // Sort ascending by the order column
+                .sort(function (a, b) {
+                    return (parseInt(a['order'], 10) || 0) - (parseInt(b['order'], 10) || 0);
+                });
+        }
+
+        // ── IMAGE PATH HELPER ────────────────────────────────────────────────────
+        const IMAGE_BASE = '../';
+        function resolveImageUrl(path) {
+            if (!path || path.trim() === '') return '';
+            if (path.startsWith('http://') || path.startsWith('https://')) return path;
+            return IMAGE_BASE + path.replace(/^\//, '');
+        }
+
+        // ── STATIC DATA NOT DRIVEN BY THE SHEET ─────────────────────────────────
+        // The "programs" and "coaches" section markers in learn_more_sections
+        // tell us WHERE in the page order these grids belong — the sheet doesn't
+        // (yet) carry row-level data for them, so the actual cards live here.
+        const PROGRAMS = [
+            {
+                season: 'summer', label: 'Summer', title: 'Cross Country Training',
+                items: ['Boys Cross Country Preseason', 'Girls Cross Country Preseason', 'Base building and conditioning', 'Team building activities']
+            },
+            {
+                season: 'fall', label: 'Fall', title: 'Cross Country Season',
+                items: ['Boys High School XC', 'Girls High School XC', 'Boys Middle School XC', 'Girls Middle School XC']
+            },
+            {
+                season: 'winter', label: 'Winter', title: 'Track & Field Training',
+                items: ['Winter Run Club', 'Track & Field Preseason', 'Strength and conditioning', 'Indoor training options']
+            },
+            {
+                season: 'spring', label: 'Spring', title: 'Track & Field Season',
+                items: ['Boys Track & Field', 'Girls Track & Field', 'All events: sprints, distance, jumps, throws', 'Middle School opportunities']
+            }
+        ];
+
+        const LEARN_MORE_COACHES = [
+            { name: 'Jeff Renlund', title: 'Boys Cross Country Head Coach', image: 'images/jeff-renlund.png' },
+            { name: 'Rebecca Wesley', title: 'Girls Cross Country Head Coach', image: 'images/rebecca-wessley.jpg' },
+            { name: 'James Finch', title: 'Boys Track & Field Head Coach', image: 'images/james-finch.png' },
+            { name: 'Jane Reimer-Morgan', title: 'Girls Track & Field Head Coach', image: 'images/jane-reimer-morgan.jpg' }
+        ];
+
+        // ── BUILD A STANDARD TEXT SECTION ────────────────────────────────────────
+        function buildTextSection(row) {
+            const section = document.createElement('div');
+            section.className = 'content-section';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = row.heading;
+            section.appendChild(h2);
+
+            // Optional floated image
+            if (row.image_url && row.image_url.trim()) {
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'section-image';
+
+                const img = document.createElement('img');
+                img.src = resolveImageUrl(row.image_url);
+                img.alt = row.heading;
+                img.loading = 'lazy';
+
+                imgWrap.appendChild(img);
+                // Must be appended before body so text wraps around it
+                section.appendChild(imgWrap);
+            }
+
+            // Body — stored as HTML in the sheet
+            const body = document.createElement('div');
+            body.innerHTML = row.body;
+            section.appendChild(body);
+
+            // Preserve the original "How to Join" numbered-list styling
+            if ((row.heading || '').trim().toLowerCase() === 'how to join') {
+                const ol = body.querySelector('ol');
+                if (ol) ol.classList.add('join-list');
+            }
+
+            return section;
+        }
+
+        // ── BUILD THE SEASONAL PROGRAMS SECTION ──────────────────────────────────
+        function buildProgramsSection(row) {
+            const section = document.createElement('div');
+            section.className = 'content-section';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = row.heading || 'Year-Round Programs';
+            section.appendChild(h2);
+
+            const scrollContainer = document.createElement('div');
+            scrollContainer.className = 'programs-scroll-container';
+
+            const grid = document.createElement('div');
+            grid.className = 'programs-grid';
+
+            PROGRAMS.forEach(function (program) {
+                const card = document.createElement('div');
+                card.className = 'program-card ' + program.season;
+
+                const label = document.createElement('span');
+                label.className = 'season-label';
+                label.textContent = program.label;
+                card.appendChild(label);
+
+                const h3 = document.createElement('h3');
+                h3.textContent = program.title;
+                card.appendChild(h3);
+
+                const ul = document.createElement('ul');
+                program.items.forEach(function (item) {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    ul.appendChild(li);
+                });
+                card.appendChild(ul);
+
+                grid.appendChild(card);
+            });
+
+            scrollContainer.appendChild(grid);
+            section.appendChild(scrollContainer);
+            return section;
+        }
+
+        // ── BUILD THE COACHES SECTION ────────────────────────────────────────────
+        function buildCoachesSection(row) {
+            const section = document.createElement('div');
+            section.className = 'content-section';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = row.heading || 'Meet Our Coaches';
+            section.appendChild(h2);
+
+            if (row.body && row.body.trim()) {
+                const bodyWrap = document.createElement('div');
+                bodyWrap.innerHTML = row.body;
+                section.appendChild(bodyWrap);
+            }
+
+            const grid = document.createElement('div');
+            grid.className = 'coaches-grid';
+
+            LEARN_MORE_COACHES.forEach(function (coach) {
+                const card = document.createElement('div');
+                card.className = 'coach-card';
+
+                const imageWrap = document.createElement('div');
+                imageWrap.className = 'coach-image';
+
+                const img = document.createElement('img');
+                img.alt = coach.name;
+                img.loading = 'lazy';
+                img.onerror = function () {
+                    img.remove();
+                    const ph = document.createElement('div');
+                    ph.className = 'coach-image-placeholder';
+                    ph.textContent = '👤';
+                    imageWrap.appendChild(ph);
+                };
+                img.src = resolveImageUrl(coach.image);
+                imageWrap.appendChild(img);
+
+                const name = document.createElement('div');
+                name.className = 'coach-name';
+                name.textContent = coach.name;
+
+                const title = document.createElement('div');
+                title.className = 'coach-title';
+                title.textContent = coach.title;
+
+                card.appendChild(imageWrap);
+                card.appendChild(name);
+                card.appendChild(title);
+                grid.appendChild(card);
+            });
+
+            section.appendChild(grid);
+            return section;
+        }
+
+        // ── BUILD THE FAQ SECTION ────────────────────────────────────────────────
+        function buildFaqSection(row, faqRows) {
+            const section = document.createElement('div');
+            section.className = 'content-section';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = row.heading || 'Frequently Asked Questions';
+            section.appendChild(h2);
+
+            const container = document.createElement('div');
+            container.className = 'faq-container';
+
+            faqRows.forEach(function (faq) {
+                const item = document.createElement('div');
+                item.className = 'faq-item';
+                item.addEventListener('click', function () {
+                    item.classList.toggle('active');
+                });
+
+                const question = document.createElement('div');
+                question.className = 'faq-question';
+                question.appendChild(document.createTextNode(faq.question));
+
+                const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                icon.setAttribute('class', 'faq-toggle-icon');
+                icon.setAttribute('width', '24');
+                icon.setAttribute('height', '24');
+                icon.setAttribute('viewBox', '0 0 24 24');
+                icon.setAttribute('fill', 'none');
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', 'M12 5V19M5 12H19');
+                path.setAttribute('stroke', 'currentColor');
+                path.setAttribute('stroke-width', '2');
+                path.setAttribute('stroke-linecap', 'round');
+                icon.appendChild(path);
+                question.appendChild(icon);
+
+                const answer = document.createElement('div');
+                answer.className = 'faq-answer';
+                answer.textContent = faq.answer;
+
+                item.appendChild(question);
+                item.appendChild(answer);
+                container.appendChild(item);
+            });
+
+            section.appendChild(container);
+            return section;
+        }
+
+        // ── LOAD PAGE ────────────────────────────────────────────────────────────
+        async function loadLearnMore() {
+            const container = document.getElementById('learnmore-container');
+
+            try {
+                // Fetch both sheets in parallel — no waterfall delay
+                const [sections, faqs] = await Promise.all([
+                    fetchSheetRows(CMS_SPREADSHEET_ID, 'learn_more_sections'),
+                    fetchSheetRows(CMS_SPREADSHEET_ID, 'learn_more_faq')
+                ]);
+
+                if (!sections.length) {
+                    container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:3rem 0;">No content yet.</p>';
+                    return;
+                }
+
+                container.innerHTML = '';
+
+                sections.forEach(function (row) {
+                    var el;
+                    var sectionId = (row.section_id || '').trim();
+
+                    if (sectionId === 'programs') {
+                        el = buildProgramsSection(row);
+                    } else if (sectionId === 'coaches') {
+                        el = buildCoachesSection(row);
+                    } else if (sectionId === 'faq') {
+                        el = buildFaqSection(row, faqs);
+                    } else {
+                        el = buildTextSection(row);
+                    }
+
+                    container.appendChild(el);
+                });
+
+            } catch (err) {
+                console.error('Failed to load Learn More content:', err);
+                container.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:3rem 0;">Unable to load content. Please try again later.</p>';
+            }
+        }
+
+        // ── NAV ──────────────────────────────────────────────────────────────────
         function toggleMenu() {
             const menu = document.getElementById('navMenu');
             const hamburger = document.querySelector('.hamburger');
@@ -1180,9 +1218,8 @@ permalink: /learn-more/
             }
         });
 
-        function toggleFAQ(element) {
-            element.classList.toggle('active');
-        }
+        // ── INIT ─────────────────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', loadLearnMore);
     </script>
 </body>
 
