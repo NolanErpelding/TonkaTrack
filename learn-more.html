@@ -873,12 +873,13 @@ permalink: /learn-more/
          * Returns an array of plain objects keyed by the header row,
          * filtered to active !== FALSE, sorted ascending by the order column.
          */
-        async function fetchSheetRows(spreadsheetId, sheetName) {
+        async function fetchSheetRows(spreadsheetId, sheetName, range) {
             const url =
                 'https://docs.google.com/spreadsheets/d/' +
                 spreadsheetId +
                 '/gviz/tq?tqx=out:json&sheet=' +
-                encodeURIComponent(sheetName);
+                encodeURIComponent(sheetName) +
+                (range ? '&range=' + encodeURIComponent(range) : '');
 
             const res = await fetch(url);
             const text = await res.text();
@@ -951,12 +952,36 @@ permalink: /learn-more/
             }
         ];
 
-        const LEARN_MORE_COACHES = [
-            { name: 'Jeff Renlund', title: 'Boys Cross Country Head Coach', image: 'images/jeff-renlund.png' },
-            { name: 'Rebecca Wesley', title: 'Girls Cross Country Head Coach', image: 'images/rebecca-wessley.jpg' },
-            { name: 'James Finch', title: 'Boys Track & Field Head Coach', image: 'images/james-finch.png' },
-            { name: 'Jane Reimer-Morgan', title: 'Girls Track & Field Head Coach', image: 'images/jane-reimer-morgan.jpg' }
+        // Which "team" values (from the coaches sheet) to pull a Head Coach from,
+        // and what label to show under their name on this page.
+        const LEARN_MORE_COACH_TEAMS = [
+            { key: 'boys-xc', label: 'Boys Cross Country Head Coach' },
+            { key: 'girls-xc', label: 'Girls Cross Country Head Coach' },
+            { key: 'boys-track', label: 'Boys Track & Field Head Coach' },
+            { key: 'girls-track', label: 'Girls Track & Field Head Coach' }
         ];
+
+        // Look through the coaches sheet and pick out the Head Coach for a given team.
+        // Falls back to the lowest "order" row for that team if no row is explicitly
+        // titled "Head Coach".
+        function findHeadCoach(coachRows, teamKey) {
+            const teamRows = coachRows.filter(function (c) {
+                return (c.team || '').trim() === teamKey;
+            });
+
+            if (!teamRows.length) return null;
+
+            const headCoach = teamRows.find(function (c) {
+                return (c.title || '').trim().toLowerCase() === 'head coach';
+            });
+
+            if (headCoach) return headCoach;
+
+            // No row explicitly titled "Head Coach" — use the first-ordered coach instead
+            return teamRows.slice().sort(function (a, b) {
+                return (parseInt(a.order, 10) || 0) - (parseInt(b.order, 10) || 0);
+            })[0];
+        }
 
         // ── BUILD A STANDARD TEXT SECTION ────────────────────────────────────────
         function buildTextSection(row) {
@@ -1041,7 +1066,10 @@ permalink: /learn-more/
         }
 
         // ── BUILD THE COACHES SECTION ────────────────────────────────────────────
-        function buildCoachesSection(row) {
+        // Head coaches are looked up live from the "coaches" sheet (same sheet
+        // that powers contact.html) rather than hardcoded here — so if a head
+        // coach changes, updating that one sheet updates this page too.
+        function buildCoachesSection(row, coachRows) {
             const section = document.createElement('div');
             section.className = 'content-section';
 
@@ -1058,25 +1086,36 @@ permalink: /learn-more/
             const grid = document.createElement('div');
             grid.className = 'coaches-grid';
 
-            LEARN_MORE_COACHES.forEach(function (coach) {
+            LEARN_MORE_COACH_TEAMS.forEach(function (team) {
+                const coach = findHeadCoach(coachRows, team.key);
+                if (!coach) return; // no coach on file for this team yet
+
                 const card = document.createElement('div');
                 card.className = 'coach-card';
 
                 const imageWrap = document.createElement('div');
                 imageWrap.className = 'coach-image';
 
-                const img = document.createElement('img');
-                img.alt = coach.name;
-                img.loading = 'lazy';
-                img.onerror = function () {
-                    img.remove();
+                const imageUrl = resolveImageUrl(coach.image_url || '');
+                if (imageUrl) {
+                    const img = document.createElement('img');
+                    img.alt = coach.name;
+                    img.loading = 'lazy';
+                    img.onerror = function () {
+                        img.remove();
+                        const ph = document.createElement('div');
+                        ph.className = 'coach-image-placeholder';
+                        ph.textContent = '👤';
+                        imageWrap.appendChild(ph);
+                    };
+                    img.src = imageUrl;
+                    imageWrap.appendChild(img);
+                } else {
                     const ph = document.createElement('div');
                     ph.className = 'coach-image-placeholder';
                     ph.textContent = '👤';
                     imageWrap.appendChild(ph);
-                };
-                img.src = resolveImageUrl(coach.image);
-                imageWrap.appendChild(img);
+                }
 
                 const name = document.createElement('div');
                 name.className = 'coach-name';
@@ -1084,7 +1123,7 @@ permalink: /learn-more/
 
                 const title = document.createElement('div');
                 title.className = 'coach-title';
-                title.textContent = coach.title;
+                title.textContent = team.label;
 
                 card.appendChild(imageWrap);
                 card.appendChild(name);
@@ -1152,10 +1191,11 @@ permalink: /learn-more/
             const container = document.getElementById('learnmore-container');
 
             try {
-                // Fetch both sheets in parallel — no waterfall delay
-                const [sections, faqs] = await Promise.all([
+                // Fetch all three sheets in parallel — no waterfall delay
+                const [sections, faqs, coaches] = await Promise.all([
                     fetchSheetRows(CMS_SPREADSHEET_ID, 'learn_more_sections'),
-                    fetchSheetRows(CMS_SPREADSHEET_ID, 'learn_more_faq')
+                    fetchSheetRows(CMS_SPREADSHEET_ID, 'learn_more_faq'),
+                    fetchSheetRows(CMS_SPREADSHEET_ID, 'coaches', 'A2:Z')
                 ]);
 
                 if (!sections.length) {
@@ -1172,7 +1212,7 @@ permalink: /learn-more/
                     if (sectionId === 'programs') {
                         el = buildProgramsSection(row);
                     } else if (sectionId === 'coaches') {
-                        el = buildCoachesSection(row);
+                        el = buildCoachesSection(row, coaches);
                     } else if (sectionId === 'faq') {
                         el = buildFaqSection(row, faqs);
                     } else {
