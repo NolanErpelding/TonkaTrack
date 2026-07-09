@@ -1170,25 +1170,19 @@ permalink: /boys-cross-country/
 			</div>
 		</div>
 
+		<!-- ── HOME (from CMS: team_home_info, team=boys-xc) ── -->
 		<div id="home-tab" class="tab-content active">
-			<h2>Welcome to Boys Cross Country</h2>
-			<p>Welcome to Minnetonka Boys Cross Country! We are dedicated to developing student-athletes who excel both
-				on the course and in the classroom.</p>
-			<p>Our program emphasizes teamwork, dedication, and personal growth. Whether you're a seasoned runner or new
-				to the sport, we welcome you to join our team and be part of our tradition of excellence.</p>
-			<p>You can follow our Instagram <a href="https://www.instagram.com/tonkadistance/" target="_blank"
-					rel="noopener noreferrer" class="instagram-handle">@tonkadistance</a> for the latest updates and
-				team highlights.</p>
-			<div class="update-item">
-				<h3>Season Information</h3>
-				<p>Practice times, meet schedules, and important announcements will be posted here throughout the
-					season.</p>
+			<div id="home-info-container">
+				<p class="loading-message">Loading…</p>
 			</div>
 		</div>
 
+		<!-- ── UPDATES (from CMS: team_updates, team=boys-xc) ── -->
 		<div id="updates-tab" class="tab-content">
 			<h2>Latest Updates</h2>
-			<p>No current updates. Please check back later!</p>
+			<div id="updates-container">
+				<p class="loading-message">Loading updates…</p>
+			</div>
 		</div>
 
 		<div id="photos-tab" class="tab-content">
@@ -1216,33 +1210,11 @@ permalink: /boys-cross-country/
 			<div class="file-list" id="file-list"></div>
 		</div>
 
+		<!-- ── COACHES (from CMS: coaches, team=boys-xc) ── -->
 		<div id="coaches-tab" class="tab-content">
 			<h2>Boys Cross Country</h2>
-			<div class="coaches-grid">
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/jeff-renlund.png" alt="Jeff Renlund">
-					</div>
-					<div class="coach-name">Jeff Renlund</div>
-					<div class="coach-title">Head Coach</div>
-					<a href="mailto:Jeffrey.Renlund@minnetonkaschools.org" class="email-button">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/jacob-peterson.jpg" alt="Jacob Peterson">
-					</div>
-					<div class="coach-name">Jacob Peterson (JP)</div>
-					<div class="coach-title">Assistant Coach</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
-				<div class="coach-card">
-					<div class="coach-image">
-						<img src="../images/titus-winders.jpg" alt="Titus Winders">
-					</div>
-					<div class="coach-name">Titus Winders</div>
-					<div class="coach-title">Assistant Coach</div>
-					<a href="#" class="email-button disabled">Send Email</a>
-				</div>
+			<div id="coaches-container">
+				<p class="loading-message">Loading coaches…</p>
 			</div>
 		</div>
 
@@ -1313,7 +1285,246 @@ permalink: /boys-cross-country/
 			}
 		});
 
-		// Google Apps Script Web App URL
+		// ── CMS CONFIG ───────────────────────────────────────────────────────────
+		// Same spreadsheet ID used across every page — just change it once here.
+		const CMS_SPREADSHEET_ID = '1HiXgfyNGJQGdjiMWETThhsuBEpz_rwgr3bZxjLtLDlg'; // ← replace this
+
+		// This page's team key in the CMS sheets (team_home_info / team_updates / coaches)
+		const TEAM_KEY = 'boys-xc';
+
+		// ── SHEETS HELPER ────────────────────────────────────────────────────────
+		/**
+		 * Fetches rows from a publicly published Google Spreadsheet tab.
+		 * Uses Google's free gviz/tq JSON endpoint — no Apps Script, no OAuth.
+		 *
+		 * REQUIREMENT: The spreadsheet must be published to the web.
+		 *   File → Share → Publish to web → Publish (leave defaults, click Publish)
+		 *
+		 * Returns an array of plain objects keyed by the header row,
+		 * filtered to active !== FALSE, sorted ascending by the order column.
+		 */
+		async function fetchSheetRows(spreadsheetId, sheetName) {
+			const url =
+				'https://docs.google.com/spreadsheets/d/' +
+				spreadsheetId +
+				'/gviz/tq?tqx=out:json&sheet=' +
+				encodeURIComponent(sheetName) + '&range=A2:Z1000';
+
+			const res = await fetch(url);
+			const text = await res.text();
+
+			const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+			if (!match) throw new Error('Unexpected Sheets response format for sheet: ' + sheetName);
+
+			const json = JSON.parse(match[1]);
+			const table = json.table;
+
+			if (!table || !table.rows || table.rows.length === 0) return [];
+
+			const headers = table.cols.map(function (col) {
+				return (col.label || '').trim().toLowerCase().replace(/\s+/g, '_');
+			});
+
+			return table.rows
+				.map(function (row) {
+					var obj = {};
+					headers.forEach(function (h, i) {
+						var cell = row.c ? row.c[i] : null;
+						obj[h] = (cell && cell.v !== null && cell.v !== undefined)
+							? cell.v.toString()
+							: '';
+					});
+					return obj;
+				})
+				.filter(function (row) {
+					var a = (row['active'] || '').trim().toUpperCase();
+					return a !== 'FALSE' && a !== '0' && a !== 'NO';
+				})
+				.sort(function (a, b) {
+					return (parseInt(a['order'], 10) || 0) - (parseInt(b['order'], 10) || 0);
+				});
+		}
+
+		// ── IMAGE PATH HELPER ────────────────────────────────────────────────────
+		const IMAGE_BASE = '../';
+		function resolveImageUrl(path) {
+			if (!path || !path.trim()) return '';
+			if (path.startsWith('http://') || path.startsWith('https://')) return path;
+			return IMAGE_BASE + path.replace(/^\//, '');
+		}
+
+		// ── ESCAPE HELPERS ───────────────────────────────────────────────────────
+		function escapeHtml(str) {
+			return (str || '')
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;');
+		}
+
+		// ── HOME TAB (team_home_info) ────────────────────────────────────────────
+		// First row renders as the tab's intro (h2 + body). Every row after that
+		// renders as an .update-item card, matching the site's existing styling.
+		async function loadHomeInfo() {
+			const container = document.getElementById('home-info-container');
+			try {
+				const rows = (await fetchSheetRows(CMS_SPREADSHEET_ID, 'team_home_info'))
+					.filter(function (row) { return (row['team'] || '').trim() === TEAM_KEY; });
+
+				if (!rows.length) {
+					container.innerHTML = '<p style="color:var(--text-muted);">No content yet. Check back soon!</p>';
+					return;
+				}
+
+				container.innerHTML = '';
+
+				rows.forEach(function (row, index) {
+					if (index === 0) {
+						const h2 = document.createElement('h2');
+						h2.textContent = row.title;
+						const body = document.createElement('div');
+						body.innerHTML = row.body;
+						container.appendChild(h2);
+						container.appendChild(body);
+					} else {
+						const item = document.createElement('div');
+						item.className = 'update-item';
+						const h3 = document.createElement('h3');
+						h3.textContent = row.title;
+						const body = document.createElement('div');
+						body.innerHTML = row.body;
+						item.appendChild(h3);
+						item.appendChild(body);
+						container.appendChild(item);
+					}
+				});
+			} catch (err) {
+				console.error('Failed to load home info:', err);
+				container.innerHTML = '<p style="color:#ff6b6b;">Unable to load content. Please try again later.</p>';
+			}
+		}
+
+		// ── UPDATES TAB (team_updates) ───────────────────────────────────────────
+		async function loadUpdates() {
+			const container = document.getElementById('updates-container');
+			try {
+				const rows = (await fetchSheetRows(CMS_SPREADSHEET_ID, 'team_updates'))
+					.filter(function (row) { return (row['team'] || '').trim() === TEAM_KEY; });
+
+				if (!rows.length) {
+					container.innerHTML = '<p>No current updates. Please check back later!</p>';
+					return;
+				}
+
+				container.innerHTML = '';
+
+				rows.forEach(function (row) {
+					const item = document.createElement('div');
+					item.className = 'update-item';
+
+					const h3 = document.createElement('h3');
+					h3.textContent = row.title;
+
+					const date = document.createElement('div');
+					date.className = 'update-date';
+					date.textContent = row.date;
+
+					const body = document.createElement('div');
+					body.innerHTML = row.body;
+
+					item.appendChild(h3);
+					item.appendChild(date);
+					item.appendChild(body);
+					container.appendChild(item);
+				});
+			} catch (err) {
+				console.error('Failed to load updates:', err);
+				container.innerHTML = '<p style="color:#ff6b6b;">Unable to load updates. Please try again later.</p>';
+			}
+		}
+
+		// ── COACHES TAB (coaches) ────────────────────────────────────────────────
+		function buildCoachCard(coach) {
+			const card = document.createElement('div');
+			card.className = 'coach-card';
+
+			const imageWrap = document.createElement('div');
+			imageWrap.className = 'coach-image';
+
+			const imageUrl = resolveImageUrl(coach.image_url || '');
+			if (imageUrl) {
+				const img = document.createElement('img');
+				img.alt = coach.name;
+				img.loading = 'lazy';
+				img.onerror = function () {
+					img.remove();
+					const ph = document.createElement('div');
+					ph.className = 'coach-image-placeholder';
+					ph.textContent = '👤';
+					imageWrap.appendChild(ph);
+				};
+				img.src = imageUrl;
+				imageWrap.appendChild(img);
+			} else {
+				const ph = document.createElement('div');
+				ph.className = 'coach-image-placeholder';
+				ph.textContent = '👤';
+				imageWrap.appendChild(ph);
+			}
+
+			const name = document.createElement('div');
+			name.className = 'coach-name';
+			name.textContent = coach.name;
+
+			const title = document.createElement('div');
+			title.className = 'coach-title';
+			title.textContent = coach.title;
+
+			const emailBtn = document.createElement('a');
+			emailBtn.className = 'email-button';
+			emailBtn.textContent = 'Send Email';
+			const email = (coach.email || '').trim();
+			if (email) {
+				emailBtn.href = 'mailto:' + email;
+			} else {
+				emailBtn.href = '#';
+				emailBtn.classList.add('disabled');
+			}
+
+			card.appendChild(imageWrap);
+			card.appendChild(name);
+			card.appendChild(title);
+			card.appendChild(emailBtn);
+
+			return card;
+		}
+
+		async function loadCoaches() {
+			const container = document.getElementById('coaches-container');
+			try {
+				const rows = (await fetchSheetRows(CMS_SPREADSHEET_ID, 'coaches'))
+					.filter(function (row) { return (row['team'] || '').trim() === TEAM_KEY; });
+
+				if (!rows.length) {
+					container.innerHTML = '<p style="color:var(--text-muted);">No coaches listed yet.</p>';
+					return;
+				}
+
+				const grid = document.createElement('div');
+				grid.className = 'coaches-grid';
+				rows.forEach(function (coach) {
+					grid.appendChild(buildCoachCard(coach));
+				});
+
+				container.innerHTML = '';
+				container.appendChild(grid);
+			} catch (err) {
+				console.error('Failed to load coaches:', err);
+				container.innerHTML = '<p style="color:#ff6b6b;">Unable to load coaches. Please try again later.</p>';
+			}
+		}
+
+		// ── Google Apps Script Web App URL (photos & files — unchanged) ─────────
 		const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzUyTldRpyDB5Iiw8h20glKK7zY1pEt-53X6YMcw4JMR0Kki-5dZFiXU7agk5FzHoJK/exec';
 
 		// Team-specific folder IDs
@@ -1399,8 +1610,6 @@ permalink: /boys-cross-country/
 				loadingMessage.style.color = '#ff6b6b';
 			}
 		}
-
-		document.addEventListener('DOMContentLoaded', loadFiles);
 
 		function preloadImage(url, fallbackUrl) {
 			if (imageCache.has(url)) return Promise.resolve();
@@ -1765,6 +1974,14 @@ permalink: /boys-cross-country/
 				else if (e.key === 'ArrowLeft') navigatePhoto(-1);
 				else if (e.key === 'ArrowRight') navigatePhoto(1);
 			}
+		});
+
+		// ── INIT ─────────────────────────────────────────────────────────────────
+		document.addEventListener('DOMContentLoaded', function () {
+			loadFiles();
+			loadHomeInfo();
+			loadUpdates();
+			loadCoaches();
 		});
 	</script>
 </body>
