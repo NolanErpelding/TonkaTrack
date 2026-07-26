@@ -146,7 +146,7 @@ permalink: /boys-cross-country/
 		/* ── NAV ── */
 		.nav-bar {
 			background: var(--nav-bg);
-			padding: 1rem 0;
+			padding: 0 0;
 			position: sticky;
 			top: 0;
 			z-index: 1000;
@@ -161,7 +161,7 @@ permalink: /boys-cross-country/
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			padding: 0 2rem;
+			padding: 1rem 2rem;
 			position: relative;
 		}
 
@@ -263,6 +263,72 @@ permalink: /boys-cross-country/
 			width: 100%;
 			position: relative;
 			z-index: 2;
+		}
+
+		/* ── UPDATE BANNER ── */
+		/* Nested inside .nav-bar (not fixed/positioned independently) so it
+		   always moves and hides together with the nav — whatever causes the
+		   nav to slide away on scroll now takes the banner with it too. */
+		.update-banner {
+			position: relative;
+			max-height: 0;
+			opacity: 0;
+			overflow: hidden;
+			background: var(--sunbeam);
+			color: var(--minnetonka-blue);
+			text-align: center;
+			padding: 0.9rem 3.5rem;
+			font-weight: 600;
+			font-size: 0.95rem;
+			pointer-events: none;
+			transition: max-height 0.45s ease, opacity 0.4s ease;
+		}
+
+		.update-banner.active {
+			max-height: 200px;
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.update-banner-text {
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.update-banner-text p {
+			margin: 0;
+		}
+
+		.update-banner-text a {
+			color: var(--minnetonka-blue);
+			text-decoration: underline;
+			font-weight: 700;
+		}
+
+		.update-banner-close {
+			position: absolute;
+			right: 1.25rem;
+			top: 50%;
+			transform: translateY(-50%);
+			background: none;
+			border: none;
+			color: #B8791A;
+			cursor: pointer;
+			width: 28px;
+			height: 28px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			transition: background 0.2s ease, color 0.2s ease, transform 0.3s ease;
+		}
+
+		@media (hover: hover) {
+			.update-banner-close:hover {
+				background: rgba(0, 0, 0, 0.1);
+				color: #8f5e14;
+				transform: translateY(-50%) rotate(90deg);
+			}
 		}
 
 		.tab-buttons-wrapper {
@@ -970,7 +1036,7 @@ permalink: /boys-cross-country/
 		/* ── MOBILE ── */
 		@media (max-width: 900px) {
 			.nav-content {
-				padding: 0 1rem;
+				padding: 1rem 1rem;
 			}
 
 			.logo-m-img {
@@ -1111,6 +1177,17 @@ permalink: /boys-cross-country/
 			.page-hero h1 {
 				font-size: 2rem;
 			}
+
+			.update-banner {
+				padding: 0.75rem 2.75rem;
+				font-size: 0.85rem;
+			}
+
+			.update-banner-close {
+				right: 0.75rem;
+				width: 24px;
+				height: 24px;
+			}
 		}
 
 		@media (max-width: 700px) {
@@ -1152,6 +1229,15 @@ permalink: /boys-cross-country/
 			</ul>
 		</div>
 		<div class="menu-backdrop" id="menuBackdrop"></div>
+
+		<div class="update-banner" id="update-banner" role="alert">
+			<div class="update-banner-text" id="update-banner-text"></div>
+			<button class="update-banner-close" id="update-banner-close" aria-label="Dismiss update">
+				<svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+				</svg>
+			</button>
+		</div>
 	</nav>
 
 	<div class="page-hero">
@@ -1343,6 +1429,36 @@ permalink: /boys-cross-country/
 				.sort(function (a, b) {
 					return (parseInt(a['order'], 10) || 0) - (parseInt(b['order'], 10) || 0);
 				});
+		}
+
+		// ── UPDATE BANNER ────────────────────────────────────────────────────────
+		// update_banner sheet columns: page | body | active — filtered to this
+		// page's TEAM_KEY ('boys-xc'). fetchSheetRows already applies
+		// &range=A2:Z1000, active filtering, etc., so it's reused as-is here.
+		async function loadUpdateBanner() {
+			const banner = document.getElementById('update-banner');
+			const content = document.getElementById('update-banner-text');
+			if (!banner || !content) return;
+
+			try {
+				const rows = await fetchSheetRows(CMS_SPREADSHEET_ID, 'update_banner');
+				const row = rows.find(function (r) {
+					return (r.page || '').trim().toLowerCase() === TEAM_KEY;
+				});
+
+				if (!row || !row.body || !row.body.trim()) return; // nothing active for this page
+
+				content.innerHTML = row.body; // body allows HTML, same convention as other sheets
+
+				// Paint the hidden state first, then trigger the slide-down transition
+				requestAnimationFrame(function () {
+					requestAnimationFrame(function () {
+						banner.classList.add('active');
+					});
+				});
+			} catch (err) {
+				console.error('Failed to load update banner:', err);
+			}
 		}
 
 		// ── IMAGE PATH HELPER ────────────────────────────────────────────────────
@@ -1982,6 +2098,14 @@ permalink: /boys-cross-country/
 			loadHomeInfo();
 			loadUpdates();
 			loadCoaches();
+			loadUpdateBanner();
+
+			const bannerCloseBtn = document.getElementById('update-banner-close');
+			if (bannerCloseBtn) {
+				bannerCloseBtn.addEventListener('click', function () {
+					document.getElementById('update-banner').classList.remove('active');
+				});
+			}
 		});
 	</script>
 </body>

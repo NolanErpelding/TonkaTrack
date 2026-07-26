@@ -12,9 +12,9 @@ permalink: /
         content="Minnetonka High School Track & Field and Cross Country teams - schedules, photos, news, and team information.">
     <meta name="keywords" content="Minnetonka, Track and Field, Cross Country, High School Sports, Minnesota">
 
-    <title>Tonka Track & Field</title>
+    <title>Tonka Track & Field - Home</title>
 
-    <meta property="og:title" content="Tonka Track & Field">
+    <meta property="og:title" content="Tonka Track & Field - Home">
     <meta property="og:description" content="Home of Minnetonka Track & Field and Cross Country">
     <meta property="og:type" content="website">
 
@@ -113,7 +113,7 @@ permalink: /
 
         .nav-bar {
             background: var(--nav-bg);
-            padding: 1rem 0;
+            padding: 0 0;
             position: fixed;
             top: 0;
             left: 0;
@@ -131,7 +131,7 @@ permalink: /
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
             position: relative;
         }
 
@@ -204,6 +204,72 @@ permalink: /
 
         .main-content {
             flex: 1 0 auto;
+        }
+
+        /* ── UPDATE BANNER ── */
+        /* Nested inside .nav-bar (not fixed/positioned independently) so it
+           always moves and hides together with the nav — whatever causes the
+           nav to slide away on scroll now takes the banner with it too. */
+        .update-banner {
+            position: relative;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            background: var(--sunbeam);
+            color: var(--minnetonka-blue);
+            text-align: center;
+            padding: 0.9rem 3.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            pointer-events: none;
+            transition: max-height 0.45s ease, opacity 0.4s ease;
+        }
+
+        .update-banner.active {
+            max-height: 200px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .update-banner-text {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .update-banner-text p {
+            margin: 0;
+        }
+
+        .update-banner-text a {
+            color: var(--minnetonka-blue);
+            text-decoration: underline;
+            font-weight: 700;
+        }
+
+        .update-banner-close {
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #B8791A;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.3s ease;
+        }
+
+        @media (hover: hover) {
+            .update-banner-close:hover {
+                background: rgba(0, 0, 0, 0.1);
+                color: #8f5e14;
+                transform: translateY(-50%) rotate(90deg);
+            }
         }
 
         .hero {
@@ -504,7 +570,7 @@ permalink: /
 
         @media (max-width: 900px) {
             .nav-content {
-                padding: 0 1rem;
+                padding: 1rem 1rem;
             }
 
             .logo-m-img {
@@ -676,6 +742,17 @@ permalink: /
                 opacity: 1;
                 pointer-events: auto;
             }
+
+            .update-banner {
+                padding: 0.75rem 2.75rem;
+                font-size: 0.85rem;
+            }
+
+            .update-banner-close {
+                right: 0.75rem;
+                width: 24px;
+                height: 24px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -701,6 +778,16 @@ permalink: /
                 </ul>
             </div>
             <div class="menu-backdrop" id="menuBackdrop"></div>
+
+            <div class="update-banner" id="update-banner" role="alert">
+                <div class="update-banner-text" id="update-banner-text"></div>
+                <button class="update-banner-close" id="update-banner-close" aria-label="Dismiss update">
+                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
         </nav>
 
         <div class="main-content">
@@ -827,6 +914,76 @@ permalink: /
                 });
         }
 
+        // ── UPDATE BANNER ────────────────────────────────────────────────────────
+        // Same idea as fetchSheetRows, but with &range=A2:Z. The update_banner
+        // tab (like the coaches tab) has a description row above the real
+        // header row, so range=A2:Z skips it and treats row 2 as the header.
+        async function fetchSheetRowsRanged(spreadsheetId, sheetName) {
+            const url =
+                'https://docs.google.com/spreadsheets/d/' +
+                spreadsheetId +
+                '/gviz/tq?tqx=out:json&sheet=' +
+                encodeURIComponent(sheetName) +
+                '&range=A2:Z';
+
+            const res = await fetch(url);
+            const text = await res.text();
+
+            const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*?)\);?\s*$/);
+            if (!match) throw new Error('Unexpected Sheets response format for sheet: ' + sheetName);
+
+            const json = JSON.parse(match[1]);
+            const table = json.table;
+
+            if (!table || !table.rows || table.rows.length === 0) return [];
+
+            const headers = table.cols.map(function (col) {
+                return (col.label || '').trim().toLowerCase().replace(/\s+/g, '_');
+            });
+
+            return table.rows
+                .map(function (row) {
+                    var obj = {};
+                    headers.forEach(function (h, i) {
+                        var cell = row.c ? row.c[i] : null;
+                        obj[h] = (cell && cell.v !== null && cell.v !== undefined)
+                            ? cell.v.toString().trim()
+                            : '';
+                    });
+                    return obj;
+                })
+                .filter(function (row) {
+                    var a = (row['active'] || '').toUpperCase();
+                    return a !== 'FALSE' && a !== '0' && a !== 'NO';
+                });
+        }
+
+        async function loadUpdateBanner() {
+            const banner = document.getElementById('update-banner');
+            const content = document.getElementById('update-banner-text');
+            if (!banner || !content) return;
+
+            try {
+                const rows = await fetchSheetRowsRanged(CMS_SPREADSHEET_ID, 'update_banner');
+                const row = rows.find(function (r) {
+                    return (r.page || '').trim().toLowerCase() === 'home';
+                });
+
+                if (!row || !row.body || !row.body.trim()) return; // nothing active for this page
+
+                content.innerHTML = row.body; // body allows HTML, same convention as other sheets
+
+                // Paint the hidden state first, then trigger the slide-down transition
+                requestAnimationFrame(function () {
+                    requestAnimationFrame(function () {
+                        banner.classList.add('active');
+                    });
+                });
+            } catch (err) {
+                console.error('Failed to load update banner:', err);
+            }
+        }
+
         // ── HOMEPAGE CARDS ───────────────────────────────────────────────────────
         async function loadHomepageCards() {
             const grid = document.getElementById('cards-grid');
@@ -916,7 +1073,17 @@ permalink: /
         }, { passive: true });
 
         // ── INIT ─────────────────────────────────────────────────────────────────
-        document.addEventListener('DOMContentLoaded', loadHomepageCards);
+        document.addEventListener('DOMContentLoaded', function () {
+            loadHomepageCards();
+            loadUpdateBanner();
+
+            const bannerCloseBtn = document.getElementById('update-banner-close');
+            if (bannerCloseBtn) {
+                bannerCloseBtn.addEventListener('click', function () {
+                    document.getElementById('update-banner').classList.remove('active');
+                });
+            }
+        });
     </script>
 </body>
 
