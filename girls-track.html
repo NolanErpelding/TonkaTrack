@@ -651,6 +651,55 @@ permalink: /girls-track/
             white-space: nowrap;
         }
 
+        /* ── LISTS ── */
+        .tab-content ul,
+        .tab-content ol {
+            color: var(--text-secondary);
+            font-size: var(--text-base);
+            line-height: 1.65;
+            margin: 0 0 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .tab-content ul {
+            list-style: none;
+        }
+
+        .tab-content ul li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tab-content ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.65em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-label);
+        }
+
+        .tab-content ol {
+            list-style-position: outside;
+        }
+
+        .tab-content ol li {
+            margin-bottom: 0.5rem;
+            padding-left: 0.25rem;
+        }
+
+        .tab-content ol li::marker {
+            color: var(--accent-label);
+            font-weight: 700;
+        }
+
+        .tab-content li:last-child {
+            margin-bottom: 0;
+        }
+
         @media (hover: hover) {
             .download-button:hover {
                 background: var(--sunbeam);
