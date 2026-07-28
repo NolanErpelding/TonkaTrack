@@ -704,6 +704,39 @@ permalink: /boys-track/
             margin-bottom: 0;
         }
 
+        /* ── EMBEDDED IFRAME (Google Calendar, etc.) ── */
+        .iframe-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+            background: var(--surface-subtle);
+        }
+
+        .iframe-wrapper iframe {
+            display: block;
+            width: 100%;
+            height: 600px;
+            border: 0;
+        }
+
+        /* Responsive scaling on smaller screens */
+        @media (max-width: 700px) {
+            .iframe-wrapper iframe {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .iframe-wrapper iframe {
+                height: 420px;
+            }
+        }
+
         @media (hover: hover) {
             .download-button:hover {
                 background: var(--sunbeam);
