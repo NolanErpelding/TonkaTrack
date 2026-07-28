@@ -293,22 +293,25 @@ permalink: /boys-track/
            nav to slide away on scroll now takes the banner with it too. */
         .update-banner {
             position: relative;
+            z-index: 1001;
             max-height: 0;
             opacity: 0;
             overflow: hidden;
             background: var(--sunbeam);
             color: var(--minnetonka-blue);
             text-align: center;
-            padding: 0.9rem 3.5rem;
+            padding: 0rem 3.5rem;
             font-weight: 600;
             font-size: 0.95rem;
             pointer-events: none;
-            transition: max-height 0.45s ease, opacity 0.4s ease;
+            transition: max-height 0.45s ease, opacity 0.4s ease, padding-top 0.45s ease, padding-bottom 0.45s ease;
         }
 
         .update-banner.active {
             max-height: 200px;
             opacity: 1;
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
             pointer-events: auto;
         }
 
@@ -1272,8 +1275,14 @@ permalink: /boys-track/
             }
 
             .update-banner {
-                padding: 0.75rem 2.75rem;
+                padding-left: 2.75rem;
+                padding-right: 2.75rem;
                 font-size: 0.85rem;
+            }
+
+            .update-banner.active {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
             }
 
             .update-banner-close {
