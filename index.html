@@ -97,24 +97,19 @@ permalink: /
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--surface);
-            background-attachment: fixed;
+            /* background-attachment: fixed; */
             background-size: cover;
             color: var(--grey);
             line-height: 1.6;
-            overscroll-behavior: none;
-        }
-
-        .page-wrapper {
+            /*overscroll-behavior: none;*/
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            overscroll-behavior: none;
         }
 
         .nav-bar {
             background: var(--nav-bg);
             padding: 0;
-            position: fixed;
+            position: sticky;
             top: 0;
             left: 0;
             right: 0;
@@ -768,90 +763,87 @@ permalink: /
 </head>
 
 <body>
-    <div class="page-wrapper">
-        <nav class="nav-bar">
-            <div class="nav-content">
-                <div class="logo">
-                    <img src="images/minnetonka-M-logo.png" alt="Minnetonka M" class="logo-m-img">
-                    <span class="logo-text">TONKA TRACK</span>
-                </div>
-                <div class="hamburger" onclick="toggleMenu()">
-                    <span></span><span></span><span></span>
-                </div>
-                <ul class="nav-links" id="navMenu">
-                    <li><a href="index.html" onclick="closeMenu()">Home</a></li>
-                    <li><a href="news/" onclick="closeMenu()">News</a></li>
-                    <li><a href="sports/" onclick="closeMenu()">Sports</a></li>
-                    <li><a href="mtfcca/" onclick="closeMenu()">MTFCCA</a></li>
-                    <li><a href="contact/" onclick="closeMenu()">Contact</a></li>
-                </ul>
+
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <div class="logo">
+                <img src="images/minnetonka-M-logo.png" alt="Minnetonka M" class="logo-m-img">
+                <span class="logo-text">TONKA TRACK</span>
             </div>
-            <div class="menu-backdrop" id="menuBackdrop"></div>
-
-            <div class="update-banner" id="update-banner" role="alert">
-                <div class="update-banner-text" id="update-banner-text"></div>
-                <button class="update-banner-close" id="update-banner-close" aria-label="Dismiss update">
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2.5"
-                            stroke-linecap="round" />
-                    </svg>
-                </button>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span><span></span><span></span>
             </div>
-        </nav>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="index.html" onclick="closeMenu()">Home</a></li>
+                <li><a href="news/" onclick="closeMenu()">News</a></li>
+                <li><a href="sports/" onclick="closeMenu()">Sports</a></li>
+                <li><a href="mtfcca/" onclick="closeMenu()">MTFCCA</a></li>
+                <li><a href="contact/" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+        <div class="menu-backdrop" id="menuBackdrop"></div>
 
-        <div class="main-content">
-            <section class="hero">
-                <div class="hero-bg"></div>
-                <div class="hero-bottom-fade"></div>
-                <div class="scroll-indicator">
-                    <span>Scroll</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </div>
-                <div class="hero-content">
-                    <h1>Your Home for Tonka Track &amp; Field</h1>
-                    <p>Everything you need in one place—team updates, meet schedules, photo galleries, and resources for
-                        athletes and families. Follow our boys and girls cross country and track &amp; field teams as
-                        they
-                        train, compete, and build a legacy of excellence.</p>
-                    <a href="learn-more/" class="cta-button">Learn More</a>
-                </div>
-            </section>
+        <div class="update-banner" id="update-banner" role="alert">
+            <div class="update-banner-text" id="update-banner-text"></div>
+            <button class="update-banner-close" id="update-banner-close" aria-label="Dismiss update">
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+            </button>
+        </div>
+    </nav>
 
-            <section class="info-section">
-                <div class="sports-grid">
-                    <div class="info-item" onclick="window.location.href='girls-cross-country/'">
-                        <div class="info-icon"><i class="fa-solid fa-shoe-prints"></i></div>
-                        <h3>Girls Cross Country</h3>
-                    </div>
-                    <div class="info-item" onclick="window.location.href='boys-cross-country/'">
-                        <div class="info-icon"><i class="fa-solid fa-person-running"></i></div>
-                        <h3>Boys Cross Country</h3>
-                    </div>
-                    <div class="info-item" onclick="window.location.href='girls-track/'">
-                        <div class="info-icon"><i class="fa-solid fa-bolt"></i></div>
-                        <h3>Girls Track &amp; Field</h3>
-                    </div>
-                    <div class="info-item" onclick="window.location.href='boys-track/'">
-                        <div class="info-icon"><i class="fa-solid fa-trophy"></i></div>
-                        <h3>Boys Track &amp; Field</h3>
-                    </div>
-                    <div class="info-item" onclick="window.location.href='mtfcca/'">
-                        <div class="info-icon"><i class="fa-solid fa-users"></i></div>
-                        <h3>MTFCCA</h3>
-                    </div>
-                    <div class="info-item" onclick="window.location.href='news/'">
-                        <div class="info-icon"><i class="fa-solid fa-newspaper"></i></div>
-                        <h3>News</h3>
-                    </div>
-                </div>
-            </section>
-
-            <div class="cards-grid" id="cards-grid">
-                <div class="cards-loading">Loading featured athletes…</div>
+    <div class="main-content">
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="hero-bottom-fade"></div>
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
             </div>
+            <div class="hero-content">
+                <h1>Your Home for Tonka Track &amp; Field</h1>
+                <p>Everything you need in one place—team updates, meet schedules, photo galleries, and resources for
+                    athletes and families. Follow our boys and girls cross country and track &amp; field teams as
+                    they
+                    train, compete, and build a legacy of excellence.</p>
+                <a href="learn-more/" class="cta-button">Learn More</a>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="sports-grid">
+                <div class="info-item" onclick="window.location.href='girls-cross-country/'">
+                    <div class="info-icon"><i class="fa-solid fa-shoe-prints"></i></div>
+                    <h3>Girls Cross Country</h3>
+                </div>
+                <div class="info-item" onclick="window.location.href='boys-cross-country/'">
+                    <div class="info-icon"><i class="fa-solid fa-person-running"></i></div>
+                    <h3>Boys Cross Country</h3>
+                </div>
+                <div class="info-item" onclick="window.location.href='girls-track/'">
+                    <div class="info-icon"><i class="fa-solid fa-bolt"></i></div>
+                    <h3>Girls Track &amp; Field</h3>
+                </div>
+                <div class="info-item" onclick="window.location.href='boys-track/'">
+                    <div class="info-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <h3>Boys Track &amp; Field</h3>
+                </div>
+                <div class="info-item" onclick="window.location.href='mtfcca/'">
+                    <div class="info-icon"><i class="fa-solid fa-users"></i></div>
+                    <h3>MTFCCA</h3>
+                </div>
+                <div class="info-item" onclick="window.location.href='news/'">
+                    <div class="info-icon"><i class="fa-solid fa-newspaper"></i></div>
+                    <h3>News</h3>
+                </div>
+            </div>
+        </section>
+
+        <div class="cards-grid" id="cards-grid">
+            <div class="cards-loading">Loading featured athletes…</div>
         </div>
     </div>
 
