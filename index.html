@@ -498,6 +498,10 @@ permalink: /
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
+        .card.no-image {
+            grid-template-columns: 1fr;
+        }
+
         .athlete-image {
             width: 100%;
             height: 350px;
@@ -1000,14 +1004,13 @@ permalink: /
                 grid.innerHTML = '';
 
                 rows.forEach(function (row) {
+                    const hasImage = row.image_url && row.image_url.trim();
                     const card = document.createElement('div');
-                    card.className = 'card';
+                    card.className = 'card' + (hasImage ? '' : ' no-image');
                     card.innerHTML =
-                        '<div class="athlete-image">' +
-                        (row.image_url
-                            ? '<img src="' + escapeAttr(row.image_url) + '" alt="' + escapeAttr(row.name) + '" loading="lazy">'
+                        (hasImage
+                            ? '<div class="athlete-image"><img src="' + escapeAttr(row.image_url) + '" alt="' + escapeAttr(row.name) + '" loading="lazy"></div>'
                             : '') +
-                        '</div>' +
                         '<div class="athlete-card">' +
                         '<h2>' + escapeHtml(row.name) + '</h2>' +
                         // description allows HTML in the sheet (bold, line breaks, etc.)
