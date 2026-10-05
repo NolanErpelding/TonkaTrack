@@ -24,250 +24,26 @@ permalink: /
     <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="MyWebSite" />
     <link rel="manifest" href="favicons/site.webmanifest" />
+
+    <link rel="stylesheet" href="../css/base.css">
     <style>
-        :root {
-            --minnetonka-blue: #003698;
-            --midnight: #002870;
-            --lake: #5395FF;
-            --sky: #8BB4FD;
-            --grape: #6C0787;
-            --sunbeam: #F1B133;
-            --mint: #078F96;
-            --white: #ffffff;
-            --black: #000000;
-            --surface: #ffffff;
-            --surface-subtle: #f5f7fa;
-            --border: #e2e8f0;
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --text-muted: #718096;
-            --heading-primary: var(--minnetonka-blue);
-            --accent-label: var(--minnetonka-blue);
-            --highlight: var(--sky);
-            --grey: #1a202c;
-            --nav-bg: #ffffff;
-            --nav-link-color: #4a5568;
-            --gradient-accent-color: var(--midnight);
-            --card-bg: #ffffff;
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --footer-bg: rgba(26, 32, 44, 0.95);
-            --nav-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --text-xs: 14px;
-            --text-sm: 15px;
-            --text-base: 16px;
-            --text-md: 18px;
-            --text-lg: 20px;
-            --text-xl: 26px;
-            --text-2xl: 40px;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --surface: #11161F;
-                --surface-subtle: #090E17;
-                --border: #2e3650;
-                --text-primary: #e8edf8;
-                --text-secondary: #9aa5c0;
-                --text-muted: #6b7a9a;
-                --heading-primary: #ffffff;
-                --accent-label: var(--sunbeam);
-                --highlight: var(--sunbeam);
-                --grey: #e8edf8;
-                --nav-bg: rgba(10, 12, 20, 0.92);
-                --nav-link-color: #9aa5c0;
-                --gradient-accent-color: var(--white);
-                --card-bg: #1a1f2e;
-                --card-shadow: 0 0 0 1px rgba(100, 130, 220, 0.18), 0 1px 0 0 rgba(100, 130, 220, 0.10);
-                --footer-bg: rgba(8, 10, 18, 0.97);
-                --nav-shadow: 0 1px 0 0 rgba(100, 130, 220, 0.18);
-            }
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--surface);
-            /* background-attachment: fixed; */
-            background-size: cover;
-            color: var(--grey);
-            line-height: 1.6;
-            /*overscroll-behavior: none;*/
-            display: flex;
-            flex-direction: column;
-        }
-
         .nav-bar {
-            background: var(--nav-bg);
-            padding: 0;
-            position: sticky;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             width: 100%;
-            z-index: 1000;
-            box-shadow: var(--nav-shadow);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
         }
 
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            position: relative;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-        }
-
-        .logo-m-img {
-            height: 2.5rem;
-            width: auto;
+        body {
             display: block;
-        }
-
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--heading-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            transition: max-height 0.3s ease, opacity 0.3s ease;
-        }
-
-        .nav-links a {
-            color: var(--nav-link-color);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-label);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, var(--accent-label) 0%, var(--gradient-accent-color) 100%);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 4px;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--nav-link-color);
-            border-radius: 3px;
-            transition: all 0.3s ease;
+            background-attachment: fixed;
+            background-size: cover;
+            color: var(--grey);
         }
 
         .main-content {
             flex: 1 0 auto;
-        }
-
-        /* ── UPDATE BANNER ── */
-        /* Nested inside .nav-bar (not fixed/positioned independently) so it
-           always moves and hides together with the nav — whatever causes the
-           nav to slide away on scroll now takes the banner with it too. */
-        .update-banner {
-            position: relative;
-            z-index: 1001;
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            background: var(--sunbeam);
-            color: var(--minnetonka-blue);
-            text-align: center;
-            padding: 0 3.5rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            pointer-events: none;
-            transition: max-height 0.45s ease, opacity 0.4s ease, padding-top 0.45s ease, padding-bottom 0.45s ease;
-        }
-
-        .update-banner.active {
-            max-height: 200px;
-            opacity: 1;
-            padding-top: 0.9rem;
-            padding-bottom: 0.9rem;
-            pointer-events: auto;
-        }
-
-        .update-banner-text {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .update-banner-text p {
-            margin: 0;
-        }
-
-        .update-banner-text a {
-            color: var(--minnetonka-blue);
-            text-decoration: underline;
-            font-weight: 700;
-        }
-
-        .update-banner-close {
-            position: absolute;
-            right: 1.25rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: #B8791A;
-            cursor: pointer;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.2s ease, color 0.2s ease, transform 0.3s ease;
-        }
-
-        @media (hover: hover) {
-            .update-banner-close:hover {
-                background: rgba(0, 0, 0, 0.1);
-                color: #8f5e14;
-                transform: translateY(-50%) rotate(90deg);
-            }
         }
 
         .hero {
@@ -384,19 +160,19 @@ permalink: /
 
         .cta-button {
             display: inline-block;
-            background: var(--sunbeam);
+            background: var(--white);
             color: var(--black);
             padding: 1rem 2rem;
             border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(241, 177, 51, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(241, 177, 51, 0.6);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6);
             filter: brightness(1.1);
         }
 
@@ -433,7 +209,7 @@ permalink: /
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--sunbeam);
+            color: var(--white);
         }
 
         .info-icon i {
@@ -548,16 +324,6 @@ permalink: /
             font-size: 1.3rem;
         }
 
-        footer {
-            background: var(--footer-bg);
-            backdrop-filter: blur(10px);
-            color: white;
-            padding: 2rem;
-            margin-top: 4rem;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
         @media (max-width: 968px) {
             .sports-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -571,68 +337,7 @@ permalink: /
         }
 
         @media (max-width: 900px) {
-            .nav-content {
-                padding: 1rem 1rem;
-            }
 
-            .logo-m-img {
-                height: 2rem;
-            }
-
-            .logo-text {
-                font-size: 1.2rem;
-            }
-
-            .nav-links {
-                position: absolute;
-                z-index: 1000;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--nav-bg);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                padding: 1rem 0;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease, opacity 0.3s ease;
-                opacity: 0;
-                gap: 0;
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                display: block;
-                padding: 1rem 2rem;
-                width: 100%;
-            }
-
-            .nav-links.active {
-                max-height: 400px;
-                opacity: 1;
-            }
-
-            .hamburger {
-                display: flex;
-                z-index: 1001;
-            }
-
-            .hamburger.active span:nth-child(1) {
-                transform: rotate(45deg) translate(5px, 5px);
-            }
-
-            .hamburger.active span:nth-child(2) {
-                opacity: 0;
-                transform: scale(0);
-            }
-
-            .hamburger.active span:nth-child(3) {
-                transform: rotate(-45deg) translate(5px, -5px);
-            }
 
             .hero {
                 height: 75vh;
