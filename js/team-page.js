@@ -241,10 +241,27 @@ async function loadCoaches() {
 }
 
 // ── FILES (built-in tab type, via Apps Script) ───────────────────────────────
-// allFiles holds the last fetch from the Apps Script. Search text and sort
-// choice live in the controls themselves, so they survive the re-fetch that
+// allFiles holds the last fetch from the Apps Script. The search text lives in
+// the input and the sort choice in fileSort, so both survive the re-fetch that
 // happens each time the tab is clicked.
 let allFiles = [];
+let fileSort = 'name-asc';
+
+// Sort buttons use Font Awesome icons. The team pages don't load it by
+// default, so add it once (same version/CDN as index.html and sports.html).
+if (!document.querySelector('link[href*="font-awesome"]')) {
+    const fa = document.createElement('link');
+    fa.rel = 'stylesheet';
+    fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css';
+    document.head.appendChild(fa);
+}
+
+const FILE_SORT_OPTIONS = [
+    { value: 'name-asc', icon: 'fa-arrow-down-a-z', tip: 'Sort A to Z' },
+    { value: 'name-desc', icon: 'fa-arrow-down-z-a', tip: 'Sort Z to A' },
+    { value: 'date-desc', icon: 'fa-arrow-down-wide-short', tip: 'Most recently updated first' },
+    { value: 'date-asc', icon: 'fa-arrow-down-short-wide', tip: 'Least recently updated first' }
+];
 
 function formatFileDate(iso) {
     const d = new Date(iso);
@@ -257,9 +274,8 @@ function renderFiles() {
     if (!list) return;
 
     const searchEl = document.getElementById('file-search');
-    const sortEl = document.getElementById('file-sort');
     const query = (searchEl ? searchEl.value : '').trim().toLowerCase();
-    const sort = sortEl ? sortEl.value : 'name-asc';
+    const sort = fileSort;
 
     let files = allFiles.filter(file => {
         if (!query) return true;
@@ -277,13 +293,6 @@ function renderFiles() {
             default: return byName(a, b);
         }
     });
-
-    const countEl = document.getElementById('file-count');
-    if (countEl) {
-        countEl.textContent = query
-            ? files.length + ' of ' + allFiles.length + ' files'
-            : allFiles.length + (allFiles.length === 1 ? ' file' : ' files');
-    }
 
     list.innerHTML = '';
 
@@ -871,16 +880,31 @@ function buildFilesPanel(tab) {
     controls.id = 'file-controls';
     controls.style.display = 'none';
     controls.innerHTML =
-        '<input type="search" id="file-search" class="file-search" placeholder="Search files…" aria-label="Search files" autocomplete="off">' +
-        '<select id="file-sort" class="file-sort" aria-label="Sort files">' +
-        '  <option value="name-asc">A → Z</option>' +
-        '  <option value="name-desc">Z → A</option>' +
-        '  <option value="date-desc">Recently updated</option>' +
-        '  <option value="date-asc">Oldest updated</option>' +
-        '</select>' +
-        '<span id="file-count" class="file-count"></span>';
+        '<input type="search" id="file-search" class="file-search" placeholder="Search files..." aria-label="Search files" autocomplete="off">' +
+        '<div class="file-sort-group" role="group" aria-label="Sort files"></div>';
+
+    const sortGroup = controls.querySelector('.file-sort-group');
+    FILE_SORT_OPTIONS.forEach(function (opt) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'file-sort-btn' + (opt.value === fileSort ? ' active' : '');
+        btn.setAttribute('data-tip', opt.tip);
+        btn.setAttribute('aria-label', opt.tip);
+        btn.setAttribute('aria-pressed', opt.value === fileSort ? 'true' : 'false');
+        btn.innerHTML = '<i class="fa-solid ' + opt.icon + '" aria-hidden="true"></i>';
+        btn.addEventListener('click', function () {
+            fileSort = opt.value;
+            sortGroup.querySelectorAll('.file-sort-btn').forEach(function (b) {
+                const on = b === btn;
+                b.classList.toggle('active', on);
+                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+            renderFiles();
+        });
+        sortGroup.appendChild(btn);
+    });
+
     controls.querySelector('#file-search').addEventListener('input', renderFiles);
-    controls.querySelector('#file-sort').addEventListener('change', renderFiles);
     wrap.appendChild(controls);
 
     const list = document.createElement('div');
