@@ -413,6 +413,61 @@ a[href^="tel:"] {
     }
 }
 
+/* ── FILE SEARCH & SORT ── */
+.file-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.file-search,
+.file-sort {
+    background: var(--surface-subtle);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: var(--text-sm);
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.file-search {
+    flex: 1 1 240px;
+    min-width: 0;
+}
+
+.file-sort {
+    flex: 0 0 auto;
+    cursor: pointer;
+}
+
+.file-search:focus,
+.file-sort:focus {
+    outline: none;
+    border-color: var(--accent-label);
+    box-shadow: 0 0 0 3px rgb(from var(--accent-label) r g b / 0.2);
+}
+
+.file-count {
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    margin-left: auto;
+}
+
+@media (max-width: 600px) {
+    .file-sort {
+        flex: 1 1 auto;
+    }
+
+    .file-count {
+        flex-basis: 100%;
+        margin-left: 0;
+    }
+}
+
 /* ── FILE LIST ── */
 .file-list {
     display: flex;

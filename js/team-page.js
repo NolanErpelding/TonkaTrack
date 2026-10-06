@@ -241,6 +241,88 @@ async function loadCoaches() {
 }
 
 // ── FILES (built-in tab type, via Apps Script) ───────────────────────────────
+// allFiles holds the last fetch from the Apps Script. Search text and sort
+// choice live in the controls themselves, so they survive the re-fetch that
+// happens each time the tab is clicked.
+let allFiles = [];
+
+function formatFileDate(iso) {
+    const d = new Date(iso);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function renderFiles() {
+    const list = document.getElementById('file-list');
+    if (!list) return;
+
+    const searchEl = document.getElementById('file-search');
+    const sortEl = document.getElementById('file-sort');
+    const query = (searchEl ? searchEl.value : '').trim().toLowerCase();
+    const sort = sortEl ? sortEl.value : 'name-asc';
+
+    let files = allFiles.filter(file => {
+        if (!query) return true;
+        return ((file.name || '') + ' ' + (file.description || '')).toLowerCase().includes(query);
+    });
+
+    const byName = (a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true, sensitivity: 'base' });
+    const byDate = (a, b) => new Date(a.lastModified) - new Date(b.lastModified);
+
+    files = files.slice().sort((a, b) => {
+        switch (sort) {
+            case 'name-desc': return byName(b, a);
+            case 'date-desc': return byDate(b, a) || byName(a, b);
+            case 'date-asc': return byDate(a, b) || byName(a, b);
+            default: return byName(a, b);
+        }
+    });
+
+    const countEl = document.getElementById('file-count');
+    if (countEl) {
+        countEl.textContent = query
+            ? files.length + ' of ' + allFiles.length + ' files'
+            : allFiles.length + (allFiles.length === 1 ? ' file' : ' files');
+    }
+
+    list.innerHTML = '';
+
+    if (files.length === 0) {
+        list.innerHTML = '<p style="color: var(--text-muted);">' +
+            (allFiles.length === 0 ? 'No files available at this time.' : 'No files match your search.') + '</p>';
+        return;
+    }
+
+    files.forEach(file => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        const fileSizeKB = (file.size / 1024).toFixed(2);
+        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+        const updated = formatFileDate(file.lastModified);
+
+        fileItem.innerHTML = `
+            <div class="file-info">
+                <div class="file-name">${escapeHtml(file.name)}</div>
+                <div class="file-description">${escapeHtml(file.description)} • ${displaySize}${updated ? ' • Updated ' + updated : ''}</div>
+            </div>
+
+            <div class="file-actions">
+                <button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">
+                    <span class="icon icon-open"></span>
+                    <button-text>Open</button-text>
+                </button>
+
+                <button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">
+                    <span class="icon icon-download"></span>
+                    <button-text>Download</button-text>
+                </button>
+            </div>
+        `;
+        list.appendChild(fileItem);
+    });
+}
+
 async function loadFiles() {
     const fileListContainer = document.getElementById('file-list');
     const loadingMessage = document.getElementById('loading-message');
@@ -258,35 +340,10 @@ async function loadFiles() {
                 return;
             }
 
-            fileListContainer.innerHTML = '';
-
-            data.files.forEach(file => {
-                const fileItem = document.createElement('div');
-                fileItem.className = 'file-item';
-                const fileSizeKB = (file.size / 1024).toFixed(2);
-                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-                const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
-
-                fileItem.innerHTML = `
-                    <div class="file-info">
-                        <div class="file-name">${file.name}</div>
-                        <div class="file-description">${file.description} • ${displaySize}</div>
-                    </div>
-
-                    <div class="file-actions">
-                        <button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">
-                            <span class="icon icon-open"></span>
-                            <button-text>Open</button-text>
-                        </button>
-
-                        <button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">
-                            <span class="icon icon-download"></span>
-                            <button-text>Download</button-text>
-                        </button>
-                    </div>
-                `;
-                fileListContainer.appendChild(fileItem);
-            });
+            allFiles = data.files;
+            const controls = document.getElementById('file-controls');
+            if (controls) controls.style.display = '';
+            renderFiles();
         } else {
             loadingMessage.textContent = 'Error loading files. Please try again later.';
             loadingMessage.style.color = '#ff6b6b';
@@ -807,6 +864,24 @@ function buildFilesPanel(tab) {
     loading.className = 'loading-message';
     loading.textContent = 'Loading files...';
     wrap.appendChild(loading);
+
+    // Search + sort controls (hidden until files have loaded)
+    const controls = document.createElement('div');
+    controls.className = 'file-controls';
+    controls.id = 'file-controls';
+    controls.style.display = 'none';
+    controls.innerHTML =
+        '<input type="search" id="file-search" class="file-search" placeholder="Search files…" aria-label="Search files" autocomplete="off">' +
+        '<select id="file-sort" class="file-sort" aria-label="Sort files">' +
+        '  <option value="name-asc">A → Z</option>' +
+        '  <option value="name-desc">Z → A</option>' +
+        '  <option value="date-desc">Recently updated</option>' +
+        '  <option value="date-asc">Oldest updated</option>' +
+        '</select>' +
+        '<span id="file-count" class="file-count"></span>';
+    controls.querySelector('#file-search').addEventListener('input', renderFiles);
+    controls.querySelector('#file-sort').addEventListener('change', renderFiles);
+    wrap.appendChild(controls);
 
     const list = document.createElement('div');
     list.className = 'file-list';
