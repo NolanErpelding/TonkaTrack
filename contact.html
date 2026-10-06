@@ -45,7 +45,7 @@ permalink: /contact/
         .tab-buttons-wrapper {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 2rem 0rem 1.5rem;
+            padding: 2rem 0 1.5rem;
             box-shadow: var(--card-shadow);
             position: relative;
             z-index: 1;
@@ -56,14 +56,13 @@ permalink: /contact/
         .tab-buttons {
             display: flex;
             gap: 1rem;
-            margin-bottom: 0;
             flex-wrap: wrap;
             justify-content: center;
             padding: 0 2rem;
         }
 
         .tab-button {
-            background: var(--tab-btn-bg);
+            background: var(--update-bg);
             color: var(--tab-btn-color);
             border: none;
             padding: 1rem 2rem;
@@ -72,20 +71,20 @@ permalink: /contact/
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 54, 152, 0.0);
         }
 
         @media (hover: hover) {
             .tab-button:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0, 54, 152, 0.35);
+                box-shadow: 0 6px 20px rgb(from var(--minnetonka-blue) r g b / 0.2);
             }
         }
 
         .tab-button.active {
-            background: var(--tab-btn-active-bg);
+            background: var(--minnetonka-blue);
             color: var(--tab-btn-active-color);
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.35);
+            box-shadow: 0 4px 15px rgb(from var(--minnetonka-blue) r g b / 0.35);
         }
 
         /* ── TAB CONTENT ── */
