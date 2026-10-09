@@ -20,7 +20,6 @@
     /* Light mode semantic tokens (default) */
     --white: #ffffff;
     --black: #000000;
-    --grey: #1a202c;
     --accent-color: var(--mint);
     --surface: #ffffff;
     --surface-subtle: #f5f7fa;
@@ -80,7 +79,7 @@
         --text-accent: var(--black);
         --heading-primary: #ffffff;
         --accent-label: var(--sky);
-        --highlight: var(--sunbeam);
+        --highlight: var(--mint);
 
         --nav-bg: rgba(10, 12, 20, 0.92);
         --nav-link-color: #9aa5c0;

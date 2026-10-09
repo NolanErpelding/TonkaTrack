@@ -179,17 +179,17 @@ p.loading-message {
 
 /* ── TEL LINKS / SOCIAL HANDLES ── */
 a[href^="tel:"] {
-    color: var(--grey);
+    color: var(--text-secondary);
     text-decoration: none;
     font-weight: 600;
-    border-bottom: 2px solid var(--grey);
+    border-bottom: 2px solid var(--text-secondary);
     transition: all 0.3s ease;
 }
 
 @media (hover: hover) {
     a[href^="tel:"]:hover {
-        color: var(--sunbeam) !important;
-        border-bottom-color: var(--sunbeam);
+        color: var(--mint) !important;
+        border-bottom-color: var(--mint);
     }
 }
 
@@ -626,7 +626,7 @@ a[href^="tel:"] {
     height: 20px;
     object-fit: contain;
     flex-shrink: 0;
-    background-color: var(--tab-btn-color);
+    background-color: var(--white);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-size: contain;
@@ -656,8 +656,8 @@ a[href^="tel:"] {
 
 @media (hover: hover) {
     .download-button:hover {
-        background: var(--sunbeam);
-        box-shadow: 0 4px 15px rgba(241, 177, 51, 0.35);
+        background: var(--mint);
+        box-shadow: 0 4px 15px rgb(fromvar(177, 255, 51) r g b / 0.35);
     }
 
     .download-button:hover .icon {
@@ -933,9 +933,9 @@ body.modal-open {
     }
 
     .photo-action-button:hover {
-        background: var(--sunbeam);
+        background: var(--mint);
         color: var(--black);
-        border-color: var(--sunbeam);
+        border-color: var(--mint);
         transform: translateY(-2px);
     }
 
