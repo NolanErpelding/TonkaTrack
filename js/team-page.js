@@ -115,13 +115,104 @@ function resolveImageUrl(path) {
     return IMAGE_BASE + path.replace(/^\//, '');
 }
 
-// If the sheet cell has no HTML tags in it, treat it as plain text and wrap
-// it in a <p> (escaping it first). If it already contains tags, trust it as
-// HTML, same convention used everywhere else in this CMS.
+// ── PLAIN-TEXT CONTENT FORMATTER ─────────────────────────────────────────────
+// Lets coaches type plain text in a sheet cell instead of writing HTML.
+// One item per line:
+//   Name | https://link          -> Google Drive link = file card (Open + Download)
+//                                   any other link   = styled link labeled "Name"
+//   Name | https://link | note   -> optional 3rd part = description on file cards
+//   https://link                 -> bare link (Drive links become a card named "File")
+//   anything else                -> paragraph text (bare URLs inside become links)
+//   blank line                   -> starts a new paragraph / group
+// If the cell already contains HTML tags it is used as-is (see ensureHtml).
+const CMS_LINK_STYLE = 'color: var(--text-secondary); text-decoration: underline;';
+const CMS_DRIVE_ID = /drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:[^#\s]*&)?id=)([\w-]+)/i;
+const CMS_NAMED_LINE = /^(.+?)\s*\|\s*(https?:\/\/[^\s|]+)\s*(?:\|\s*(.*))?$/i;
+const CMS_BARE_URL = /^(https?:\/\/\S+)$/i;
+
+function cmsLinkHtml(name, url) {
+    return '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer" style="' +
+        CMS_LINK_STYLE + '">' + escapeHtml(name) + '</a>';
+}
+
+function cmsFileCardHtml(name, driveId, desc) {
+    const viewUrl = 'https://drive.google.com/file/d/' + driveId + '/view';
+    const downloadUrl = 'https://drive.google.com/uc?id=' + driveId + '&export=download';
+    return '<div class="file-item">' +
+        '<div class="file-info">' +
+        '<div class="file-name">' + escapeHtml(name) + '</div>' +
+        (desc ? '<div class="file-description">' + escapeHtml(desc) + '</div>' : '') +
+        '</div>' +
+        '<div class="file-actions">' +
+        '<button class="download-button" onclick="window.open(\'' + viewUrl + '\', \'_blank\')">' +
+        '<span class="icon icon-open"></span><button-text>Open</button-text></button>' +
+        '<button class="download-button" onclick="window.open(\'' + downloadUrl + '\', \'_blank\')">' +
+        '<span class="icon icon-download"></span><button-text>Download</button-text></button>' +
+        '</div></div>';
+}
+
+// Escapes a text line, then turns any bare URLs inside it into links.
+function cmsLinkifyText(line) {
+    return escapeHtml(line).replace(/https?:\/\/[^\s<]+/gi, function (match) {
+        let trail = '';
+        let m;
+        while ((m = match.match(/[.,;:!?)]+$/))) {
+            trail = m[0] + trail;
+            match = match.slice(0, -m[0].length);
+        }
+        // already escaped above, so don't escape again
+        return '<a href="' + match + '" target="_blank" rel="noopener noreferrer" style="' +
+            CMS_LINK_STYLE + '">' + match + '</a>' + trail;
+    });
+}
+
+function formatPlainTextContent(text) {
+    const out = [];
+    let links = [];   // consecutive plain links, grouped into one <p>
+    let texts = [];   // consecutive text lines, grouped into one <p>
+
+    function flush() {
+        if (links.length) { out.push('<p>' + links.join('<br>\n') + '</p>'); links = []; }
+        if (texts.length) { out.push('<p>' + texts.join('<br>\n') + '</p>'); texts = []; }
+    }
+
+    text.replace(/\r\n?/g, '\n').split('\n').forEach(function (raw) {
+        const line = raw.trim();
+        if (!line) { flush(); return; }
+
+        let name, url, desc, m;
+        if ((m = line.match(CMS_NAMED_LINE))) {
+            name = m[1]; url = m[2]; desc = (m[3] || '').trim();
+        } else if ((m = line.match(CMS_BARE_URL))) {
+            url = m[1]; name = null; desc = '';
+        } else {
+            if (links.length) flush();
+            texts.push(cmsLinkifyText(line));
+            return;
+        }
+
+        const driveMatch = url.match(CMS_DRIVE_ID);
+        if (driveMatch) {
+            flush();
+            out.push(cmsFileCardHtml(name || 'File', driveMatch[1], desc));
+        } else {
+            if (texts.length) flush();
+            links.push(cmsLinkHtml(name || url, url));
+        }
+    });
+
+    flush();
+    return out.join('\n');
+}
+
+// If the sheet cell has no HTML tags in it, treat it as plain text and run it
+// through the formatter above (escaped, with links / Drive file cards).
+// If it already contains tags, trust it as HTML, same convention used
+// everywhere else in this CMS — so existing HTML rows are unaffected.
 function ensureHtml(content) {
     if (!content || !content.trim()) return '';
     const hasTags = /<[a-z][\s\S]*>/i.test(content);
-    return hasTags ? content : '<p>' + escapeHtml(content) + '</p>';
+    return hasTags ? content : formatPlainTextContent(content);
 }
 
 // Turns a tab's display name into a safe, unique-per-team element id.
