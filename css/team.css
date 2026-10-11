@@ -989,6 +989,30 @@ a[href^="tel:"]:not(.coach-action) {
     margin-bottom: 0;
 }
 
+.coach-modal-body ul,
+.coach-modal-body ol {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    padding-left: 1.6rem;
+    margin-bottom: 1.1rem;
+}
+
+.coach-modal-body li {
+    margin-bottom: 0.35rem;
+}
+
+.coach-modal-body a {
+    color: var(--accent-label);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.coach-modal-body strong,
+.coach-modal-body b {
+    color: var(--text-primary);
+}
+
 @media (max-width: 700px) {
     .coach-modal-panel {
         width: 100vw;

@@ -399,6 +399,62 @@ function ensureCoachModal() {
     return modal;
 }
 
+// ── COACH BIO RENDERING ──────────────────────────────────────────────────────
+// Bios may contain a small set of HTML: bold, italic, underline, line breaks,
+// links, bullet / numbered lists and paragraphs. Anything else is stripped
+// (its text is kept), and scripts / iframes / styles are dropped entirely.
+// The nodes are rebuilt with createElement, so attributes and event handlers
+// from the sheet are never copied across. Plain-text bios still work: a blank
+// line starts a new paragraph.
+var BIO_ALLOWED = { B: 1, STRONG: 1, I: 1, EM: 1, U: 1, BR: 1, P: 1, UL: 1, OL: 1, LI: 1, A: 1 };
+var BIO_DROP = { SCRIPT: 1, STYLE: 1, IFRAME: 1, OBJECT: 1, EMBED: 1, TEMPLATE: 1, NOSCRIPT: 1, SVG: 1, MATH: 1, TEXTAREA: 1 };
+
+function safeBioHref(href) {
+    var h = (href || '').trim();
+    return /^(https?:|mailto:|tel:)/i.test(h) ? h : '';
+}
+
+function appendSafeBio(srcNode, destParent) {
+    Array.prototype.forEach.call(srcNode.childNodes, function (n) {
+        if (n.nodeType === 3) {
+            destParent.appendChild(document.createTextNode(n.nodeValue));
+            return;
+        }
+        if (n.nodeType !== 1) return;
+        var tag = n.nodeName.toUpperCase();
+        if (BIO_DROP[tag]) return;
+        if (!BIO_ALLOWED[tag]) { appendSafeBio(n, destParent); return; }
+        var el = document.createElement(tag.toLowerCase());
+        if (tag === 'A') {
+            var href = safeBioHref(n.getAttribute('href'));
+            if (!href) { appendSafeBio(n, destParent); return; }
+            el.setAttribute('href', href);
+            if (/^https?:/i.test(href)) {
+                el.target = '_blank';
+                el.rel = 'noopener noreferrer';
+            }
+        }
+        appendSafeBio(n, el);
+        destParent.appendChild(el);
+    });
+}
+
+function renderCoachBio(body, bio) {
+    bio = bio || '';
+    if (/<\s*(p|ul|ol|li)\b/i.test(bio)) {
+        // Author wrote their own block structure — keep it
+        appendSafeBio(new DOMParser().parseFromString(bio, 'text/html').body, body);
+        return;
+    }
+    bio.split(/\n\s*\n/).forEach(function (chunk) {
+        var text = chunk.trim();
+        if (!text) return;
+        var p = document.createElement('p');
+        appendSafeBio(new DOMParser().parseFromString(text, 'text/html').body, p);
+        body.appendChild(p);
+    });
+}
+
 function openCoachModal(coach, triggerEl) {
     const modal = ensureCoachModal();
     coachModalReturnFocus = triggerEl || null;
@@ -419,13 +475,7 @@ function openCoachModal(coach, triggerEl) {
     const body = document.getElementById('coach-modal-body');
     body.textContent = '';
     body.scrollTop = 0;
-    (coach.bio || '').split(/\n\s*\n/).forEach(function (para) {
-        const text = para.trim();
-        if (!text) return;
-        const p = document.createElement('p');
-        p.textContent = text;
-        body.appendChild(p);
-    });
+    renderCoachBio(body, coach.bio);
 
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
