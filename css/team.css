@@ -178,7 +178,7 @@ p.loading-message {
 }
 
 /* ── TEL LINKS / SOCIAL HANDLES ── */
-a[href^="tel:"] {
+a[href^="tel:"]:not(.coach-action) {
     color: var(--text-secondary);
     text-decoration: none;
     font-weight: 600;
@@ -187,7 +187,7 @@ a[href^="tel:"] {
 }
 
 @media (hover: hover) {
-    a[href^="tel:"]:hover {
+    a[href^="tel:"]:not(.coach-action):hover {
         color: var(--mint) !important;
         border-bottom-color: var(--mint);
     }
@@ -685,6 +685,8 @@ a[href^="tel:"] {
 }
 
 .coach-card {
+    position: relative;
+    overflow: hidden;
     background: var(--surface-subtle);
     border: 1px solid var(--border);
     border-radius: 16px;
@@ -736,6 +738,292 @@ a[href^="tel:"] {
     color: var(--text-secondary);
     font-size: 0.95rem;
     margin-bottom: 1rem;
+}
+
+/* ── COACH ACTION BUTTONS (card + profile window) ──
+   Email = mint, Call = grape, Text = sky, Learn More = outlined.
+   Default (touch / no hover): always visible below the title. */
+.coach-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.coach-actions-name {
+    display: none;
+}
+
+.coach-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 0.55rem 1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.coach-action.email {
+    background: var(--mint);
+    color: var(--white);
+}
+
+.coach-action.call {
+    background: var(--grape);
+    color: var(--white);
+}
+
+.coach-action.text {
+    background: var(--sky);
+    color: var(--midnight);
+}
+
+.coach-action.more {
+    background: transparent;
+    color: var(--accent-label);
+    border-color: var(--accent-label);
+}
+
+.coach-action:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+@media (hover: hover) {
+    .coach-action:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Desktop: actions live in an overlay that fades in on hover.
+       :has(:focus-visible) (not :focus-within) so closing the profile window
+       doesn't leave the overlay stuck open after a mouse click. */
+    .coach-card {
+        min-height: 290px;
+    }
+
+    .coach-card.has-actions .coach-actions {
+        position: absolute;
+        inset: 0;
+        padding: 1.25rem;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        background: color-mix(in srgb, var(--surface-subtle) 93%, transparent);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+    }
+
+    .coach-card.has-actions:hover .coach-actions,
+    .coach-card.has-actions:has(:focus-visible) .coach-actions {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .coach-card.has-actions .coach-actions-name {
+        display: block;
+        color: var(--text-primary);
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 0.35rem;
+    }
+
+    .coach-card.has-actions .coach-action {
+        width: 100%;
+        max-width: 210px;
+    }
+}
+
+/* ── COACH PROFILE WINDOW ──
+   X top-right; round photo left with name / title / contact buttons beside
+   it; bio below. */
+.coach-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 3500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.coach-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.coach-modal-panel {
+    position: relative;
+    width: min(1000px, 94vw);
+    height: 92vh;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.25s ease;
+}
+
+.coach-modal.open .coach-modal-panel {
+    transform: none;
+}
+
+.coach-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--surface-subtle);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.coach-modal-close:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+@media (hover: hover) {
+    .coach-modal-close:hover {
+        background: var(--grape);
+        color: var(--white);
+        transform: rotate(90deg);
+    }
+}
+
+.coach-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2.5rem 4.5rem 1.5rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.coach-modal-photo {
+    width: 170px;
+    height: 170px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--placeholder-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 4px solid var(--mint);
+}
+
+.coach-modal-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.coach-modal-photo .coach-image-placeholder {
+    font-size: 4rem;
+}
+
+.coach-modal-info {
+    min-width: 0;
+}
+
+.coach-modal-name {
+    color: var(--text-primary);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.25rem;
+}
+
+.coach-modal-title {
+    color: var(--text-muted);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.coach-modal-info .coach-actions {
+    justify-content: flex-start;
+}
+
+.coach-modal-body {
+    padding: 2rem 2.5rem 2.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.coach-modal-body p {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 1.1rem;
+}
+
+.coach-modal-body p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 700px) {
+    .coach-modal-panel {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        border-radius: 0;
+    }
+
+    .coach-modal-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        padding: 3.5rem 1.25rem 1.25rem;
+    }
+
+    .coach-modal-photo {
+        width: 130px;
+        height: 130px;
+    }
+
+    .coach-modal-name {
+        font-size: 1.8rem;
+    }
+
+    .coach-modal-info .coach-actions {
+        justify-content: center;
+    }
+
+    .coach-modal-body {
+        padding: 1.25rem;
+    }
+
+    .coach-modal-body p {
+        font-size: 1rem;
+    }
 }
 
 .email-button {

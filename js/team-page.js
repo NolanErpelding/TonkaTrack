@@ -250,33 +250,74 @@ async function loadUpdateBanner() {
 }
 
 // ── COACHES (built-in tab type) ──────────────────────────────────────────────
+// Sheet columns: team | order | name | title | email | phone | bio | image_url | active
+// phone and bio are optional. Format the phone column as Plain text. In bio,
+// a blank line starts a new paragraph (plain text only, no HTML).
+function phoneDigits(raw) {
+    let d = (raw || '').replace(/\D/g, '');
+    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+    return d;
+}
+
+function formatPhone(raw) {
+    const d = phoneDigits(raw);
+    if (d.length === 10) return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+    return (raw || '').trim();
+}
+
+function buildCoachPlaceholder() {
+    const ph = document.createElement('div');
+    ph.className = 'coach-image-placeholder';
+    ph.textContent = '👤';
+    return ph;
+}
+
+// Fills `wrap` with the coach's photo, or a placeholder if missing / broken.
+function fillCoachPhoto(wrap, coach) {
+    wrap.textContent = '';
+    const imageUrl = resolveImageUrl(coach.image_url || '');
+    if (!imageUrl) {
+        wrap.appendChild(buildCoachPlaceholder());
+        return;
+    }
+    const img = document.createElement('img');
+    img.alt = coach.name;
+    img.loading = 'lazy';
+    img.onerror = function () {
+        img.remove();
+        wrap.appendChild(buildCoachPlaceholder());
+    };
+    img.src = imageUrl;
+    wrap.appendChild(img);
+}
+
+function buildCoachActionLink(className, label, href) {
+    const a = document.createElement('a');
+    a.className = 'coach-action ' + className;
+    a.href = href;
+    a.textContent = label;
+    return a;
+}
+
+// Adds only the contact options this coach actually has. Returns true if any.
+function appendCoachContactActions(container, coach) {
+    const email = (coach.email || '').trim();
+    const digits = phoneDigits(coach.phone);
+    if (email) container.appendChild(buildCoachActionLink('email', 'Email', 'mailto:' + email));
+    if (digits) {
+        container.appendChild(buildCoachActionLink('call', 'Call', 'tel:+1' + digits));
+        container.appendChild(buildCoachActionLink('text', 'Text', 'sms:+1' + digits));
+    }
+    return !!(email || digits);
+}
+
 function buildCoachCard(coach) {
     const card = document.createElement('div');
     card.className = 'coach-card';
 
     const imageWrap = document.createElement('div');
     imageWrap.className = 'coach-image';
-
-    const imageUrl = resolveImageUrl(coach.image_url || '');
-    if (imageUrl) {
-        const img = document.createElement('img');
-        img.alt = coach.name;
-        img.loading = 'lazy';
-        img.onerror = function () {
-            img.remove();
-            const ph = document.createElement('div');
-            ph.className = 'coach-image-placeholder';
-            ph.textContent = '👤';
-            imageWrap.appendChild(ph);
-        };
-        img.src = imageUrl;
-        imageWrap.appendChild(img);
-    } else {
-        const ph = document.createElement('div');
-        ph.className = 'coach-image-placeholder';
-        ph.textContent = '👤';
-        imageWrap.appendChild(ph);
-    }
+    fillCoachPhoto(imageWrap, coach);
 
     const name = document.createElement('div');
     name.className = 'coach-name';
@@ -286,24 +327,124 @@ function buildCoachCard(coach) {
     title.className = 'coach-title';
     title.textContent = coach.title;
 
-    const emailBtn = document.createElement('a');
-    emailBtn.className = 'email-button';
-    emailBtn.textContent = 'Send Email';
-    const email = (coach.email || '').trim();
-    if (email) {
-        emailBtn.href = 'mailto:' + email;
-    } else {
-        emailBtn.href = '#';
-        emailBtn.classList.add('disabled');
-    }
-
     card.appendChild(imageWrap);
     card.appendChild(name);
     card.appendChild(title);
-    card.appendChild(emailBtn);
+
+    // Actions: always visible on touch devices, hover overlay on desktop
+    const actions = document.createElement('div');
+    actions.className = 'coach-actions';
+
+    const overlayName = document.createElement('div');
+    overlayName.className = 'coach-actions-name';
+    overlayName.textContent = coach.name;
+    actions.appendChild(overlayName);
+
+    const hasContact = appendCoachContactActions(actions, coach);
+
+    const hasBio = !!(coach.bio && coach.bio.trim());
+    if (hasBio) {
+        const more = document.createElement('button');
+        more.type = 'button';
+        more.className = 'coach-action more';
+        more.textContent = 'Learn More';
+        more.addEventListener('click', function () {
+            openCoachModal(coach, more);
+        });
+        actions.appendChild(more);
+    }
+
+    if (hasContact || hasBio) {
+        card.classList.add('has-actions');
+        card.appendChild(actions);
+    }
 
     return card;
 }
+
+// ── COACH PROFILE WINDOW ─────────────────────────────────────────────────────
+// Built once on first use, so the team page HTML files need no changes.
+let coachModalReturnFocus = null;
+
+function ensureCoachModal() {
+    let modal = document.getElementById('coach-modal');
+    if (modal) return modal;
+
+    modal = document.createElement('div');
+    modal.className = 'coach-modal';
+    modal.id = 'coach-modal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML =
+        '<div class="coach-modal-panel" role="dialog" aria-modal="true" aria-labelledby="coach-modal-name">' +
+        '<button class="coach-modal-close" id="coach-modal-close" type="button" aria-label="Close">' +
+        '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" /></svg>' +
+        '</button>' +
+        '<div class="coach-modal-header">' +
+        '<div class="coach-modal-photo" id="coach-modal-photo"></div>' +
+        '<div class="coach-modal-info">' +
+        '<div class="coach-modal-name" id="coach-modal-name"></div>' +
+        '<div class="coach-modal-title" id="coach-modal-title"></div>' +
+        '<div class="coach-actions" id="coach-modal-actions"></div>' +
+        '</div></div>' +
+        '<div class="coach-modal-body" id="coach-modal-body"></div>' +
+        '</div>';
+    document.body.appendChild(modal);
+
+    document.getElementById('coach-modal-close').addEventListener('click', closeCoachModal);
+    // Click on the dark backdrop (not the panel) closes the window
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeCoachModal();
+    });
+    return modal;
+}
+
+function openCoachModal(coach, triggerEl) {
+    const modal = ensureCoachModal();
+    coachModalReturnFocus = triggerEl || null;
+
+    fillCoachPhoto(document.getElementById('coach-modal-photo'), coach);
+    document.getElementById('coach-modal-name').textContent = coach.name;
+    document.getElementById('coach-modal-title').textContent = coach.title;
+
+    const actions = document.getElementById('coach-modal-actions');
+    actions.textContent = '';
+    appendCoachContactActions(actions, coach);
+
+    // Show the formatted number too, so it's readable on desktop
+    const phone = formatPhone(coach.phone);
+    const callBtn = actions.querySelector('.call');
+    if (callBtn && phone) callBtn.textContent = 'Call ' + phone;
+
+    const body = document.getElementById('coach-modal-body');
+    body.textContent = '';
+    body.scrollTop = 0;
+    (coach.bio || '').split(/\n\s*\n/).forEach(function (para) {
+        const text = para.trim();
+        if (!text) return;
+        const p = document.createElement('p');
+        p.textContent = text;
+        body.appendChild(p);
+    });
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    document.getElementById('coach-modal-close').focus();
+}
+
+function closeCoachModal() {
+    const modal = document.getElementById('coach-modal');
+    if (!modal || !modal.classList.contains('open')) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (coachModalReturnFocus) coachModalReturnFocus.focus();
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeCoachModal();
+});
 
 async function loadCoaches() {
     const container = document.getElementById('coaches-container');

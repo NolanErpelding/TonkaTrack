@@ -129,20 +129,14 @@ permalink: /contact/
         }
 
         .coach-card {
+            position: relative;
+            overflow: hidden;
             background: var(--surface-subtle);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 1.5rem;
             text-align: center;
             transition: all 0.3s ease;
-        }
-
-        @media (hover: hover) {
-            .coach-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-                border-color: var(--mint);
-            }
         }
 
         .coach-image {
@@ -179,9 +173,125 @@ permalink: /contact/
         .coach-title {
             color: var(--text-muted);
             font-size: 1rem;
-            margin-bottom: 1rem;
         }
 
+        /* ── COACH ACTION BUTTONS (shared by card + modal) ──
+           Email = mint, Call = grape, Text = sky, Learn More = outlined.
+           Default (touch / no hover) layout: always visible, below the title. */
+        .coach-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .coach-actions-name {
+            display: none;
+        }
+
+        .coach-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 0.55rem 1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.2;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+        }
+
+        .coach-action.email {
+            background: var(--mint);
+            color: var(--white);
+        }
+
+        .coach-action.call {
+            background: var(--grape);
+            color: var(--white);
+        }
+
+        .coach-action.text {
+            background: var(--sky);
+            color: var(--midnight);
+        }
+
+        .coach-action.more {
+            background: transparent;
+            color: var(--accent-label);
+            border-color: var(--accent-label);
+        }
+
+        .coach-action:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        @media (hover: hover) {
+            .coach-action:hover {
+                transform: translateY(-2px);
+                filter: brightness(1.1);
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            }
+        }
+
+        /* ── DESKTOP HOVER: actions appear in an overlay on the card ── */
+        @media (hover: hover) {
+            .coach-card {
+                min-height: 290px;
+            }
+
+            .coach-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                border-color: var(--mint);
+            }
+
+            .coach-card.has-actions .coach-actions {
+                position: absolute;
+                inset: 0;
+                margin: 0;
+                padding: 1.25rem;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: center;
+                gap: 0.6rem;
+                background: color-mix(in srgb, var(--surface-subtle) 93%, transparent);
+                -webkit-backdrop-filter: blur(6px);
+                backdrop-filter: blur(6px);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease;
+            }
+
+            .coach-card.has-actions:hover .coach-actions,
+            .coach-card.has-actions:has(:focus-visible) .coach-actions {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .coach-card.has-actions .coach-actions-name {
+                display: block;
+                color: var(--text-primary);
+                font-size: 1.15rem;
+                font-weight: 700;
+                margin-bottom: 0.35rem;
+            }
+
+            .coach-card.has-actions .coach-action {
+                width: 100%;
+                max-width: 210px;
+            }
+        }
+
+        /* ── MTFCCA / EMAIL BUTTON (unchanged) ── */
         .email-button {
             display: inline-block;
             background: var(--accent-color);
@@ -193,25 +303,11 @@ permalink: /contact/
             transition: all 0.3s ease;
         }
 
-        .email-button.disabled {
-            background: var(--border);
-            color: var(--text-muted);
-            cursor: not-allowed;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
         @media (hover: hover) {
             .email-button:hover {
                 filter: brightness(1.1);
                 transform: translateY(-2px);
                 box-shadow: 0 4px 15px rgba(7, 143, 150, 0.4);
-            }
-
-            .email-button.disabled:hover {
-                transform: none;
-                box-shadow: none;
-                filter: none;
             }
         }
 
@@ -237,6 +333,147 @@ permalink: /contact/
             color: var(--text-secondary);
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
+        }
+
+        /* ── COACH PROFILE MODAL ──
+           Layout (per sketch): X top-right; round photo on the left with
+           name / title / contact buttons beside it; bio below. */
+        .coach-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .coach-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .coach-modal-panel {
+            position: relative;
+            width: min(1000px, 94vw);
+            height: 92vh;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(16px) scale(0.98);
+            transition: transform 0.25s ease;
+        }
+
+        .coach-modal.open .coach-modal-panel {
+            transform: none;
+        }
+
+        .coach-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: var(--surface-subtle);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .coach-modal-close:focus-visible {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        @media (hover: hover) {
+            .coach-modal-close:hover {
+                background: var(--grape);
+                color: var(--white);
+                transform: rotate(90deg);
+            }
+        }
+
+        .coach-modal-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2.5rem 4.5rem 1.5rem 2.5rem;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .coach-modal-photo {
+            width: 170px;
+            height: 170px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: var(--placeholder-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 4px solid var(--accent-color);
+        }
+
+        .coach-modal-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .coach-modal-photo .coach-image-placeholder {
+            font-size: 4rem;
+        }
+
+        .coach-modal-info {
+            min-width: 0;
+        }
+
+        .coach-modal-name {
+            color: var(--heading-primary);
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 0.25rem;
+        }
+
+        .coach-modal-title {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .coach-modal-info .coach-actions {
+            justify-content: flex-start;
+            margin-top: 1rem;
+        }
+
+        .coach-modal-body {
+            padding: 2rem 2.5rem 2.5rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .coach-modal-body p {
+            color: var(--text-secondary);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 1.1rem;
+        }
+
+        .coach-modal-body p:last-child {
+            margin-bottom: 0;
         }
 
         /* ── MOBILE ── */
@@ -308,12 +545,6 @@ permalink: /contact/
             }
         }
 
-        @media (max-width: 600px) {
-            .coaches-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 700px) {
             .coaches-grid {
                 grid-template-columns: 1fr;
@@ -327,6 +558,42 @@ permalink: /contact/
             .tab-button {
                 padding: 0.75rem 1rem;
                 font-size: 0.90rem;
+            }
+
+            /* Modal goes full-screen on phones */
+            .coach-modal-panel {
+                width: 100vw;
+                height: 100vh;
+                height: 100dvh;
+                border-radius: 0;
+            }
+
+            .coach-modal-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                padding: 3.5rem 1.25rem 1.25rem;
+            }
+
+            .coach-modal-photo {
+                width: 130px;
+                height: 130px;
+            }
+
+            .coach-modal-name {
+                font-size: 1.8rem;
+            }
+
+            .coach-modal-info .coach-actions {
+                justify-content: center;
+            }
+
+            .coach-modal-body {
+                padding: 1.25rem;
+            }
+
+            .coach-modal-body p {
+                font-size: 1rem;
             }
         }
     </style>
@@ -379,6 +646,26 @@ permalink: /contact/
 
     </div>
 
+    <!-- Coach profile modal (filled in by openCoachModal) -->
+    <div class="coach-modal" id="coach-modal" aria-hidden="true">
+        <div class="coach-modal-panel" role="dialog" aria-modal="true" aria-labelledby="coach-modal-name">
+            <button class="coach-modal-close" id="coach-modal-close" aria-label="Close">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+            </button>
+            <div class="coach-modal-header">
+                <div class="coach-modal-photo" id="coach-modal-photo"></div>
+                <div class="coach-modal-info">
+                    <div class="coach-modal-name" id="coach-modal-name"></div>
+                    <div class="coach-modal-title" id="coach-modal-title"></div>
+                    <div class="coach-actions" id="coach-modal-actions"></div>
+                </div>
+            </div>
+            <div class="coach-modal-body" id="coach-modal-body"></div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 Tonka Track &amp; Field. Building champions, one stride at a time.</p>
     </footer>
@@ -389,7 +676,11 @@ permalink: /contact/
         const CMS_SPREADSHEET_ID = '1HiXgfyNGJQGdjiMWETThhsuBEpz_rwgr3bZxjLtLDlg';
 
         // Sheet columns expected:
-        //   order | active | team | name | title | image_url | email
+        //   team | order | name | title | email | phone | bio | image_url | active
+        //
+        // phone and bio are optional. In the sheet, format the phone column as
+        // Plain text so numbers keep their formatting. In bio, a blank line
+        // starts a new paragraph (plain text only — no HTML).
         //
         // "team" values must exactly match the TAB_ORDER entries below.
         // Rows with active = FALSE / 0 / NO are skipped.
@@ -408,6 +699,21 @@ permalink: /contact/
             if (!path || path.trim() === '') return '';
             if (path.startsWith('http://') || path.startsWith('https://')) return path;
             return IMAGE_BASE + path.replace(/^\//, '');
+        }
+
+        // ── PHONE HELPERS ────────────────────────────────────────────────────────
+        function phoneDigits(raw) {
+            var d = (raw || '').replace(/\D/g, '');
+            if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+            return d;
+        }
+
+        function formatPhone(raw) {
+            var d = phoneDigits(raw);
+            if (d.length === 10) {
+                return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+            }
+            return (raw || '').trim();
         }
 
         // ── SHEETS HELPER ────────────────────────────────────────────────────────
@@ -454,67 +760,155 @@ permalink: /contact/
                 });
         }
 
+        // ── SHARED PIECES ────────────────────────────────────────────────────────
+        function buildPlaceholder() {
+            var ph = document.createElement('div');
+            ph.className = 'coach-image-placeholder';
+            ph.textContent = '👤';
+            return ph;
+        }
+
+        // Fills `wrap` with the coach's photo, or a placeholder if missing / broken.
+        function fillPhoto(wrap, coach) {
+            wrap.textContent = '';
+            var imageUrl = resolveImageUrl(coach.image_url || '');
+            if (!imageUrl) {
+                wrap.appendChild(buildPlaceholder());
+                return;
+            }
+            var img = document.createElement('img');
+            img.alt = coach.name;
+            img.loading = 'lazy';
+            img.onerror = function () {
+                img.remove();
+                wrap.appendChild(buildPlaceholder());
+            };
+            img.src = imageUrl; // set src last so onerror is wired first
+            wrap.appendChild(img);
+        }
+
+        function buildActionLink(className, label, href) {
+            var a = document.createElement('a');
+            a.className = 'coach-action ' + className;
+            a.href = href;
+            a.textContent = label;
+            return a;
+        }
+
+        // Only the contact options this coach actually has.
+        function appendContactActions(container, coach) {
+            var email = (coach.email || '').trim();
+            var digits = phoneDigits(coach.phone);
+
+            if (email) {
+                container.appendChild(buildActionLink('email', 'Email', 'mailto:' + email));
+            }
+            if (digits) {
+                container.appendChild(buildActionLink('call', 'Call', 'tel:+1' + digits));
+                container.appendChild(buildActionLink('text', 'Text', 'sms:+1' + digits));
+            }
+            return !!(email || digits);
+        }
+
         // ── BUILD ONE COACH CARD ─────────────────────────────────────────────────
         // Uses only createElement/appendChild — no attribute-injection via strings.
         function buildCoachCard(coach) {
             var card = document.createElement('div');
             card.className = 'coach-card';
 
-            // Photo wrapper
             var imageWrap = document.createElement('div');
             imageWrap.className = 'coach-image';
+            fillPhoto(imageWrap, coach);
 
-            var imageUrl = resolveImageUrl(coach.image_url || '');
-            if (imageUrl) {
-                var img = document.createElement('img');
-                img.alt = coach.name;
-                img.loading = 'lazy';
-                // On error swap in emoji placeholder — no innerHTML needed
-                img.onerror = function () {
-                    img.remove();
-                    var ph = document.createElement('div');
-                    ph.className = 'coach-image-placeholder';
-                    ph.textContent = '👤';
-                    imageWrap.appendChild(ph);
-                };
-                img.src = imageUrl; // set src last so onerror is wired first
-                imageWrap.appendChild(img);
-            } else {
-                var ph = document.createElement('div');
-                ph.className = 'coach-image-placeholder';
-                ph.textContent = '👤';
-                imageWrap.appendChild(ph);
-            }
-
-            // Name
             var nameEl = document.createElement('div');
             nameEl.className = 'coach-name';
             nameEl.textContent = coach.name;
 
-            // Title
             var titleEl = document.createElement('div');
             titleEl.className = 'coach-title';
             titleEl.textContent = coach.title;
 
-            // Email button
-            var emailEl = document.createElement('a');
-            emailEl.className = 'email-button';
-            emailEl.textContent = 'Send Email';
-
-            var email = (coach.email || '').trim();
-            if (email) {
-                emailEl.href = 'mailto:' + email;
-            } else {
-                emailEl.href = '#';
-                emailEl.classList.add('disabled');
-            }
-
             card.appendChild(imageWrap);
             card.appendChild(nameEl);
             card.appendChild(titleEl);
-            card.appendChild(emailEl);
+
+            // Actions: always visible on touch devices, hover overlay on desktop
+            var actions = document.createElement('div');
+            actions.className = 'coach-actions';
+
+            var overlayName = document.createElement('div');
+            overlayName.className = 'coach-actions-name';
+            overlayName.textContent = coach.name;
+            actions.appendChild(overlayName);
+
+            var hasContact = appendContactActions(actions, coach);
+
+            var hasBio = !!(coach.bio && coach.bio.trim());
+            if (hasBio) {
+                var more = document.createElement('button');
+                more.type = 'button';
+                more.className = 'coach-action more';
+                more.textContent = 'Learn More';
+                more.addEventListener('click', function () {
+                    openCoachModal(coach, more);
+                });
+                actions.appendChild(more);
+            }
+
+            if (hasContact || hasBio) {
+                card.classList.add('has-actions');
+                card.appendChild(actions);
+            }
 
             return card;
+        }
+
+        // ── COACH PROFILE MODAL ──────────────────────────────────────────────────
+        var modalReturnFocus = null;
+
+        function openCoachModal(coach, triggerEl) {
+            var modal = document.getElementById('coach-modal');
+            modalReturnFocus = triggerEl || null;
+
+            fillPhoto(document.getElementById('coach-modal-photo'), coach);
+            document.getElementById('coach-modal-name').textContent = coach.name;
+            document.getElementById('coach-modal-title').textContent = coach.title;
+
+            var actions = document.getElementById('coach-modal-actions');
+            actions.textContent = '';
+            appendContactActions(actions, coach);
+
+            // Show the formatted number too, so it's readable on desktop
+            var phone = formatPhone(coach.phone);
+            if (phone && phoneDigits(coach.phone)) {
+                var callBtn = actions.querySelector('.call');
+                if (callBtn) callBtn.textContent = 'Call ' + phone;
+            }
+
+            var body = document.getElementById('coach-modal-body');
+            body.textContent = '';
+            body.scrollTop = 0;
+            (coach.bio || '').split(/\n\s*\n/).forEach(function (para) {
+                var text = para.trim();
+                if (!text) return;
+                var p = document.createElement('p');
+                p.textContent = text;
+                body.appendChild(p);
+            });
+
+            modal.classList.add('open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('coach-modal-close').focus();
+        }
+
+        function closeCoachModal() {
+            var modal = document.getElementById('coach-modal');
+            if (!modal.classList.contains('open')) return;
+            modal.classList.remove('open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            if (modalReturnFocus) modalReturnFocus.focus();
         }
 
         // ── BUILD ALL TABS ───────────────────────────────────────────────────────
@@ -652,7 +1046,18 @@ permalink: /contact/
         });
 
         // ── INIT ─────────────────────────────────────────────────────────────────
-        document.addEventListener('DOMContentLoaded', loadContact);
+        document.addEventListener('DOMContentLoaded', function () {
+            loadContact();
+
+            document.getElementById('coach-modal-close').addEventListener('click', closeCoachModal);
+            // Click on the dark backdrop (but not the panel) closes the modal
+            document.getElementById('coach-modal').addEventListener('click', function (e) {
+                if (e.target === this) closeCoachModal();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeCoachModal();
+            });
+        });
     </script>
 </body>
 
