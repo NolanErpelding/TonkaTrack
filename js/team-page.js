@@ -172,7 +172,7 @@ function formatPlainTextContent(text) {
     let texts = [];   // consecutive text lines, grouped into one <p>
 
     function flush() {
-        if (links.length) { out.push('<p>' + links.join('<br>\n') + '</p>'); links = []; }
+        if (links.length) { out.push('<p class="cms-links">' + links.join('\n') + '</p>'); links = []; }
         if (texts.length) { out.push('<p>' + texts.join('<br>\n') + '</p>'); texts = []; }
     }
 

@@ -585,6 +585,24 @@ a[href^="tel:"]:not(.coach-action) {
     }
 }
 
+/* Spacing for file cards / link groups generated from plain-text CMS cells
+   (they sit directly in the tab panel, not inside .file-list). */
+.file-item + .file-item,
+.file-item + .cms-links,
+.cms-links + .file-item {
+    margin-top: 1rem;
+}
+
+.cms-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.cms-links a {
+    align-self: flex-start;
+}
+
 .file-name {
     color: var(--text-primary);
     font-size: 1rem;
