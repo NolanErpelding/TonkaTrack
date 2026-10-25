@@ -13,9 +13,13 @@
    lives here so it only has to be written/fixed once.
 
    ── HOW TABS WORK ──
-   team_tabs sheet:        team | order | name | type | active
+   team_tabs sheet:        team | order | name | type | link | active
      - "name" is both the button label AND the tab's key (slugified into
        its element id). No separate tab_key column.
+     - "link" is optional. For a "files" tab it is the Google Drive folder
+       (link or folder id) to list, so one team can have several files tabs.
+       Blank = use TEAM_FILES_FOLDER_ID from the page. Subfolders show up as
+       collapsible folders, nested to any depth.
      - "type" is one of the built-ins: photos | files | coaches | updates
        or, for anything else (including "custom" or blank), it's treated
        as a generic content tab whose body lives in team_custom_tabs.
@@ -523,11 +527,14 @@ async function loadCoaches() {
 }
 
 // ── FILES (built-in tab type, via Apps Script) ───────────────────────────────
-// allFiles holds the last fetch from the Apps Script. The search text lives in
-// the input and the sort choice in fileSort, so both survive the re-fetch that
-// happens each time the tab is clicked.
-let allFiles = [];
-let fileSort = 'name-asc';
+// Every "files" tab is its own instance (see buildFilesPanel), so a team can
+// have several of them, each pointed at a different Drive folder. A tab's
+// folder comes from the "link" column of the team_tabs sheet (a Drive folder
+// link or a bare folder id). If "link" is blank, the page's
+// TEAM_FILES_FOLDER_ID is used instead.
+//
+// A folder is loaded as a tree: { id, name, files: [...], folders: [tree...] }
+// Folders can nest as deep as they are nested in Drive.
 
 // Sort buttons use Font Awesome icons. The team pages don't load it by
 // default, so add it once (same version/CDN as index.html and sports.html).
@@ -551,24 +558,102 @@ function formatFileDate(iso) {
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
-function renderFiles() {
-    const list = document.getElementById('file-list');
-    if (!list) return;
+// Accepts a Drive folder link (…/folders/ID, …?id=ID) or a bare folder id.
+// Returns '' if nothing usable was found.
+function extractDriveFolderId(value) {
+    const v = (value || '').trim();
+    if (!v) return '';
+    const m = v.match(/\/folders\/([\w-]+)/) || v.match(/[?&]id=([\w-]+)/);
+    if (m) return m[1];
+    return /^[\w-]{10,}$/.test(v) ? v : '';
+}
 
-    const searchEl = document.getElementById('file-search');
-    const query = (searchEl ? searchEl.value : '').trim().toLowerCase();
-    const sort = fileSort;
+// Fetches a folder as a tree. Falls back to the old flat "files" action if the
+// Apps Script hasn't been redeployed with "filesTree" yet (no subfolders then).
+async function fetchFileTree(folderId) {
+    const base = APPS_SCRIPT_URL + '?folderId=' + encodeURIComponent(folderId) + '&action=';
 
-    let files = allFiles.filter(file => {
-        if (!query) return true;
+    const res = await fetch(base + 'filesTree');
+    const data = await res.json();
+    if (data.success && data.tree) return data.tree;
+
+    if (!data.success && /invalid action/i.test(data.error || '')) {
+        const flatRes = await fetch(base + 'files');
+        const flat = await flatRes.json();
+        if (flat.success && flat.files) {
+            return { id: folderId, name: '', files: flat.files, folders: [] };
+        }
+    }
+    throw new Error(data.error || 'Unexpected response loading files');
+}
+
+function countTreeFiles(node) {
+    return node.files.length + node.folders.reduce(function (n, f) { return n + countTreeFiles(f); }, 0);
+}
+
+// Returns a copy of the tree containing only what matches the query, or null
+// if nothing matches. A folder whose own name matches keeps all its contents.
+function filterFileTree(node, query, isRoot) {
+    const nameHit = !isRoot && (node.name || '').toLowerCase().includes(query);
+    if (nameHit) return node;
+
+    const files = node.files.filter(function (file) {
         return ((file.name || '') + ' ' + (file.description || '')).toLowerCase().includes(query);
     });
+    const folders = node.folders
+        .map(function (f) { return filterFileTree(f, query, false); })
+        .filter(Boolean);
 
-    const byName = (a, b) => (a.name || '').localeCompare(b.name || '', undefined, { numeric: true, sensitivity: 'base' });
-    const byDate = (a, b) => new Date(a.lastModified) - new Date(b.lastModified);
+    if (!isRoot && !files.length && !folders.length) return null;
+    return { id: node.id, name: node.name, files: files, folders: folders };
+}
 
-    files = files.slice().sort((a, b) => {
-        switch (sort) {
+function buildFileItem(file) {
+    const fileItem = document.createElement('div');
+    fileItem.className = 'file-item';
+
+    const size = Number(file.size) || 0;
+    const displaySize = size > 1024 * 1024
+        ? (size / (1024 * 1024)).toFixed(2) + ' MB'
+        : (size / 1024).toFixed(2) + ' KB';
+    const updated = formatFileDate(file.lastModified);
+
+    fileItem.innerHTML =
+        '<div class="file-info">' +
+        '<div class="file-name">' + escapeHtml(file.name) + '</div>' +
+        '<div class="file-description">' + escapeHtml(file.description) + ' • ' + displaySize +
+        (updated ? ' • Updated ' + updated : '') + '</div>' +
+        '</div>' +
+        '<div class="file-actions">' +
+        '<button type="button" class="download-button" data-act="open">' +
+        '<span class="icon icon-open"></span><button-text>Open</button-text></button>' +
+        '<button type="button" class="download-button" data-act="download">' +
+        '<span class="icon icon-download"></span><button-text>Download</button-text></button>' +
+        '</div>';
+
+    fileItem.querySelector('[data-act="open"]').addEventListener('click', function () {
+        openFileViewer(file.downloadUrl, file.name);
+    });
+    fileItem.querySelector('[data-act="download"]').addEventListener('click', function () {
+        window.open(file.downloadUrl, '_blank');
+    });
+    return fileItem;
+}
+
+// Draws one folder's contents (subfolders first, then files) into `container`.
+// Subfolders are collapsible and recurse, so they can nest to any depth.
+function renderFileTreeInto(container, node, ctx) {
+    const byName = function (a, b) {
+        return (a.name || '').localeCompare(b.name || '', undefined, { numeric: true, sensitivity: 'base' });
+    };
+    const byDate = function (a, b) { return new Date(a.lastModified) - new Date(b.lastModified); };
+
+    const folders = node.folders.slice().sort(ctx.sort === 'name-desc'
+        ? function (a, b) { return byName(b, a); }
+        : byName);
+
+    const files = node.files.slice().sort(function (a, b) {
+        switch (ctx.sort) {
             case 'name-desc': return byName(b, a);
             case 'date-desc': return byDate(b, a) || byName(a, b);
             case 'date-asc': return byDate(a, b) || byName(a, b);
@@ -576,74 +661,49 @@ function renderFiles() {
         }
     });
 
-    list.innerHTML = '';
+    folders.forEach(function (folder) {
+        const isOpen = ctx.searching || ctx.open.has(folder.id);
 
-    if (files.length === 0) {
-        list.innerHTML = '<p style="color: var(--text-muted);">' +
-            (allFiles.length === 0 ? 'No files available at this time.' : 'No files match your search.') + '</p>';
-        return;
-    }
+        const wrap = document.createElement('div');
+        wrap.className = 'file-folder' + (isOpen ? ' open' : '');
 
-    files.forEach(file => {
-        const fileItem = document.createElement('div');
-        fileItem.className = 'file-item';
-        const fileSizeKB = (file.size / 1024).toFixed(2);
-        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
-        const displaySize = file.size > 1024 * 1024 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
-        const updated = formatFileDate(file.lastModified);
+        const header = document.createElement('button');
+        header.type = 'button';
+        header.className = 'file-folder-header';
+        header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        header.innerHTML =
+            '<i class="fa-solid fa-folder file-folder-icon" aria-hidden="true"></i>' +
+            '<span class="file-folder-name">' + escapeHtml(folder.name) + '</span>' +
+            '<span class="file-folder-count">' + countTreeFiles(folder) + '</span>' +
+            '<i class="fa-solid fa-chevron-down file-folder-chevron" aria-hidden="true"></i>';
 
-        fileItem.innerHTML = `
-            <div class="file-info">
-                <div class="file-name">${escapeHtml(file.name)}</div>
-                <div class="file-description">${escapeHtml(file.description)} • ${displaySize}${updated ? ' • Updated ' + updated : ''}</div>
-            </div>
+        const body = document.createElement('div');
+        body.className = 'file-folder-body';
+        body.hidden = !isOpen;
 
-            <div class="file-actions">
-                <button class="download-button" onclick="openFileViewer('${file.downloadUrl}', '${file.name.replace(/'/g, "\\'")}')">
-                    <span class="icon icon-open"></span>
-                    <button-text>Open</button-text>
-                </button>
-
-                <button class="download-button" onclick="window.open('${file.downloadUrl}', '_blank')">
-                    <span class="icon icon-download"></span>
-                    <button-text>Download</button-text>
-                </button>
-            </div>
-        `;
-        list.appendChild(fileItem);
-    });
-}
-
-async function loadFiles() {
-    const fileListContainer = document.getElementById('file-list');
-    const loadingMessage = document.getElementById('loading-message');
-    if (!fileListContainer || !loadingMessage) return;
-
-    try {
-        const response = await fetch(`${APPS_SCRIPT_URL}?action=files&folderId=${TEAM_FILES_FOLDER_ID}`);
-        const data = await response.json();
-
-        if (data.success && data.files) {
-            loadingMessage.style.display = 'none';
-
-            if (data.files.length === 0) {
-                fileListContainer.innerHTML = '<p style="color: var(--text-muted);">No files available at this time.</p>';
-                return;
-            }
-
-            allFiles = data.files;
-            const controls = document.getElementById('file-controls');
-            if (controls) controls.style.display = '';
-            renderFiles();
+        if (!folder.files.length && !folder.folders.length) {
+            const empty = document.createElement('p');
+            empty.className = 'file-folder-empty';
+            empty.textContent = 'This folder is empty.';
+            body.appendChild(empty);
         } else {
-            loadingMessage.textContent = 'Error loading files. Please try again later.';
-            loadingMessage.style.color = '#ff6b6b';
+            renderFileTreeInto(body, folder, ctx);
         }
-    } catch (error) {
-        console.error('Error fetching files:', error);
-        loadingMessage.textContent = 'Unable to load files. Please check your connection.';
-        loadingMessage.style.color = '#ff6b6b';
-    }
+
+        header.addEventListener('click', function () {
+            const nowOpen = !wrap.classList.contains('open');
+            wrap.classList.toggle('open', nowOpen);
+            header.setAttribute('aria-expanded', nowOpen ? 'true' : 'false');
+            body.hidden = !nowOpen;
+            if (nowOpen) ctx.open.add(folder.id); else ctx.open.delete(folder.id);
+        });
+
+        wrap.appendChild(header);
+        wrap.appendChild(body);
+        container.appendChild(wrap);
+    });
+
+    files.forEach(function (file) { container.appendChild(buildFileItem(file)); });
 }
 
 function openFileViewer(downloadUrl, fileName) {
@@ -1145,13 +1205,19 @@ function buildPhotosPanel(tab) {
 }
 
 function buildFilesPanel(tab) {
+    // Per-tab state, so several files tabs on one page don't interfere.
+    const linkText = (tab.link || '').trim();
+    const folderId = linkText
+        ? extractDriveFolderId(linkText)
+        : (typeof TEAM_FILES_FOLDER_ID !== 'undefined' ? TEAM_FILES_FOLDER_ID : '');
+    const state = { tree: null, sort: 'name-asc', open: new Set(), requestId: 0 };
+
     const wrap = document.createElement('div');
     const h2 = document.createElement('h2');
     h2.textContent = tab.name;
     wrap.appendChild(h2);
 
     const loading = document.createElement('p');
-    loading.id = 'loading-message';
     loading.className = 'loading-message';
     loading.textContent = 'Loading files...';
     wrap.appendChild(loading);
@@ -1159,42 +1225,95 @@ function buildFilesPanel(tab) {
     // Search + sort controls (hidden until files have loaded)
     const controls = document.createElement('div');
     controls.className = 'file-controls';
-    controls.id = 'file-controls';
     controls.style.display = 'none';
     controls.innerHTML =
-        '<input type="search" id="file-search" class="file-search" placeholder="Search files..." aria-label="Search files" autocomplete="off">' +
+        '<input type="search" class="file-search" placeholder="Search files..." aria-label="Search files" autocomplete="off">' +
         '<div class="file-sort-group" role="group" aria-label="Sort files"></div>';
 
+    const searchEl = controls.querySelector('.file-search');
     const sortGroup = controls.querySelector('.file-sort-group');
+
+    const list = document.createElement('div');
+    list.className = 'file-list';
+
+    function render() {
+        list.innerHTML = '';
+        if (!state.tree) return;
+
+        const query = searchEl.value.trim().toLowerCase();
+        const tree = query ? filterFileTree(state.tree, query, true) : state.tree;
+
+        if (!tree.files.length && !tree.folders.length) {
+            list.innerHTML = '<p style="color: var(--text-muted);">' +
+                (query ? 'No files match your search.' : 'No files available at this time.') + '</p>';
+            return;
+        }
+        renderFileTreeInto(list, tree, { sort: state.sort, open: state.open, searching: !!query });
+    }
+
     FILE_SORT_OPTIONS.forEach(function (opt) {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'file-sort-btn' + (opt.value === fileSort ? ' active' : '');
+        btn.className = 'file-sort-btn' + (opt.value === state.sort ? ' active' : '');
         btn.setAttribute('data-tip', opt.tip);
         btn.setAttribute('aria-label', opt.tip);
-        btn.setAttribute('aria-pressed', opt.value === fileSort ? 'true' : 'false');
+        btn.setAttribute('aria-pressed', opt.value === state.sort ? 'true' : 'false');
         btn.innerHTML = '<i class="fa-solid ' + opt.icon + '" aria-hidden="true"></i>';
         btn.addEventListener('click', function () {
-            fileSort = opt.value;
+            state.sort = opt.value;
             sortGroup.querySelectorAll('.file-sort-btn').forEach(function (b) {
                 const on = b === btn;
                 b.classList.toggle('active', on);
                 b.setAttribute('aria-pressed', on ? 'true' : 'false');
             });
-            renderFiles();
+            render();
         });
         sortGroup.appendChild(btn);
     });
 
-    controls.querySelector('#file-search').addEventListener('input', renderFiles);
+    searchEl.addEventListener('input', render);
     wrap.appendChild(controls);
-
-    const list = document.createElement('div');
-    list.className = 'file-list';
-    list.id = 'file-list';
     wrap.appendChild(list);
 
-    return { el: wrap, onShow: loadFiles, loadOnBuild: null };
+    function showError(message) {
+        loading.style.display = '';
+        loading.textContent = message;
+        loading.style.color = '#ff6b6b';
+    }
+
+    // Runs every time the tab is shown. Open folders and the search text
+    // survive the re-fetch.
+    async function load() {
+        if (!folderId) {
+            showError(linkText
+                ? 'The folder link for this tab isn\'t a valid Google Drive folder link.'
+                : 'No folder has been set up for this tab yet.');
+            return;
+        }
+
+        const myRequest = ++state.requestId;
+        try {
+            const tree = await fetchFileTree(folderId);
+            if (myRequest !== state.requestId) return; // a newer load superseded this one
+
+            loading.style.display = 'none';
+            state.tree = tree;
+
+            if (!tree.files.length && !tree.folders.length) {
+                controls.style.display = 'none';
+                list.innerHTML = '<p style="color: var(--text-muted);">No files available at this time.</p>';
+                return;
+            }
+            controls.style.display = '';
+            render();
+        } catch (error) {
+            if (myRequest !== state.requestId) return;
+            console.error('Error fetching files:', error);
+            showError('Unable to load files. Please check your connection and try again.');
+        }
+    }
+
+    return { el: wrap, onShow: load, loadOnBuild: null };
 }
 
 function buildCoachesPanel(tab) {

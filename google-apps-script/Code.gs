@@ -23,6 +23,10 @@ function doGet(e) {
         result = getTeamFiles(folderId);
         break;
 
+      case 'filesTree':
+        result = getFilesTree(folderId);
+        break;
+
       case 'photoAlbums':
         result = getPhotoAlbums(folderId);
         break;
@@ -46,7 +50,7 @@ function doGet(e) {
       default:
         result = {
           success: false,
-          error: 'Invalid action. Use: files, photoAlbums, albumPhotos, allPhotos, sheetData, or test'
+          error: 'Invalid action. Use: files, filesTree, photoAlbums, albumPhotos, allPhotos, sheetData, or test'
         };
     }
 
@@ -196,6 +200,25 @@ function clearCmsCache() {
 // Files
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Only these file types are listed on the Files tabs.
+function isListedFileType(mimeType) {
+  return mimeType === 'application/pdf' ||
+         mimeType === 'application/vnd.google-apps.document' ||
+         mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+         mimeType === 'application/msword';
+}
+
+function createTeamFileObject(file) {
+  return {
+    name:         file.getName(),
+    description:  file.getDescription() || 'Team document',
+    size:         file.getSize(),
+    mimeType:     file.getMimeType(),
+    downloadUrl:  file.getDownloadUrl(),
+    lastModified: file.getLastUpdated().toISOString()
+  };
+}
+
 function getTeamFiles(folderId) {
   try {
     const folder = DriveApp.getFolderById(folderId);
@@ -203,23 +226,9 @@ function getTeamFiles(folderId) {
     const fileList = [];
 
     while (files.hasNext()) {
-      const file     = files.next();
-      const mimeType = file.getMimeType();
-
-      if (
-        mimeType === 'application/pdf' ||
-        mimeType === 'application/vnd.google-apps.document' ||
-        mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-        mimeType === 'application/msword'
-      ) {
-        fileList.push({
-          name:         file.getName(),
-          description:  file.getDescription() || 'Team document',
-          size:         file.getSize(),
-          mimeType:     mimeType,
-          downloadUrl:  file.getDownloadUrl(),
-          lastModified: file.getLastUpdated().toISOString()
-        });
+      const file = files.next();
+      if (isListedFileType(file.getMimeType())) {
+        fileList.push(createTeamFileObject(file));
       }
     }
 
@@ -232,6 +241,55 @@ function getTeamFiles(folderId) {
   } catch (error) {
     return { success: false, error: error.toString() };
   }
+}
+
+
+/**
+ * Returns a folder AND everything inside it as a tree, so the site can show
+ * collapsible folders nested inside folders:
+ *   { success: true, tree: { id, name, files: [...], folders: [ {same shape} ] } }
+ *
+ * Called via: ?action=filesTree&folderId=FOLDER_ID
+ */
+var FILES_TREE_MAX_DEPTH = 10; // safety stop for runaway folder structures
+
+function getFilesTree(folderId) {
+  try {
+    const root = DriveApp.getFolderById(folderId);
+    return { success: true, tree: buildFolderNode(root, 0) };
+  } catch (error) {
+    return { success: false, error: error.toString() };
+  }
+}
+
+function buildFolderNode(folder, depth) {
+  const node = {
+    id:      folder.getId(),
+    name:    folder.getName(),
+    files:   [],
+    folders: []
+  };
+
+  const files = folder.getFiles();
+  while (files.hasNext()) {
+    const file = files.next();
+    if (isListedFileType(file.getMimeType())) {
+      node.files.push(createTeamFileObject(file));
+    }
+  }
+  node.files.sort(function (a, b) {
+    return new Date(b.lastModified) - new Date(a.lastModified);
+  });
+
+  if (depth < FILES_TREE_MAX_DEPTH) {
+    const subfolders = folder.getFolders();
+    while (subfolders.hasNext()) {
+      node.folders.push(buildFolderNode(subfolders.next(), depth + 1));
+    }
+    node.folders.sort(function (a, b) { return a.name.localeCompare(b.name); });
+  }
+
+  return node;
 }
 
 
