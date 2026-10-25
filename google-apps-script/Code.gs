@@ -208,6 +208,33 @@ function isListedFileType(mimeType) {
          mimeType === 'application/msword';
 }
 
+// Website links live in Drive as tiny files named like  "9/30/26 STMA Invite.url"
+// (also .webloc, or .link = a plain text file holding just the address).
+// They are listed next to the real files, with an Open button only.
+function isLinkFileName(name) {
+  return /\.(url|webloc|link)$/i.test(name || '');
+}
+
+function extractLinkUrl(text) {
+  const m = text.match(/URL\s*=\s*(https?:\/\/\S+)/i) ||
+            text.match(/<string>\s*(https?:\/\/[^<\s]+)\s*<\/string>/i) ||
+            text.match(/https?:\/\/\S+/i);
+  return m ? (m[1] || m[0]).trim() : '';
+}
+
+// Returns null if the file doesn't contain a usable http(s) address.
+function createLinkObject(file) {
+  const url = extractLinkUrl(file.getBlob().getDataAsString());
+  if (!url) return null;
+  return {
+    kind:         'link',
+    name:         file.getName().replace(/\.(url|webloc|link)$/i, ''),
+    description:  file.getDescription() || '',
+    url:          url,
+    lastModified: file.getLastUpdated().toISOString()
+  };
+}
+
 function createTeamFileObject(file) {
   return {
     name:         file.getName(),
@@ -273,7 +300,10 @@ function buildFolderNode(folder, depth) {
   const files = folder.getFiles();
   while (files.hasNext()) {
     const file = files.next();
-    if (isListedFileType(file.getMimeType())) {
+    if (isLinkFileName(file.getName())) {
+      const link = createLinkObject(file);
+      if (link) node.files.push(link);
+    } else if (isListedFileType(file.getMimeType())) {
       node.files.push(createTeamFileObject(file));
     }
   }

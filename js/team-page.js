@@ -534,7 +534,8 @@ async function loadCoaches() {
 // TEAM_FILES_FOLDER_ID is used instead.
 //
 // A folder is loaded as a tree: { id, name, files: [...], folders: [tree...] }
-// Folders can nest as deep as they are nested in Drive.
+// Folders can nest as deep as they are nested in Drive. "files" holds both real
+// files and website links (items with kind: 'link'); links only get an Open button.
 
 // Sort buttons use Font Awesome icons. The team pages don't load it by
 // default, so add it once (same version/CDN as index.html and sports.html).
@@ -608,7 +609,42 @@ function filterFileTree(node, query, isRoot) {
     return { id: node.id, name: node.name, files: files, folders: folders };
 }
 
+// Website links stored in Drive (see getFilesTree in Code.gs) arrive as
+// { kind: 'link', name, url, description, lastModified } and get an Open-only card.
+function buildLinkItem(file) {
+    const item = document.createElement('div');
+    item.className = 'file-item file-item-link';
+
+    const url = /^https?:\/\//i.test(file.url || '') ? file.url : '';
+    let host = '';
+    try { host = new URL(url).hostname.replace(/^www\./, ''); } catch (e) { /* no host to show */ }
+    const updated = formatFileDate(file.lastModified);
+    const details = [file.description || 'Link', host, updated ? 'Updated ' + updated : '']
+        .filter(Boolean).join(' • ');
+
+    item.innerHTML =
+        '<div class="file-info">' +
+        '<div class="file-name"><i class="fa-solid fa-link file-link-icon" aria-hidden="true"></i>' +
+        escapeHtml(file.name) + '</div>' +
+        '<div class="file-description">' + escapeHtml(details) + '</div>' +
+        '</div>' +
+        '<div class="file-actions">' +
+        '<button type="button" class="download-button" data-act="open">' +
+        '<span class="icon icon-open"></span><button-text>Open</button-text></button>' +
+        '</div>';
+
+    const btn = item.querySelector('[data-act="open"]');
+    if (url) {
+        btn.addEventListener('click', function () { window.open(url, '_blank', 'noopener'); });
+    } else {
+        btn.disabled = true;
+    }
+    return item;
+}
+
 function buildFileItem(file) {
+    if (file.kind === 'link') return buildLinkItem(file);
+
     const fileItem = document.createElement('div');
     fileItem.className = 'file-item';
 
