@@ -562,7 +562,7 @@ a[href^="tel:"]:not(.coach-action) {
 .file-list {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 0px;
 }
 
 .file-item {
