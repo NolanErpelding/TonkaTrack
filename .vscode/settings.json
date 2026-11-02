@@ -1,0 +1,7 @@
+{
+    "livePreview.openPreviewTarget": "External Browser",
+    "livePreview.useIntegratedBrowser": false,
+    "markdown.preview.frontMatter": "hide",
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": true
+}
